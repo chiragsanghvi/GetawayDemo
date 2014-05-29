@@ -34,7 +34,7 @@ app.ActivityView = Backbone.View.extend({
 	        self.$el.html(Mustache.render(self.activityTemplate, self.model));
 
             basket
-                .require({ url: 'js/infra/tabs.js', unique: 'v1' })
+                .require({ url: 'js/infra/tabs.js', unique: 'v2' })
                 .then(function () {
                     $('#preLoader').hide();
                     self.renderMap("map_canvas");
