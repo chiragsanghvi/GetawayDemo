@@ -29,6 +29,8 @@ app.ActivityView = Backbone.View.extend({
     	this.model = new app.Activity({ id: activityId });
 
     	this.model.fetch().then(function() {
+            $('title').html(self.model.get('name') + ' - Getaway');
+
 	        self.$el.html(Mustache.render(self.activityTemplate, self.model));
 
             basket
