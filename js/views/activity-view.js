@@ -18,7 +18,9 @@ app.ActivityView = Backbone.View.extend({
 
     initialize: function() {
 
-        var activityId = getQueryStrings()["id"];
+        var qs  = getQueryStrings() || {};
+
+        var activityId = qs["id"];
 
         if(!activityId || activityId.length == 0) activityId = '60362378919936364';
 

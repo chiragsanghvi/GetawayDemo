@@ -1,5643 +1,636 @@
-$.ZOZIApp = {
-    TRANSITION_SPEED: 200,SLOW_TRANSITION_SPEED: 500,openMenus: [],init: function() {
-        $.ZOZIApp.mobile_menu_open(), $.ZOZIApp.mobile_menu_close()
-    },is_tablet: function() {
-        return $(window).width() <= 1024
-    },is_mobile: function() {
-        return $(window).width() <= 768
-    },is_small_screen: function() {
-        return $(window).width() <= 480
-    },mobile_menu_open: function() {
-        
-    },mobile_menu_close: function() {
-        
-    },dispatch_menu_close: function() {
-        $(document).trigger({type: $.ZOZIEvents.MODAL_MENU_CLOSE,context: "Zozi-app"})
-    },close_all_menus: function() {
-        $(".modal-shade").fadeOut($.ZOZIApp.TRANSITION_SPEED), $(".modal-shade").off("click", $.ZOZIApp.dispatch_menu_close), $(window).off("resize", $.ZOZIApp.dispatch_menu_close)
-    },add_flash_error: function(e) {
-        var t = $(".relative-flash"), n = $('<div id="flash_error" class="flash_message" style="overflow: hidden;"></div>'), r = $('<p><a href="#" class="close_flash" title="close"></a>' + e + "</p>");
-        n.append(r), t.html(n), $(".close_flash").on("click", function(e) {
-            n.slideUp().hide()
-        }), $(window).scrollTop("flashError")
-    }}, $(function() {
-    $.ZOZIApp.init()
-}), $.ZOZIEvents = {MODAL_MENU_OPEN: "zozi-modal-menu-open",MODAL_MENU_CLOSE: "zozi-modal-menu-close",FILTER_SELECTED: "zozi-filter-selected",FILTER_UNSELECTED: "zozi-filter-unselected",ADD_ITEM_TO_CART: "zozi-add-item-to-cart",CART_QUANTITY_UPDATED: "zozi-cart-quantity-updated",CART_UPDATE_ERROR: "zozi-cart-update-error"};
-var _AvantMetrics = _AvantMetrics || [], AvantMetrics;
-this._AvantMetrics && !this.AvantMetrics && (AvantMetrics = function() {
-    function u(e) {
-        return typeof e != "undefined"
-    }
-    function a(e) {
-        var n = new RegExp("(^|;)[ ]*" + e + "=([^;]*)"), r = n.exec(t.cookie);
-        return r ? i(r[2]) : "0"
-    }
-    function f(e) {
-        var t = document.createElement("script");
-        t.type = "text/javascript", t.async = !0, t.src = e;
-        var n = document.getElementsByTagName("script")[0];
-        n.parentNode.insertBefore(t, n)
-    }
-    function l() {
-        var e = "";
-        try {
-            e = top.document.referrer
-        } catch (n) {
-            if (parent)
-                try {
-                    e = parent.document.referrer
-                } catch (r) {
-                    e = ""
-                }
-        }
-        return e === "" && (e = t.referrer), e
-    }
-    function c(n) {
-        var i;
-        i = e + "?url=" + r(t.location.href) + "&ref=" + r(l()) + "&name=" + r(t.title) + "&avmws=" + r(a("avmws")) + "&rand=" + Math.random() + "&lib=1", u(n) && (i += "&data=" + r(s(n))), f(i)
-    }
-    function h() {
-        var e = a("avmws");
-        if (e.indexOf("-hgco.1") > -1)
-            try {
-                var n = t.getElementsByTagName("input"), r = n.length;
-                for (var i = 0; i < r; i++)
-                    if (n[i].type == "image" && n[i].src.toLowerCase().indexOf("https://checkout.google.com") == 0) {
-                        n[i].style.visibility = "hidden";
-                        break
-                    }
-            } catch (s) {
-            }
-    }
-    var e = ("https:" == document.location.protocol ? "https://ssl" : "http://www") + ".avmws.com/1012513/", t = document, n = window, r = n.encodeURIComponent || escape, i = n.decodeURIComponent || unescape, s = function(e) {
-        function r(e) {
-            return t.lastIndex = 0, t.test(e) ? '"' + e.replace(t, function(e) {
-                var t = n[e];
-                return typeof t == "string" ? t : "\\u" + ("0000" + e.charCodeAt(0).toString(16)).slice(-4)
-            }) + '"' : '"' + e + '"'
-        }
-        function i(e) {
-            return e < 10 ? "0" + e : e
-        }
-        function s(e, t) {
-            var n, o, u, a, f = t[e];
-            if (f === null)
-                return "null";
-            switch (typeof f) {
-                case "string":
-                    return r(f);
-                case "number":
-                    return isFinite(f) ? String(f) : "null";
-                case "boolean":
-                case "null":
-                    return String(f);
-                case "object":
-                    a = [];
-                    if (f instanceof Array) {
-                        for (n = 0; n < f.length; n++)
-                            a[n] = s(n, f) || "null";
-                        return u = a.length === 0 ? "[]" : "[" + a.join(",") + "]", u
-                    }
-                    if (f instanceof Date)
-                        return r(f.getUTCFullYear() + "-" + i(f.getUTCMonth() + 1) + "-" + i(f.getUTCDate()) + "T" + i(f.getUTCHours()) + ":" + i(f.getUTCMinutes()) + ":" + i(f.getUTCSeconds()) + "Z");
-                    for (o in f)
-                        u = s(o, f), u && (a[a.length] = r(o) + ":" + u);
-                    return u = a.length === 0 ? "{}" : "{" + a.join(",") + "}", u
-            }
-        }
-        var t = new RegExp('[\\"\0--Ã‚Å¸Ã‚Â­Ã˜â‚¬-Ã˜â€žÃœÂÃ¡Å¾Â´Ã¡Å¾ÂµÃ¢â‚¬Å’-Ã¢â‚¬Â\u2028-Ã¢â‚¬Â¯Ã¢Â -Ã¢ÂÂ¯Ã¯Â»Â¿Ã¯Â¿Â°-Ã¯Â¿Â¿]', "g"), n = {"\b": "\\b","	": "\\t","\n": "\\n","\f": "\\f","\r": "\\r",'"': '\\"',"\\": "\\\\"};
-        return s("", {"": e})
-    }, o = !1;
-    try {
-        h();
-        for (var p in this._AvantMetrics)
-            switch (this._AvantMetrics[p][0]) {
-                case "order":
-                    o = !0;
-                    break;
-                default:
-            }
-        o ? c(this._AvantMetrics) : (new RegExp("avad")).exec(document.location.href) && c()
-    } catch (d) {
-    }
-}());
-var libFuncName = null;
-if (typeof jQuery == "undefined" && typeof Zepto == "undefined" && typeof $ == "function")
-    libFuncName = $;
-else if (typeof jQuery == "function")
-    libFuncName = jQuery;
-else {
-    if (typeof Zepto != "function")
-        throw new TypeError;
-    libFuncName = Zepto
-}
-(function(e) {
-    (function() {
-        Array.prototype.filter || (Array.prototype.filter = function(e) {
-            "use strict";
-            if (this == null)
-                throw new TypeError;
-            var t = Object(this), n = t.length >>> 0;
-            if (typeof e != "function")
-                try {
-                    throw new TypeError
-                } catch (r) {
-                    return
-                }
-            var i = [], s = arguments[1];
-            for (var o = 0; o < n; o++)
-                if (o in t) {
-                    var u = t[o];
-                    e && e.call(s, u, o, t) && i.push(u)
-                }
-            return i
-        }, Function.prototype.bind || (Function.prototype.bind = function(e) {
-            if (typeof this != "function")
-                throw new TypeError("Function.prototype.bind - what is trying to be bound is not callable");
-            var t = Array.prototype.slice.call(arguments, 1), n = this, r = function() {
-            }, i = function() {
-                return n.apply(this instanceof r && e ? this : e, t.concat(Array.prototype.slice.call(arguments)))
-            };
-            return r.prototype = this.prototype, i.prototype = new r, i
-        })), e.fn.stop = e.fn.stop || function() {
-            return this
-        }
-    })(), function(t, n, r) {
-        "use strict";
-        t.Foundation = {name: "Foundation",version: "4.1.0",cache: {},init: function(t, n, r, i, s, o) {
-                var u, a = [t, r, i, s], f = [], o = o || !1;
-                o && (this.nc = o), this.rtl = /rtl/i.test(e("html").attr("dir")), this.scope = t || this.scope;
-                if (n && typeof n == "string") {
-                    if (/off/i.test(n))
-                        return this.off();
-                    u = n.split(" ");
-                    if (u.length > 0)
-                        for (var l = u.length - 1; l >= 0; l--)
-                            f.push(this.init_lib(u[l], a))
-                } else
-                    for (var c in this.libs)
-                        f.push(this.init_lib(c, a));
-                return typeof n == "function" && a.unshift(n), this.response_obj(f, a)
-            },response_obj: function(e, t) {
-                try{
-                for (var n in t)
-                    if (typeof t[n] == "function")
-                        return t[n]({errors: e.filter(function(e) {
-                                if (typeof e == "string")
-                                    return e
-                            })});
-                } catch(d){}
-                return e
-            },init_lib: function(e, t) {
-                return this.trap(function() {
-                    if (this.libs.hasOwnProperty(e))
-                        return this.patch(this.libs[e]), this.libs[e].init.apply(this.libs[e], t)
-                }.bind(this), e)
-            },trap: function(e, t) {
-                if (!this.nc)
-                    try {
-                        return e()
-                    } catch (n) {
-                        return this.error({name: t,message: "could not be initialized",more: n.name + " " + n.message})
-                    }
-                return e()
-            },patch: function(e) {
-                this.fix_outer(e), e.scope = this.scope, e.rtl = this.rtl
-            },inherit: function(e, t) {
-                var n = t.split(" ");
-                for (var r = n.length - 1; r >= 0; r--)
-                    this.lib_methods.hasOwnProperty(n[r]) && (this.libs[e.name][n[r]] = this.lib_methods[n[r]])
-            },random_str: function(e) {
-                var t = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz".split("");
-                e || (e = Math.floor(Math.random() * t.length));
-                var n = "";
-                for (var r = 0; r < e; r++)
-                    n += t[Math.floor(Math.random() * t.length)];
-                return n
-            },libs: {},lib_methods: {set_data: function(e, t) {
-                    var n = [this.name, +(new Date), Foundation.random_str(5)].join("-");
-                    return Foundation.cache[n] = t, e.attr("data-" + this.name + "-id", n), t
-                },get_data: function(e) {
-                    return Foundation.cache[e.attr("data-" + this.name + "-id")]
-                },remove_data: function(t) {
-                    t ? (delete Foundation.cache[t.attr("data-" + this.name + "-id")], t.attr("data-" + this.name + "-id", "")) : e("[data-" + this.name + "-id]").each(function() {
-                        delete Foundation.cache[e(this).attr("data-" + this.name + "-id")], e(this).attr("data-" + this.name + "-id", "")
-                    })
-                },throttle: function(e, t) {
-                    var n = null;
-                    return function() {
-                        var r = this, i = arguments;
-                        clearTimeout(n), n = setTimeout(function() {
-                            e.apply(r, i)
-                        }, t)
-                    }
-                },data_options: function(t) {
-                    function u(e) {
-                        return !isNaN(e - 0) && e !== null && e !== "" && e !== !1 && e !== !0
-                    }
-                    function a(t) {
-                        return typeof t == "string" ? e.trim(t) : t
-                    }
-                    var n = {}, r, i, s = (t.attr("data-options") || ":").split(";"), o = s.length;
-                    for (r = o - 1; r >= 0; r--)
-                        i = s[r].split(":"), /true/i.test(i[1]) && (i[1] = !0), /false/i.test(i[1]) && (i[1] = !1), u(i[1]) && (i[1] = parseInt(i[1], 10)), i.length === 2 && i[0].length > 0 && (n[a(i[0])] = a(i[1]));
-                    return n
-                },delay: function(e, t) {
-                    return setTimeout(e, t)
-                },scrollTo: function(n, r, i) {
-                    if (i < 0)
-                        return;
-                    var s = r - e(t).scrollTop(), o = s / i * 10;
-                    this.scrollToTimerCache = setTimeout(function() {
-                        isNaN(parseInt(o, 10)) || (t.scrollTo(0, e(t).scrollTop() + o), this.scrollTo(n, r, i - 10))
-                    }.bind(this), 10)
-                },scrollLeft: function(e) {
-                    if (!e.length)
-                        return;
-                    return "scrollLeft" in e[0] ? e[0].scrollLeft : e[0].pageXOffset
-                },empty: function(e) {
-                    if (e.length && e.length > 0)
-                        return !1;
-                    if (e.length && e.length === 0)
-                        return !0;
-                    for (var t in e)
-                        if (hasOwnProperty.call(e, t))
-                            return !1;
-                    return !0
-                }},fix_outer: function(e) {
-                e.outerHeight = function(e, t) {
-                    return typeof Zepto == "function" ? e.height() : typeof t != "undefined" ? e.outerHeight(t) : e.outerHeight()
-                }, e.outerWidth = function(e) {
-                    return typeof Zepto == "function" ? e.width() : typeof bool != "undefined" ? e.outerWidth(bool) : e.outerWidth()
-                }
-            },error: function(e) {
-                return e.name + " " + e.message + "; " + e.more
-            },off: function() {
-                return e(this.scope).off(".fndtn"), e(t).off(".fndtn"), !0
-            },zj: function() {
-                try {
-                    return Zepto
-                } catch (e) {
-                    return jQuery
-                }
-            }()}, e.fn.foundation = function() {
-            var e = Array.prototype.slice.call(arguments, 0);
-            return this.each(function() {
-                return Foundation.init.apply(Foundation, [this].concat(e)), this
-            })
-        }
-    }(this, this.document)
-})(libFuncName), function(e, t, n, r) {
-    "use strict";
-    Foundation.libs.alerts = {name: "alerts",version: "4.0.0",settings: {speed: 300,callback: function() {
-            }},init: function(t, n, r) {
-            return this.scope = t || this.scope, typeof n == "object" && e.extend(!0, this.settings, n), typeof n != "string" ? (this.settings.init || this.events(), this.settings.init) : this[n].call(this, r)
-        },events: function() {
-            var t = this;
-            e(this.scope).on("click.fndtn.alerts", "[data-alert] a.close", function(n) {
-                n.preventDefault(), e(this).closest("[data-alert]").fadeOut(t.speed, function() {
-                    e(this).remove(), t.settings.callback()
-                })
-            }), this.settings.init = !0
-        },off: function() {
-            e(this.scope).off(".fndtn.alerts")
-        }}
-}(Foundation.zj, this, this.document), function(e, t, n, r) {
-    "use strict";
-    Foundation.libs.clearing = {name: "clearing",version: "4.1.0",settings: {templates: {viewing: '<a href="#" class="clearing-close">&times;</a><div class="visible-img" style="display: none"><img src="//:0"><p class="clearing-caption"></p><a href="#" class="clearing-main-prev"><span></span></a><a href="#" class="clearing-main-next"><span></span></a></div>'},close_selectors: ".clearing-close",init: !1,locked: !1},init: function(t, n) {
-            return Foundation.inherit(this, "set_data get_data remove_data throttle"), typeof t == "object" && (n = e.extend(!0, this.settings, t)), typeof t != "string" ? (e(this.scope).find("ul[data-clearing]").each(function() {
-                var t = Foundation.libs.clearing, n = e(this), r = r || {}, i = t.get_data(n);
-                i || (r.$parent = n.parent(), t.set_data(n, e.extend(!0, t.settings, r)), t.assemble(n.find("li")), t.settings.init || t.events().swipe_events())
-            }), this.settings.init) : this[t].call(this, n)
-        },events: function() {
-            var n = this;
-            return e(this.scope).on("click.fndtn.clearing", "ul[data-clearing] li", function(t, r, i) {
-                var r = r || e(this), i = i || r, s = n.get_data(r.parent());
-                t.preventDefault(), s || n.init(), n.open(e(t.target), r, i), n.update_paddles(i)
-            }).on("click.fndtn.clearing", ".clearing-main-next", function(e) {
-                this.nav(e, "next")
-            }.bind(this)).on("click.fndtn.clearing", ".clearing-main-prev", function(e) {
-                this.nav(e, "prev")
-            }.bind(this)).on("click.fndtn.clearing", this.settings.close_selectors, function(e) {
-                Foundation.libs.clearing.close(e, this)
-            }).on("keydown.fndtn.clearing", function(e) {
-                this.keydown(e)
-            }.bind(this)), e(t).on("resize.fndtn.clearing", function(e) {
-                this.resize()
-            }.bind(this)), this.settings.init = !0, this
-        },swipe_events: function() {
-            var t = this;
-            e(this.scope).on("touchstart.fndtn.clearing", ".visible-img", function(t) {
-                t.touches || (t = t.originalEvent);
-                var n = {start_page_x: t.touches[0].pageX,start_page_y: t.touches[0].pageY,start_time: (new Date).getTime(),delta_x: 0,is_scrolling: r};
-                e(this).data("swipe-transition", n), t.stopPropagation()
-            }).on("touchmove.fndtn.clearing", ".visible-img", function(n) {
-                n.touches || (n = n.originalEvent);
-                if (n.touches.length > 1 || n.scale && n.scale !== 1)
-                    return;
-                var r = e(this).data("swipe-transition");
-                typeof r == "undefined" && (r = {}), r.delta_x = n.touches[0].pageX - r.start_page_x, typeof r.is_scrolling == "undefined" && (r.is_scrolling = !!(r.is_scrolling || Math.abs(r.delta_x) < Math.abs(n.touches[0].pageY - r.start_page_y)));
-                if (!r.is_scrolling && !r.active) {
-                    n.preventDefault();
-                    var i = r.delta_x < 0 ? "next" : "prev";
-                    r.active = !0, t.nav(n, i)
-                }
-            }).on("touchend.fndtn.clearing", ".visible-img", function(t) {
-                e(this).data("swipe-transition", {}), t.stopPropagation()
-            })
-        },assemble: function(e) {
-            var t = e.parent(), n = this.get_data(t), r = t.detach(), i = {grid: '<div class="carousel">' + this.outerHTML(r[0]) + "</div>",viewing: n.templates.viewing}, s = '<div class="clearing-assembled"><div>' + i.viewing + i.grid + "</div></div>";
-            return n.$parent.append(s)
-        },open: function(e, t, n) {
-            var r = n.closest(".clearing-assembled"), i = r.find("div").first(), s = i.find(".visible-img"), o = s.find("img").not(e);
-            this.locked() || (o.attr("src", this.load(e)), this.loaded(o, function() {
-                r.addClass("clearing-blackout"), i.addClass("clearing-container"), s.show(), this.fix_height(n).caption(s.find(".clearing-caption"), e).center(o).shift(t, n, function() {
-                    n.siblings().removeClass("visible"), n.addClass("visible")
-                })
-            }.bind(this)))
-        },close: function(t, n) {
-            t.preventDefault();
-            var r = function(e) {
-                return /blackout/.test(e.selector) ? e : e.closest(".clearing-blackout")
-            }(e(n)), i, s;
-            return n === t.target && r && (i = r.find("div").first(), s = i.find(".visible-img"), this.settings.prev_index = 0, r.find("ul[data-clearing]").attr("style", "").closest(".clearing-blackout").removeClass("clearing-blackout"), i.removeClass("clearing-container"), s.hide()), !1
-        },keydown: function(t) {
-            var n = e(".clearing-blackout").find("ul[data-clearing]");
-            t.which === 39 && this.go(n, "next"), t.which === 37 && this.go(n, "prev"), t.which === 27 && e("a.clearing-close").trigger("click")
-        },nav: function(t, n) {
-            var r = e(".clearing-blackout").find("ul[data-clearing]");
-            t.preventDefault(), this.go(r, n)
-        },resize: function() {
-            var t = e(".clearing-blackout .visible-img").find("img");
-            t.length && this.center(t)
-        },fix_height: function(t) {
-            var n = t.parent().children(), r = this;
-            return n.each(function() {
-                var t = e(this), n = t.find("img");
-                t.height() > r.outerHeight(n) && t.addClass("fix-height")
-            }).closest("ul").width(n.length * 100 + "%"), this
-        },update_paddles: function(e) {
-            var t = e.closest(".carousel").siblings(".visible-img");
-            e.next().length ? t.find(".clearing-main-right").removeClass("disabled") : t.find(".clearing-main-right").addClass("disabled"), e.prev().length ? t.find(".clearing-main-prev").removeClass("disabled") : t.find(".clearing-main-prev").addClass("disabled")
-        },center: function(e) {
-            return this.rtl ? e.css({marginRight: -(this.outerWidth(e) / 2),marginTop: -(this.outerHeight(e) / 2)}) : e.css({marginLeft: -(this.outerWidth(e) / 2),marginTop: -(this.outerHeight(e) / 2)}), this
-        },load: function(e) {
-            var t = e.parent().attr("href");
-            return this.preload(e), t ? t : e.attr("src")
-        },preload: function(e) {
-            this.img(e.closest("li").next()).img(e.closest("li").prev())
-        },loaded: function(e, t) {
-            function n() {
-                t()
-            }
-            function r() {
-                this.one("load", n);
-                if (/MSIE (\d+\.\d+);/.test(navigator.userAgent)) {
-                    var e = this.attr("src"), t = e.match(/\?/) ? "&" : "?";
-                    t += "random=" + (new Date).getTime(), this.attr("src", e + t)
-                }
-            }
-            if (!e.attr("src")) {
-                n();
-                return
-            }
-            e[0].complete || e[0].readyState === 4 ? n() : r.call(e)
-        },img: function(e) {
-            if (e.length) {
-                var t = new Image, n = e.find("a");
-                n.length ? t.src = n.attr("href") : t.src = e.find("img").attr("src")
-            }
-            return this
-        },caption: function(e, t) {
-            var n = t.data("caption");
-            return n ? e.text(n).show() : e.text("").hide(), this
-        },go: function(e, t) {
-            var n = e.find(".visible"), r = n[t]();
-            r.length && r.find("img").trigger("click", [n, r])
-        },shift: function(e, t, n) {
-            var r = t.parent(), i = this.settings.prev_index || t.index(), s = this.direction(r, e, t), o = parseInt(r.css("left"), 10), u = this.outerWidth(t), a;
-            t.index() !== i && !/skip/.test(s) ? /left/.test(s) ? (this.lock(), r.animate({left: o + u}, 300, this.unlock())) : /right/.test(s) && (this.lock(), r.animate({left: o - u}, 300, this.unlock())) : /skip/.test(s) && (a = t.index() - this.settings.up_count, this.lock(), a > 0 ? r.animate({left: -(a * u)}, 300, this.unlock()) : r.animate({left: 0}, 300, this.unlock())), n()
-        },direction: function(t, n, r) {
-            var i = t.find("li"), s = this.outerWidth(i) + this.outerWidth(i) / 4, o = Math.floor(this.outerWidth(e(".clearing-container")) / s) - 1, u = i.index(r), a;
-            return this.settings.up_count = o, this.adjacent(this.settings.prev_index, u) ? u > o && u > this.settings.prev_index ? a = "right" : u > o - 1 && u <= this.settings.prev_index ? a = "left" : a = !1 : a = "skip", this.settings.prev_index = u, a
-        },adjacent: function(e, t) {
-            for (var n = t + 1; n >= t - 1; n--)
-                if (n === e)
-                    return !0;
-            return !1
-        },lock: function() {
-            this.settings.locked = !0
-        },unlock: function() {
-            this.settings.locked = !1
-        },locked: function() {
-            return this.settings.locked
-        },outerHTML: function(e) {
-            return e.outerHTML || (new XMLSerializer).serializeToString(e)
-        },off: function() {
-            e(this.scope).off(".fndtn.clearing"), e(t).off(".fndtn.clearing"), this.remove_data(), this.settings.init = !1
-        }}
-}(Foundation.zj, this, this.document), function(e, t, n) {
-    function i(e) {
-        return e
-    }
-    function s(e) {
-        return decodeURIComponent(e.replace(r, " "))
-    }
-    var r = /\+/g, o = e.cookie = function(r, u, a) {
-        if (u !== n) {
-            a = e.extend({}, o.defaults, a), u === null && (a.expires = -1);
-            if (typeof a.expires == "number") {
-                var f = a.expires, l = a.expires = new Date;
-                l.setDate(l.getDate() + f)
-            }
-            return u = o.json ? JSON.stringify(u) : String(u), t.cookie = [encodeURIComponent(r), "=", o.raw ? u : encodeURIComponent(u), a.expires ? "; expires=" + a.expires.toUTCString() : "", a.path ? "; path=" + a.path : "", a.domain ? "; domain=" + a.domain : "", a.secure ? "; secure" : ""].join("")
-        }
-        var c = o.raw ? i : s, h = t.cookie.split("; ");
-        for (var p = 0, d = h.length; p < d; p++) {
-            var v = h[p].split("=");
-            if (c(v.shift()) === r) {
-                var m = c(v.join("="));
-                return o.json ? JSON.parse(m) : m
-            }
-        }
-        return null
-    };
-    o.defaults = {}, e.removeCookie = function(t, n) {
-        return e.cookie(t) !== null ? (e.cookie(t, null, n), !0) : !1
-    }
-}(Foundation.zj, document), function(e, t, n, r) {
-    "use strict";
-    Foundation.libs.dropdown = {name: "dropdown",version: "4.1.0",settings: {activeClass: "open"},init: function(t, n, r) {
-            return this.scope = t || this.scope, Foundation.inherit(this, "throttle scrollLeft"), typeof n == "object" && e.extend(!0, this.settings, n), typeof n != "string" ? (this.settings.init || this.events(), this.settings.init) : this[n].call(this, r)
-        },events: function() {
-            var n = this;
-            e(this.scope).on("click.fndtn.dropdown", "[data-dropdown]", function(t) {
-                t.preventDefault(), t.stopPropagation(), n.toggle(e(this))
-            }), e("*, html, body").on("click.fndtn.dropdown", function(t) {
-                e(t.target).data("dropdown") || e("[data-dropdown-content]").css(Foundation.rtl ? "right" : "left", "-99999px").removeClass(n.settings.activeClass)
-            }), e(t).on("resize.fndtn.dropdown", n.throttle(function() {
-                n.resize.call(n)
-            }, 50)).trigger("resize"), this.settings.init = !0
-        },toggle: function(t, n) {
-            var r = e("#" + t.data("dropdown"));
-            e("[data-dropdown-content]").not(r).css(Foundation.rtl ? "right" : "left", "-99999px").removeClass(this.settings.activeClass), r.hasClass(this.settings.activeClass) ? r.css(Foundation.rtl ? "right" : "left", "-99999px").removeClass(this.settings.activeClass) : this.css(r.addClass(this.settings.activeClass), t)
-        },resize: function() {
-            var t = e("[data-dropdown-content].open"), n = e("[data-dropdown='" + t.attr("id") + "']");
-            t.length && n.length && this.css(t, n)
-        },css: function(n, r) {
-            var i = r.position();
-            i.top += r.offsetParent().offset().top, i.left += r.offsetParent().offset().left;
-            if (this.small())
-                n.css({position: "absolute",width: "95%",left: "2.5%","max-width": "none",top: i.top + this.outerHeight(r)});
-            else {
-                if (!Foundation.rtl && e(t).width() > this.outerWidth(n) + r.offset().left)
-                    var s = i.left;
-                else {
-                    n.hasClass("right") || n.addClass("right");
-                    var s = i.left - (this.outerWidth(n) - this.outerWidth(r))
-                }
-                n.attr("style", "").css({position: "absolute",top: i.top + this.outerHeight(r),left: s})
-            }
-            return n
-        },small: function() {
-            return e(t).width() < 768 || e("html").hasClass("lt-ie9")
-        },off: function() {
-            e(this.scope).off(".fndtn.dropdown"), e("html, body").off(".fndtn.dropdown"), e(t).off(".fndtn.dropdown"), e("[data-dropdown-content]").off(".fndtn.dropdown"), this.settings.init = !1
-        }}
-}(Foundation.zj, this, this.document), function(e, t, n, r) {
-    "use strict";
-    Foundation.libs.forms = {name: "forms",version: "4.0.4",settings: {disable_class: "no-custom"},init: function(t, n, r) {
-            return this.scope = t || this.scope, typeof n == "object" && e.extend(!0, this.settings, n), typeof n != "string" ? (this.settings.init || this.events(), this.assemble(), this.settings.init) : this[n].call(this, r)
-        },assemble: function() {
-            e('form.custom input[type="radio"]', e(this.scope)).not('[data-customforms="disabled"]').each(this.append_custom_markup), e('form.custom input[type="checkbox"]', e(this.scope)).not('[data-customforms="disabled"]').each(this.append_custom_markup), e("form.custom select", e(this.scope)).not('[data-customforms="disabled"]').each(this.append_custom_select)
-        },events: function() {
-            var r = this;
-            e(this.scope).on("click.fndtn.forms", "form.custom span.custom.checkbox", function(t) {
-                t.preventDefault(), t.stopPropagation(), r.toggle_checkbox(e(this))
-            }).on("click.fndtn.forms", "form.custom span.custom.radio", function(t) {
-                t.preventDefault(), t.stopPropagation(), r.toggle_radio(e(this))
-            }).on("change.fndtn.forms", 'form.custom select:not([data-customforms="disabled"])', function(t) {
-                r.refresh_custom_select(e(this))
-            }).on("click.fndtn.forms", "form.custom label", function(t) {
-                var n = e("#" + r.escape(e(this).attr("for")) + ':not([data-customforms="disabled"])'), i, s;
-                n.length !== 0 && (n.attr("type") === "checkbox" ? (t.preventDefault(), i = e(this).find("span.custom.checkbox"), i.length == 0 && (i = n.add(this).siblings("span.custom.checkbox").first()), r.toggle_checkbox(i)) : n.attr("type") === "radio" && (t.preventDefault(), s = e(this).find("span.custom.radio"), s.length == 0 && (s = n.add(this).siblings("span.custom.radio").first()), r.toggle_radio(s)))
-            }).on("click.fndtn.forms", "form.custom div.custom.dropdown a.current, form.custom div.custom.dropdown a.selector", function(t) {
-                var n = e(this), i = n.closest("div.custom.dropdown"), s = i.prev();
-                i.hasClass("open") || e(r.scope).trigger("click"), t.preventDefault();
-                if (!1 === s.is(":disabled"))
-                    return i.toggleClass("open"), i.hasClass("open") ? e(r.scope).on("click.fndtn.forms.customdropdown", function() {
-                        i.removeClass("open"), e(r.scope).off(".fndtn.forms.customdropdown")
-                    }) : e(r.scope).on(".fndtn.forms.customdropdown"), !1
-            }).on("click.fndtn.forms touchend.fndtn.forms", "form.custom div.custom.dropdown li", function(t) {
-                var n = e(this), r = n.closest("div.custom.dropdown"), i = r.prev(), s = 0;
-                t.preventDefault(), t.stopPropagation();
-                if (!e(this).hasClass("disabled")) {
-                    e("div.dropdown").not(r).removeClass("open");
-                    var o = n.closest("ul").find("li.selected");
-                    o.removeClass("selected"), n.addClass("selected"), r.removeClass("open").find("a.current").html(n.html()), n.closest("ul").find("li").each(function(e) {
-                        n[0] == this && (s = e)
-                    }), i[0].selectedIndex = s, i.data("prevalue", o.html()), i.trigger("change")
-                }
-            }), e(t).on("keydown", function(t) {
-                var r = n.activeElement, i = e(".custom.dropdown.open");
-                if (i.length > 0) {
-                    t.preventDefault(), t.which === 13 && i.find("li.selected").trigger("click");
-                    if (t.which === 38) {
-                        var s = i.find("li.selected"), o = s.prev(":not(.disabled)");
-                        o.length > 0 && (s.removeClass("selected"), o.addClass("selected"))
-                    } else if (t.which === 40) {
-                        var s = i.find("li.selected"), u = s.next(":not(.disabled)");
-                        u.length > 0 && (s.removeClass("selected"), u.addClass("selected"))
-                    }
-                }
-            }), this.settings.init = !0
-        },append_custom_markup: function(t, n) {
-            var r = e(n).hide(), i = r.attr("type"), s = r.next("span.custom." + i);
-            s.length === 0 && (s = e('<span class="custom ' + i + '"></span>').insertAfter(r)), s.toggleClass("checked", r.is(":checked")), s.toggleClass("disabled", r.is(":disabled"))
-        },append_custom_select: function(t, n) {
-            var r = Foundation.libs.forms, i = e(n), s = i.next("div.custom.dropdown"), o = s.find("ul"), u = s.find(".current"), a = s.find(".selector"), f = i.find("option"), l = f.filter(":selected"), c = i.attr("class") ? i.attr("class").split(" ") : [], h = 0, p = "", d, v = !1;
-            if (i.hasClass(r.settings.disable_class))
-                return;
-            if (s.length === 0) {
-                var m = i.hasClass("small") ? "small" : i.hasClass("medium") ? "medium" : i.hasClass("large") ? "large" : i.hasClass("expand") ? "expand" : "";
-                s = e('<div class="' + ["custom", "dropdown", m].concat(c).filter(function(e, t, n) {
-                    return e == "" ? !1 : n.indexOf(e) == t
-                }).join(" ") + '"><a href="#" class="selector"></a><ul /></div>'), a = s.find(".selector"), o = s.find("ul"), p = f.map(function() {
-                    return "<li>" + e(this).html() + "</li>"
-                }).get().join(""), o.append(p), v = s.prepend('<a href="#" class="current">' + l.html() + "</a>").find(".current"), i.after(s).hide()
-            } else
-                p = f.map(function() {
-                    return "<li>" + e(this).html() + "</li>"
-                }).get().join(""), o.html("").append(p);
-            s.toggleClass("disabled", i.is(":disabled")), d = o.find("li"), f.each(function(t) {
-                this.selected && (d.eq(t).addClass("selected"), v && v.html(e(this).html())), e(this).is(":disabled") && d.eq(t).addClass("disabled")
-            });
-            if (!s.is(".small, .medium, .large, .expand")) {
-                s.addClass("open");
-                var r = Foundation.libs.forms;
-                r.hidden_fix.adjust(o), h = r.outerWidth(d) > h ? r.outerWidth(d) : h, Foundation.libs.forms.hidden_fix.reset(), s.removeClass("open")
-            }
-        },refresh_custom_select: function(t) {
-            var n = this, r = 0, i = t.next(), s = t.find("option");
-            i.find("ul").html(""), s.each(function() {
-                var t = e("<li>" + e(this).html() + "</li>");
-                i.find("ul").append(t)
-            }), s.each(function(t) {
-                this.selected && (i.find("li").eq(t).addClass("selected"), i.find(".current").html(e(this).html())), e(this).is(":disabled") && i.find("li").eq(t).addClass("disabled")
-            }), i.removeAttr("style").find("ul").removeAttr("style"), i.find("li").each(function() {
-                i.addClass("open"), n.outerWidth(e(this)) > r && (r = n.outerWidth(e(this))), i.removeClass("open")
-            })
-        },toggle_checkbox: function(e) {
-            var t = e.prev(), n = t[0];
-            !1 === t.is(":disabled") && (n.checked = n.checked ? !1 : !0, e.toggleClass("checked"), t.trigger("change"))
-        },toggle_radio: function(e) {
-            var t = e.prev(), n = t.closest("form.custom"), r = t[0];
-            !1 === t.is(":disabled") && (n.find('input[type="radio"][name="' + this.escape(t.attr("name")) + '"]').next().not(e).removeClass("checked"), e.hasClass("checked") || e.toggleClass("checked"), r.checked = e.hasClass("checked"), t.trigger("change"))
-        },escape: function(e) {
-            return e.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&")
-        },hidden_fix: {tmp: [],hidden: null,adjust: function(t) {
-                var n = this;
-                n.hidden = t.parents().andSelf().filter(":hidden"), n.hidden.each(function() {
-                    var t = e(this);
-                    n.tmp.push(t.attr("style")), t.css({visibility: "hidden",display: "block"})
-                })
-            },reset: function() {
-                var t = this;
-                t.hidden.each(function(n) {
-                    var i = e(this), s = t.tmp[n];
-                    s === r ? i.removeAttr("style") : i.attr("style", s)
-                }), t.tmp = [], t.hidden = null
-            }},off: function() {
-            e(this.scope).off(".fndtn.forms")
-        }}
-}(Foundation.zj, this, this.document), function(e, t, n, r) {
-    "use strict";
-    Foundation.libs.joyride = {name: "joyride",version: "4.0.0",defaults: {tipLocation: "bottom",nubPosition: "auto",scrollSpeed: 300,timer: 0,startTimerOnClick: !0,startOffset: 0,nextButton: !0,tipAnimation: "fade",pauseAfter: [],tipAnimationFadeSpeed: 300,cookieMonster: !1,cookieName: "joyride",cookieDomain: !1,cookieExpires: 365,tipContainer: "body",postRideCallback: function() {
-            },postStepCallback: function() {
-            },template: {link: '<a href="#close" class="joyride-close-tip">&times;</a>',timer: '<div class="joyride-timer-indicator-wrap"><span class="joyride-timer-indicator"></span></div>',tip: '<div class="joyride-tip-guide"><span class="joyride-nub"></span></div>',wrapper: '<div class="joyride-content-wrapper"></div>',button: '<a href="#" class="small button joyride-next-tip"></a>'}},settings: {},init: function(t, n, r) {
-            return this.scope = t || this.scope, Foundation.inherit(this, "throttle data_options scrollTo scrollLeft delay"), typeof n == "object" ? e.extend(!0, this.settings, this.defaults, n) : e.extend(!0, this.settings, this.defaults, r), typeof n != "string" ? (this.settings.init || this.events(), this.settings.init) : this[n].call(this, r)
-        },events: function() {
-            var n = this;
-            e(this.scope).on("click.joyride", ".joyride-next-tip, .joyride-modal-bg", function(e) {
-                e.preventDefault(), this.settings.$li.next().length < 1 ? this.end() : this.settings.timer > 0 ? (clearTimeout(this.settings.automate), this.hide(), this.show(), this.startTimer()) : (this.hide(), this.show())
-            }.bind(this)).on("click.joyride", ".joyride-close-tip", function(e) {
-                e.preventDefault(), this.end()
-            }.bind(this)), e(t).on("resize.fndtn.joyride", n.throttle(function() {
-                e("[data-joyride]").length > 0 && n.settings.$next_tip && (n.is_phone() ? n.pos_phone() : n.pos_default(!1, !0))
-            }, 100)), this.settings.init = !0
-        },start: function() {
-            var t = this, n = e(this.scope).find("[data-joyride]"), r = ["timer", "scrollSpeed", "startOffset", "tipAnimationFadeSpeed", "cookieExpires"], i = r.length;
-            this.settings.init || this.init(), this.settings.$content_el = n, this.settings.body_offset = e(this.settings.tipContainer).position(), this.settings.$tip_content = this.settings.$content_el.find("> li"), this.settings.paused = !1, this.settings.attempts = 0, this.settings.tipLocationPatterns = {top: ["bottom"],bottom: [],left: ["right", "top", "bottom"],right: ["left", "top", "bottom"]}, typeof e.cookie != "function" && (this.settings.cookieMonster = !1);
-            if (!this.settings.cookieMonster || this.settings.cookieMonster && e.cookie(this.settings.cookieName) === null)
-                this.settings.$tip_content.each(function(n) {
-                    var s = e(this);
-                    e.extend(!0, t.settings, t.data_options(s));
-                    for (var o = i - 1; o >= 0; o--)
-                        t.settings[r[o]] = parseInt(t.settings[r[o]], 10);
-                    t.create({$li: s,index: n})
-                }), !this.settings.startTimerOnClick && this.settings.timer > 0 ? (this.show("init"), this.startTimer()) : this.show("init")
-        },resume: function() {
-            this.set_li(), this.show()
-        },tip_template: function(t) {
-            var n, r;
-            return t.tip_class = t.tip_class || "", n = e(this.settings.template.tip).addClass(t.tip_class), r = e.trim(e(t.li).html()) + this.button_text(t.button_text) + this.settings.template.link + this.timer_instance(t.index), n.append(e(this.settings.template.wrapper)), n.first().attr("data-index", t.index), e(".joyride-content-wrapper", n).append(r), n[0]
-        },timer_instance: function(t) {
-            var n;
-            return t === 0 && this.settings.startTimerOnClick && this.settings.timer > 0 || this.settings.timer === 0 ? n = "" : n = this.outerHTML(e(this.settings.template.timer)[0]), n
-        },button_text: function(t) {
-            return this.settings.nextButton ? (t = e.trim(t) || "Next", t = this.outerHTML(e(this.settings.template.button).append(t)[0])) : t = "", t
-        },create: function(t) {
-            var n = t.$li.attr("data-button") || t.$li.attr("data-text"), r = t.$li.attr("class"), i = e(this.tip_template({tip_class: r,index: t.index,button_text: n,li: t.$li}));
-            e(this.settings.tipContainer).append(i)
-        },show: function(t) {
-            var n = null;
-            this.settings.$li === r || e.inArray(this.settings.$li.index(), this.settings.pauseAfter) === -1 ? (this.settings.paused ? this.settings.paused = !1 : this.set_li(t), this.settings.attempts = 0, this.settings.$li.length && this.settings.$target.length > 0 ? (this.settings.tipSettings = e.extend(this.settings, this.data_options(this.settings.$li)), this.settings.timer = parseInt(this.settings.timer, 10), this.settings.tipSettings.tipLocationPattern = this.settings.tipLocationPatterns[this.settings.tipSettings.tipLocation], /body/i.test(this.settings.$target.selector) || this.scroll_to(), this.is_phone() ? this.pos_phone(!0) : this.pos_default(!0), n = this.settings.$next_tip.find(".joyride-timer-indicator"), /pop/i.test(this.settings.tipAnimation) ? (n.width(0), thsi.settings.timer > 0 ? (this.settings.$next_tip.show(), this.delay(function() {
-                n.animate({width: n.parent().width()}, this.settings.timer, "linear")
-            }.bind(this), this.settings.tipAnimationFadeSpeed)) : this.settings.$next_tip.show()) : /fade/i.test(this.settings.tipAnimation) && (n.width(0), this.settings.timer > 0 ? (this.settings.$next_tip.fadeIn(this.settings.tipAnimationFadeSpeed).show(), this.delay(function() {
-                n.animate({width: n.parent().width()}, this.settings.timer, "linear")
-            }.bind(this), this.settings.tipAnimationFadeSpeed)) : this.settings.$next_tip.fadeIn(this.settings.tipAnimationFadeSpeed)), this.settings.$current_tip = this.settings.$next_tip) : this.settings.$li && this.settings.$target.length < 1 ? this.show() : this.end()) : this.settings.paused = !0
-        },is_phone: function() {
-            return Modernizr ? Modernizr.mq("only screen and (max-width: 767px)") || e(".lt-ie9").length > 0 : this.settings.$window.width() < 767 ? !0 : !1
-        },hide: function() {
-            this.settings.postStepCallback(this.settings.$li.index(), this.settings.$current_tip), e(".joyride-modal-bg").hide(), this.settings.$current_tip.hide()
-        },set_li: function(e) {
-            e ? (this.settings.$li = this.settings.$tip_content.eq(this.settings.startOffset), this.set_next_tip(), this.settings.$current_tip = this.settings.$next_tip) : (this.settings.$li = this.settings.$li.next(), this.set_next_tip()), this.set_target()
-        },set_next_tip: function() {
-            this.settings.$next_tip = e(".joyride-tip-guide[data-index='" + this.settings.$li.index() + "']"), this.settings.$next_tip.data("closed", "")
-        },set_target: function() {
-            var t = this.settings.$li.attr("data-class"), r = this.settings.$li.attr("data-id"), i = function() {
-                return r ? e(n.getElementById(r)) : t ? e("." + t).first() : e("body")
-            };
-            this.settings.$target = i()
-        },scroll_to: function() {
-            var n, r;
-            n = e(t).height() / 2, r = Math.ceil(this.settings.$target.offset().top - n + this.outerHeight(this.settings.$next_tip)), r > 0 && this.scrollTo(e("html, body"), r, this.settings.scrollSpeed)
-        },paused: function() {
-            return e.inArray(this.settings.$li.index() + 1, this.settings.pauseAfter) === -1 ? !0 : !1
-        },restart: function() {
-            this.hide(), this.settings.$li = r, this.show("init")
-        },pos_default: function(n, r) {
-            var i = Math.ceil(e(t).height() / 2), s = this.settings.$next_tip.offset(), o = this.settings.$next_tip.find(".joyride-nub"), u = Math.ceil(this.outerHeight(o) / 2), a = n || !1;
-            a && (this.settings.$next_tip.css("visibility", "hidden"), this.settings.$next_tip.show()), typeof r == "undefined" && (r = !1);
-            if (!/body/i.test(this.settings
-            .$target.selector)) {
-                if (this.bottom()) {
-                    var f = this.settings.$target.offset().left;
-                    Foundation.rtl && (f = this.settings.$target.offset().width - this.settings.$next_tip.width() + f), this.settings.$next_tip.css({top: this.settings.$target.offset().top + u + this.outerHeight(this.settings.$target),left: f}), this.nub_position(o, this.settings.tipSettings.nubPosition, "top")
-                } else if (this.top()) {
-                    var f = this.settings.$target.offset().left;
-                    Foundation.rtl && (f = this.settings.$target.offset().width - this.settings.$next_tip.width() + f), this.settings.$next_tip.css({top: this.settings.$target.offset().top - this.outerHeight(this.settings.$next_tip) - u,left: f}), this.nub_position(o, this.settings.tipSettings.nubPosition, "bottom")
-                } else
-                    this.right() ? (this.settings.$next_tip.css({top: this.settings.$target.offset().top,left: this.outerWidth(this.settings.$target) + this.settings.$target.offset().left}), this.nub_position(o, this.settings.tipSettings.nubPosition, "left")) : this.left() && (this.settings.$next_tip.css({top: this.settings.$target.offset().top,left: this.settings.$target.offset().left - this.outerWidth(this.settings.$next_tip) - u}), this.nub_position(o, this.settings.tipSettings.nubPosition, "right"));
-                !this.visible(this.corners(this.settings.$next_tip)) && this.settings.attempts < this.settings.tipSettings.tipLocationPattern.length && (o.removeClass("bottom").removeClass("top").removeClass("right").removeClass("left"), this.settings.tipSettings.tipLocation = this.settings.tipSettings.tipLocationPattern[this.settings.attempts], this.settings.attempts++, this.pos_default())
-            } else
-                this.settings.$li.length && this.pos_modal(o);
-            a && (this.settings.$next_tip.hide(), this.settings.$next_tip.css("visibility", "visible"))
-        },pos_phone: function(t) {
-            var n = this.outerHeight(this.settings.$next_tip), r = this.settings.$next_tip.offset(), i = this.outerHeight(this.settings.$target), s = e(".joyride-nub", this.settings.$next_tip), o = Math.ceil(this.outerHeight(s) / 2), u = t || !1;
-            s.removeClass("bottom").removeClass("top").removeClass("right").removeClass("left"), u && (this.settings.$next_tip.css("visibility", "hidden"), this.settings.$next_tip.show()), /body/i.test(this.settings.$target.selector) ? this.settings.$li.length && this.pos_modal(s) : this.top() ? (this.settings.$next_tip.offset({top: this.settings.$target.offset().top - n - o}), s.addClass("bottom")) : (this.settings.$next_tip.offset({top: this.settings.$target.offset().top + i + o}), s.addClass("top")), u && (this.settings.$next_tip.hide(), this.settings.$next_tip.css("visibility", "visible"))
-        },pos_modal: function(t) {
-            this.center(), t.hide(), this.settings.$next_tip.data("closed") || (e(".joyride-modal-bg").length < 1 && e("body").append('<div class="joyride-modal-bg">').show(), /pop/i.test(this.settings.tipAnimation) ? e(".joyride-modal-bg").show() : e(".joyride-modal-bg").fadeIn(this.settings.tipAnimationFadeSpeed))
-        },center: function() {
-            var n = e(t);
-            return this.settings.$next_tip.css({top: (n.height() - this.outerHeight(this.settings.$next_tip)) / 2 + n.scrollTop(),left: (n.width() - this.outerWidth(this.settings.$next_tip)) / 2 + this.scrollLeft(n)}), !0
-        },bottom: function() {
-            return /bottom/i.test(this.settings.tipSettings.tipLocation)
-        },top: function() {
-            return /top/i.test(this.settings.tipSettings.tipLocation)
-        },right: function() {
-            return /right/i.test(this.settings.tipSettings.tipLocation)
-        },left: function() {
-            return /left/i.test(this.settings.tipSettings.tipLocation)
-        },corners: function(n) {
-            var r = e(t), i = r.width() + this.scrollLeft(r), s = r.width() + r.scrollTop();
-            return [n.offset().top <= r.scrollTop(), i <= n.offset().left + this.outerWidth(n), s <= n.offset().top + this.outerHeight(n), this.scrollLeft(r) >= n.offset().left]
-        },visible: function(e) {
-            var t = e.length;
-            while (t--)
-                if (e[t])
-                    return !1;
-            return !0
-        },nub_position: function(e, t, n) {
-            t === "auto" ? e.addClass(n) : e.addClass(t)
-        },startTimer: function() {
-            this.settings.$li.length ? this.settings.automate = setTimeout(function() {
-                this.hide(), this.show(), this.startTimer()
-            }.bind(this), this.settings.timer) : clearTimeout(this.settings.automate)
-        },end: function() {
-            this.settings.cookieMonster && e.cookie(this.settings.cookieName, "ridden", {expires: this.settings.cookieExpires,domain: this.settings.cookieDomain}), this.settings.timer > 0 && clearTimeout(this.settings.automate), this.settings.$next_tip.data("closed", !0), e(".joyride-modal-bg").hide(), this.settings.$current_tip.hide(), this.settings.postStepCallback(this.settings.$li.index(), this.settings.$current_tip), this.settings.postRideCallback(this.settings.$li.index(), this.settings.$current_tip)
-        },outerHTML: function(e) {
-            return e.outerHTML || (new XMLSerializer).serializeToString(e)
-        },off: function() {
-            e(this.scope).off(".joyride"), e(t).off(".joyride"), e(".joyride-close-tip, .joyride-next-tip, .joyride-modal-bg").off(".joyride"), e(".joyride-tip-guide, .joyride-modal-bg").remove(), clearTimeout(this.settings.automate), this.settings = {}
-        }}
-}(Foundation.zj, this, this.document), function(e, t, n, r) {
-    "use strict";
-    Foundation.libs.magellan = {name: "magellan",version: "4.0.0",settings: {activeClass: "active"},init: function(t, n, r) {
-            return this.scope = t || this.scope, Foundation.inherit(this, "data_options"), typeof n == "object" && e.extend(!0, this.settings, n), typeof n != "string" ? (this.settings.init || (this.fixed_magellan = e("[data-magellan-expedition]"), this.set_threshold(), this.last_destination = e("[data-magellan-destination]").last(), this.events()), this.settings.init) : this[n].call(this, r)
-        },events: function() {
-            var n = this;
-            e(this.scope).on("arrival.fndtn.magellan", "[data-magellan-arrival]", function(t) {
-                var r = e(this), i = r.closest("[data-magellan-expedition]"), s = i.attr("data-magellan-active-class") || n.settings.activeClass;
-                r.closest("[data-magellan-expedition]").find("[data-magellan-arrival]").not(r).removeClass(s), r.addClass(s)
-            }), this.fixed_magellan.on("update-position.fndtn.magellan", function() {
-                var t = e(this)
-            }).trigger("update-position"), e(t).on("resize.fndtn.magellan", function() {
-                this.fixed_magellan.trigger("update-position")
-            }.bind(this)).on("scroll.fndtn.magellan", function() {
-                var r = e(t).scrollTop();
-                n.fixed_magellan.each(function() {
-                    var t = e(this);
-                    typeof t.data("magellan-top-offset") == "undefined" && t.data("magellan-top-offset", t.offset().top), typeof t.data("magellan-fixed-position") == "undefined" && t.data("magellan-fixed-position", !1);
-                    var i = r + n.settings.threshold > t.data("magellan-top-offset"), s = t.attr("data-magellan-top-offset");
-                    t.data("magellan-fixed-position") != i && (t.data("magellan-fixed-position", i), i ? t.css({position: "fixed",top: 0}) : t.css({position: "",top: ""}), i && typeof s != "undefined" && s != 0 && t.css({position: "fixed",top: s + "px"}))
-                })
-            }), this.last_destination.length > 0 && e(t).on("scroll.fndtn.magellan", function(r) {
-                var i = e(t).scrollTop(), s = i + e(t).height(), o = Math.ceil(n.last_destination.offset().top);
-                e("[data-magellan-destination]").each(function() {
-                    var t = e(this), r = t.attr("data-magellan-destination"), u = t.offset().top - i;
-                    u <= n.settings.threshold && e("[data-magellan-arrival='" + r + "']").trigger("arrival"), s >= e(n.scope).height() && o > i && o < s && e("[data-magellan-arrival]").last().trigger("arrival")
-                })
-            }), this.settings.init = !0
-        },set_threshold: function() {
-            this.settings.threshold || (this.settings.threshold = this.fixed_magellan.length > 0 ? this.outerHeight(this.fixed_magellan, !0) : 0)
-        },off: function() {
-            e(this.scope).off(".fndtn.magellan")
-        }}
-}(Foundation.zj, this, this.document), function(e, t, n, r) {
-    "use strict";
-    Foundation.libs = Foundation.libs || {}, Foundation.libs.orbit = {name: "orbit",version: "4.1.0",settings: {timer_speed: 1e4,animation_speed: 500,bullets: !0,stack_on_small: !0,container_class: "orbit-container",stack_on_small_class: "orbit-stack-on-small",next_class: "orbit-next",prev_class: "orbit-prev",timer_container_class: "orbit-timer",timer_paused_class: "paused",timer_progress_class: "orbit-progress",slides_container_class: "orbit-slides-container",bullets_container_class: "orbit-bullets",bullets_active_class: "active",slide_number_class: "orbit-slide-number",caption_class: "orbit-caption",active_slide_class: "active",orbit_transition_class: "orbit-transitioning"},init: function(t, n, r) {
-            var i = this;
-            Foundation.inherit(i, "data_options"), typeof n == "object" && e.extend(!0, i.settings, n), e("[data-orbit]", t).each(function(t, n) {
-                var r = e.extend(!0, {}, i);
-                r._init(t, n)
-            })
-        },_container_html: function() {
-            var e = this;
-            return '<div class="' + e.settings.container_class + '"></div>'
-        },_bullets_container_html: function(t) {
-            var n = this, r = e('<ol class="' + n.settings.bullets_container_class + '"></ol>');
-            return t.each(function(t, i) {
-                var s = e('<li data-orbit-slide-number="' + (t + 1) + '" class=""></li>');
-                t === 0 && s.addClass(n.settings.bullets_active_class), r.append(s)
-            }), r
-        },_slide_number_html: function(t, n) {
-            var r = this, i = e('<div class="' + r.settings.slide_number_class + '"></div>');
-            return i.append("<span>" + t + "</span> of <span>" + n + "</span>"), i
-        },_timer_html: function() {
-            var e = this;
-            return typeof e.settings.timer_speed == "number" && e.settings.timer_speed > 0 ? '<div class="' + e.settings.timer_container_class + '"><span></span><div class="' + e.settings.timer_progress_class + '"></div></div>' : ""
-        },_next_html: function() {
-            var e = this;
-            return '<a href="#" class="' + e.settings.next_class + '">Next <span></span></a>'
-        },_prev_html: function() {
-            var e = this;
-            return '<a href="#" class="' + e.settings.prev_class + '">Prev <span></span></a>'
-        },_init: function(t, n) {
-            var r = this, i = e(n), s = i.wrap(r._container_html()).parent(), o = i.children();
-            e.extend(!0, r.settings, r.data_options(i)), s.append(r._prev_html()), s.append(r._next_html()), i.addClass(r.settings.slides_container_class), r.settings.stack_on_small && s.addClass(r.settings.stack_on_small_class), s.append(r._slide_number_html(1, o.length)), s.append(r._timer_html()), r.settings.bullets && s.after(r._bullets_container_html(o)), i.append(o.first().clone().attr("data-orbit-slide", "")), i.prepend(o.last().clone().attr("data-orbit-slide", "")), i.css("marginLeft", "-100%"), o.first().addClass(r.settings.active_slide_class), r._init_events(i), r._init_dimensions(i), r._start_timer(i)
-        },_init_events: function(i) {
-            var s = this, o = i.parent();
-            e(t).on("load.fndtn.orbit", function() {
-                i.height(""), i.height(i.height(o.height())), i.trigger("orbit:ready")
-            }).on("resize.fndtn.orbit", function() {
-                i.height(""), i.height(i.height(o.height()))
-            }), e(n).on("click.fndtn.orbit", "[data-orbit-link]", function(t) {
-                t.preventDefault();
-                var n = e(t.currentTarget).attr("data-orbit-link"), r = i.find("[data-orbit-slide=" + n + "]").first();
-                r.length === 1 && (s._reset_timer(i, !0), s._goto(i, r.index(), function() {
-                }))
-            }), o.siblings("." + s.settings.bullets_container_class).on("click.fndtn.orbit", "[data-orbit-slide-number]", function(t) {
-                t.preventDefault(), s._reset_timer(i, !0), s._goto(i, e(t.currentTarget).data("orbit-slide-number"), function() {
-                })
-            }), o.on("orbit:after-slide-change.fndtn.orbit", function(e, t) {
-                var n = o.find("." + s.settings.slide_number_class);
-                n.length === 1 && n.replaceWith(s._slide_number_html(t.slide_number, t.total_slides))
-            }).on("orbit:next-slide.fndtn.orbit click.fndtn.orbit", "." + s.settings.next_class, function(e) {
-                e.preventDefault(), s._reset_timer(i, !0), s._goto(i, "next", function() {
-                })
-            }).on("orbit:prev-slide.fndtn.orbit click.fndtn.orbit", "." + s.settings.prev_class, function(e) {
-                e.preventDefault(), s._reset_timer(i, !0), s._goto(i, "prev", function() {
-                })
-            }).on("orbit:toggle-play-pause.fndtn.orbit click.fndtn.orbit touchstart.fndtn.orbit", "." + s.settings.timer_container_class, function(t) {
-                t.preventDefault();
-                var n = e(t.currentTarget).toggleClass(s.settings.timer_paused_class), r = n.closest("." + s.settings.container_class).find("." + s.settings.slides_container_class);
-                n.hasClass(s.settings.timer_paused_class) ? s._stop_timer(r) : s._start_timer(r)
-            }).on("touchstart.fndtn.orbit", function(e) {
-                e.touches || (e = e.originalEvent);
-                var t = {start_page_x: e.touches[0].pageX,start_page_y: e.touches[0].pageY,start_time: (new Date).getTime(),delta_x: 0,is_scrolling: r};
-                o.data("swipe-transition", t), e.stopPropagation()
-            }).on("touchmove.fndtn.orbit", function(e) {
-                e.touches || (e = e.originalEvent);
-                if (e.touches.length > 1 || e.scale && e.scale !== 1)
-                    return;
-                var t = o.data("swipe-transition");
-                typeof t == "undefined" && (t = {}), t.delta_x = e.touches[0].pageX - t.start_page_x, typeof t.is_scrolling == "undefined" && (t.is_scrolling = !!(t.is_scrolling || Math.abs(t.delta_x) < Math.abs(e.touches[0].pageY - t.start_page_y)));
-                if (!t.is_scrolling && !t.active) {
-                    e.preventDefault(), s._stop_timer(i);
-                    var n = t.delta_x < 0 ? "next" : "prev";
-                    t.active = !0, s._goto(i, n, function() {
-                    })
-                }
-            }).on("touchend.fndtn.orbit", function(e) {
-                o.data("swipe-transition", {}), e.stopPropagation()
-            })
-        },_init_dimensions: function(e) {
-            var t = e.parent(), n = e.children();
-            e.css("width", n.length * 100 + "%"), n.css("width", 100 / n.length + "%"), e.height(t.height()), e.css("width", n.length * 100 + "%")
-        },_start_timer: function(e) {
-            var t = this, n = e.parent(), r = function() {
-                t._reset_timer(e, !1), t._goto(e, "next", function() {
-                    t._start_timer(e)
-                })
-            }, i = n.find("." + t.settings.timer_container_class), s = i.find("." + t.settings.timer_progress_class), o = s.width() / i.width(), u = t.settings.timer_speed - o * t.settings.timer_speed;
-            s.animate({width: "100%"}, u, "linear", r), e.trigger("orbit:timer-started")
-        },_stop_timer: function(e) {
-            var t = this, n = e.parent(), r = n.find("." + t.settings.timer_container_class), i = r.find("." + t.settings.timer_progress_class), s = i.width() / r.width();
-            t._rebuild_timer(n, s * 100 + "%"), e.trigger("orbit:timer-stopped"), r = n.find("." + t.settings.timer_container_class), r.addClass(t.settings.timer_paused_class)
-        },_reset_timer: function(e, t) {
-            var n = this, r = e.parent();
-            n._rebuild_timer(r, "0%");
-            if (typeof t == "boolean" && t) {
-                var i = r.find("." + n.settings.timer_container_class);
-                i.addClass(n.settings.timer_paused_class)
-            }
-        },_rebuild_timer: function(t, n) {
-            var r = this, i = t.find("." + r.settings.timer_container_class), s = e(r._timer_html()), o = s.find("." + r.settings.timer_progress_class);
-            if (typeof Zepto == "function")
-                i.remove(), t.append(s), o.css("width", n);
-            else if (typeof jQuery == "function") {
-                var u = i.find("." + r.settings.timer_progress_class);
-                u.css("width", n), u.stop()
-            }
-        },_goto: function(t, n, r) {
-            var i = this, s = t.parent(), o = t.children(), u = t.find("." + i.settings.active_slide_class), a = u.index(), f = Foundation.rtl ? "marginRight" : "marginLeft";
-            if (s.hasClass(i.settings.orbit_transition_class))
-                return !1;
-            n === "prev" ? a === 0 ? a = o.length - 1 : a-- : n === "next" ? a = (a + 1) % o.length : typeof n == "number" && (a = n % o.length), a === o.length - 1 && n === "next" ? (t.css(f, "0%"), a = 1) : a === 0 && n === "prev" && (t.css(f, "-" + (o.length - 1) * 100 + "%"), a = o.length - 2), s.addClass(i.settings.orbit_transition_class), u.removeClass(i.settings.active_slide_class), e(o[a]).addClass(i.settings.active_slide_class);
-            var l = s.siblings("." + i.settings.bullets_container_class);
-            l.length === 1 && (l.children().removeClass(i.settings.bullets_active_class), e(l.children()[a - 1]).addClass(i.settings.bullets_active_class));
-            var c = "-" + a * 100 + "%";
-            t.trigger("orbit:before-slide-change");
-            if (t.css(f) === c)
-                s.removeClass(i.settings.orbit_transition_class), t.trigger("orbit:after-slide-change", [{slide_number: a,total_slides: t.children().length - 2}]), r();
-            else {
-                var h = {};
-                h[f] = c, t.animate(h, i.settings.animation_speed, "linear", function() {
-                    s.removeClass(i.settings.orbit_transition_class), t.trigger("orbit:after-slide-change", [{slide_number: a,total_slides: t.children().length - 2}]), r()
-                })
-            }
-        }}
-}(Foundation.zj, this, this.document), function(e, t, n) {
-    function f(e) {
-        var t = {}, r = /^jQuery\d+$/;
-        return n.each(e.attributes, function(e, n) {
-            n.specified && !r.test(n.name) && (t[n.name] = n.value)
-        }), t
-    }
-    function l(e, r) {
-        var i = this, s = n(i);
-        if (i.value == s.attr("placeholder") && s.hasClass("placeholder"))
-            if (s.data("placeholder-password")) {
-                s = s.hide().next().show().attr("id", s.removeAttr("id").data("placeholder-id"));
-                if (e === !0)
-                    return s[0].value = r;
-                s.focus()
-            } else
-                i.value = "", s.removeClass("placeholder"), i == t.activeElement && i.select()
-    }
-    function c() {
-        var e, t = this, r = n(t), i = r, s = this.id;
-        if (t.value == "") {
-            if (t.type == "password") {
-                if (!r.data("placeholder-textinput")) {
-                    try {
-                        e = r.clone().attr({type: "text"})
-                    } catch (o) {
-                        e = n("<input>").attr(n.extend(f(this), {type: "text"}))
-                    }
-                    e.removeAttr("name").data({"placeholder-password": !0,"placeholder-id": s}).bind("focus.placeholder", l), r.data({"placeholder-textinput": e,"placeholder-id": s}).before(e)
-                }
-                r = r.removeAttr("id").hide().prev().attr("id", s).show()
-            }
-            r.addClass("placeholder"), r[0].value = r.attr("placeholder")
-        } else
-            r.removeClass("placeholder")
-    }
-    var r = "placeholder" in t.createElement("input"), i = "placeholder" in t.createElement("textarea"), s = n.fn, o = n.valHooks, u, a;
-    r && i ? (a = s.placeholder = function() {
-        return this
-    }, a.input = a.textarea = !0) : (a = s.placeholder = function() {
-        var e = this;
-        return e.filter((r ? "textarea" : ":input") + "[placeholder]").not(".placeholder").bind({"focus.placeholder": l,"blur.placeholder": c}).data("placeholder-enabled", !0).trigger("blur.placeholder"), e
-    }, a.input = r, a.textarea = i, u = {get: function(e) {
-            var t = n(e);
-            return t.data("placeholder-enabled") && t.hasClass("placeholder") ? "" : e.value
-        },set: function(e, r) {
-            var i = n(e);
-            return i.data("placeholder-enabled") ? (r == "" ? (e.value = r, e != t.activeElement && c.call(e)) : i.hasClass("placeholder") ? l.call(e, !0, r) || (e.value = r) : e.value = r, i) : e.value = r
-        }}, r || (o.input = u), i || (o.textarea = u), n(function() {
-        n(t).delegate("form", "submit.placeholder", function() {
-            var e = n(".placeholder", this).each(l);
-            setTimeout(function() {
-                e.each(c)
-            }, 10)
-        })
-    }), n(e).bind("beforeunload.placeholder", function() {
-        n(".placeholder").each(function() {
-            this.value = ""
-        })
-    }))
-}(this, document, Foundation.zj), function(e, t, n, r) {
-    "use strict";
-    Foundation.libs.reveal = {name: "reveal",version: "4.0.9",locked: !1,settings: {animation: "fadeAndPop",animationSpeed: 250,closeOnBackgroundClick: !0,dismissModalClass: "close-reveal-modal",bgClass: "reveal-modal-bg",open: function() {
-            },opened: function() {
-            },close: function() {
-            },closed: function() {
-            },bg: e(".reveal-modal-bg"),css: {open: {opacity: 0,visibility: "visible",display: "block"},close: {opacity: 1,visibility: "hidden",display: "none"}}},init: function(t, n, r) {
-            return this.scope = t || this.scope, Foundation.inherit(this, "data_options delay"), typeof n == "object" && e.extend(!0, this.settings, n), typeof n != "string" ? (this.events(), this.settings.init) : this[n].call(this, r)
-        },events: function() {
-            var t = this;
-            return e(this.scope).off(".fndtn.reveal").on("click.fndtn.reveal", "[data-reveal-id]", function(n) {
-                n.preventDefault(), t.locked || (t.locked = !0, t.open.call(t, e(this)))
-            }).on("click.fndtn.reveal touchend.click.fndtn.reveal", this.close_targets(), function(n) {
-                n.preventDefault(), t.locked || (t.locked = !0, t.close.call(t, e(this).closest(".reveal-modal")))
-            }).on("open.fndtn.reveal", ".reveal-modal", this.settings.open).on("opened.fndtn.reveal", ".reveal-modal", this.settings.opened).on("opened.fndtn.reveal", ".reveal-modal", this.open_video).on("close.fndtn.reveal", ".reveal-modal", this.settings.close).on("closed.fndtn.reveal", ".reveal-modal", this.settings.closed).on("closed.fndtn.reveal", ".reveal-modal", this.close_video), !0
-        },open: function(t) {
-            if (t)
-                var n = e("#" + t.data("reveal-id"));
-            else
-                var n = e(this.scope);
-            if (!n.hasClass("open")) {
-                var r = e(".reveal-modal.open");
-                typeof n.data("css-top") == "undefined" && n.data("css-top", parseInt(n.css("top"), 10)).data("offset", this.cache_offset(n)), n.trigger("open"), r.length < 1 && this.toggle_bg(n), this.hide(r, this.settings.css.open), this.show(n, this.settings.css.open)
-            }
-        },close: function(t) {
-            var t = t || e(this.scope), n = e(".reveal-modal.open");
-            n.length > 0 && (this.locked = !0, t.trigger("close"), this.toggle_bg(t), this.hide(n, this.settings.css.close))
-        },close_targets: function() {
-            var e = "." + this.settings.dismissModalClass;
-            return this.settings.closeOnBackgroundClick ? e + ", ." + this.settings.bgClass : e
-        },toggle_bg: function(t) {
-            e(".reveal-modal-bg").length === 0 && (this.settings.bg = e("<div />", {"class": this.settings.bgClass}).appendTo("body")), this.settings.bg.filter(":visible").length > 0 ? this.hide(this.settings.bg) : this.show(this.settings.bg)
-        },show: function(n, r) {
-            if (r) {
-                if (/pop/i.test(this.settings.animation)) {
-                    r.top = e(t).scrollTop() - n.data("offset") + "px";
-                    var i = {top: e(t).scrollTop() + n.data("css-top") + "px",opacity: 1};
-                    return this.delay(function() {
-                        return n.css(r).animate(i, this.settings.animationSpeed, "linear", function() {
-                            this.locked = !1, n.trigger("opened")
-                        }.bind(this)).addClass("open")
-                    }.bind(this), this.settings.animationSpeed / 2)
-                }
-                if (/fade/i.test(this.settings.animation)) {
-                    var i = {opacity: 1};
-                    return this.delay(function() {
-                        return n.css(r).animate(i, this.settings.animationSpeed, "linear", function() {
-                            this.locked = !1, n.trigger("opened")
-                        }.bind(this)).addClass("open")
-                    }.bind(this), this.settings.animationSpeed / 2)
-                }
-                return n.css(r).show().css({opacity: 1}).addClass("open").trigger("opened")
-            }
-            return /fade/i.test(this.settings.animation) ? n.fadeIn(this.settings.animationSpeed / 2) : n.show()
-        },hide: function(n, r) {
-            if (r) {
-                if (/pop/i.test(this.settings.animation)) {
-                    var i = {top: -e(t).scrollTop() - n.data("offset") + "px",opacity: 0};
-                    return this.delay(function() {
-                        return n.animate(i, this.settings.animationSpeed, "linear", function() {
-                            this.locked = !1, n.css(r).trigger("closed")
-                        }.bind(this)).removeClass("open")
-                    }.bind(this), this.settings.animationSpeed / 2)
-                }
-                if (/fade/i.test(this.settings.animation)) {
-                    var i = {opacity: 0};
-                    return this.delay(function() {
-                        return n.animate(i, this.settings.animationSpeed, "linear", function() {
-                            this.locked = !1, n.css(r).trigger("closed")
-                        }.bind(this)).removeClass("open")
-                    }.bind(this), this.settings.animationSpeed / 2)
-                }
-                return n.hide().css(r).removeClass("open").trigger("closed")
-            }
-            return /fade/i.test(this.settings.animation) ? n.fadeOut(this.settings.animationSpeed / 2) : n.hide()
-        },close_video: function(t) {
-            var n = e(this).find(".flex-video"), r = n.find("iframe");
-            r.length > 0 && (r.attr("data-src", r[0].src), r.attr("src", "about:blank"), n.fadeOut(100).hide())
-        },open_video: function(t) {
-            var n = e(this).find(".flex-video"), r = n.find("iframe");
-            if (r.length > 0) {
-                var i = r.attr("data-src");
-                typeof i == "string" && (r[0].src = r.attr("data-src")), n.show().fadeIn(100)
-            }
-        },cache_offset: function(e) {
-            var t = e.show().height() + parseInt(e.css("top"), 10);
-            return e.hide(), t
-        },off: function() {
-            e(this.scope).off(".fndtn.reveal")
-        }}
-}(Foundation.zj, this, this.document), function(e, t, n, r) {
-    "use strict";
-    Foundation.libs.section = {name: "section",version: "4.1.1",settings: {deep_linking: !1,one_up: !0,callback: function() {
-            }},init: function(e, t, n) {
-            var r = this;
-            return Foundation.inherit(this, "throttle data_options position_right offset_right"), typeof t != "string" ? (this.set_active_from_hash(), this.events(), !0) : this[t].call(this, n)
-        },events: function() {
-            var r = this;
-            e(this.scope).on("click.fndtn.section", "[data-section] .title", function(t) {
-                var n = e(this), i = n.closest("[data-section]");
-                r.toggle_active.call(this, t, r)
-            }), e(t).on("resize.fndtn.section", r.throttle(function() {
-                r.resize.call(this)
-            }, 30)).on("hashchange", function() {
-                r.settings.toggled || (r.set_active_from_hash(), e(this).trigger("resize"))
-            }).trigger("resize"), e(n).on("click.fndtn.section", function(t) {
-                e(t.target).closest(".title").length < 1 && e('[data-section="vertical-nav"], [data-section="horizontal-nav"]').find("section, .section").removeClass("active").attr("style", "")
-            })
-        },toggle_active: function(t, n) {
-            var r = e(this), i = r.closest("section, .section"), s = i.find(".content"), o = i.closest("[data-section]"), n = Foundation.libs.section, u = e.extend({}, n.settings, n.data_options(o));
-            n.settings.toggled = !0, !u.deep_linking && s.length > 0 && t.preventDefault();
-            if (i.hasClass("active"))
-                (n.small(o) || n.is_vertical(o) || n.is_horizontal(o) || n.is_accordion(o)) && i.removeClass("active").attr("style", "");
-            else {
-                var a = null, f = n.outerHeight(i.find(".title"));
-                if (n.small(o) || u.one_up)
-                    a = r.closest("[data-section]").find("section.active, .section.active"), n.small(o) ? a.attr("style", "") : a.attr("style", "visibility: hidden; padding-top: " + f + "px;");
-                n.small(o) ? i.attr("style", "") : i.css("padding-top", f), i.addClass("active"), a !== null && a.removeClass("active").attr("style", "")
-            }
-            setTimeout(function() {
-                n.settings.toggled = !1
-            }, 300), u.callback()
-        },resize: function() {
-            var t = e("[data-section]"), n = Foundation.libs.section;
-            t.each(function() {
-                var t = e(this), r = t.find("section.active, .section.active"), i = e.extend({}, n.settings, n.data_options(t));
-                if (r.length > 1)
-                    r.not(":first").removeClass("active").attr("style", "");
-                else if (r.length < 1 && !n.is_vertical(t) && !n.is_horizontal(t) && !n.is_accordion(t)) {
-                    var s = t.find("section, .section").first();
-                    s.addClass("active"), n.small(t) ? s.attr("style", "") : s.css("padding-top", n.outerHeight(s.find(".title")))
-                }
-                n.small(t) ? r.attr("style", "") : r.css("padding-top", n.outerHeight(r.find(".title"))), n.position_titles(t), n.is_horizontal(t) && !n.small(t) ? n.position_content(t) : n.position_content(t, !1)
-            })
-        },is_vertical: function(e) {
-            return /vertical-nav/i.test(e.data("section"))
-        },is_horizontal: function(e) {
-            return /horizontal-nav/i.test(e.data("section"))
-        },is_accordion: function(e) {
-            return /accordion/i.test(e.data("section"))
-        },is_tabs: function(e) {
-            return /tabs/i.test(e.data("section"))
-        },set_active_from_hash: function() {
-            var n = t.location.hash.substring(1), r = e("[data-section]"), i = this;
-            r.each(function() {
-                var t = e(this), r = e.extend({}, i.settings, i.data_options(t));
-                n.length > 0 && r.deep_linking && (t.find("section, .section").attr("style", "").removeClass("active"), t.find('.content[data-slug="' + n + '"]').closest("section, .section").addClass("active"))
-            })
-        },position_titles: function(t, n) {
-            var r = t.find(".title"), i = 0, s = this;
-            typeof n == "boolean" ? r.attr("style", "") : r.each(function() {
-                s.rtl ? e(this).css("right", i) : e(this).css("left", i), i += s.outerWidth(e(this))
-            })
-        },position_content: function(t, n) {
-            var r = t.find(".title"), i = t.find(".content"), s = this;
-            typeof n == "boolean" ? (i.attr("style", ""), t.attr("style", "")) : (t.find("section, .section").each(function() {
-                var t = e(this).find(".title"), n = e(this).find(".content");
-                s.rtl ? n.css({right: s.position_right(t) + 1,top: s.outerHeight(t) - 2}) : n.css({left: t.position().left - 1,top: s.outerHeight(t) - 2})
-            }), typeof Zepto == "function" ? t.height(this.outerHeight(r.first())) : t.height(this.outerHeight(r.first()) - 2))
-        },position_right: function(e) {
-            var t = e.closest("[data-section]"), n = e.closest("[data-section]").width(), r = t.find(".title").length;
-            return n - e.position().left - e.width() * (e.index() + 1) - r
-        },reflow: function() {
-            e("[data-section]").trigger("resize")
-        },small: function(t) {
-            var n = e.extend({}, this.settings, this.data_options(t));
-            return this.is_tabs(t) ? !1 : t && this.is_accordion(t) ? !0 : e("html").hasClass("lt-ie9") ? !0 : e("html").hasClass("ie8compat") ? !0 : e(this.scope).width() < 768
-        },off: function() {
-            e(this.scope).off(".fndtn.section"), e(t).off(".fndtn.section"), e(n).off(".fndtn.section")
-        }}
-}(Foundation.zj, this, this.document), function(e, t, n, r) {
-    "use strict";
-    Foundation.libs.tooltips = {name: "tooltips",version: "4.1.0",settings: {selector: ".has-tip",additionalInheritableClasses: [],tooltipClass: ".tooltip",tipTemplate: function(e, t) {
-                return '<span data-selector="' + e + '" class="' + Foundation.libs.tooltips.settings.tooltipClass.substring(1) + '">' + t + '<span class="nub"></span></span>'
-            }},cache: {},init: function(t, n, r) {
-            var i = this;
-            this.scope = t || this.scope, typeof n == "object" && e.extend(!0, this.settings, n);
-            if (typeof n == "string")
-                return this[n].call(this, r);
-            Modernizr.touch ? e(this.scope).on("click.fndtn.tooltip touchstart.fndtn.tooltip touchend.fndtn.tooltip", "[data-tooltip]", function(t) {
-                t.preventDefault(), e(i.settings.tooltipClass).hide(), i.showOrCreateTip(e(this))
-            }).on("click.fndtn.tooltip touchstart.fndtn.tooltip touchend.fndtn.tooltip", this.settings.tooltipClass, function(t) {
-                t.preventDefault(), e(this).fadeOut(150)
-            }) : e(this.scope).on("mouseenter.fndtn.tooltip mouseleave.fndtn.tooltip", "[data-tooltip]", function(t) {
-                var n = e(this);
-                t.type === "mouseover" || t.type === "mouseenter" ? i.showOrCreateTip(n) : (t.type === "mouseout" || t.type === "mouseleave") && i.hide(n)
-            })
-        },showOrCreateTip: function(e) {
-            var t = this.getTip(e);
-            return t && t.length > 0 ? this.show(e) : this.create(e)
-        },getTip: function(t) {
-            var n = this.selector(t), r = null;
-            return n && (r = e("span[data-selector=" + n + "]" + this.settings.tooltipClass)), typeof r == "object" ? r : !1
-        },selector: function(e) {
-            var t = e.attr("id"), n = e.attr("data-tooltip") || e.attr("data-selector");
-            return (t && t.length < 1 || !t) && typeof n != "string" && (n = "tooltip" + Math.random().toString(36).substring(7), e.attr("data-selector", n)), t && t.length > 0 ? t : n
-        },create: function(t) {
-            var n = e(this.settings.tipTemplate(this.selector(t), e("<div>").html(t.attr("title")).html())), r = this.inheritable_classes(t);
-            n.addClass(r).appendTo("body"), Modernizr.touch && n.append('<span class="tap-to-close">tap to close </span>'), t.removeAttr("title").attr("title", ""), this.show(t)
-        },reposition: function(n, r, i) {
-            var s, o, u, a, f, l;
-            r.css("visibility", "hidden").show(), s = n.data("width"), o = r.children(".nub"), u = this.outerHeight(o), a = this.outerHeight(o), l = function(e, t, n, r, i, s) {
-                return e.css({top: t ? t : "auto",bottom: r ? r : "auto",left: i ? i : "auto",right: n ? n : "auto",width: s ? s : "auto"}).end()
-            }, l(r, n.offset().top + this.outerHeight(n) + 10, "auto", "auto", n.offset().left, s);
-            if (e(t).width() < 767)
-                l(r, n.offset().top + this.outerHeight(n) + 10, "auto", "auto", 12.5, e(this.scope).width()), r.addClass("tip-override"), l(o, -u, "auto", "auto", n.offset().left);
-            else {
-                var c = n.offset().left;
-                Foundation.rtl && (c = n.offset().left + n.offset().width - this.outerWidth(r)), l(r, n.offset().top + this.outerHeight(n) + 10, "auto", "auto", c, s), r.removeClass("tip-override"), i && i.indexOf("tip-top") > -1 ? l(r, n.offset().top - this.outerHeight(r), "auto", "auto", c, s).removeClass("tip-override") : i && i.indexOf("tip-left") > -1 ? l(r, n.offset().top + this.outerHeight(n) / 2 - u * 2.5, "auto", "auto", n.offset().left - this.outerWidth(r) - u, s).removeClass("tip-override") : i && i.indexOf("tip-right") > -1 && l(r, n.offset().top + this.outerHeight(n) / 2 - u * 2.5, "auto", "auto", n.offset().left + this.outerWidth(n) + u, s).removeClass("tip-override")
-            }
-            r.css("visibility", "visible").hide()
-        },inheritable_classes: function(t) {
-            var n = ["tip-top", "tip-left", "tip-bottom", "tip-right", "noradius"].concat(this.settings.additionalInheritableClasses), r = t.attr("class"), i = r ? e.map(r.split(" "), function(t, r) {
-                if (e.inArray(t, n) !== -1)
-                    return t
-            }).join(" ") : "";
-            return e.trim(i)
-        },show: function(e) {
-            var t = this.getTip(e);
-            this.reposition(e, t, e.attr("class")), t.fadeIn(150)
-        },hide: function(e) {
-            var t = this.getTip(e);
-            t.fadeOut(150)
-        },reload: function() {
-            var t = e(this);
-            return t.data("fndtn-tooltips") ? t.foundationTooltips("destroy").foundationTooltips("init") : t.foundationTooltips("init")
-        },off: function() {
-            e(this.scope).off(".fndtn.tooltip"), e(this.settings.tooltipClass).each(function(t) {
-                e("[data-tooltip]").get(t).attr("title", e(this).text())
-            }).remove()
-        }}
-}(Foundation.zj, this, this.document), function(e, t, n, r) {
-    "use strict";
-    Foundation.libs.topbar = {name: "topbar",version: "4.1.0",settings: {index: 0,stickyClass: "sticky",custom_back_text: !0,back_text: "Back",init: !1},init: function(n, r) {
-            var i = this;
-            return typeof n == "object" && e.extend(!0, this.settings, n), typeof n != "string" ? (e(".top-bar").each(function() {
-                i.settings.$w = e(t), i.settings.$topbar = e(this), i.settings.$section = i.settings.$topbar.find("section"), i.settings.$titlebar = i.settings.$topbar.children("ul").first(), i.settings.$topbar.data("index", 0);
-                var n = e("<div class='top-bar-js-breakpoint'/>").insertAfter(i.settings.$topbar);
-                i.settings.breakPoint = n.width(), n.remove(), i.assemble(), i.settings.$topbar.parent().hasClass("fixed") && e("body").css("padding-top", i.outerHeight(i.settings.$topbar))
-            }), i.settings.init || this.events(), this.settings.init) : this[n].call(this, r)
-        },events: function() {
-            var n = this, r = this.outerHeight(e(".top-bar"));
-            e(this.scope).on("click.fndtn.topbar", ".top-bar .toggle-topbar", function(i) {
-                var s = e(this).closest(".top-bar"), o = s.find("section, .section"), u = s.children("ul").first();
-                s.data("height") || n.largestUL(), i.preventDefault(), n.breakpoint() && s.toggleClass("expanded").css("min-height", ""), s.hasClass("expanded") || (n.rtl ? (o.css({right: "0%"}), o.find(">.name").css({right: "100%"})) : (o.css({left: "0%"}), o.find(">.name").css({left: "100%"})), o.find("li.moved").removeClass("moved"), s.data("index", 0)), s.parent().hasClass("fixed") ? (s.parent().removeClass("fixed"), e("body").css("padding-top", "0"), t.scrollTo(0, 0)) : s.hasClass("fixed expanded") && (s.parent().addClass("fixed"), e("body").css("padding-top", r))
-            }).on("click.fndtn.topbar", ".top-bar .has-dropdown>a", function(t) {
-                var r = e(this).closest(".top-bar"), i = r.find("section, .section"), s = r.children("ul").first();
-                (Modernizr.touch || n.breakpoint()) && t.preventDefault();
-                if (n.breakpoint()) {
-                    var o = e(this), u = o.closest("li");
-                    r.data("index", r.data("index") + 1), u.addClass("moved"), n.rtl ? (i.css({right: -(100 * r.data("index")) + "%"}), i.find(">.name").css({right: 100 * r.data("index") + "%"})) : (i.css({left: -(100 * r.data("index")) + "%"}), i.find(">.name").css({left: 100 * r.data("index") + "%"})), o.siblings("ul").height(r.data("height") + n.outerHeight(s, !0)), r.css("min-height", r.data("height") + n.outerHeight(s, !0) * 2)
-                }
-            }), e(t).on("resize.fndtn.topbar", function() {
-                n.breakpoint() || e(".top-bar").css("min-height", "").removeClass("expanded")
-            }.bind(this)), e(this.scope).on("click.fndtn", ".top-bar .has-dropdown .back", function(t) {
-                t.preventDefault();
-                var r = e(this), i = r.closest(".top-bar"), s = i.find("section, .section"), o = r.closest("li.moved"), u = o.parent();
-                i.data("index", i.data("index") - 1), n.rtl ? (s.css({right: -(100 * i.data("index")) + "%"}), s.find(">.name").css({right: 100 * i.data("index") + "%"})) : (s.css({left: -(100 * i.data("index")) + "%"}), s.find(">.name").css({left: 100 * i.data("index") + "%"})), i.data("index") === 0 && i.css("min-height", 0), setTimeout(function() {
-                    o.removeClass("moved")
-                }, 300)
-            })
-        },breakpoint: function() {
-            return e(t).width() <= this.settings.breakPoint || e("html").hasClass("lt-ie9")
-        },assemble: function() {
-            var t = this;
-            this.settings.$section.detach(), this.settings.$section.find(".has-dropdown>a").each(function() {
-                var n = e(this), r = n.siblings(".dropdown"), i = e('<li class="title back js-generated"><h5><a href="#"></a></h5></li>');
-                t.settings
-                .custom_back_text == 1 ? i.find("h5>a").html("&laquo; " + t.settings.back_text) : i.find("h5>a").html("&laquo; " + n.html()), r.prepend(i)
-            }), this.settings.$section.appendTo(this.settings.$topbar), this.sticky()
-        },largestUL: function() {
-            var t = this.settings.$topbar.find("section ul ul"), n = t.first(), r = 0, i = this;
-            t.each(function() {
-                e(this).children("li").length > n.children("li").length && (n = e(this))
-            }), n.children("li").each(function() {
-                r += i.outerHeight(e(this), !0)
-            }), this.settings.$topbar.data("height", r)
-        },sticky: function() {
-            var n = "." + this.settings.stickyClass;
-            if (e(n).length > 0) {
-                var r = e(n).length ? e(n).offset().top : 0, i = e(t), s = this.outerHeight(e(".top-bar"));
-                i.scroll(function() {
-                    i.scrollTop() >= r ? (e(n).addClass("fixed"), e("body").css("padding-top", s)) : i.scrollTop() < r && (e(n).removeClass("fixed"), e("body").css("padding-top", "0"))
-                })
-            }
-        },off: function() {
-            e(this.scope).off(".fndtn.topbar"), e(t).off(".fndtn.topbar")
-        }}
-}(Foundation.zj, this, this.document), function(e) {
-    "use strict";
-    e.fn.extend({customSelect: function(t) {
-            if (typeof document.body.style.maxHeight == "undefined")
-                return this;
-            var n = {customClass: "customSelect",mapClass: !0,mapStyle: !0}, t = e.extend(n, t), r = t.customClass, i = function(t, n) {
-                var r = t.find(":selected"), i = n.children(":first"), o = r.html() || "&nbsp;";
-                i.html(o), r.attr("disabled") ? n.addClass(s("DisabledOption")) : n.removeClass(s("DisabledOption")), setTimeout(function() {
-                    n.removeClass(s("Open")), e(document).off("mouseup." + s("Open"))
-                }, 60)
-            }, s = function(e) {
-                return r + e
-            };
-            return this.each(function() {
-                var n = e(this), o = e("<span />").addClass(s("Inner")), u = e("<span />");
-                n.after(u.append(o)), u.addClass(r), t.mapClass && u.addClass(n.attr("class")), t.mapStyle && u.attr("style", n.attr("style")), n.addClass("hasCustomSelect").on("update", function() {
-                    i(n, u);
-                    var e = parseInt(n.outerWidth(), 10) - (parseInt(u.outerWidth(), 10) - parseInt(u.width(), 10));
-                    u.css({display: "inline-block"});
-                    var t = u.outerHeight();
-                    n.attr("disabled") ? u.addClass(s("Disabled")) : u.removeClass(s("Disabled")), o.css({width: e,display: "inline-block"}), n.css({"-webkit-appearance": "menulist-button",width: u.outerWidth(),position: "absolute",opacity: 0,height: t,fontSize: u.css("font-size")})
-                }).on("change", function() {
-                    u.addClass(s("Changed")), i(n, u)
-                }).on("keyup", function(e) {
-                    u.hasClass(s("Open")) ? (e.which == 13 || e.which == 27) && i(n, u) : (n.blur(), n.focus())
-                }).on("mousedown", function(e) {
-                    u.removeClass(s("Changed"))
-                }).on("mouseup", function(t) {
-                    u.hasClass(s("Open")) || (e("." + s("Open")).not(u).length > 0 && typeof InstallTrigger != "undefined" ? n.focus() : (u.addClass(s("Open")), t.stopPropagation(), e(document).one("mouseup." + s("Open"), function(t) {
-                        t.target != n.get(0) && e.inArray(t.target, n.find("*").get()) < 0 ? n.blur() : i(n, u)
-                    })))
-                }).focus(function() {
-                    u.removeClass(s("Changed")).addClass(s("Focus"))
-                }).blur(function() {
-                    u.removeClass(s("Focus") + " " + s("Open"))
-                }).hover(function() {
-                    u.addClass(s("Hover"))
-                }, function() {
-                    u.removeClass(s("Hover"))
-                }).trigger("update")
-            })
-        }})
-}(jQuery), function(e) {
-    e.fn.hoverIntent = function(t, n, r) {
-        var i = {interval: 100,sensitivity: 7,timeout: 0};
-        typeof t == "object" ? i = e.extend(i, t) : e.isFunction(n) ? i = e.extend(i, {over: t,out: n,selector: r}) : i = e.extend(i, {over: t,out: t,selector: n});
-        var s, o, u, a, f = function(e) {
-            s = e.pageX, o = e.pageY
-        }, l = function(t, n) {
-            n.hoverIntent_t = clearTimeout(n.hoverIntent_t);
-            if (Math.abs(u - s) + Math.abs(a - o) < i.sensitivity)
-                return e(n).off("mousemove.hoverIntent", f), n.hoverIntent_s = 1, i.over.apply(n, [t]);
-            u = s, a = o, n.hoverIntent_t = setTimeout(function() {
-                l(t, n)
-            }, i.interval)
-        }, c = function(e, t) {
-            return t.hoverIntent_t = clearTimeout(t.hoverIntent_t), t.hoverIntent_s = 0, i.out.apply(t, [e])
-        }, h = function(t) {
-            var n = jQuery.extend({}, t), r = this;
-            r.hoverIntent_t && (r.hoverIntent_t = clearTimeout(r.hoverIntent_t)), t.type == "mouseenter" ? (u = n.pageX, a = n.pageY, e(r).on("mousemove.hoverIntent", f), r.hoverIntent_s != 1 && (r.hoverIntent_t = setTimeout(function() {
-                l(n, r)
-            }, i.interval))) : (e(r).off("mousemove.hoverIntent", f), r.hoverIntent_s == 1 && (r.hoverIntent_t = setTimeout(function() {
-                c(n, r)
-            }, i.timeout)))
-        };
-        return this.on({"mouseenter.hoverIntent": h,"mouseleave.hoverIntent": h}, i.selector)
-    }
-}(jQuery), $(document).foundation(), $(document).foundation("reveal", {animationSpeed: 150}), function(e, t) {
-    function o(t) {
-        e.extend(!0, n, t)
-    }
-    function u(n, r, i) {
-        function M(e) {
-            d ? H() && (z(), q(e)) : _()
-        }
-        function _() {
-            v = r.theme ? "ui" : "fc", n.addClass("fc"), r.isRTL ? n.addClass("fc-rtl") : n.addClass("fc-ltr"), r.theme && n.addClass("ui-widget"), d = e("<div class='fc-content' style='position:relative'/>").prependTo(n), h = new a(o, r), p = h.render(), p && n.prepend(p), j(r.defaultView), r.handleWindowResize && e(window).resize(X), B() || D()
-        }
-        function D() {
-            setTimeout(function() {
-                !b.start && B() && I()
-            }, 0)
-        }
-        function P() {
-            b && (gt("viewDestroy", b, b, b.element), b.triggerEventDestroy()), e(window).unbind("resize", X), h.destroy(), d.remove(), n.removeClass("fc fc-rtl ui-widget")
-        }
-        function H() {
-            return n.is(":visible")
-        }
-        function B() {
-            return e("body").is(":visible")
-        }
-        function j(e) {
-            (!b || e != b.name) && F(e)
-        }
-        function F(t) {
-            T++, b && (gt("viewDestroy", b, b, b.element), it(), b.triggerEventDestroy(), pt(), b.element.remove(), h.deactivateButton(b.name)), h.activateButton(t), b = new s[t](e("<div class='fc-view fc-view-" + t + "' style='position:relative'/>").appendTo(d), o), I(), dt(), T--
-        }
-        function I(e) {
-            (!b.start || e || C < b.start || C >= b.end) && H() && q(e)
-        }
-        function q(e) {
-            T++, b.start && (gt("viewDestroy", b, b, b.element), it(), Q()), pt(), b.render(C, e || 0), W(), dt(), (b.afterRender || V)(), tt(), nt(), gt("viewRender", b, b, b.element), b.trigger("viewDisplay", l), T--, G()
-        }
-        function R() {
-            H() && (it(), Q(), z(), W(), K())
-        }
-        function z() {
-            r.contentHeight ? E = r.contentHeight : r.height ? E = r.height - (p ? p.height() : 0) - U(d) : E = Math.round(d.width() / Math.max(r.aspectRatio, .5))
-        }
-        function W() {
-            E === t && z(), T++, b.setHeight(E), b.setWidth(d.width()), T--, w = n.outerWidth()
-        }
-        function X() {
-            if (!T)
-                if (b.start) {
-                    var e = ++x;
-                    setTimeout(function() {
-                        e == x && !T && H() && w != (w = n.outerWidth()) && (T++, R(), b.trigger("windowResize", l), T--)
-                    }, 200)
-                } else
-                    D()
-        }
-        function $() {
-            Q(), Y()
-        }
-        function J(e) {
-            Q(), K(e)
-        }
-        function K(e) {
-            H() && (b.setEventData(k), b.renderEvents(k, e), b.trigger("eventAfterAllRender"))
-        }
-        function Q() {
-            b.triggerEventDestroy(), b.clearEvents(), b.clearEventData()
-        }
-        function G() {
-            !r.lazyFetching || u(b.visStart, b.visEnd) ? Y() : K()
-        }
-        function Y() {
-            f(b.visStart, b.visEnd)
-        }
-        function Z(e) {
-            k = e, K()
-        }
-        function et(e) {
-            J(e)
-        }
-        function tt() {
-            h.updateTitle(b.title)
-        }
-        function nt() {
-            var e = new Date;
-            e >= b.start && e < b.end ? h.disableButton("today") : h.enableButton("today")
-        }
-        function rt(e, n, r) {
-            b.select(e, n, r === t ? !0 : r)
-        }
-        function it() {
-            b && b.unselect()
-        }
-        function st() {
-            I(-1)
-        }
-        function ot() {
-            I(1)
-        }
-        function ut() {
-            m(C, -1), I()
-        }
-        function at() {
-            m(C, 1), I()
-        }
-        function ft() {
-            C = new Date, I()
-        }
-        function lt(e, t, n) {
-            e instanceof Date ? C = S(e) : N(C, e, t, n), I()
-        }
-        function ct(e, n, r) {
-            e !== t && m(C, e), n !== t && g(C, n), r !== t && y(C, r), I()
-        }
-        function ht() {
-            return S(C)
-        }
-        function pt() {
-            d.css({width: "100%",height: d.height(),overflow: "hidden"})
-        }
-        function dt() {
-            d.css({width: "",height: "",overflow: ""})
-        }
-        function vt() {
-            return b
-        }
-        function mt(e, n) {
-            if (n === t)
-                return r[e];
-            if (e == "height" || e == "contentHeight" || e == "aspectRatio")
-                r[e] = n, R()
-        }
-        function gt(e, t) {
-            if (r[e])
-                return r[e].apply(t || l, Array.prototype.slice.call(arguments, 2))
-        }
-        var o = this;
-        o.options = r, o.render = M, o.destroy = P, o.refetchEvents = $, o.reportEvents = Z, o.reportEventChange = et, o.rerenderEvents = J, o.changeView = j, o.select = rt, o.unselect = it, o.prev = st, o.next = ot, o.prevYear = ut, o.nextYear = at, o.today = ft, o.gotoDate = lt, o.incrementDate = ct, o.formatDate = function(e, t) {
-            return A(e, t, r)
-        }, o.formatDates = function(e, t, n) {
-            return O(e, t, n, r)
-        }, o.getDate = ht, o.getView = vt, o.option = mt, o.trigger = gt, c.call(o, r, i);
-        var u = o.isFetchNeeded, f = o.fetchEvents, l = n[0], h, p, d, v, b, w, E, x = 0, T = 0, C = new Date, k = [], L;
-        N(C, r.year, r.month, r.date), r.droppable && e(document).bind("dragstart", function(t, n) {
-            var i = t.target, s = e(i);
-            if (!s.parents(".fc").length) {
-                var o = r.dropAccept;
-                if (e.isFunction(o) ? o.call(i, s) : s.is(o))
-                    L = i, b.dragStart(L, t, n)
-            }
-        }).bind("dragstop", function(e, t) {
-            L && (b.dragStop(L, e, t), L = null)
-        })
-    }
-    function a(t, n) {
-        function u() {
-            o = n.theme ? "ui" : "fc";
-            var t = n.header;
-            if (t)
-                return i = e("<table class='fc-header' style='width:100%'/>").append(e("<tr/>").append(f("left")).append(f("center")).append(f("right"))), i
-        }
-        function a() {
-            i.remove()
-        }
-        function f(r) {
-            var i = e("<td class='fc-header-" + r + "'/>"), u = n.header[r];
-            return u && e.each(u.split(" "), function(r) {
-                r > 0 && i.append("<span class='fc-header-space'/>");
-                var u;
-                e.each(this.split(","), function(r, a) {
-                    if (a == "title")
-                        i.append("<span class='fc-header-title'><h2>&nbsp;</h2></span>"), u && u.addClass(o + "-corner-right"), u = null;
-                    else {
-                        var f;
-                        t[a] ? f = t[a] : s[a] && (f = function() {
-                            h.removeClass(o + "-state-hover"), t.changeView(a)
-                        });
-                        if (f) {
-                            var l = n.theme ? Q(n.buttonIcons, a) : null, c = Q(n.buttonText, a), h = e("<span class='fc-button fc-button-" + a + " " + o + "-state-default'>" + (l ? "<span class='fc-icon-wrap'><span class='ui-icon ui-icon-" + l + "'/>" + "</span>" : c) + "</span>").click(function() {
-                                h.hasClass(o + "-state-disabled") || f()
-                            }).mousedown(function() {
-                                h.not("." + o + "-state-active").not("." + o + "-state-disabled").addClass(o + "-state-down")
-                            }).mouseup(function() {
-                                h.removeClass(o + "-state-down")
-                            }).hover(function() {
-                                h.not("." + o + "-state-active").not("." + o + "-state-disabled").addClass(o + "-state-hover")
-                            }, function() {
-                                h.removeClass(o + "-state-hover").removeClass(o + "-state-down")
-                            }).appendTo(i);
-                            Y(h), u || h.addClass(o + "-corner-left"), u = h
-                        }
-                    }
-                }), u && u.addClass(o + "-corner-right")
-            }), i
-        }
-        function l(e) {
-            i.find("h2").html(e)
-        }
-        function c(e) {
-            i.find("span.fc-button-" + e).addClass(o + "-state-active")
-        }
-        function h(e) {
-            i.find("span.fc-button-" + e).removeClass(o + "-state-active")
-        }
-        function p(e) {
-            i.find("span.fc-button-" + e).addClass(o + "-state-disabled")
-        }
-        function d(e) {
-            i.find("span.fc-button-" + e).removeClass(o + "-state-disabled")
-        }
-        var r = this;
-        r.render = u, r.destroy = a, r.updateTitle = l, r.activateButton = c, r.deactivateButton = h, r.disableButton = p, r.enableButton = d;
-        var i = e([]), o
-    }
-    function c(n, r) {
-        function w(e, t) {
-            return !p || e < p || t > d
-        }
-        function E(e, t) {
-            p = e, d = t, y = [];
-            var n = ++v, r = h.length;
-            m = r;
-            for (var i = 0; i < r; i++)
-                x(h[i], n)
-        }
-        function x(t, r) {
-            T(t, function(i) {
-                if (r == v) {
-                    if (i) {
-                        n.eventDataTransform && (i = e.map(i, n.eventDataTransform)), t.eventDataTransform && (i = e.map(i, t.eventDataTransform));
-                        for (var s = 0; s < i.length; s++)
-                            i[s].source = t, H(i[s]);
-                        y = y.concat(i)
-                    }
-                    m--, m || a(y)
-                }
-            })
-        }
-        function T(t, r) {
-            var s, o = i.sourceFetchers, u;
-            for (s = 0; s < o.length; s++) {
-                u = o[s](t, p, d, r);
-                if (u === !0)
-                    return;
-                if (typeof u == "object") {
-                    T(u, r);
-                    return
-                }
-            }
-            var a = t.events;
-            if (a)
-                e.isFunction(a) ? (D(), a(S(p), S(d), function(e) {
-                    r(e), P()
-                })) : e.isArray(a) ? r(a) : r();
-            else {
-                var l = t.url;
-                if (l) {
-                    var c = t.success, h = t.error, v = t.complete, m;
-                    e.isFunction(t.data) ? m = t.data() : m = t.data;
-                    var g = e.extend({}, m || {}), y = rt(t.startParam, n.startParam), b = rt(t.endParam, n.endParam);
-                    y && (g[y] = Math.round(+p / 1e3)), b && (g[b] = Math.round(+d / 1e3)), D(), e.ajax(e.extend({}, f, t, {data: g,success: function(t) {
-                            t = t || [];
-                            var n = nt(c, this, arguments);
-                            e.isArray(n) && (t = n), r(t)
-                        },error: function() {
-                            nt(h, this, arguments), r()
-                        },complete: function() {
-                            nt(v, this, arguments), P()
-                        }}))
-                } else
-                    r()
-            }
-        }
-        function N(e) {
-            e = k(e), e && (m++, x(e, v))
-        }
-        function k(t) {
-            e.isFunction(t) || e.isArray(t) ? t = {events: t} : typeof t == "string" && (t = {url: t});
-            if (typeof t == "object")
-                return B(t), h.push(t), t
-        }
-        function L(t) {
-            h = e.grep(h, function(e) {
-                return !j(e, t)
-            }), y = e.grep(y, function(e) {
-                return !j(e.source, t)
-            }), a(y)
-        }
-        function A(e) {
-            var t, n = y.length, r, i = u().defaultEventEnd, s = e.start - e._start, o = e.end ? e.end - (e._end || i(e)) : 0;
-            for (t = 0; t < n; t++)
-                r = y[t], r._id == e._id && r != e && (r.start = new Date(+r.start + s), e.end ? r.end ? r.end = new Date(+r.end + o) : r.end = new Date(+i(r) + o) : r.end = null, r.title = e.title, r.url = e.url, r.allDay = e.allDay, r.className = e.className, r.editable = e.editable, r.color = e.color, r.backgroundColor = e.backgroundColor, r.borderColor = e.borderColor, r.textColor = e.textColor, H(r));
-            H(e), a(y)
-        }
-        function O(e, t) {
-            H(e), e.source || (t && (c.events.push(e), e.source = c), y.push(e)), a(y)
-        }
-        function M(t) {
-            if (!t) {
-                y = [];
-                for (var n = 0; n < h.length; n++)
-                    e.isArray(h[n].events) && (h[n].events = [])
-            } else {
-                if (!e.isFunction(t)) {
-                    var r = t + "";
-                    t = function(e) {
-                        return e._id == r
-                    }
-                }
-                y = e.grep(y, t, !0);
-                for (var n = 0; n < h.length; n++)
-                    e.isArray(h[n].events) && (h[n].events = e.grep(h[n].events, t, !0))
-            }
-            a(y)
-        }
-        function _(t) {
-            return e.isFunction(t) ? e.grep(y, t) : t ? (t += "", e.grep(y, function(e) {
-                return e._id == t
-            })) : y
-        }
-        function D() {
-            g++ || o("loading", null, !0, u())
-        }
-        function P() {
-            --g || o("loading", null, !1, u())
-        }
-        function H(e) {
-            var r = e.source || {}, i = rt(r.ignoreTimezone, n.ignoreTimezone);
-            e._id = e._id || (e.id === t ? "_fc" + l++ : e.id + ""), e.date && (e.start || (e.start = e.date), delete e.date), e._start = S(e.start = C(e.start, i)), e.end = C(e.end, i), e.end && e.end <= e.start && (e.end = null), e._end = e.end ? S(e.end) : null, e.allDay === t && (e.allDay = rt(r.allDayDefault, n.allDayDefault)), e.className ? typeof e.className == "string" && (e.className = e.className.split(/\s+/)) : e.className = []
-        }
-        function B(e) {
-            e.className ? typeof e.className == "string" && (e.className = e.className.split(/\s+/)) : e.className = [];
-            var t = i.sourceNormalizers;
-            for (var n = 0; n < t.length; n++)
-                t[n](e)
-        }
-        function j(e, t) {
-            return e && t && F(e) == F(t)
-        }
-        function F(e) {
-            return (typeof e == "object" ? e.events || e.url : "") || e
-        }
-        var s = this;
-        s.isFetchNeeded = w, s.fetchEvents = E, s.addEventSource = N, s.removeEventSource = L, s.updateEvent = A, s.renderEvent = O, s.removeEvents = M, s.clientEvents = _, s.normalizeEvent = H;
-        var o = s.trigger, u = s.getView, a = s.reportEvents, c = {events: []}, h = [c], p, d, v = 0, m = 0, g = 0, y = [];
-        for (var b = 0; b < r.length; b++)
-            k(r[b])
-    }
-    function m(e, t, n) {
-        return e.setFullYear(e.getFullYear() + t), n || E(e), e
-    }
-    function g(e, t, n) {
-        if (+e) {
-            var r = e.getMonth() + t, i = S(e);
-            i.setDate(1), i.setMonth(r), e.setMonth(r), n || E(e);
-            while (e.getMonth() != i.getMonth())
-                e.setDate(e.getDate() + (e < i ? 1 : -1))
-        }
-        return e
-    }
-    function y(e, t, n) {
-        if (+e) {
-            var r = e.getDate() + t, i = S(e);
-            i.setHours(9), i.setDate(r), e.setDate(r), n || E(e), b(e, i)
-        }
-        return e
-    }
-    function b(e, t) {
-        if (+e)
-            while (e.getDate() != t.getDate())
-                e.setTime(+e + (e < t ? 1 : -1) * d)
-    }
-    function w(e, t) {
-        return e.setMinutes(e.getMinutes() + t), e
-    }
-    function E(e) {
-        return e.setHours(0), e.setMinutes(0), e.setSeconds(0), e.setMilliseconds(0), e
-    }
-    function S(e, t) {
-        return t ? E(new Date(+e)) : new Date(+e)
-    }
-    function x() {
-        var e = 0, t;
-        do
-            t = new Date(1970, e++, 1);
-        while (t.getHours());
-        return t
-    }
-    function T(e, t) {
-        return Math.round((S(e, !0) - S(t, !0)) / p)
-    }
-    function N(e, n, r, i) {
-        n !== t && n != e.getFullYear() && (e.setDate(1), e.setMonth(0), e.setFullYear(n)), r !== t && r != e.getMonth() && (e.setDate(1), e.setMonth(r)), i !== t && e.setDate(i)
-    }
-    function C(e, n) {
-        return typeof e == "object" ? e : typeof e == "number" ? new Date(e * 1e3) : typeof e == "string" ? e.match(/^\d+(\.\d+)?$/) ? new Date(parseFloat(e) * 1e3) : (n === t && (n = !0), k(e, n) || (e ? new Date(e) : null)) : null
-    }
-    function k(e, t) {
-        var n = e.match(/^([0-9]{4})(-([0-9]{2})(-([0-9]{2})([T ]([0-9]{2}):([0-9]{2})(:([0-9]{2})(\.([0-9]+))?)?(Z|(([-+])([0-9]{2})(:?([0-9]{2}))?))?)?)?)?$/);
-        if (!n)
-            return null;
-        var r = new Date(n[1], 0, 1);
-        if (t || !n[13]) {
-            var i = new Date(n[1], 0, 1, 9, 0);
-            n[3] && (r.setMonth(n[3] - 1), i.setMonth(n[3] - 1)), n[5] && (r.setDate(n[5]), i.setDate(n[5])), b(r, i), n[7] && r.setHours(n[7]), n[8] && r.setMinutes(n[8]), n[10] && r.setSeconds(n[10]), n[12] && r.setMilliseconds(Number("0." + n[12]) * 1e3), b(r, i)
-        } else {
-            r.setUTCFullYear(n[1], n[3] ? n[3] - 1 : 0, n[5] || 1), r.setUTCHours(n[7] || 0, n[8] || 0, n[10] || 0, n[12] ? Number("0." + n[12]) * 1e3 : 0);
-            if (n[14]) {
-                var s = Number(n[16]) * 60 + (n[18] ? Number(n[18]) : 0);
-                s *= n[15] == "-" ? 1 : -1, r = new Date(+r + s * 60 * 1e3)
-            }
-        }
-        return r
-    }
-    function L(e) {
-        if (typeof e == "number")
-            return e * 60;
-        if (typeof e == "object")
-            return e.getHours() * 60 + e.getMinutes();
-        var t = e.match(/(\d+)(?::(\d+))?\s*(\w+)?/);
-        if (t) {
-            var n = parseInt(t[1], 10);
-            return t[3] && (n %= 12, t[3].toLowerCase().charAt(0) == "p" && (n += 12)), n * 60 + (t[2] ? parseInt(t[2], 10) : 0)
-        }
-    }
-    function A(e, t, n) {
-        return O(e, null, t, n)
-    }
-    function O(e, t, r, i) {
-        i = i || n;
-        var s = e, o = t, u, a = r.length, f, l, c, h = "";
-        for (u = 0; u < a; u++) {
-            f = r.charAt(u);
-            if (f == "'") {
-                for (l = u + 1; l < a; l++)
-                    if (r.charAt(l) == "'") {
-                        s && (l == u + 1 ? h += "'" : h += r.substring(u + 1, l), u = l);
-                        break
-                    }
-            } else if (f == "(") {
-                for (l = u + 1; l < a; l++)
-                    if (r.charAt(l) == ")") {
-                        var p = A(s, r.substring(u + 1, l), i);
-                        parseInt(p.replace(/\D/, ""), 10) && (h += p), u = l;
-                        break
-                    }
-            } else if (f == "[") {
-                for (l = u + 1; l < a; l++)
-                    if (r.charAt(l) == "]") {
-                        var d = r.substring(u + 1, l), p = A(s, d, i);
-                        p != A(o, d, i) && (h += p), u = l;
-                        break
-                    }
-            } else if (f == "{")
-                s = t, o = e;
-            else if (f == "}")
-                s = e, o = t;
-            else {
-                for (l = a; l > u; l--)
-                    if (c = M[r.substring(u, l)]) {
-                        s && (h += c(s, i)), u = l - 1;
-                        break
-                    }
-                l == u && s && (h += f)
-            }
-        }
-        return h
-    }
-    function _(e) {
-        var t, n = new Date(e.getTime());
-        return n.setDate(n.getDate() + 4 - (n.getDay() || 7)), t = n.getTime(), n.setMonth(0), n.setDate(1), Math.floor(Math.round((t - n) / 864e5) / 7) + 1
-    }
-    function D(e) {
-        return e.end ? P(e.end, e.allDay) : y(S(e.start), 1)
-    }
-    function P(e, t) {
-        return e = S(e), t || e.getHours() || e.getMinutes() ? y(e, 1) : E(e)
-    }
-    function H(n, r, i) {
-        n.unbind("mouseover").mouseover(function(n) {
-            var s = n.target, o, u, a;
-            while (s != this)
-                o = s, s = s.parentNode;
-            (u = o._fci) !== t && (o._fci = t, a = r[u], i(a.event, a.element, a), e(n.target).trigger(n)), n.stopPropagation()
-        })
-    }
-    function B(t, n, r) {
-        for (var i = 0, s; i < t.length; i++)
-            s = e(t[i]), s.width(Math.max(0, n - F(s, r)))
-    }
-    function j(t, n, r) {
-        for (var i = 0, s; i < t.length; i++)
-            s = e(t[i]), s.height(Math.max(0, n - U(s, r)))
-    }
-    function F(e, t) {
-        return I(e) + R(e) + (t ? q(e) : 0)
-    }
-    function I(t) {
-        return (parseFloat(e.css(t[0], "paddingLeft", !0)) || 0) + (parseFloat(e.css(t[0], "paddingRight", !0)) || 0)
-    }
-    function q(t) {
-        return (parseFloat(e.css(t[0], "marginLeft", !0)) || 0) + (parseFloat(e.css(t[0], "marginRight", !0)) || 0)
-    }
-    function R(t) {
-        return (parseFloat(e.css(t[0], "borderLeftWidth", !0)) || 0) + (parseFloat(e.css(t[0], "borderRightWidth", !0)) || 0)
-    }
-    function U(e, t) {
-        return z(e) + X(e) + (t ? W(e) : 0)
-    }
-    function z(t) {
-        return (parseFloat(e.css(t[0], "paddingTop", !0)) || 0) + (parseFloat(e.css(t[0], "paddingBottom", !0)) || 0)
-    }
-    function W(t) {
-        return (parseFloat(e.css(t[0], "marginTop", !0)) || 0) + (parseFloat(e.css(t[0], "marginBottom", !0)) || 0)
-    }
-    function X(t) {
-        return (parseFloat(e.css(t[0], "borderTopWidth", !0)) || 0) + (parseFloat(e.css(t[0], "borderBottomWidth", !0)) || 0)
-    }
-    function V() {
-    }
-    function $(e, t) {
-        return e - t
-    }
-    function J(e) {
-        return Math.max.apply(Math, e)
-    }
-    function K(e) {
-        return (e < 10 ? "0" : "") + e
-    }
-    function Q(e, n) {
-        if (e[n] !== t)
-            return e[n];
-        var r = n.split(/(?=[A-Z])/), i = r.length - 1, s;
-        for (; i >= 0; i--) {
-            s = e[r[i].toLowerCase()];
-            if (s !== t)
-                return s
-        }
-        return e[""]
-    }
-    function G(e) {
-        return e.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/'/g, "&#039;").replace(/"/g, "&quot;").replace(/\n/g, "<br />")
-    }
-    function Y(e) {
-        e.attr("unselectable", "on").css("MozUserSelect", "none").bind("selectstart.ui", function() {
-            return !1
-        })
-    }
-    function Z(e) {
-        e.children().removeClass("fc-first fc-last").filter(":first-child").addClass("fc-first").end().filter(":last-child").addClass("fc-last")
-    }
-    function et(e, t) {
-        e.each(function(e, n) {
-            n.className = n.className.replace(/^fc-\w*/, "fc-" + h[t.getDay()])
-        })
-    }
-    function tt(e, t) {
-        var n = e.source || {}, r = e.color, i = n.color, s = t("eventColor"), o = e.backgroundColor || r || n.backgroundColor || i || t("eventBackgroundColor") || s, u = e.borderColor || r || n.borderColor || i || t("eventBorderColor") || s, a = e.textColor || n.textColor || t("eventTextColor"), f = [];
-        return o && f.push("background-color:" + o), u && f.push("border-color:" + u), a && f.push("color:" + a), f.join(";")
-    }
-    function nt(t, n, r) {
-        e.isFunction(t) && (t = [t]);
-        if (t) {
-            var i, s;
-            for (i = 0; i < t.length; i++)
-                s = t[i].apply(n, r) || s;
-            return s
-        }
-    }
-    function rt() {
-        for (var e = 0; e < arguments.length; e++)
-            if (arguments[e] !== t)
-                return arguments[e]
-    }
-    function it(e, t) {
-        function a(e, t) {
-            t && (g(e, t), e.setDate(1));
-            var a = r("firstDay"), f = S(e, !0);
-            f.setDate(1);
-            var l = g(S(f), 1), c = S(f);
-            y(c, -((c.getDay() - a + 7) % 7)), s(c);
-            var h = S(l);
-            y(h, (7 - h.getDay() + a) % 7), s(h, -1, !0);
-            var p = o(), d = Math.round(T(h, c) / 7);
-            r("weekMode") == "fixed" && (y(h, (6 - d) * 7), d = 6), n.title = u(f, r("titleFormat")), n.start = f, n.end = l, n.visStart = c, n.visEnd = h, i(d, p, !0)
-        }
-        var n = this;
-        n.render = a, ut.call(n, e, t, "month");
-        var r = n.opt, i = n.renderBasic, s = n.skipHiddenDays, o = n.getCellsPerWeek, u = t.formatDate
-    }
-    function st(e, t) {
-        function a(e, t) {
-            t && y(e, t * 7);
-            var a = y(S(e), -((e.getDay() - r("firstDay") + 7) % 7)), f = y(S(a), 7), l = S(a);
-            s(l);
-            var c = S(f);
-            s(c, -1, !0);
-            var h = o();
-            n.start = a, n.end = f, n.visStart = l, n.visEnd = c, n.title = u(l, y(S(c), -1), r("titleFormat")), i(1, h, !1)
-        }
-        var n = this;
-        n.render = a, ut.call(n, e, t, "basicWeek");
-        var r = n.opt, i = n.renderBasic, s = n.skipHiddenDays, o = n.getCellsPerWeek, u = t.formatDates
-    }
-    function ot(e, t) {
-        function u(e, t) {
-            t && y(e, t), s(e, t < 0 ? -1 : 1);
-            var u = S(e, !0), a = y(S(u), 1);
-            n.title = o(e, r("titleFormat")), n.start = n.visStart = u, n.end = n.visEnd = a, i(1, 1, !1)
-        }
-        var n = this;
-        n.render = u, ut.call(n, e, t, "basicDay");
-        var r = n.opt, i = n.renderBasic, s = n.skipHiddenDays, o = t.formatDate
-    }
-    function ut(t, n, r) {
-        function $(e, t, n) {
-            D = e, P = t, H = n, J(), b || K(), Q()
-        }
-        function J() {
-            R = s("theme") ? "ui" : "fc", z = s("columnFormat"), W = s("weekNumbers"), X = s("weekNumberTitle"), s("weekNumberCalculation") != "iso" ? V = "w" : V = "W"
-        }
-        function K() {
-            L = e("<div class='fc-event-container' style='position:absolute;z-index:8;top:0;left:0'/>").appendTo(t)
-        }
-        function Q() {
-            var n = et();
-            v && v.remove(), v = e(n).appendTo(t), m = v.find("thead"), g = m.find(".fc-day-header"), b = v.find("tbody"), w = b.find("tr"), x = b.find(".fc-day"), T = w.find("td:first-child"), N = w.eq(0).find(".fc-day > div"), C = w.eq(0).find(".fc-day-content > div"), Z(m.add(m.find("tr"))), Z(w), w.eq(0).addClass("fc-first"), w.filter(":last").addClass("fc-last"), x.each(function(t, n) {
-                var r = l(Math.floor(t / P), t % P);
-                o("dayRender", i, r, e(n))
-            }), ot(x)
-        }
-        function et() {
-            var e = "<table class='fc-border-separate' style='width:100%' cellspacing='0'>" + tt() + nt() + "</table>";
-            return e
-        }
-        function tt() {
-            var e = R + "-widget-header", t = "", n, r;
-            t += "<thead><tr>", W && (t += "<th class='fc-week-number " + e + "'>" + G(X) + "</th>");
-            for (n = 0; n < P; n++)
-                r = l(0, n), t += "<th class='fc-day-header fc-" + h[r.getDay()] + " " + e + "'>" + G(d(r, z)) + "</th>";
-            return t += "</tr></thead>", t
-        }
-        function nt() {
-            var e = R + "-widget-content", t = "", n, r, i;
-            t += "<tbody>";
-            for (n = 0; n < D; n++) {
-                t += "<tr class='fc-week'>", W && (i = l(n, 0), t += "<td class='fc-week-number " + e + "'>" + "<div>" + G(d(i, V)) + "</div>" + "</td>");
-                for (r = 0; r < P; r++)
-                    i = l(n, r), t += rt(i);
-                t += "</tr>"
-            }
-            return t += "</tbody>", t
-        }
-        function rt(e) {
-            var t = R + "-widget-content", n = i.start.getMonth(), r = E(new Date), s = "", o = ["fc-day", "fc-" + h[e.getDay()], t];
-            return e.getMonth() != n && o.push("fc-other-month"), +e == +r ? o.push("fc-today", R + "-state-highlight") : e < r ? o.push("fc-past") : o.push("fc-future"), s += "<td class='" + o.join(" ") + "'" + " data-date='" + d(e, "yyyy-MM-dd") + "'" + ">" + "<div>", H && (s += "<div class='fc-day-number'>" + e.getDate() + "</div>"), s += "<div class='fc-day-content'><div style='position:relative'>&nbsp;</div></div></div></td>", s
-        }
-        function it(t) {
-            O = t;
-            var n = O - m.height(), r, i, o;
-            s("weekMode") == "variable" ? r = i = Math.floor(n / (D == 1 ? 2 : 6)) : (r = Math.floor(n / D), i = n - r * (D - 1)), T.each(function(t, n) {
-                t < D && (o = e(n), o.find("> div").css("min-height", (t == D - 1 ? i : r) - U(o)))
-            })
-        }
-        function st(e) {
-            A = e, I.clear(), q.clear(), _ = 0, W && (_ = m.find("th.fc-week-number").outerWidth()), M = Math.floor((A - _) / P), B(g.slice(0, -1), M)
-        }
-        function ot(e) {
-            e.click(ut).mousedown(f)
-        }
-        function ut(t) {
-            if (!s("selectable")) {
-                var n = k(e(this).data("date"));
-                o("dayClick", this, n, !0, t)
-            }
-        }
-        function ft(e, t, n) {
-            n && j.build();
-            var r = p(e, t);
-            for (var i = 0; i < r.length; i++) {
-                var s = r[i];
-                ot(lt(s.row, s.leftCol, s.row, s.rightCol))
-            }
-        }
-        function lt(e, n, r, i) {
-            var s = j.rect(e, n, r, i, t);
-            return u(s, t)
-        }
-        function ct(e, t) {
-            return S(e)
-        }
-        function ht(e, t, n) {
-            ft(e, y(S(t), 1), !0)
-        }
-        function pt() {
-            a()
-        }
-        function dt(e, t, n) {
-            var r = c(e), i = x[r.row * P + r.col];
-            o("dayClick", i, e, t, n)
-        }
-        function vt(e, t, n) {
-            F.start(function(e) {
-                a(), e && lt(e.row, e.col, e.row, e.col)
-            }, t)
-        }
-        function mt(e, t, n) {
-            var r = F.stop();
-            a();
-            if (r) {
-                var i = l(r);
-                o("drop", e, i, !0, t, n)
-            }
-        }
-        function gt(e) {
-            return S(e.start)
-        }
-        function yt(e) {
-            return I.left(e)
-        }
-        function bt(e) {
-            return I.right(e)
-        }
-        function wt(e) {
-            return q.left(e)
-        }
-        function Et(e) {
-            return q.right(e)
-        }
-        function St(e) {
-            return w.eq(e)
-        }
-        var i = this;
-        i.renderBasic = $, i.setHeight = it, i.setWidth = st, i.renderDayOverlay = ft, i.defaultSelectionEnd = ct, i.renderSelection = ht, i.clearSelection = pt, i.reportDayClick = dt, i.dragStart = vt, i.dragStop = mt, i.defaultEventEnd = gt, i.getHoverListener = function() {
-            return F
-        }, i.colLeft = yt, i.colRight = bt, i.colContentLeft = wt, i.colContentRight = Et, i.getIsCellAllDay = function() {
-            return !0
-        }, i.allDayRow = St, i.getRowCnt = function() {
-            return D
-        }, i.getColCnt = function() {
-            return P
-        }, i.getColWidth = function() {
-            return M
-        }, i.getDaySegmentContainer = function() {
-            return L
-        }, xt.call(i, t, n, r), At.call(i), Lt.call(i), at.call(i);
-        var s = i.opt, o = i.trigger, u = i.renderOverlay, a = i.clearOverlays, f = i.daySelectionMousedown, l = i.cellToDate, c = i.dateToCell, p = i.rangeToSegments, d = n.formatDate, v, m, g, b, w, x, T, N, C, L, A, O, M, _, D, P, H, j, F, I, q, R, z, W, X, V;
-        Y(t.addClass("fc-grid")), j = new Ot(function(t, n) {
-            var r, i, s;
-            g.each(function(t, o) {
-                r = e(o), i = r.offset().left, t && (s[1] = i), s = [i], n[t] = s
-            }), s[1] = i + r.outerWidth(), w.each(function(n, o) {
-                n < D && (r = e(o), i = r.offset().top, n && (s[1] = i), s = [i], t[n] = s)
-            }), s[1] = i + r.outerHeight()
-        }), F = new Mt(j), I = new Dt(function(e) {
-            return N.eq(e)
-        }), q = new Dt(function(e) {
-            return C.eq(e)
-        })
-    }
-    function at() {
-        function t(t, n) {
-            e.renderDayEvents(t, n)
-        }
-        function n() {
-            e.getDaySegmentContainer().empty()
-        }
-        var e = this;
-        e.renderEvents = t, e.clearEvents = n, Tt.call(e)
-    }
-    function ft(e, t) {
-        function a(e, t) {
-            t && y(e, t * 7);
-            var a = y(S(e), -((e.getDay() - r("firstDay") + 7) % 7)), f = y(S(a), 7), l = S(a);
-            s(l);
-            var c = S(f);
-            s(c, -1, !0);
-            var h = o();
-            n.title = u(l, y(S(c), -1), r("titleFormat")), n.start = a, n.end = f, n.visStart = l, n.visEnd = c, i(h)
-        }
-        var n = this;
-        n.render = a, ct.call(n, e, t, "agendaWeek");
-        var r = n.opt, i = n.renderAgenda, s = n.skipHiddenDays, o = n.getCellsPerWeek, u = t.formatDates
-    }
-    function lt(e, t) {
-        function u(e, t) {
-            t && y(e, t), s(e, t < 0 ? -1 : 1);
-            var u = S(e, !0), a = y(S(u), 1);
-            n.title = o(e, r("titleFormat")), n.start = n.visStart = u, n.end = n.visEnd = a, i(1)
-        }
-        var n = this;
-        n.render = u, ct.call(n, e, t, "agendaDay");
-        var r = n.opt, i = n.renderAgenda, s = n.skipHiddenDays, o = t.formatDate
-    }
-    function ct(n, r, i) {
-        function Et(e) {
-            st = e, St(), T ? Nt() : Tt()
-        }
-        function St() {
-            pt = o("theme") ? "ui" : "fc", dt = o("isRTL"), vt = L(o("minTime")), mt = L(o("maxTime")), gt = o("columnFormat"), yt = o("weekNumbers"), bt = o("weekNumberTitle"), o("weekNumberCalculation") != "iso" ? wt = "w" : wt = "W", nt = o("snapMinutes") || o("slotMinutes")
-        }
-        function Tt() {
-            var t = pt + "-widget-header", r = pt + "-widget-content", i, s, u, a, f, l = o("slotMinutes") % 15 == 0;
-            Nt(), P = e("<div style='position:absolute;z-index:2;left:0;width:100%'/>").appendTo(n), o("allDaySlot") ? (H = e("<div class='fc-event-container' style='position:absolute;z-index:8;top:0;left:0'/>").appendTo(P), i = "<table style='width:100%' class='fc-agenda-allday' cellspacing='0'><tr><th class='" + t + " fc-agenda-axis'>" + o("allDayText") + "</th>" + "<td>" + "<div class='fc-day-content'><div style='position:relative'/></div>" + "</td>" + "<th class='" + t + " fc-agenda-gutter'>&nbsp;</th>" + "</tr>" + "</table>", F = e(i).appendTo(P), I = F.find("tr"), Ft(I.find("td")), P.append("<div class='fc-agenda-divider " + t + "'>" + "<div class='fc-agenda-divider-inner'/>" + "</div>")) : H = e([]), q = e("<div style='position:absolute;width:100%;overflow-x:hidden;overflow-y:auto'/>").appendTo(P), R = e("<div style='position:relative;width:100%;overflow:hidden'/>").appendTo(q), z = e("<div class='fc-event-container' style='position:absolute;z-index:8;top:0;left:0'/>").appendTo(R), i = "<table class='fc-agenda-slots' style='width:100%' cellspacing='0'><tbody>", s = x(), a = w(S(s), mt), w(s, vt), ot = 0;
-            for (u = 0; s < a; u++)
-                f = s.getMinutes(), i += "<tr class='fc-slot" + u + " " + (f ? "fc-minor" : "") + "'>" + "<th class='fc-agenda-axis " + t + "'>" + (!l || !f ? b(s, o("axisFormat")) : "&nbsp;") + "</th>" + "<td class='" + r + "'>" + "<div style='position:relative'>&nbsp;</div>" + "</td>" + "</tr>", w(s, o("slotMinutes")), ot++;
-            i += "</tbody></table>", W = e(i).appendTo(R), It(W.find("td"))
-        }
-        function Nt() {
-            var t = Ct();
-            T && T.remove(), T = e(t).appendTo(n), N = T.find("thead"), C = N.find("th").slice(1, -1), k = T.find("tbody"), A = k.find("td").slice(0, -1), O = A.find("> div"), M = A.find(".fc-day-content > div"), _ = A.eq(0), D = O.eq(0), Z(N.add(N.find("tr"))), Z(k.add(k.find("tr")))
-        }
-        function Ct() {
-            var e = "<table style='width:100%' class='fc-agenda-days fc-border-separate' cellspacing='0'>" + kt() + _t() + "</table>";
-            return e
-        }
-        function kt() {
-            var e = pt + "-widget-header", t, n = "", r, i;
-            n += "<thead><tr>", yt ? (t = v(0, 0), r = b(t, wt), dt ? r += bt : r = bt + r, n += "<th class='fc-agenda-axis fc-week-number " + e + "'>" + G(r) + "</th>") : n += "<th class='fc-agenda-axis " + e + "'>&nbsp;</th>";
-            for (i = 0; i < st; i++)
-                t = v(0, i), n += "<th class='fc-" + h[t.getDay()] + " fc-col" + i + " " + e + "'>" + G(b(t, gt)) + "</th>";
-            return n += "<th class='fc-agenda-gutter " + e + "'>&nbsp;</th>" + "</tr>" + "</thead>", n
-        }
-        function _t() {
-            var e = pt + "-widget-header", t = pt + "-widget-content", n, r = E(new Date), i, s, o, u, a = "";
-            a += "<tbody><tr><th class='fc-agenda-axis " + e + "'>&nbsp;</th>", s = "";
-            for (i = 0; i < st; i++)
-                n = v(0, i), u = ["fc-col" + i, "fc-" + h[n.getDay()], t], +n == +r ? u.push(pt + "-state-highlight", "fc-today") : n < r ? u.push("fc-past") : u.push("fc-future"), o = "<td class='" + u.join(" ") + "'>" + "<div>" + "<div class='fc-day-content'>" + "<div style='position:relative'>&nbsp;</div>" + "</div>" + "</div>" + "</td>", s += o;
-            return a += s, a += "<td class='fc-agenda-gutter " + t + "'>&nbsp;</td>" + "</tr>" + "</tbody>", a
-        }
-        function Pt(e) {
-            e === t && (e = J), J = e, ct = {};
-            var n = k.position().top, r = q.position().top, i = Math.min(e - n, W.height() + r + 1);
-            D.height(i - U(_)), P.css("top", n), q.height(i - r - 1), tt = W.find("tr:first").height() + 1, rt = o("slotMinutes") / nt, it = tt / rt
-        }
-        function Ht(t) {
-            V = t, ft.clear(), lt.clear();
-            var n = N.find("th:first");
-            F && (n = n.add(F.find("th:first"))), n = n.add(W.find("th:first")), K = 0, B(n.width("").each(function(t, n) {
-                K = Math.max(K, e(n).outerWidth())
-            }), K);
-            var r = T.find(".fc-agenda-gutter");
-            F && (r = r.add(F.find("th.fc-agenda-gutter")));
-            var i = q[0].clientWidth;
-            et = q.width() - i, et ? (B(r, et), r.show().prev().removeClass("fc-last")) : r.hide().prev().addClass("fc-last"), Q = Math.floor((i - K) / st), B(C.slice(0, -1), Q)
-        }
-        function Bt() {
-            function r() {
-                q.scrollTop(n)
-            }
-            var e = x(), t = S(e);
-            t.setHours(o("firstHour"));
-            var n = Qt(e, t) + 1;
-            r(), setTimeout(r, 0)
-        }
-        function jt() {
-            Bt()
-        }
-        function Ft(e) {
-            e.click(qt).mousedown(p)
-        }
-        function It(e) {
-            e.click(qt).mousedown(rn)
-        }
-        function qt(e) {
-            if (!o("selectable")) {
-                var t = Math.min(st - 1, Math.floor((e.pageX - T.offset().left - K) / Q)), n = v(0, t), r = this.parentNode.className.match(/fc-slot(\d+)/);
-                if (r) {
-                    var i = parseInt(r[1]) * o("slotMinutes"), s = Math.floor(i / 60);
-                    n.setHours(s), n.setMinutes(i % 60 + vt), u("dayClick", A[t], n, !1, e)
-                } else
-                    u("dayClick", A[t], n, !0, e)
-            }
-        }
-        function Rt(e, t, n) {
-            n && ut.build();
-            var r = g(e, t);
-            for (var i = 0; i < r.length; i++) {
-                var s = r[i];
-                Ft(Ut(s.row, s.leftCol, s.row, s.rightCol))
-            }
-        }
-        function Ut(e, t, n, r) {
-            var i = ut.rect(e, t, n, r, P);
-            return a(i, P)
-        }
-        function zt(e, t) {
-            for (var n = 0; n < st; n++) {
-                var r = v(0, n), i = y(S(r), 1), s = new Date(Math.max(r, e)), o = new Date(Math.min(i, t));
-                if (s < o) {
-                    var u = ut.rect(0, n, 0, n, R), f = Qt(r, s), l = Qt(r, o);
-                    u.top = f, u.height = l - f, It(a(u, R))
-                }
-            }
-        }
-        function Wt(e) {
-            return ft.left(e)
-        }
-        function Xt(e) {
-            return lt.left(e)
-        }
-        function Vt(e) {
-            return ft.right(e)
-        }
-        function $t(e) {
-            return lt.right(e)
-        }
-        function Jt(e) {
-            return o("allDaySlot") && !e.row
-        }
-        function Kt(e) {
-            var t = v(0, e.col), n = e.row;
-            return o("allDaySlot") && n--, n >= 0 && w(t, vt + n * nt), t
-        }
-        function Qt(e, n) {
-            e = S(e, !0);
-            if (n < w(S(e), vt))
-                return 0;
-            if (n >= w(S(e), mt))
-                return W.height();
-            var r = o("slotMinutes"), i = n.getHours() * 60 + n.getMinutes() - vt, s = Math.floor(i / r), u = ct[s];
-            return u === t && (u = ct[s] = W.find("tr").eq(s).find("td div")[0].offsetTop), Math.max(0, Math.round(u - 1 + tt * (i % r / r)))
-        }
-        function Gt(e) {
-            return I
-        }
-        function Yt(e) {
-            var t = S(e.start);
-            return e.allDay ? t : w(t, o("defaultEventMinutes"))
-        }
-        function Zt(e, t) {
-            return t ? S(e) : w(S(e), o("slotMinutes"))
-        }
-        function en(e, t, n) {
-            n ? o("allDaySlot") && Rt(e, y(S(t), 1), !0) : tn(e, t)
-        }
-        function tn(t, n) {
-            var r = o("selectHelper");
-            ut.build();
-            if (r) {
-                var i = m(t).col;
-                if (i >= 0 && i < st) {
-                    var s = ut.rect(0, i, 0, i, R), u = Qt(t, t), a = Qt(t, n);
-                    if (a > u) {
-                        s.top = u, s.height = a - u, s.left += 2, s.width -= 5;
-                        if (e.isFunction(r)) {
-                            var f = r(t, n);
-                            f && (s.position = "absolute", X = e(f).css(s).appendTo(R))
-                        } else
-                            s.isStart = !0, s.isEnd = !0, X = e(d({title: "",start: t,end: n,className: ["fc-select-helper"],editable: !1}, s)), X.css("opacity", o("dragOpacity"));
-                        X && (It(X), R.append(X), B(X, s.width, !0), j(X, s.height, !0))
-                    }
-                }
-            } else
-                zt(t, n)
-        }
-        function nn() {
-            f(), X && (X.remove(), X = null)
-        }
-        function rn(t) {
-            if (t.which == 1 && o("selectable")) {
-                c(t);
-                var n;
-                at.start(function(e, t) {
-                    nn();
-                    if (e && e.col == t.col && !Jt(e)) {
-                        var r = Kt(t), i = Kt(e);
-                        n = [r, w(S(r), nt), i, w(S(i), nt)].sort($), tn(n[0], n[3])
-                    } else
-                        n = null
-                }, t), e(document).one("mouseup", function(e) {
-                    at.stop(), n && (+n[0] == +n[1] && sn(n[0], !1, e), l(n[0], n[3], !1, e))
-                })
-            }
-        }
-        function sn(e, t, n) {
-            u("dayClick", A[m(e).col], e, t, n)
-        }
-        function on(e, t, n) {
-            at.start(function(e) {
-                f();
-                if (e)
-                    if (Jt(e))
-                        Ut(e.row, e.col, e.row, e.col);
-                    else {
-                        var t = Kt(e), n = w(S(t), o("defaultEventMinutes"));
-                        zt(t, n)
-                    }
-            }, t)
-        }
-        function un(e, t, n) {
-            var r = at.stop();
-            f(), r && u("drop", e, Kt(r), Jt(r), t, n)
-        }
-        var s = this;
-        s.renderAgenda = Et, s.setWidth = Ht, s.setHeight = Pt, s.afterRender = jt, s.defaultEventEnd = Yt, s.timePosition = Qt, s.getIsCellAllDay = Jt, s.allDayRow = Gt, s.getCoordinateGrid = function() {
-            return ut
-        }, s.getHoverListener = function() {
-            return at
-        }, s.colLeft = Wt, s.colRight = Vt, s.colContentLeft = Xt, s.colContentRight = $t, s.getDaySegmentContainer = function() {
-            return H
-        }, s.getSlotSegmentContainer = function() {
-            return z
-        }, s.getMinMinute = function() {
-            return vt
-        }, s.getMaxMinute = function() {
-            return mt
-        }, s.getSlotContainer = function() {
-            return R
-        }, s.getRowCnt = function() {
-            return 1
-        }, s.getColCnt = function() {
-            return st
-        }, s.getColWidth = function() {
-            return Q
-        }, s.getSnapHeight = function() {
-            return it
-        }, s.getSnapMinutes = function() {
-            return nt
-        }, s.defaultSelectionEnd = Zt, s.renderDayOverlay = Rt, s.renderSelection = en, s.clearSelection = nn, s.reportDayClick = sn, s.dragStart = on, s.dragStop = un, xt.call(s, n, r, i), At.call(s), Lt.call(s), ht.call(s);
-        var o = s.opt, u = s.trigger, a = s.renderOverlay, f = s.clearOverlays, l = s.reportSelection, c = s.unselect, p = s.daySelectionMousedown, d = s.slotSegHtml, v = s.cellToDate, m = s.dateToCell, g = s.rangeToSegments, b = r.formatDate, T, N, C, k, A, O, M, _, D, P, H, F, I, q, R, z, W, X, V, J, K, Q, et, tt, nt, rt, it, st, ot, ut, at, ft, lt, ct = {}, pt, dt, vt, mt, gt, yt, bt, wt;
-        Y(n.addClass("fc-agenda")), ut = new Ot(function(t, n) {
-            function l(e) {
-                return Math.max(a, Math.min(f, e))
-            }
-            var r, i, s;
-            C.each(function(t, o) {
-                r = e(o), i = r.offset().left, t && (s[1] = i), s = [i], n[t] = s
-            }), s[1] = i + r.outerWidth(), o("allDaySlot") && (r = I, i = r.offset().top, t[0] = [i, i + r.outerHeight()]);
-            var u = R.offset().top, a = q.offset().top, f = a + q.outerHeight();
-            for (var c = 0; c < ot * rt; c++)
-                t.push([l(u + it * c), l(u + it * (c + 1))])
-        }), at = new Mt(ut
-        ), ft = new Dt(function(e) {
-            return O.eq(e)
-        }), lt = new Dt(function(e) {
-            return M.eq(e)
-        })
-    }
-    function ht() {
-        function V(e, t) {
-            var n, i = e.length, s = [], o = [];
-            for (n = 0; n < i; n++)
-                e[n].allDay ? s.push(e[n]) : o.push(e[n]);
-            r("allDaySlot") && (R(s, t), f()), Y(J(o), t)
-        }
-        function $() {
-            l().empty(), c().empty()
-        }
-        function J(t) {
-            var n = N(), r = d(), i = p(), s, o = e.map(t, Q), u, a, f, l, c = [];
-            for (u = 0; u < n; u++) {
-                s = x(0, u), w(s, r), l = K(t, o, s, w(S(s), i - r)), l = pt(l);
-                for (a = 0; a < l.length; a++)
-                    f = l[a], f.col = u, c.push(f)
-            }
-            return c
-        }
-        function K(e, t, n, r) {
-            var i = [], s, o = e.length, u, a, f, l, c, h, p;
-            for (s = 0; s < o; s++)
-                u = e[s], a = u.start, f = t[s], f > n && a < r && (a < n ? (l = S(n), h = !1) : (l = a, h = !0), f > r ? (c = S(r), p = !1) : (c = f, p = !0), i.push({event: u,start: l,end: c,isStart: h,isEnd: p}));
-            return i.sort(St)
-        }
-        function Q(e) {
-            return e.end ? S(e.end) : w(S(e.start), r("defaultEventMinutes"))
-        }
-        function Y(n, s) {
-            var o, u = n.length, a, f, l, h, p, d, v, g, y, w, S = "", x, T, N, C, k, L = c(), A = r("isRTL");
-            for (o = 0; o < u; o++)
-                a = n[o], f = a.event, l = m(a.start, a.start), h = m(a.start, a.end), p = b(a.col), d = E(a.col), v = d - p, d -= v * .025, v = d - p, g = v * (a.forwardCoord - a.backwardCoord), r("slotEventOverlap") && (g = Math.max((g - 10) * 2, g)), A ? (w = d - a.backwardCoord * v, y = w - g) : (y = p + a.backwardCoord * v, w = y + g), y = Math.max(y, p), w = Math.min(w, d), g = w - y, a.top = l, a.left = y, a.outerWidth = g, a.outerHeight = h - l, S += Z(f, a);
-            L[0].innerHTML = S, x = L.children();
-            for (o = 0; o < u; o++)
-                a = n[o], f = a.event, T = e(x[o]), N = i("eventRender", f, f, T), N === !1 ? T.remove() : (N && N !== !0 && (T.remove(), T = e(N).css({position: "absolute",top: a.top,left: a.left}).appendTo(L)), a.element = T, f._id === s ? et(f, T, a) : T[0]._fci = o, O(f, T));
-            H(L, n, et);
-            for (o = 0; o < u; o++) {
-                a = n[o];
-                if (T = a.element)
-                    a.vsides = U(T, !0), a.hsides = F(T, !0), C = T.find(".fc-event-title"), C.length && (a.contentTop = C[0].offsetTop)
-            }
-            for (o = 0; o < u; o++) {
-                a = n[o];
-                if (T = a.element)
-                    T[0].style.width = Math.max(0, a.outerWidth - a.hsides) + "px", k = Math.max(0, a.outerHeight - a.vsides), T[0].style.height = k + "px", f = a.event, a.contentTop !== t && k - a.contentTop < 10 && (T.find("div.fc-event-time").text(W(f.start, r("timeFormat")) + " - " + f.title), T.find("div.fc-event-title").remove()), i("eventAfterRender", f, f, T)
-            }
-        }
-        function Z(e, t) {
-            var n = "<", i = e.url, u = tt(e, r), a = ["fc-event", "fc-event-vert"];
-            return s(e) && a.push("fc-event-draggable"), t.isStart && a.push("fc-event-start"), t.isEnd && a.push("fc-event-end"), a = a.concat(e.className), e.source && (a = a.concat(e.source.className || [])), i ? n += "a href='" + G(e.url) + "'" : n += "div", n += " class='" + a.join(" ") + "'" + " style=" + "'" + "position:absolute;" + "top:" + t.top + "px;" + "left:" + t.left + "px;" + u + "'" + ">" + "<div class='fc-event-inner'>" + "<div class='fc-event-time'>" + G(X(e.start, e.end, r("timeFormat"))) + "</div>" + "<div class='fc-event-title'>" + G(e.title || "") + "</div>" + "</div>" + "<div class='fc-event-bg'></div>", t.isEnd && o(e) && (n += "<div class='ui-resizable-handle ui-resizable-s'>=</div>"), n += "</" + (i ? "a" : "div") + ">", n
-        }
-        function et(e, t, n) {
-            var r = t.find("div.fc-event-time");
-            s(e) && rt(e, t, r), n.isEnd && o(e) && it(e, t, r), a(e, t)
-        }
-        function nt(e, t, n) {
-            function b() {
-                a || (t.width(o).height("").draggable("option", "grid", null), a = !0)
-            }
-            var s = n.isStart, o, u, a = !0, f, l = h(), c = C(), p = k(), m = L(), g = d();
-            t.draggable({opacity: r("dragOpacity", "month"),revertDuration: r("dragRevertDuration"),start: function(n, h) {
-                    i("eventDragStart", t, e, n, h), _(e, t), o = t.width(), l.start(function(n, i) {
-                        q();
-                        if (n) {
-                            u = !1;
-                            var o = x(0, i.col), l = x(0, n.col);
-                            f = T(l, o), n.row ? s ? a && (t.width(c - 10), j(t, p * Math.round((e.end ? (e.end - e.start) / v : r("defaultEventMinutes")) / m)), t.draggable("option", "grid", [c, 1]), a = !1) : u = !0 : (I(y(S(e.start), f), y(D(e), f)), b()), u = u || a && !f
-                        } else
-                            b(), u = !0;
-                        t.draggable("option", "revert", u)
-                    }, n, "drag")
-                },stop: function(n, r) {
-                    l.stop(), q(), i("eventDragStop", t, e, n, r);
-                    if (u)
-                        b(), t.css("filter", ""), M(e, t);
-                    else {
-                        var s = 0;
-                        a || (s = Math.round((t.offset().top - A().offset().top) / p) * m + g - (e.start.getHours() * 60 + e.start.getMinutes())), P(this, e, f, s, a, n, r)
-                    }
-                }})
-        }
-        function rt(e, t, s) {
-            function B() {
-                q(), p && (v ? (s.hide(), t.draggable("option", "grid", null), I(y(S(e.start), A), y(D(e), A))) : (j(O), s.css("display", ""), t.draggable("option", "grid", [a, f])))
-            }
-            function j(t) {
-                var n = w(S(e.start), t), i;
-                e.end && (i = w(S(e.end), t)), s.text(X(n, i, r("timeFormat")))
-            }
-            var o = n.getCoordinateGrid(), u = N(), a = C(), f = k(), l = L(), c, h, p, d, v, m, b, E, A, O, H;
-            t.draggable({scroll: !1,grid: [a, f],axis: u == 1 ? "y" : !1,opacity: r("dragOpacity"),revertDuration: r("dragRevertDuration"),start: function(n, r) {
-                    i("eventDragStart", t, e, n, r), _(e, t), o.build(), c = t.position(), h = o.cell(n.pageX, n.pageY), p = d = !0, v = m = g(h), b = E = 0, A = 0, O = H = 0
-                },drag: function(e, n) {
-                    var r = o.cell(e.pageX, e.pageY);
-                    p = !!r;
-                    if (p) {
-                        v = g(r), b = Math.round((n.position.left - c.left) / a);
-                        if (b != E) {
-                            var i = x(0, h.col), s = h.col + b;
-                            s = Math.max(0, s), s = Math.min(u - 1, s);
-                            var y = x(0, s);
-                            A = T(y, i)
-                        }
-                        v || (O = Math.round((n.position.top - c.top) / f) * l)
-                    }
-                    if (p != d || v != m || b != E || O != H)
-                        B(), d = p, m = v, E = b, H = O;
-                    t.draggable("option", "revert", !p)
-                },stop: function(n, r) {
-                    q(), i("eventDragStop", t, e, n, r), p && (v || A || O) ? P(this, e, A, v ? 0 : O, v, n, r) : (p = !0, v = !1, b = 0, A = 0, O = 0, B(), t.css("filter", ""), t.css(c), M(e, t))
-                }})
-        }
-        function it(e, t, n) {
-            var s, o, a = k(), f = L();
-            t.resizable({handles: {s: ".ui-resizable-handle"},grid: a,start: function(n, r) {
-                    s = o = 0, _(e, t), i("eventResizeStart", this, e, n, r)
-                },resize: function(i, l) {
-                    s = Math.round((Math.max(a, t.height()) - l.originalSize.height) / a), s != o && (n.text(X(e.start, !s && !e.end ? null : w(u(e), f * s), r("timeFormat"))), o = s)
-                },stop: function(n, r) {
-                    i("eventResizeStop", this, e, n, r), s ? B(this, e, 0, f * s, n, r) : M(e, t)
-                }})
-        }
-        var n = this;
-        n.renderEvents = V, n.clearEvents = $, n.slotSegHtml = Z, Tt.call(n);
-        var r = n.opt, i = n.trigger, s = n.isEventDraggable, o = n.isEventResizable, u = n.eventEnd, a = n.eventElementHandlers, f = n.setHeight, l = n.getDaySegmentContainer, c = n.getSlotSegmentContainer, h = n.getHoverListener, p = n.getMaxMinute, d = n.getMinMinute, m = n.timePosition, g = n.getIsCellAllDay, b = n.colContentLeft, E = n.colContentRight, x = n.cellToDate, N = n.getColCnt, C = n.getColWidth, k = n.getSnapHeight, L = n.getSnapMinutes, A = n.getSlotContainer, O = n.reportEventElement, M = n.showEvents, _ = n.hideEvents, P = n.eventDrop, B = n.eventResize, I = n.renderDayOverlay, q = n.clearOverlays, R = n.renderDayEvents, z = n.calendar, W = z.formatDate, X = z.formatDates;
-        n.draggableDayEvent = nt
-    }
-    function pt(e) {
-        var t = dt(e), n = t[0], r;
-        vt(t);
-        if (n) {
-            for (r = 0; r < n.length; r++)
-                mt(n[r]);
-            for (r = 0; r < n.length; r++)
-                gt(n[r], 0, 0)
-        }
-        return yt(t)
-    }
-    function dt(e) {
-        var t = [], n, r, i;
-        for (n = 0; n < e.length; n++) {
-            r = e[n];
-            for (i = 0; i < t.length; i++)
-                if (!bt(r, t[i]).length)
-                    break;
-            (t[i] || (t[i] = [])).push(r)
-        }
-        return t
-    }
-    function vt(e) {
-        var t, n, r, i, s;
-        for (t = 0; t < e.length; t++) {
-            n = e[t];
-            for (r = 0; r < n.length; r++) {
-                i = n[r], i.forwardSegs = [];
-                for (s = t + 1; s < e.length; s++)
-                    bt(i, e[s], i.forwardSegs)
-            }
-        }
-    }
-    function mt(e) {
-        var n = e.forwardSegs, r = 0, i, s;
-        if (e.forwardPressure === t) {
-            for (i = 0; i < n.length; i++)
-                s = n[i], mt(s), r = Math.max(r, 1 + s.forwardPressure);
-            e.forwardPressure = r
-        }
-    }
-    function gt(e, n, r) {
-        var i = e.forwardSegs, s;
-        if (e.forwardCoord === t) {
-            i.length ? (i.sort(Et), gt(i[0], n + 1, r), e.forwardCoord = i[0].backwardCoord) : e.forwardCoord = 1, e.backwardCoord = e.forwardCoord - (e.forwardCoord - r) / (n + 1);
-            for (s = 0; s < i.length; s++)
-                gt(i[s], 0, e.forwardCoord)
-        }
-    }
-    function yt(e) {
-        var t = [], n, r, i;
-        for (n = 0; n < e.length; n++) {
-            r = e[n];
-            for (i = 0; i < r.length; i++)
-                t.push(r[i])
-        }
-        return t
-    }
-    function bt(e, t, n) {
-        n = n || [];
-        for (var r = 0; r < t.length; r++)
-            wt(e, t[r]) && n.push(t[r]);
-        return n
-    }
-    function wt(e, t) {
-        return e.end > t.start && e.start < t.end
-    }
-    function Et(e, t) {
-        return t.forwardPressure - e.forwardPressure || (e.backwardCoord || 0) - (t.backwardCoord || 0) || St(e, t)
-    }
-    function St(e, t) {
-        return e.start - t.start || t.end - t.start - (e.end - e.start) || (e.event.title || "").localeCompare(t.event.title)
-    }
-    function xt(n, r, i) {
-        function p(t, n) {
-            var r = h[t];
-            return e.isPlainObject(r) ? Q(r, n || i) : r
-        }
-        function d(e, t) {
-            return r.trigger.apply(r, [e, t || s].concat(Array.prototype.slice.call(arguments, 2), [s]))
-        }
-        function v(e) {
-            var t = e.source || {};
-            return rt(e.startEditable, t.startEditable, p("eventStartEditable"), e.editable, t.editable, p("editable")) && !p("disableDragging")
-        }
-        function m(e) {
-            var t = e.source || {};
-            return rt(e.durationEditable, t.durationEditable, p("eventDurationEditable"), e.editable, t.editable, p("editable")) && !p("disableResizing")
-        }
-        function g(e) {
-            f = {};
-            var t, n = e.length, r;
-            for (t = 0; t < n; t++)
-                r = e[t], f[r._id] ? f[r._id].push(r) : f[r._id] = [r]
-        }
-        function b() {
-            f = {}, l = {}, c = []
-        }
-        function E(e) {
-            return e.end ? S(e.end) : o(e)
-        }
-        function x(e, t) {
-            c.push({event: e,element: t}), l[e._id] ? l[e._id].push(t) : l[e._id] = [t]
-        }
-        function N() {
-            e.each(c, function(e, t) {
-                s.trigger("eventDestroy", t.event, t.event, t.element)
-            })
-        }
-        function C(e, t) {
-            t.click(function(n) {
-                if (!t.hasClass("ui-draggable-dragging") && !t.hasClass("ui-resizable-resizing"))
-                    return d("eventClick", this, e, n)
-            }).hover(function(t) {
-                d("eventMouseover", this, e, t)
-            }, function(t) {
-                d("eventMouseout", this, e, t)
-            })
-        }
-        function k(e, t) {
-            A(e, t, "show")
-        }
-        function L(e, t) {
-            A(e, t, "hide")
-        }
-        function A(e, t, n) {
-            var r = l[e._id], i, s = r.length;
-            for (i = 0; i < s; i++)
-                (!t || r[i][0] != t[0]) && r[i][n]()
-        }
-        function O(e, t, n, r, i, s, o) {
-            var u = t.allDay, l = t._id;
-            _(f[l], n, r, i), d("eventDrop", e, t, n, r, i, function() {
-                _(f[l], -n, -r, u), a(l)
-            }, s, o), a(l)
-        }
-        function M(e, t, n, r, i, s) {
-            var o = t._id;
-            D(f[o], n, r), d("eventResize", e, t, n, r, function() {
-                D(f[o], -n, -r), a(o)
-            }, i, s), a(o)
-        }
-        function _(e, n, r, i) {
-            r = r || 0;
-            for (var s, o = e.length, a = 0; a < o; a++)
-                s = e[a], i !== t && (s.allDay = i), w(y(s.start, n, !0), r), s.end && (s.end = w(y(s.end, n, !0), r)), u(s, h)
-        }
-        function D(e, t, n) {
-            n = n || 0;
-            for (var r, i = e.length, s = 0; s < i; s++)
-                r = e[s], r.end = w(y(E(r), t, !0), n), u(r, h)
-        }
-        function q(e) {
-            return typeof e == "object" && (e = e.getDay()), H[e]
-        }
-        function R() {
-            return B
-        }
-        function U(e, t, n) {
-            t = t || 1;
-            while (H[(e.getDay() + (n ? t : 0) + 7) % 7])
-                y(e, t)
-        }
-        function z() {
-            var e = W.apply(null, arguments), t = X(e), n = V(t);
-            return n
-        }
-        function W(e, t) {
-            var n = s.getColCnt(), r = I ? -1 : 1, i = I ? n - 1 : 0;
-            typeof e == "object" && (t = e.col, e = e.row);
-            var o = e * n + (t * r + i);
-            return o
-        }
-        function X(e) {
-            var t = s.visStart.getDay();
-            return e += j[t], Math.floor(e / B) * 7 + F[(e % B + B) % B] - t
-        }
-        function V(e) {
-            var t = S(s.visStart);
-            return y(t, e), t
-        }
-        function $(e) {
-            var t = J(e), n = K(t), r = G(n);
-            return r
-        }
-        function J(e) {
-            return T(e, s.visStart)
-        }
-        function K(e) {
-            var t = s.visStart.getDay();
-            return e += t, Math.floor(e / 7) * B + j[(e % 7 + 7) % 7] - j[t]
-        }
-        function G(e) {
-            var t = s.getColCnt(), n = I ? -1 : 1, r = I ? t - 1 : 0, i = Math.floor(e / t), o = (e % t + t) % t * n + r;
-            return {row: i,col: o}
-        }
-        function Y(e, t) {
-            var n = s.getRowCnt(), r = s.getColCnt(), i = [], o = J(e), u = J(t), a = K(o), f = K(u) - 1;
-            for (var l = 0; l < n; l++) {
-                var c = l * r, h = c + r - 1, p = Math.max(a, c), d = Math.min(f, h);
-                if (p <= d) {
-                    var v = G(p), m = G(d), g = [v.col, m.col].sort(), y = X(p) == o, b = X(d) + 1 == u;
-                    i.push({row: l,leftCol: g[0],rightCol: g[1],isStart: y,isEnd: b})
-                }
-            }
-            return i
-        }
-        var s = this;
-        s.element = n, s.calendar = r, s.name = i, s.opt = p, s.trigger = d, s.isEventDraggable = v, s.isEventResizable = m, s.setEventData = g, s.clearEventData = b, s.eventEnd = E, s.reportEventElement = x, s.triggerEventDestroy = N, s.eventElementHandlers = C, s.showEvents = k, s.hideEvents = L, s.eventDrop = O, s.eventResize = M;
-        var o = s.defaultEventEnd, u = r.normalizeEvent, a = r.reportEventChange, f = {}, l = {}, c = [], h = r.options;
-        s.isHiddenDay = q, s.skipHiddenDays = U, s.getCellsPerWeek = R, s.dateToCell = $, s.dateToDayOffset = J, s.dayOffsetToCellOffset = K, s.cellOffsetToCell = G, s.cellToDate = z, s.cellToCellOffset = W, s.cellOffsetToDayOffset = X, s.dayOffsetToDate = V, s.rangeToSegments = Y;
-        var P = p("hiddenDays") || [], H = [], B, j = [], F = [], I = p("isRTL");
-        (function() {
-            p("weekends") === !1 && P.push(0, 6);
-            for (var t = 0, n = 0; t < 7; t++)
-                j[t] = n, H[t] = e.inArray(t, P) != -1, H[t] || (F[n] = t, n++);
-            B = n;
-            if (!B)
-                throw "invalid hiddenDays"
-        })()
-    }
-    function Tt() {
-        function q(e, t) {
-            var n = U(e, !1, !0);
-            Ct(n, function(e, t) {
-                u(e.event, t)
-            }), st(n, t), Ct(n, function(e, t) {
-                r("eventAfterRender", e.event, e.event, t)
-            })
-        }
-        function R(e, t, n) {
-            var r = U([e], !0, !1), i = [];
-            return Ct(r, function(e, r) {
-                e.row === t && r.css("top", n), i.push(r[0])
-            }), i
-        }
-        function U(t, n, r) {
-            var i = N(), s = n ? e("<div/>") : i, o = z(t), u, a;
-            return X(o), u = V(o), s[0].innerHTML = u, a = s.children(), n && i.append(a), K(o, a), Ct(o, function(e, t) {
-                e.hsides = F(t, !0)
-            }), Ct(o, function(e, t) {
-                t.width(Math.max(0, e.outerWidth - e.hsides))
-            }), Ct(o, function(e, t) {
-                e.outerHeight = t.outerHeight(!0)
-            }), Q(o, r), o
-        }
-        function z(e) {
-            var t = [];
-            for (var n = 0; n < e.length; n++) {
-                var r = W(e[n]);
-                t.push.apply(t, r)
-            }
-            return t
-        }
-        function W(e) {
-            var t = e.start, n = D(e), r = M(t, n);
-            for (var i = 0; i < r.length; i++)
-                r[i].event = e;
-            return r
-        }
-        function X(e) {
-            var t = n("isRTL");
-            for (var r = 0; r < e.length; r++) {
-                var i = e[r], s = (t ? i.isEnd : i.isStart) ? w : g, o = (t ? i.isStart : i.isEnd) ? E : b, u = s(i.leftCol), a = o(i.rightCol);
-                i.left = u, i.outerWidth = a - u
-            }
-        }
-        function V(e) {
-            var t = "";
-            for (var n = 0; n < e.length; n++)
-                t += $(e[n]);
-            return t
-        }
-        function $(e) {
-            var t = "", r = n("isRTL"), o = e.event, u = o.url, a = ["fc-event", "fc-event-hori"];
-            i(o) && a.push("fc-event-draggable"), e.isStart && a.push("fc-event-start"), e.isEnd && a.push("fc-event-end"), a = a.concat(o.className), o.source && (a = a.concat(o.source.className || []));
-            var f = tt(o, n);
-            return u ? t += "<a href='" + G(u) + "'" : t += "<div", t += " class='" + a.join(" ") + "'" + " style=" + "'" + "position:absolute;" + "left:" + e.left + "px;" + f + "'" + ">" + "<div class='fc-event-inner'>", !o.allDay && e.isStart && (t += "<span class='fc-event-time'>" + G(C(o.start, o.end, n("timeFormat"))) + "</span>"), t += "<span class='fc-event-title'>" + G(o.title || "") + "</span>" + "</div>", e.isEnd && s(o) && (t += "<div class='ui-resizable-handle ui-resizable-" + (r ? "w" : "e") + "'>" + "&nbsp;&nbsp;&nbsp;" + "</div>"), t += "</" + (u ? "a" : "div") + ">", t
-        }
-        function K(t, n) {
-            for (var i = 0; i < t.length; i++) {
-                var s = t[i], o = s.event, u = n.eq(i), a = r("eventRender", o, o, u);
-                a === !1 ? u.remove() : (a && a !== !0 && (a = e(a).css({position: "absolute",left: s.left}), u.replaceWith(a), u = a), s.element = u)
-            }
-        }
-        function Q(e, t) {
-            var n = Z(e), r = it(), i = [];
-            if (t)
-                for (var s = 0; s < r.length; s++)
-                    r[s].height(n[s]);
-            for (var s = 0; s < r.length; s++)
-                i.push(r[s].position().top);
-            Ct(e, function(e, t) {
-                t.css("top", i[e.row] + e.top)
-            })
-        }
-        function Z(e) {
-            var t = p(), n = d(), r = [], i = et(e);
-            for (var s = 0; s < t; s++) {
-                var o = i[s], u = [];
-                for (var a = 0; a < n; a++)
-                    u.push(0);
-                for (var f = 0; f < o.length; f++) {
-                    var l = o[f];
-                    l.top = J(u.slice(l.leftCol, l.rightCol + 1));
-                    for (var a = l.leftCol; a <= l.rightCol; a++)
-                        u[a] = l.top + l.outerHeight
-                }
-                r.push(J(u))
-            }
-            return r
-        }
-        function et(e) {
-            var t = p(), n = [], r, i, s;
-            for (r = 0; r < e.length; r++)
-                i = e[r], s = i.row, i.element && (n[s] ? n[s].push(i) : n[s] = [i]);
-            for (s = 0; s < t; s++)
-                n[s] = nt(n[s] || []);
-            return n
-        }
-        function nt(e) {
-            var t = [], n = rt(e);
-            for (var r = 0; r < n.length; r++)
-                t.push.apply(t, n[r]);
-            return t
-        }
-        function rt(e) {
-            e.sort(kt);
-            var t = [];
-            for (var n = 0; n < e.length; n++) {
-                var r = e[n];
-                for (var i = 0; i < t.length; i++)
-                    if (!Nt(r, t[i]))
-                        break;
-                t[i] ? t[i].push(r) : t[i] = [r]
-            }
-            return t
-        }
-        function it() {
-            var e, t = p(), n = [];
-            for (e = 0; e < t; e++)
-                n[e] = m(e).find("div.fc-day-content > div");
-            return n
-        }
-        function st(e, t) {
-            var n = N();
-            Ct(e, function(e, n, r) {
-                var i = e.event;
-                i._id === t ? ot(i, n, e) : n[0]._fci = r
-            }), H(n, e, ot)
-        }
-        function ot(e, n, r) {
-            i(e) && t.draggableDayEvent(e, n, r), r.isEnd && s(e) && t.resizableDayEvent(e, n, r), a(e, n)
-        }
-        function ut(e, t) {
-            var i = O(), s;
-            t.draggable({delay: 50,opacity: n("dragOpacity"),revertDuration: n("dragRevertDuration"),start: function(n, o) {
-                    r("eventDragStart", t, e, n, o), l(e, t), i.start(function(n, r, i, o) {
-                        t.draggable("option", "revert", !n || !i && !o), L();
-                        if (n) {
-                            var u = _(r), a = _(n);
-                            s = T(a, u), k(y(S(e.start), s), y(D(e), s))
-                        } else
-                            s = 0
-                    }, n, "drag")
-                },stop: function(n, o) {
-                    i.stop(), L(), r("eventDragStop", t, e, n, o), s ? c(this, e, s, 0, e.allDay, n, o) : (t.css("filter", ""), f(e, t))
-                }})
-        }
-        function at(t, i, s) {
-            var u = n("isRTL"), a = u ? "w" : "e", c = i.find(".ui-resizable-" + a), v = !1;
-            Y(i), i.mousedown(function(e) {
-                e.preventDefault()
-            }).click(function(e) {
-                v && (e.preventDefault(), e.stopImmediatePropagation())
-            }), c.mousedown(function(n) {
-                function x(n) {
-                    r("eventResizeStop", this, t, n), e("body").css("cursor", ""), u.stop(), L(), b && h(this, t, b, 0, n), setTimeout(function() {
-                        v = !1
-                    }, 0)
-                }
-                if (n.which != 1)
-                    return;
-                v = !0;
-                var u = O(), c = p(), m = d(), g = i.css("top"), b, w, E = e.extend({}, t), S = I(j(t.start));
-                A(), e("body").css("cursor", a + "-resize").one("mouseup", x), r("eventResizeStart", this, t, n), u.start(function(n, r) {
-                    if (n) {
-                        var i = P(r), u = P(n);
-                        u = Math.max(u, S), b = B(u) - B(i);
-                        if (b) {
-                            E.end = y(o(t), b, !0);
-                            var c = w;
-                            w = R(E, s.row, g), w = e(w), w.find("*").css("cursor", a + "-resize"), c && c.remove(), l(t)
-                        } else
-                            w && (f(t), w.remove(), w = null);
-                        L(), k(t.start, y(D(t), b))
-                    }
-                }, n)
-            })
-        }
-        var t = this;
-        t.renderDayEvents = q, t.draggableDayEvent = ut, t.resizableDayEvent = at;
-        var n = t.opt, r = t.trigger, i = t.isEventDraggable, s = t.isEventResizable, o = t.eventEnd, u = t.reportEventElement, a = t.eventElementHandlers, f = t.showEvents, l = t.hideEvents, c = t.eventDrop, h = t.eventResize, p = t.getRowCnt, d = t.getColCnt, v = t.getColWidth, m = t.allDayRow, g = t.colLeft, b = t.colRight, w = t.colContentLeft, E = t.colContentRight, x = t.dateToCell, N = t.getDaySegmentContainer, C = t.calendar.formatDates, k = t.renderDayOverlay, L = t.clearOverlays, A = t.clearSelection, O = t.getHoverListener, M = t.rangeToSegments, _ = t.cellToDate, P = t.cellToCellOffset, B = t.cellOffsetToDayOffset, j = t.dateToDayOffset, I = t.dayOffsetToCellOffset
-    }
-    function Nt(e, t) {
-        for (var n = 0; n < t.length; n++) {
-            var r = t[n];
-            if (r.leftCol <= e.rightCol && r.rightCol >= e.leftCol)
-                return !0
-        }
-        return !1
-    }
-    function Ct(e, t) {
-        for (var n = 0; n < e.length; n++) {
-            var r = e[n], i = r.element;
-            i && t(r, i, n)
-        }
-    }
-    function kt(e, t) {
-        return t.rightCol - t.leftCol - (e.rightCol - e.leftCol) || t.event.allDay - e.event.allDay || e.event.start - t.event.start || (e.event.title || "").localeCompare(t.event.title)
-    }
-    function Lt() {
-        function a(e, t, n) {
-            f(), t || (t = i(e, n)), s(e, t, n), l(e, t, n)
-        }
-        function f(e) {
-            u && (u = !1, o(), r("unselect", null, e))
-        }
-        function l(e, t, n, i) {
-            u = !0, r("select", null, e, t, n, i)
-        }
-        function c(r) {
-            var i = t.cellToDate, u = t.getIsCellAllDay, a = t.getHoverListener(), c = t.reportDayClick;
-            if (r.which == 1 && n("selectable")) {
-                f(r);
-                var h = this, p;
-                a.start(function(e, t) {
-                    o(), e && u(e) ? (p = [i(t), i(e)].sort($), s(p[0], p[1], !0)) : p = null
-                }, r), e(document).one("mouseup", function(e) {
-                    a.stop(), p && (+p[0] == +p[1] && c(p[0], !0, e), l(p[0], p[1], !0, e))
-                })
-            }
-        }
-        var t = this;
-        t.select = a, t.unselect = f, t.reportSelection = l, t.daySelectionMousedown = c;
-        var n = t.opt, r = t.trigger, i = t.defaultSelectionEnd, s = t.renderSelection, o = t.clearSelection, u = !1;
-        n("selectable") && n("unselectAuto") && e(document).mousedown(function(t) {
-            var r = n("unselectCancel");
-            if (r && e(t.target).parents(r).length)
-                return;
-            f(t)
-        })
-    }
-    function At() {
-        function i(t, i) {
-            var s = r.shift();
-            return s || (s = e("<div class='fc-cell-overlay' style='position:absolute;z-index:3'/>")), s[0].parentNode != i[0] && s.appendTo(i), n.push(s.css(t).show()), s
-        }
-        function s() {
-            var e;
-            while (e = n.shift())
-                r.push(e.hide().unbind())
-        }
-        var t = this;
-        t.renderOverlay = i, t.clearOverlays = s;
-        var n = [], r = []
-    }
-    function Ot(e) {
-        var t = this, n, r;
-        t.build = function() {
-            n = [], r = [], e(n, r)
-        }, t.cell = function(e, t) {
-            var i = n.length, s = r.length, o, u = -1, a = -1;
-            for (o = 0; o < i; o++)
-                if (t >= n[o][0] && t < n[o][1]) {
-                    u = o;
-                    break
-                }
-            for (o = 0; o < s; o++)
-                if (e >= r[o][0] && e < r[o][1]) {
-                    a = o;
-                    break
-                }
-            return u >= 0 && a >= 0 ? {row: u,col: a} : null
-        }, t.rect = function(e, t, i, s, o) {
-            var u = o.offset();
-            return {top: n[e][0] - u.top,left: r[t][0] - u.left,width: r[s][1] - r[t][0],height: n[i][1] - n[e][0]}
-        }
-    }
-    function Mt(t) {
-        function u(e) {
-            _t(e);
-            var n = t.cell(e.pageX, e.pageY);
-            if (!n != !o || n && (n.row != o.row || n.col != o.col))
-                n ? (s || (s = n), i(n, s, n.row - s.row, n.col - s.col)) : i(n, s), o = n
-        }
-        var n = this, r, i, s, o;
-        n.start = function(n, a, f) {
-            i = n, s = o = null, t.build(), u(a), r = f || "mousemove", e(document).bind(r, u)
-        }, n.stop = function() {
-            return e(document).unbind(r, u), o
-        }
-    }
-    function _t(e) {
-        e.pageX === t && (e.pageX = e.originalEvent.pageX, e.pageY = e.originalEvent.pageY)
-    }
-    function Dt(e) {
-        function o(t) {
-            return r[t] = r[t] || e(t)
-        }
-        var n = this, r = {}, i = {}, s = {};
-        n.left = function(e) {
-            return i[e] = i[e] === t ? o(e).position().left : i[e]
-        }, n.right = function(e) {
-            return s[e] = s[e] === t ? n.left(e) + o(e).width() : s[e]
-        }, n.clear = function() {
-            r = {}, i = {}, s = {}
-        }
-    }
-    var n = {defaultView: "month",aspectRatio: 1.35,header: {left: "title",center: "",right: "today prev,next"},weekends: !0,weekNumbers: !1,weekNumberCalculation: "iso",weekNumberTitle: "W",allDayDefault: !0,ignoreTimezone: !0,lazyFetching: !0,startParam: "start",endParam: "end",titleFormat: {month: "MMMM yyyy",week: "MMM d[ yyyy]{ '&#8212;'[ MMM] d yyyy}",day: "dddd, MMM d, yyyy"},columnFormat: {month: "ddd",week: "ddd M/d",day: "dddd M/d"},timeFormat: {"": "h(:mm)t"},isRTL: !1,firstDay: 0,monthNames: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],monthNamesShort: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],dayNames: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],dayNamesShort: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],buttonText: {prev: "<span class='fc-text-arrow'>&lsaquo;</span>",next: "<span class='fc-text-arrow'>&rsaquo;</span>",prevYear: "<span class='fc-text-arrow'>&laquo;</span>",nextYear: "<span class='fc-text-arrow'>&raquo;</span>",today: "today",month: "month",week: "week",day: "day"},theme: !1,buttonIcons: {prev: "circle-triangle-w",next: "circle-triangle-e"},unselectAuto: !0,dropAccept: "*",handleWindowResize: !0}, r = {header: {left: "next,prev today",center: "",right: "title"},buttonText: {prev: "<span class='fc-text-arrow'>&rsaquo;</span>",next: "<span class='fc-text-arrow'>&lsaquo;</span>",prevYear: "<span class='fc-text-arrow'>&raquo;</span>",nextYear: "<span class='fc-text-arrow'>&laquo;</span>"},buttonIcons: {prev: "circle-triangle-e",next: "circle-triangle-w"}}, i = e.fullCalendar = {version: "1.6.4"}, s = i.views = {};
-    e.fn.fullCalendar = function(i) {
-        if (typeof i == "string") {
-            var s = Array.prototype.slice.call(arguments, 1), o;
-            return this.each(function() {
-                var n = e.data(this, "fullCalendar");
-                if (n && e.isFunction(n[i])) {
-                    var r = n[i].apply(n, s);
-                    o === t && (o = r), i == "destroy" && e.removeData(this, "fullCalendar")
-                }
-            }), o !== t ? o : this
-        }
-        i = i || {};
-        var a = i.eventSources || [];
-        return delete i.eventSources, i.events && (a.push(i.events), delete i.events), i = e.extend(!0, {}, n, i.isRTL || i.isRTL === t && n.isRTL ? r : {}, i), this.each(function(t, n) {
-            var r = e(n), s = new u(r, i, a);
-            r.data("fullCalendar", s), s.render()
-        }), this
-    }, i.sourceNormalizers = [], i.sourceFetchers = [];
-    var f = {dataType: "json",cache: !1}, l = 1;
-    i.addDays = y, i.cloneDate = S, i.parseDate = C, i.parseISO8601 = k, i.parseTime = L, i.formatDate = A, i.formatDates = O;
-    var h = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"], p = 864e5, d = 36e5, v = 6e4, M = {s: function(e) {
-            return e.getSeconds()
-        },ss: function(e) {
-            return K(e.getSeconds())
-        },m: function(e) {
-            return e.getMinutes()
-        },mm: function(e) {
-            return K(e.getMinutes())
-        },h: function(e) {
-            return e.getHours() % 12 || 12
-        },hh: function(e) {
-            return K(e.getHours() % 12 || 12)
-        },H: function(e) {
-            return e.getHours()
-        },HH: function(e) {
-            return K(e.getHours())
-        },d: function(e) {
-            return e.getDate()
-        },dd: function(e) {
-            return K(e.getDate())
-        },ddd: function(e, t) {
-            return t.dayNamesShort[e.getDay()]
-        },dddd: function(e, t) {
-            return t.dayNames[e.getDay()]
-        },M: function(e) {
-            return e.getMonth() + 1
-        },MM: function(e) {
-            return K(e.getMonth() + 1)
-        },MMM: function(e, t) {
-            return t.monthNamesShort[e.getMonth()]
-        },MMMM: function(e, t) {
-            return t.monthNames[e.getMonth()]
-        },yy: function(e) {
-            return (e.getFullYear() + "").substring(2)
-        },yyyy: function(e) {
-            return e.getFullYear()
-        },t: function(e) {
-            return e.getHours() < 12 ? "a" : "p"
-        },tt: function(e) {
-            return e.getHours() < 12 ? "am" : "pm"
-        },T: function(e) {
-            return e.getHours() < 12 ? "A" : "P"
-        },TT: function(e) {
-            return e.getHours() < 12 ? "AM" : "PM"
-        },u: function(e) {
-            return A(e, "yyyy-MM-dd'T'HH:mm:ss'Z'")
-        },S: function(e) {
-            var t = e.getDate();
-            return t > 10 && t < 20 ? "th" : ["st", "nd", "rd"][t % 10 - 1] || "th"
-        },w: function(e, t) {
-            return t.weekNumberCalculation(e)
-        },W: function(e) {
-            return _(e)
-        }};
-    i.dateFormatters = M, i.applyAll = nt, s.month = it, s.basicWeek = st, s.basicDay = ot, o({weekMode: "fixed"}), s.agendaWeek = ft, s.agendaDay = lt, o({allDaySlot: !0,allDayText: "all-day",firstHour: 6,slotMinutes: 30,defaultEventMinutes: 120,axisFormat: "h(:mm)tt",timeFormat: {agenda: "h:mm{ - h:mm}"},dragOpacity: {agenda: .5},minTime: 0,maxTime: 24,slotEventOverlap: !0})
-}(jQuery), function(e) {
-    function U(e, t) {
-        return function(n) {
-            return K(e.call(this, n), t)
-        }
-    }
-    function z(e, t) {
-        return function(n) {
-            return this.lang().ordinal(e.call(this, n), t)
-        }
-    }
-    function W() {
-    }
-    function X(e) {
-        ut(e), $(this, e)
-    }
-    function V(e) {
-        var t = tt(e), n = t.year || 0, r = t.month || 0, i = t.week || 0, s = t.day || 0, o = t.hour || 0, u = t.minute || 0, a = t.second || 0, f = t.millisecond || 0;
-        this._input = e, this._milliseconds = +f + a * 1e3 + u * 6e4 + o * 36e5, this._days = +s + i * 7, this._months = +r + n * 12, this._data = {}, this._bubble()
-    }
-    function $(e, t) {
-        for (var n in t)
-            t.hasOwnProperty(n) && (e[n] = t[n]);
-        return t.hasOwnProperty("toString") && (e.toString = t.toString), t.hasOwnProperty("valueOf") && (e.valueOf = t.valueOf), e
-    }
-    function J(e) {
-        return e < 0 ? Math.ceil(e) : Math.floor(e)
-    }
-    function K(e, t) {
-        var n = e + "";
-        while (n.length < t)
-            n = "0" + n;
-        return n
-    }
-    function Q(e, n, r, i) {
-        var s = n._milliseconds, o = n._days, u = n._months, a, f;
-        s && e._d.setTime(+e._d + s * r);
-        if (o || u)
-            a = e.minute(), f = e.hour();
-        o && e.date(e.date() + o * r), u && e.month(e.month() + u * r), s && !i && t.updateOffset(e);
-        if (o || u)
-            e.minute(a), e.hour(f)
-    }
-    function G(e) {
-        return Object.prototype.toString.call(e) === "[object Array]"
-    }
-    function Y(e) {
-        return Object.prototype.toString.call(e) === "[object Date]"
-    }
-    function Z(e, t, n) {
-        var r = Math.min(e.length, t.length), i = Math.abs(e.length - t.length), s = 0, o;
-        for (o = 0; o < r; o++)
-            (n && e[o] !== t[o] || !n && rt(e[o]) !== rt(t[o])) && s++;
-        return s + i
-    }
-    function et(e) {
-        if (e) {
-            var t = e.toLowerCase().replace(/(.)s$/, "$1");
-            e = H[e] || B[t] || t
-        }
-        return e
-    }
-    function tt(e) {
-        var t = {}, n, r, i;
-        for (r in e)
-            e.hasOwnProperty(r) && (n = et(r), n && (t[n] = e[r]));
-        return t
-    }
-    function nt(n) {
-        var r, i;
-        if (n.indexOf("week") === 0)
-            r = 7, i = "day";
-        else {
-            if (n.indexOf("month") !== 0)
-                return;
-            r = 12, i = "month"
-        }
-        t[n] = function(s, o) {
-            var u, a, f = t.fn._lang[n], l = [];
-            typeof s == "number" && (o = s, s = e), a = function(e) {
-                var n = t().utc().set(i, e);
-                return f.call(t.fn._lang, n, s || "")
-            };
-            if (o != null)
-                return a(o);
-            for (u = 0; u < r; u++)
-                l.push(a(u));
-            return l
-        }
-    }
-    function rt(e) {
-        var t = +e, n = 0;
-        return t !== 0 && isFinite(t) && (t >= 0 ? n = Math.floor(t) : n = Math.ceil(t)), n
-    }
-    function it(e, t) {
-        return (new Date(Date.UTC(e, t + 1, 0))).getUTCDate()
-    }
-    function st(e) {
-        return ot(e) ? 366 : 365
-    }
-    function ot(e) {
-        return e % 4 === 0 && e % 100 !== 0 || e % 400 === 0
-    }
-    function ut(e) {
-        var t;
-        e._a && e._pf.overflow === -2 && (t = e._a[o] < 0 || e._a[o] > 11 ? o : e._a[u] < 1 || e._a[u] > it(e._a[s], e._a[o]) ? u : e._a[a] < 0 || e._a[a] > 23 ? a : e._a[f] < 0 || e._a[f] > 59 ? f : e._a[l] < 0 || e._a[l] > 59 ? l : e._a[c] < 0 || e._a[c] > 999 ? c : -1, e._pf._overflowDayOfYear && (t < s || t > u) && (t = u), e._pf.overflow = t)
-    }
-    function at(e) {
-        e._pf = {empty: !1,unusedTokens: [],unusedInput: [],overflow: -2,charsLeftOver: 0,nullInput: !1,invalidMonth: null,invalidFormat: !1,userInvalidated: !1}
-    }
-    function ft(e) {
-        return e._isValid == null && (e._isValid = !isNaN(e._d.getTime()) && e._pf.overflow < 0 && !e._pf.empty && !e._pf.invalidMonth && !e._pf.nullInput && !e._pf.invalidFormat && !e._pf.userInvalidated, e._strict && (e._isValid = e._isValid && e._pf.charsLeftOver === 0 && e._pf.unusedTokens.length === 0)), e._isValid
-    }
-    function lt(e) {
-        return e ? e.toLowerCase().replace("_", "-") : e
-    }
-    function ct(e, t) {
-        return t.abbr = e, h[e] || (h[e] = new W), h[e].set(t), h[e]
-    }
-    function ht(e) {
-        delete h[e]
-    }
-    function pt(e) {
-        var n = 0, r, i, s, o, u = function(e) {
-            if (!h[e] && p)
-                try {
-                    require("./lang/" + e)
-                } catch (t) {
-                }
-            return h[e]
-        };
-        if (!e)
-            return t.fn._lang;
-        if (!G(e)) {
-            i = u(e);
-            if (i)
-                return i;
-            e = [e]
-        }
-        while (n < e.length) {
-            o = lt(e[n]).split("-"), r = o.length, s = lt(e[n + 1]), s = s ? s.split("-") : null;
-            while (r > 0) {
-                i = u(o.slice(0, r).join("-"));
-                if (i)
-                    return i;
-                if (s && s.length >= r && Z(o, s, !0) >= r - 1)
-                    break;
-                r--
-            }
-            n++
-        }
-        return t.fn._lang
-    }
-    function dt(e) {
-        return e.match(/\[[\s\S]/) ? e.replace(/^\[|\]$/g, "") : e.replace(/\\/g, "")
-    }
-    function vt(e) {
-        var t = e.match(g), n, r;
-        for (n = 0, r = t.length; n < r; n++)
-            q[t[n]] ? t[n] = q[t[n]] : t[n] = dt(t[n]);
-        return function(i) {
-            var s = "";
-            for (n = 0; n < r; n++)
-                s += t[n] instanceof Function ? t[n].call(i, e) : t[n];
-            return s
-        }
-    }
-    function mt(e, t) {
-        return e.isValid() ? (t = gt(t, e.lang()), j[t] || (j[t] = vt(t)), j[t](e)) : e.lang().invalidDate()
-    }
-    function gt(e, t) {
-        function r(e) {
-            return t.longDateFormat(e) || e
-        }
-        var n = 5;
-        y.lastIndex = 0;
-        while (n >= 0 && y.test(e))
-            e = e.replace(y, r), y.lastIndex = 0, n -= 1;
-        return e
-    }
-    function yt(e, t) {
-        var n;
-        switch (e) {
-            case "DDDD":
-                return E;
-            case "YYYY":
-            case "GGGG":
-            case "gggg":
-                return S;
-            case "YYYYY":
-            case "GGGGG":
-            case "ggggg":
-                return x;
-            case "S":
-            case "SS":
-            case "SSS":
-            case "DDD":
-                return w;
-            case "MMM":
-            case "MMMM":
-            case "dd":
-            case "ddd":
-            case "dddd":
-                return T;
-            case "a":
-            case "A":
-                return pt(t._l)._meridiemParse;
-            case "X":
-                return k;
-            case "Z":
-            case "ZZ":
-                return N;
-            case "T":
-                return C;
-            case "MM":
-            case "DD":
-            case "YY":
-            case "GG":
-            case "gg":
-            case "HH":
-            case "hh":
-            case "mm":
-            case "ss":
-            case "M":
-            case "D":
-            case "d":
-            case "H":
-            case "h":
-            case "m":
-            case "s":
-            case "w":
-            case "ww":
-            case "W":
-            case "WW":
-            case "e":
-            case "E":
-                return b;
-            default:
-                return n = new RegExp(Ct(Nt(e.replace("\\", "")), "i")), n
-        }
-    }
-    function bt(e) {
-        var t = (N.exec(e) || [])[0], n = (t + "").match(_) || ["-", 0, 0], r = +(n[1] * 60) + rt(n[2]);
-        return n[0] === "+" ? -r : r
-    }
-    function wt(e, t, n) {
-        var r, i = n._a;
-        switch (e) {
-            case "M":
-            case "MM":
-                t != null && (i[o] = rt(t) - 1);
-                break;
-            case "MMM":
-            case "MMMM":
-                r = pt(n._l).monthsParse(t), r != null ? i[o] = r : n._pf.invalidMonth = t;
-                break;
-            case "D":
-            case "DD":
-                t != null && (i[u] = rt(t));
-                break;
-            case "DDD":
-            case "DDDD":
-                t != null && (n._dayOfYear = rt(t));
-                break;
-            case "YY":
-                i[s] = rt(t) + (rt(t) > 68 ? 1900 : 2e3);
-                break;
-            case "YYYY":
-            case "YYYYY":
-                i[s] = rt(t);
-                break;
-            case "a":
-            case "A":
-                n._isPm = pt(n._l).isPM(t);
-                break;
-            case "H":
-            case "HH":
-            case "h":
-            case "hh":
-                i[a] = rt(t);
-                break;
-            case "m":
-            case "mm":
-                i[f] = rt(t);
-                break;
-            case "s":
-            case "ss":
-                i[l] = rt(t);
-                break;
-            case "S":
-            case "SS":
-            case "SSS":
-                i[c] = rt(("0." + t) * 1e3);
-                break;
-            case "X":
-                n._d = new Date(parseFloat(t) * 1e3);
-                break;
-            case "Z":
-            case "ZZ":
-                n._useUTC = !0, n._tzm = bt(t);
-                break;
-            case "w":
-            case "ww":
-            case "W":
-            case "WW":
-            case "d":
-            case "dd":
-            case "ddd":
-            case "dddd":
-            case "e":
-            case "E":
-                e = e.substr(0, 1);
-            case "gg":
-            case "gggg":
-            case "GG":
-            case "GGGG":
-            case "GGGGG":
-                e = e.substr(0, 2), t && (n._w = n._w || {}, n._w[e] = t)
-        }
-    }
-    function Et(e) {
-        var n, r, i = [], l, c, h, p, d, v, m, g;
-        if (e._d)
-            return;
-        l = xt(e), e._w && e._a[u] == null && e._a[o] == null && (h = function(n) {
-            return n ? n.length < 3 ? parseInt(n, 10) > 68 ? "19" + n : "20" + n : n : e._a[s] == null ? t().weekYear() : e._a[s]
-        }, p = e._w, p.GG != null || p.W != null || p.E != null ? d = Bt(h(p.GG), p.W || 1, p.E, 4, 1) : (v = pt(e._l), m = p.d != null ? _t(p.d, v) : p.e != null ? parseInt(p.e, 10) + v._week.dow : 0, g = parseInt(p.w, 10) || 1, p.d != null && m < v._week.dow && g++, d = Bt(h(p.gg), g, m, v._week.doy, v._week.dow)), e._a[s] = d.year, e._dayOfYear = d.dayOfYear), e._dayOfYear && (c = e._a[s] == null ? l[s] : e._a[s], e._dayOfYear > st(c) && (e._pf._overflowDayOfYear = !0), r = Mt(c, 0, e._dayOfYear), e._a[o] = r.getUTCMonth(), e._a[u] = r.getUTCDate());
-        for (n = 0; n < 3 && e._a[n] == null; ++n)
-            e._a[n] = i[n] = l[n];
-        for (; n < 7; n++)
-            e._a[n] = i[n] = e._a[n] == null ? n === 2 ? 1 : 0 : e._a[n];
-        i[a] += rt((e._tzm || 0) / 60), i[f] += rt((e._tzm || 0) % 60), e._d = (e._useUTC ? Mt : Ot).apply(null, i)
-    }
-    function St(e) {
-        var t;
-        if (e._d)
-            return;
-        t = tt(e._i), e._a = [t.year, t.month, t.day, t.hour, t.minute, t.second, t.millisecond], Et(e)
-    }
-    function xt(e) {
-        var t = new Date;
-        return e._useUTC ? [t.getUTCFullYear(), t.getUTCMonth(), t.getUTCDate()] : [t.getFullYear(), t.getMonth(), t.getDate()]
-    }
-    function Tt(e) {
-        e._a = [], e._pf.empty = !0;
-        var t = pt(e._l), n = "" + e._i, r, i, s, o, u, f = n.length, l = 0;
-        s = gt(e._f, t).match(g) || [];
-        for (r = 0; r < s.length; r++)
-            o = s[r], i = (yt(o, e).exec(n) || [])[0], i && (u = n.substr(0, n.indexOf(i)), u.length > 0 && e._pf.unusedInput.push(u), n = n.slice(n.indexOf(i) + i.length), l += i.length), q[o] ? (i ? e._pf.empty = !1 : e._pf.unusedTokens.push(o), wt(o, i, e)) : e._strict && !i && e._pf.unusedTokens.push(o);
-        e._pf.charsLeftOver = f - l, n.length > 0 && e._pf.unusedInput.push(n), e._isPm && e._a[a] < 12 && (e._a[a] += 12), e._isPm === !1 && e._a[a] === 12 && (e._a[a] = 0), Et(e), ut(e)
-    }
-    function Nt(e) {
-        return e.replace(/\\(\[)|\\(\])|\[([^\]\[]*)\]|\\(.)/g, function(e, t, n, r, i) {
-            return t || n || r || i
-        })
-    }
-    function Ct(e) {
-        return e.replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&")
-    }
-    function kt(e) {
-        var t, n, r, i, s;
-        if (e._f.length === 0) {
-            e._pf.invalidFormat = !0, e._d = new Date(NaN);
-            return
-        }
-        for (i = 0; i < e._f.length; i++) {
-            s = 0, t = $({}, e), at(t), t._f = e._f[i], Tt(t);
-            if (!ft(t))
-                continue;
-            s += t._pf.charsLeftOver, s += t._pf.unusedTokens.length * 10, t._pf.score = s;
-            if (r == null || s < r)
-                r = s, n = t
-        }
-        $(e, n || t)
-    }
-    function Lt(e) {
-        var t, n = e._i, r = L.exec(n);
-        if (r) {
-            for (t = 4; t > 0; t--)
-                if (r[t]) {
-                    e._f = O[t - 1] + (r[6] || " ");
-                    break
-                }
-            for (t = 0; t < 4; t++)
-                if (M[t][1].exec(n)) {
-                    e._f += M[t][0];
-                    break
-                }
-            N.exec(n) && (e._f += " Z"), Tt(e)
-        } else
-            e._d = new Date(n)
-    }
-    function At(t) {
-        var n = t._i, r = d.exec(n);
-        n === e ? t._d = new Date : r ? t._d = new Date(+r[1]) : typeof n == "string" ? Lt(t) : G(n) ? (t._a = n.slice(0), Et(t)) : Y(n) ? t._d = new Date(+n) : typeof n == "object" ? St(t) : t._d = new Date(n)
-    }
-    function Ot(e, t, n, r, i, s, o) {
-        var u = new Date(e, t, n, r, i, s, o);
-        return e < 1970 && u.setFullYear(e), u
-    }
-    function Mt(e) {
-        var t = new Date(Date.UTC.apply(null, arguments));
-        return e < 1970 && t.setUTCFullYear(e), t
-    }
-    function _t(e, t) {
-        if (typeof e == "string")
-            if (!isNaN(e))
-                e = parseInt(e, 10);
-            else {
-                e = t.weekdaysParse(e);
-                if (typeof e != "number")
-                    return null
-            }
-        return e
-    }
-    function Dt(e, t, n, r, i) {
-        return i.relativeTime(t || 1, !!n, e, r)
-    }
-    function Pt(e, t, n) {
-        var i = r(Math.abs(e) / 1e3), s = r(i / 60), o = r(s / 60), u = r(o / 24), a = r(u / 365), f = i < 45 && ["s", i] || s === 1 && ["m"] || s < 45 && ["mm", s] || o === 1 && ["h"] || o < 22 && ["hh", o] || u === 1 && ["d"] || u <= 25 && ["dd", u] || u <= 45 && ["M"] || u < 345 && ["MM", r(u / 30)] || a === 1 && ["y"] || ["yy", a];
-        return f[2] = t, f[3] = e > 0, f[4] = n, Dt.apply({}, f)
-    }
-    function Ht(e, n, r) {
-        var i = r - n, s = r - e.day(), o;
-        return s > i && (s -= 7), s < i - 7 && (s += 7), o = t(e).add("d", s), {week: Math.ceil(o.dayOfYear() / 7),year: o.year()}
-    }
-    function Bt(e, t, n, r, i) {
-        var s = (new Date(Date.UTC(e, 0))).getUTCDay(), o, u;
-        return n = n != null ? n : i, o = i - s + (s > r ? 7 : 0), u = 7 * (t - 1) + (n - i) + o + 1, {year: u > 0 ? e : e - 1,dayOfYear: u > 0 ? u : st(e - 1) + u}
-    }
-    function jt(e) {
-        var n = e._i, r = e._f;
-        return typeof e._pf == "undefined" && at(e), n === null ? t.invalid({nullInput: !0}) : (typeof n == "string" && (e._i = n = pt().preparse(n)), t.isMoment(n) ? (e = $({}, n), e._d = new Date(+n._d)) : r ? G(r) ? kt(e) : Tt(e) : At(e), new X(e))
-    }
-    function Ft(e, n) {
-        t.fn[e] = t.fn[e + "s"] = function(e) {
-            var r = this._isUTC ? "UTC" : "";
-            return e != null ? (this._d["set" + r + n](e), t.updateOffset(this), this) : this._d["get" + r + n]()
-        }
-    }
-    function It(e) {
-        t.duration.fn[e] = function() {
-            return this._data[e]
-        }
-    }
-    function qt(e, n) {
-        t.duration.fn["as" + e] = function() {
-            return +this / n
-        }
-    }
-    function Rt() {
-        typeof ender == "undefined" && (this.moment = t)
-    }
-    var t, n = "2.3.1", r = Math.round, i, s = 0, o = 1, u = 2, a = 3, f = 4, l = 5, c = 6, h = {}, p = typeof module != "undefined" && module.exports, d = /^\/?Date\((\-?\d+)/i, v = /(\-)?(?:(\d*)\.)?(\d+)\:(\d+)(?:\:(\d+)\.?(\d{3})?)?/, m = /^(-)?P(?:(?:([0-9,.]*)Y)?(?:([0-9,.]*)M)?(?:([0-9,.]*)D)?(?:T(?:([0-9,.]*)H)?(?:([0-9,.]*)M)?(?:([0-9,.]*)S)?)?|([0-9,.]*)W)$/, g = /(\[[^\[]*\])|(\\)?(Mo|MM?M?M?|Do|DDDo|DD?D?D?|ddd?d?|do?|w[o|w]?|W[o|W]?|YYYYY|YYYY|YY|gg(ggg?)?|GG(GGG?)?|e|E|a|A|hh?|HH?|mm?|ss?|SS?S?|X|zz?|ZZ?|.)/g, y = /(\[[^\[]*\])|(\\)?(LT|LL?L?L?|l{1,4})/g, b = /\d\d?/, w = /\d{1,3}/, E = /\d{3}/, S = /\d{1,4}/, x = /[+\-]?\d{1,6}/, T = /[0-9]*['a-z\u00A0-\u05FF\u0700-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+|[\u0600-\u06FF\/]+(\s*?[\u0600-\u06FF]+){1,2}/i, N = /Z|[\+\-]\d\d:?\d\d/i, C = /T/i, k = /[\+\-]?\d+(\.\d{1,3})?/, L = /^\s*\d{4}-(?:(\d\d-\d\d)|(W\d\d$)|(W\d\d-\d)|(\d\d\d))((T| )(\d\d(:\d\d(:\d\d(\.\d\d?\d?)?)?)?)?([\+\-]\d\d:?\d\d)?)?$/
-    , A = "YYYY-MM-DDTHH:mm:ssZ", O = ["YYYY-MM-DD", "GGGG-[W]WW", "GGGG-[W]WW-E", "YYYY-DDD"], M = [["HH:mm:ss.S", /(T| )\d\d:\d\d:\d\d\.\d{1,3}/], ["HH:mm:ss", /(T| )\d\d:\d\d:\d\d/], ["HH:mm", /(T| )\d\d:\d\d/], ["HH", /(T| )\d\d/]], _ = /([\+\-]|\d\d)/gi, D = "Date|Hours|Minutes|Seconds|Milliseconds".split("|"), P = {Milliseconds: 1,Seconds: 1e3,Minutes: 6e4,Hours: 36e5,Days: 864e5,Months: 2592e6,Years: 31536e6}, H = {ms: "millisecond",s: "second",m: "minute",h: "hour",d: "day",D: "date",w: "week",W: "isoWeek",M: "month",y: "year",DDD: "dayOfYear",e: "weekday",E: "isoWeekday",gg: "weekYear",GG: "isoWeekYear"}, B = {dayofyear: "dayOfYear",isoweekday: "isoWeekday",isoweek: "isoWeek",weekyear: "weekYear",isoweekyear: "isoWeekYear"}, j = {}, F = "DDD w W M D d".split(" "), I = "M D H h m s w W".split(" "), q = {M: function() {
-            return this.month() + 1
-        },MMM: function(e) {
-            return this.lang().monthsShort(this, e)
-        },MMMM: function(e) {
-            return this.lang().months(this, e)
-        },D: function() {
-            return this.date()
-        },DDD: function() {
-            return this.dayOfYear()
-        },d: function() {
-            return this.day()
-        },dd: function(e) {
-            return this.lang().weekdaysMin(this, e)
-        },ddd: function(e) {
-            return this.lang().weekdaysShort(this, e)
-        },dddd: function(e) {
-            return this.lang().weekdays(this, e)
-        },w: function() {
-            return this.week()
-        },W: function() {
-            return this.isoWeek()
-        },YY: function() {
-            return K(this.year() % 100, 2)
-        },YYYY: function() {
-            return K(this.year(), 4)
-        },YYYYY: function() {
-            return K(this.year(), 5)
-        },gg: function() {
-            return K(this.weekYear() % 100, 2)
-        },gggg: function() {
-            return this.weekYear()
-        },ggggg: function() {
-            return K(this.weekYear(), 5)
-        },GG: function() {
-            return K(this.isoWeekYear() % 100, 2)
-        },GGGG: function() {
-            return this.isoWeekYear()
-        },GGGGG: function() {
-            return K(this.isoWeekYear(), 5)
-        },e: function() {
-            return this.weekday()
-        },E: function() {
-            return this.isoWeekday()
-        },a: function() {
-            return this.lang().meridiem(this.hours(), this.minutes(), !0)
-        },A: function() {
-            return this.lang().meridiem(this.hours(), this.minutes(), !1)
-        },H: function() {
-            return this.hours()
-        },h: function() {
-            return this.hours() % 12 || 12
-        },m: function() {
-            return this.minutes()
-        },s: function() {
-            return this.seconds()
-        },S: function() {
-            return rt(this.milliseconds() / 100)
-        },SS: function() {
-            return K(rt(this.milliseconds() / 10), 2)
-        },SSS: function() {
-            return K(this.milliseconds(), 3)
-        },Z: function() {
-            var e = -this.zone(), t = "+";
-            return e < 0 && (e = -e, t = "-"), t + K(rt(e / 60), 2) + ":" + K(rt(e) % 60, 2)
-        },ZZ: function() {
-            var e = -this.zone(), t = "+";
-            return e < 0 && (e = -e, t = "-"), t + K(rt(10 * e / 6), 4)
-        },z: function() {
-            return this.zoneAbbr()
-        },zz: function() {
-            return this.zoneName()
-        },X: function() {
-            return this.unix()
-        }}, R = ["months", "monthsShort", "weekdays", "weekdaysShort", "weekdaysMin"];
-    while (F.length)
-        i = F.pop(), q[i + "o"] = z(q[i], i);
-    while (I.length)
-        i = I.pop(), q[i + i] = U(q[i], 2);
-    q.DDDD = U(q.DDD, 3), $(W.prototype, {set: function(e) {
-            var t, n;
-            for (n in e)
-                t = e[n], typeof t == "function" ? this[n] = t : this["_" + n] = t
-        },_months: "January_February_March_April_May_June_July_August_September_October_November_December".split("_"),months: function(e) {
-            return this._months[e.month()]
-        },_monthsShort: "Jan_Feb_Mar_Apr_May_Jun_Jul_Aug_Sep_Oct_Nov_Dec".split("_"),monthsShort: function(e) {
-            return this._monthsShort[e.month()]
-        },monthsParse: function(e) {
-            var n, r, i;
-            this._monthsParse || (this._monthsParse = []);
-            for (n = 0; n < 12; n++) {
-                this._monthsParse[n] || (r = t.utc([2e3, n]), i = "^" + this.months(r, "") + "|^" + this.monthsShort(r, ""), this._monthsParse[n] = new RegExp(i.replace(".", ""), "i"));
-                if (this._monthsParse[n].test(e))
-                    return n
-            }
-        },_weekdays: "Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday".split("_"),weekdays: function(e) {
-            return this._weekdays[e.day()]
-        },_weekdaysShort: "Sun_Mon_Tue_Wed_Thu_Fri_Sat".split("_"),weekdaysShort: function(e) {
-            return this._weekdaysShort[e.day()]
-        },_weekdaysMin: "Su_Mo_Tu_We_Th_Fr_Sa".split("_"),weekdaysMin: function(e) {
-            return this._weekdaysMin[e.day()]
-        },weekdaysParse: function(e) {
-            var n, r, i;
-            this._weekdaysParse || (this._weekdaysParse = []);
-            for (n = 0; n < 7; n++) {
-                this._weekdaysParse[n] || (r = t([2e3, 1]).day(n), i = "^" + this.weekdays(r, "") + "|^" + this.weekdaysShort(r, "") + "|^" + this.weekdaysMin(r, ""), this._weekdaysParse[n] = new RegExp(i.replace(".", ""), "i"));
-                if (this._weekdaysParse[n].test(e))
-                    return n
-            }
-        },_longDateFormat: {LT: "h:mm A",L: "MM/DD/YYYY",LL: "MMMM D YYYY",LLL: "MMMM D YYYY LT",LLLL: "dddd, MMMM D YYYY LT"},longDateFormat: function(e) {
-            var t = this._longDateFormat[e];
-            return !t && this._longDateFormat[e.toUpperCase()] && (t = this._longDateFormat[e.toUpperCase()].replace(/MMMM|MM|DD|dddd/g, function(e) {
-                return e.slice(1)
-            }), this._longDateFormat[e] = t), t
-        },isPM: function(e) {
-            return (e + "").toLowerCase().charAt(0) === "p"
-        },_meridiemParse: /[ap]\.?m?\.?/i,meridiem: function(e, t, n) {
-            return e > 11 ? n ? "pm" : "PM" : n ? "am" : "AM"
-        },_calendar: {sameDay: "[Today at] LT",nextDay: "[Tomorrow at] LT",nextWeek: "dddd [at] LT",lastDay: "[Yesterday at] LT",lastWeek: "[Last] dddd [at] LT",sameElse: "L"},calendar: function(e, t) {
-            var n = this._calendar[e];
-            return typeof n == "function" ? n.apply(t) : n
-        },_relativeTime: {future: "in %s",past: "%s ago",s: "a few seconds",m: "a minute",mm: "%d minutes",h: "an hour",hh: "%d hours",d: "a day",dd: "%d days",M: "a month",MM: "%d months",y: "a year",yy: "%d years"},relativeTime: function(e, t, n, r) {
-            var i = this._relativeTime[n];
-            return typeof i == "function" ? i(e, t, n, r) : i.replace(/%d/i, e)
-        },pastFuture: function(e, t) {
-            var n = this._relativeTime[e > 0 ? "future" : "past"];
-            return typeof n == "function" ? n(t) : n.replace(/%s/i, t)
-        },ordinal: function(e) {
-            return this._ordinal.replace("%d", e)
-        },_ordinal: "%d",preparse: function(e) {
-            return e
-        },postformat: function(e) {
-            return e
-        },week: function(e) {
-            return Ht(e, this._week.dow, this._week.doy).week
-        },_week: {dow: 0,doy: 6},_invalidDate: "Invalid date",invalidDate: function() {
-            return this._invalidDate
-        }}), t = function(t, n, r, i) {
-        return typeof r == "boolean" && (i = r, r = e), jt({_i: t,_f: n,_l: r,_strict: i,_isUTC: !1})
-    }, t.utc = function(t, n, r, i) {
-        var s;
-        return typeof r == "boolean" && (i = r, r = e), s = jt({_useUTC: !0,_isUTC: !0,_l: r,_i: t,_f: n,_strict: i}).utc(), s
-    }, t.unix = function(e) {
-        return t(e * 1e3)
-    }, t.duration = function(e, n) {
-        var r = t.isDuration(e), i = typeof e == "number", s = r ? e._input : i ? {} : e, o = null, h, p, d, g, y;
-        return i ? n ? s[n] = e : s.milliseconds = e : (o = v.exec(e)) ? (h = o[1] === "-" ? -1 : 1, s = {y: 0,d: rt(o[u]) * h,h: rt(o[a]) * h,m: rt(o[f]) * h,s: rt(o[l]) * h,ms: rt(o[c]) * h}) : !(o = m.exec(e)) || (h = o[1] === "-" ? -1 : 1, d = function(e) {
-            var t = e && parseFloat(e.replace(",", "."));
-            return (isNaN(t) ? 0 : t) * h
-        }, s = {y: d(o[2]),M: d(o[3]),d: d(o[4]),h: d(o[5]),m: d(o[6]),s: d(o[7]),w: d(o[8])}), p = new V(s), r && e.hasOwnProperty("_lang") && (p._lang = e._lang), p
-    }, t.version = n, t.defaultFormat = A, t.updateOffset = function() {
-    }, t.lang = function(e, n) {
-        var r;
-        return e ? (n ? ct(lt(e), n) : n === null ? (ht(e), e = "en") : h[e] || pt(e), r = t.duration.fn._lang = t.fn._lang = pt(e), r._abbr) : t.fn._lang._abbr
-    }, t.langData = function(e) {
-        return e && e._lang && e._lang._abbr && (e = e._lang._abbr), pt(e)
-    }, t.isMoment = function(e) {
-        return e instanceof X
-    }, t.isDuration = function(e) {
-        return e instanceof V
-    };
-    for (i = R.length - 1; i >= 0; --i)
-        nt(R[i]);
-    t.normalizeUnits = function(e) {
-        return et(e)
-    }, t.invalid = function(e) {
-        var n = t.utc(NaN);
-        return e != null ? $(n._pf, e) : n._pf.userInvalidated = !0, n
-    }, t.parseZone = function(e) {
-        return t(e).parseZone()
-    }, $(t.fn = X.prototype, {clone: function() {
-            return t(this)
-        },valueOf: function() {
-            return +this._d + (this._offset || 0) * 6e4
-        },unix: function() {
-            return Math.floor(+this / 1e3)
-        },toString: function() {
-            return this.clone().lang("en").format("ddd MMM DD YYYY HH:mm:ss [GMT]ZZ")
-        },toDate: function() {
-            return this._offset ? new Date(+this) : this._d
-        },toISOString: function() {
-            return mt(t(this).utc(), "YYYY-MM-DD[T]HH:mm:ss.SSS[Z]")
-        },toArray: function() {
-            var e = this;
-            return [e.year(), e.month(), e.date(), e.hours(), e.minutes(), e.seconds(), e.milliseconds()]
-        },isValid: function() {
-            return ft(this)
-        },isDSTShifted: function() {
-            return this._a ? this.isValid() && Z(this._a, (this._isUTC ? t.utc(this._a) : t(this._a)).toArray()) > 0 : !1
-        },parsingFlags: function() {
-            return $({}, this._pf)
-        },invalidAt: function() {
-            return this._pf.overflow
-        },utc: function() {
-            return this.zone(0)
-        },local: function() {
-            return this.zone(0), this._isUTC = !1, this
-        },format: function(e) {
-            var n = mt(this, e || t.defaultFormat);
-            return this.lang().postformat(n)
-        },add: function(e, n) {
-            var r;
-            return typeof e == "string" ? r = t.duration(+n, e) : r = t.duration(e, n), Q(this, r, 1), this
-        },subtract: function(e, n) {
-            var r;
-            return typeof e == "string" ? r = t.duration(+n, e) : r = t.duration(e, n), Q(this, r, -1), this
-        },diff: function(e, n, r) {
-            var i = this._isUTC ? t(e).zone(this._offset || 0) : t(e).local(), s = (this.zone() - i.zone()) * 6e4, o, u;
-            return n = et(n), n === "year" || n === "month" ? (o = (this.daysInMonth() + i.daysInMonth()) * 432e5, u = (this.year() - i.year()) * 12 + (this.month() - i.month()), u += (this - t(this).startOf("month") - (i - t(i).startOf("month"))) / o, u -= (this.zone() - t(this).startOf("month").zone() - (i.zone() - t(i).startOf("month").zone())) * 6e4 / o, n === "year" && (u /= 12)) : (o = this - i, u = n === "second" ? o / 1e3 : n === "minute" ? o / 6e4 : n === "hour" ? o / 36e5 : n === "day" ? (o - s) / 864e5 : n === "week" ? (o - s) / 6048e5 : o), r ? u : J(u)
-        },from: function(e, n) {
-            return t.duration(this.diff(e)).lang(this.lang()._abbr).humanize(!n)
-        },fromNow: function(e) {
-            return this.from(t(), e)
-        },calendar: function() {
-            var e = this.diff(t().zone(this.zone()).startOf("day"), "days", !0), n = e < -6 ? "sameElse" : e < -1 ? "lastWeek" : e < 0 ? "lastDay" : e < 1 ? "sameDay" : e < 2 ? "nextDay" : e < 7 ? "nextWeek" : "sameElse";
-            return this.format(this.lang().calendar(n, this))
-        },isLeapYear: function() {
-            return ot(this.year())
-        },isDST: function() {
-            return this.zone() < this.clone().month(0).zone() || this.zone() < this.clone().month(5).zone()
-        },day: function(e) {
-            var t = this._isUTC ? this._d.getUTCDay() : this._d.getDay();
-            return e != null ? (e = _t(e, this.lang()), this.add({d: e - t})) : t
-        },month: function(e) {
-            var n = this._isUTC ? "UTC" : "", r;
-            if (e != null) {
-                if (typeof e == "string") {
-                    e = this.lang().monthsParse(e);
-                    if (typeof e != "number")
-                        return this
-                }
-                return r = this.date(), this.date(1), this._d["set" + n + "Month"](e), this.date(Math.min(r, this.daysInMonth())), t.updateOffset(this), this
-            }
-            return this._d["get" + n + "Month"]()
-        },startOf: function(e) {
-            e = et(e);
-            switch (e) {
-                case "year":
-                    this.month(0);
-                case "month":
-                    this.date(1);
-                case "week":
-                case "isoWeek":
-                case "day":
-                    this.hours(0);
-                case "hour":
-                    this.minutes(0);
-                case "minute":
-                    this.seconds(0);
-                case "second":
-                    this.milliseconds(0)
-            }
-            return e === "week" ? this.weekday(0) : e === "isoWeek" && this.isoWeekday(1), this
-        },endOf: function(e) {
-            return e = et(e), this.startOf(e).add(e === "isoWeek" ? "week" : e, 1).subtract("ms", 1)
-        },isAfter: function(e, n) {
-            return n = typeof n != "undefined" ? n : "millisecond", +this.clone().startOf(n) > +t(e).startOf(n)
-        },isBefore: function(e, n) {
-            return n = typeof n != "undefined" ? n : "millisecond", +this.clone().startOf(n) < +t(e).startOf(n)
-        },isSame: function(e, n) {
-            return n = typeof n != "undefined" ? n : "millisecond", +this.clone().startOf(n) === +t(e).startOf(n)
-        },min: function(e) {
-            return e = t.apply(null, arguments), e < this ? this : e
-        },max: function(e) {
-            return e = t.apply(null, arguments), e > this ? this : e
-        },zone: function(e) {
-            var n = this._offset || 0;
-            return e == null ? this._isUTC ? n : this._d.getTimezoneOffset() : (typeof e == "string" && (e = bt(e)), Math.abs(e) < 16 && (e *= 60), this._offset = e, this._isUTC = !0, n !== e && Q(this, t.duration(n - e, "m"), 1, !0), this)
-        },zoneAbbr: function() {
-            return this._isUTC ? "UTC" : ""
-        },zoneName: function() {
-            return this._isUTC ? "Coordinated Universal Time" : ""
-        },parseZone: function() {
-            return typeof this._i == "string" && this.zone(this._i), this
-        },hasAlignedHourOffset: function(e) {
-            return e ? e = t(e).zone() : e = 0, (this.zone() - e) % 60 === 0
-        },daysInMonth: function() {
-            return it(this.year(), this.month())
-        },dayOfYear: function(e) {
-            var n = r((t(this).startOf("day") - t(this).startOf("year")) / 864e5) + 1;
-            return e == null ? n : this.add("d", e - n)
-        },weekYear: function(e) {
-            var t = Ht(this, this.lang()._week.dow, this.lang()._week.doy).year;
-            return e == null ? t : this.add("y", e - t)
-        },isoWeekYear: function(e) {
-            var t = Ht(this, 1, 4).year;
-            return e == null ? t : this.add("y", e - t)
-        },week: function(e) {
-            var t = this.lang().week(this);
-            return e == null ? t : this.add("d", (e - t) * 7)
-        },isoWeek: function(e) {
-            var t = Ht(this, 1, 4).week;
-            return e == null ? t : this.add("d", (e - t) * 7)
-        },weekday: function(e) {
-            var t = (this.day() + 7 - this.lang()._week.dow) % 7;
-            return e == null ? t : this.add("d", e - t)
-        },isoWeekday: function(e) {
-            return e == null ? this.day() || 7 : this.day(this.day() % 7 ? e : e - 7)
-        },get: function(e) {
-            return e = et(e), this[e]()
-        },set: function(e, t) {
-            return e = et(e), typeof this[e] == "function" && this[e](t), this
-        },lang: function(t) {
-            return t === e ? this._lang : (this._lang = pt(t), this)
-        }});
-    for (i = 0; i < D.length; i++)
-        Ft(D[i].toLowerCase().replace(/s$/, ""), D[i]);
-    Ft("year", "FullYear"), t.fn.days = t.fn.day, t.fn.months = t.fn.month, t.fn.weeks = t.fn.week, t.fn.isoWeeks = t.fn.isoWeek, t.fn.toJSON = t.fn.toISOString, $(t.duration.fn = V.prototype, {_bubble: function() {
-            var e = this._milliseconds, t = this._days, n = this._months, r = this._data, i, s, o, u;
-            r.milliseconds = e % 1e3, i = J(e / 1e3), r.seconds = i % 60, s = J(i / 60), r.minutes = s % 60, o = J(s / 60), r.hours = o % 24, t += J(o / 24), r.days = t % 30, n += J(t / 30), r.months = n % 12, u = J(n / 12), r.years = u
-        },weeks: function() {
-            return J(this.days() / 7)
-        },valueOf: function() {
-            return this._milliseconds + this._days * 864e5 + this._months % 12 * 2592e6 + rt(this._months / 12) * 31536e6
-        },humanize: function(e) {
-            var t = +this, n = Pt(t, !e, this.lang());
-            return e && (n = this.lang().pastFuture(t, n)), this.lang().postformat(n)
-        },add: function(e, n) {
-            var r = t.duration(e, n);
-            return this._milliseconds += r._milliseconds, this._days += r._days, this._months += r._months, this._bubble(), this
-        },subtract: function(e, n) {
-            var r = t.duration(e, n);
-            return this._milliseconds -= r._milliseconds, this._days -= r._days, this._months -= r._months, this._bubble(), this
-        },get: function(e) {
-            return e = et(e), this[e.toLowerCase() + "s"]()
-        },as: function(e) {
-            return e = et(e), this["as" + e.charAt(0).toUpperCase() + e.slice(1) + "s"]()
-        },lang: t.fn.lang,toIsoString: function() {
-            var e = Math.abs(this.years()), t = Math.abs(this.months()), n = Math.abs(this.days()), r = Math.abs(this.hours()), i = Math.abs(this.minutes()), s = Math.abs(this.seconds() + this.milliseconds() / 1e3);
-            return this.asSeconds() ? (this.asSeconds() < 0 ? "-" : "") + "P" + (e ? e + "Y" : "") + (t ? t + "M" : "") + (n ? n + "D" : "") + (r || i || s ? "T" : "") + (r ? r + "H" : "") + (i ? i + "M" : "") + (s ? s + "S" : "") : "P0D"
-        }});
-    for (i in P)
-        P.hasOwnProperty(i) && (qt(i, P[i]), It(i.toLowerCase()));
-    qt("Weeks", 6048e5), t.duration.fn.asMonths = function() {
-        return (+this - this.years() * 31536e6) / 2592e6 + this.years() * 12
-    }, t.lang("en", {ordinal: function(e) {
-            var t = e % 10, n = rt(e % 100 / 10) === 1 ? "th" : t === 1 ? "st" : t === 2 ? "nd" : t === 3 ? "rd" : "th";
-            return e + n
-        }}), p ? (module.exports = t, Rt()) : typeof define == "function" && define.amd ? define("moment", function(e, n, r) {
-        return r.config().noGlobal !== !0 && Rt(), t
-    }) : Rt()
-}.call(this), function() {
-    function t(t) {
-        function v(e) {
-            e += "";
-            var t = e.split(":"), n = ~e.indexOf("-") ? -1 : 1, r = Math.abs(+t[0]), i = parseInt(t[1], 10) || 0, s = parseInt(t[2], 10) || 0;
-            return n * (r * 60 + i + s / 60)
-        }
-        function m(e, t, n, r, i, s, o, u, a, f) {
-            this.name = e, this.startYear = +t, this.endYear = +n, this.month = +r, this.day = +i, this.dayRule = +s, this.time = v(o), this.timeRule = +u, this.offset = v(a), this.letters = f || ""
-        }
-        function g(e, t) {
-            this.rule = t, this.start = t.start(e)
-        }
-        function y(e, t) {
-            return e.isLast ? -1 : t.isLast ? 1 : t.start - e.start
-        }
-        function b(e) {
-            this.name = e, this.rules = []
-        }
-        function w(e, n, r, i, s, o) {
-            var u, a = typeof s == "string" ? s.split("_") : [9999];
-            this.name = e, this.offset = v(n), this.ruleSet = r, this.letters = i;
-            for (u = 0; u < a.length; u++)
-                a[u] = +a[u];
-            this.until = t.utc(a).subtract("m", v(o))
-        }
-        function E(e, t) {
-            return e.until - t.until
-        }
-        function S(e) {
-            this.name = N(e), this.displayName = e, this.zones = []
-        }
-        function x(e) {
-            var t, n, r;
-            for (t in e) {
-                r = e[t];
-                for (n = 0; n < r.length; n++)
-                    T(t + "	" + r[n])
-            }
-        }
-        function T(e) {
-            if (s[e])
-                return s[e];
-            var t = e.split(/\s/), n = N(t[0]), r = new m(n, t[1], t[2], t[3], t[4], t[5], t[6], t[7], t[8], t[9], t[10]);
-            return s[e] = r, A(n).add(r), r
-        }
-        function N(e) {
-            return (e || "").toLowerCase().replace(/\//g, "_")
-        }
-        function C(e) {
-            var t, n, r;
-            for (t in e) {
-                r = e[t];
-                for (n = 0; n < r.length; n++)
-                    L(t + "	" + r[n])
-            }
-        }
-        function k(e) {
-            var t;
-            for (t in e)
-                f[N(t)] = N(e[t])
-        }
-        function L(e) {
-            if (u[e])
-                return u[e];
-            var t = e.split(/\s/), n = N(t[0]), r = new w(n, t[1], A(t[2]), t[3], t[4], t[5]);
-            return u[e] = r, O(t[0]).add(r), r
-        }
-        function A(e) {
-            return e = N(e), o[e] || (o[e] = new b(e)), o[e]
-        }
-        function O(e) {
-            var t = N(e);
-            return f[t] && (t = f[t]), a[t] || (a[t] = new S(e)), a[t]
-        }
-        function M(e) {
-            if (!e)
-                return;
-            e.zones && C(e.zones), e.rules && x(e.rules), e.links && k(e.links)
-        }
-        var n = t.fn.zoneName, r = t.fn.zoneAbbr, i, s = {}, o = {}, u = {}, a = {}, f = {}, l = 0, c = 1, h = 2, p = 7, d = 8;
-        return m.prototype = {contains: function(e) {
-                return e >= this.startYear && e <= this.endYear
-            },start: function(e) {
-                return e = Math.min(Math.max(e, this.startYear), this.endYear), t.utc([e, this.month, this.date(e), 0, this.time])
-            },date: function(e) {
-                return this.dayRule === p ? this.day : this.dayRule === d ? this.lastWeekday(e) : this.weekdayAfter(e)
-            },weekdayAfter: function(e) {
-                var n = this.day, r = t([e, this.month, 1]).day(), i = this.dayRule + 1 - r;
-                while (i < n)
-                    i += 7;
-                return i
-            },lastWeekday: function(e) {
-                var n = this.day, r = n % 7, i = t([e, this.month + 1, 1]).day(), s = t([e, this.month, 1]).daysInMonth(), o = s + (r - (i - 1)) - ~~(n / 7) * 7;
-                return r >= i && (o -= 7), o
-            }}, g.prototype = {equals: function(e) {
-                return !e || e.rule !== this.rule ? !1 : Math.abs(e.start - this.start) < 864e5
-            }}, b.prototype = {add: function(e) {
-                this.rules.push(e)
-            },ruleYears: function(e, t) {
-                var n, r, i = e.year(), s, o, u = [];
-                for (n = 0; n < this.rules.length; n++)
-                    s = this.rules[n], s.contains(i) ? u.push(new g(i, s)) : s.contains(i + 1) && u.push(new g(i + 1, s));
-                return u.push(new g(i - 1, this.lastYearRule(i - 1))), t && (o = new g(i - 1, t.lastRule()), o.start = t.until.clone().utc(), o.isLast = t.ruleSet !== this, u.push(o)), u.sort(y), u
-            },rule: function(e, t, n) {
-                var r = this.ruleYears(e, n), s = 0, o, u, a, f, l;
-                n && (u = n.offset + n.lastRule().offset, a = Math.abs(u) * 9e4);
-                for (l = r.length - 1; l > -1; l--) {
-                    f = o, o = r[l];
-                    if (o.equals(f))
-                        continue;
-                    n && !o.isLast && Math.abs(o.start - n.until) <= a && (s += u - t), o.rule.timeRule === h && (s = t), o.rule.timeRule !== c && o.start.add("m", -s), s = o.rule.offset + t
-                }
-                for (l = 0; l < r.length; l++) {
-                    o = r[l];
-                    if (e >= o.start && !o.isLast)
-                        return o.rule
-                }
-                return i
-            },lastYearRule: function(e) {
-                var t, n, r, s = i, o = -1e30;
-                for (t = 0; t < this.rules.length; t++)
-                    n = this.rules[t], e >= n.startYear && (r = n.start(e), r > o && (o = r, s = n));
-                return s
-            }}, w.prototype = {rule: function(e, t) {
-                return this.ruleSet.rule(e, this.offset, t)
-            },lastRule: function() {
-                return this._lastRule || (this._lastRule = this.rule(this.until)), this._lastRule
-            },format: function(e) {
-                return this.letters.replace("%s", e.letters)
-            }}, S.prototype = {zoneAndRule: function(e) {
-                var t, n, r;
-                e = e.clone().utc();
-                for (t = 0; t < this.zones.length; t++) {
-                    n = this.zones[t];
-                    if (e < n.until)
-                        break;
-                    r = n
-                }
-                return [n, n.rule(e, r)]
-            },add: function(e) {
-                this.zones.push(e), this.zones.sort(E)
-            },format: function(e) {
-                var t = this.zoneAndRule(e);
-                return t[0].format(t[1])
-            },offset: function(e) {
-                var t = this.zoneAndRule(e);
-                return -(t[0].offset + t[1].offset)
-            }}, t.updateOffset = function(e) {
-            var t;
-            e._z && (t = e._z.offset(e), Math.abs(t) < 16 && (t /= 60), e.zone(t))
-        }, t.fn.tz = function(e) {
-            if (e)
-                return this._z = O(e), this._z && t.updateOffset(this), this;
-            if (this._z)
-                return this._z.displayName
-        }, t.fn.zoneName = function() {
-            return this._z ? this._z.format(this) : n.call(this)
-        }, t.fn.zoneAbbr = function() {
-            return this._z ? this._z.format(this) : r.call(this)
-        }, t.tz = function() {
-            var e = [], n, r = arguments.length - 1;
-            for (n = 0; n < r; n++)
-                e[n] = arguments[n];
-            return t.apply(null, e).tz(arguments[r])
-        }, t.tz.add = M, t.tz.addRule = T, t.tz.addZone = L, t.tz.version = e, i = T("- 0 9999 0 0 0 0 0 0"), t
-    }
-    var e = "0.0.1";
-    typeof define == "function" && define.amd ? define("moment-timezone", ["moment"], t) : typeof window != "undefined" && window.moment ? t(window.moment) : typeof module != "undefined" && (module.exports = t(require("moment")))
-}.apply(this), moment.tz.add({zones: {"Africa/Abidjan": ["-0:16:8 - LMT 1912 -0:16:8", "0 - GMT"],"Africa/Accra": ["-0:0:52 - LMT 1918 -0:0:52", "0 Ghana %s"],"Africa/Addis_Ababa": ["2:34:48 - LMT 1870 2:34:48", "2:35:20 - ADMT 1936_4_5 2:35:20", "3 - EAT"],"Africa/Algiers": ["0:12:12 - LMT 1891_2_15_0_1 0:12:12", "0:9:21 - PMT 1911_2_11 0:9:21", "0 Algeria WE%sT 1940_1_25_2", "1 Algeria CE%sT 1946_9_7 1", "0 - WET 1956_0_29", "1 - CET 1963_3_14 1", "0 Algeria WE%sT 1977_9_21 1", "1 Algeria CE%sT 1979_9_26 1", "0 Algeria WE%sT 1981_4", "1 - CET"],"Africa/Asmara": ["2:35:32 - LMT 1870 2:35:32", "2:35:32 - AMT 1890 2:35:32", "2:35:20 - ADMT 1936_4_5 2:35:20", "3 - EAT"],"Africa/Bamako": ["-0:32 - LMT 1912 -0:32", "0 - GMT 1934_1_26", "-1 - WAT 1960_5_20 -1", "0 - GMT"],"Africa/Bangui": ["1:14:20 - LMT 1912 1:14:20", "1 - WAT"],"Africa/Banjul": ["-1:6:36 - LMT 1912 -1:6:36", "-1:6:36 - BMT 1935 -1:6:36", "-1 - WAT 1964 -1", "0 - GMT"],"Africa/Bissau": ["-1:2:20 - LMT 1911_4_26 -1:2:20", "-1 - WAT 1975 -1", "0 - GMT"],"Africa/Blantyre": ["2:20 - LMT 1903_2 2:20", "2 - CAT"],"Africa/Brazzaville": ["1:1:8 - LMT 1912 1:1:8", "1 - WAT"],"Africa/Bujumbura": ["1:57:28 - LMT 1890 1:57:28", "2 - CAT"],"Africa/Cairo": ["2:5:9 - LMT 1900_9 2:5:9", "2 Egypt EE%sT"],"Africa/Casablanca": ["-0:30:20 - LMT 1913_9_26 -0:30:20", "0 Morocco WE%sT 1984_2_16", "1 - CET 1986 1", "0 Morocco WE%sT"],"Africa/Ceuta": ["-0:21:16 - LMT 1901 -0:21:16", "0 - WET 1918_4_6_23", "1 - WEST 1918_9_7_23 1", "0 - WET 1924", "0 Spain WE%sT 1929", "0 SpainAfrica WE%sT 1984_2_16", "1 - CET 1986 1", "1 EU CE%sT"],"Africa/Conakry": ["-0:54:52 - LMT 1912 -0:54:52", "0 - GMT 1934_1_26", "-1 - WAT 1960 -1", "0 - GMT"],"Africa/Dakar": ["-1:9:44 - LMT 1912 -1:9:44", "-1 - WAT 1941_5 -1", "0 - GMT"],"Africa/Dar_es_Salaam": ["2:37:8 - LMT 1931 2:37:8", "3 - EAT 1948 3", "2:45 - BEAUT 1961 2:45", "3 - EAT"],"Africa/Djibouti": ["2:52:36 - LMT 1911_6 2:52:36", "3 - EAT"],"Africa/Douala": ["0:38:48 - LMT 1912 0:38:48", "1 - WAT"],"Africa/El_Aaiun": ["-0:52:48 - LMT 1934_0 -0:52:48", "-1 - WAT 1976_3_14 -1", "0 - WET"],"Africa/Freetown": ["-0:53 - LMT 1882 -0:53", "-0:53 - FMT 1913_5 -0:53", "-1 SL %s 1957 -1", "0 SL %s"],"Africa/Gaborone": ["1:43:40 - LMT 1885 1:43:40", "1:30 - SAST 1903_2 1:30", "2 - CAT 1943_8_19_2 2", "3 - CAST 1944_2_19_2 3", "2 - CAT"],"Africa/Harare": ["2:4:12 - LMT 1903_2 2:4:12", "2 - CAT"],"Africa/Johannesburg": ["1:52 - LMT 1892_1_8 1:52", "1:30 - SAST 1903_2 1:30", "2 SA SAST"],"Africa/Juba": ["2:6:24 - LMT 1931 2:6:24", "2 Sudan CA%sT 2000_0_15_12 2", "3 - EAT"],"Africa/Kampala": ["2:9:40 - LMT 1928_6 2:9:40", "3 - EAT 1930 3", "2:30 - BEAT 1948 2:30", "2:45 - BEAUT 1957 2:45", "3 - EAT"],"Africa/Khartoum": ["2:10:8 - LMT 1931 2:10:8", "2 Sudan CA%sT 2000_0_15_12 2", "3 - EAT"],"Africa/Kigali": ["2:0:16 - LMT 1935_5 2:0:16", "2 - CAT"],"Africa/Kinshasa": ["1:1:12 - LMT 1897_10_9 1:1:12", "1 - WAT"],"Africa/Lagos": ["0:13:36 - LMT 1919_8 0:13:36", "1 - WAT"],"Africa/Libreville": ["0:37:48 - LMT 1912 0:37:48", "1 - WAT"],"Africa/Lome": ["0:4:52 - LMT 1893 0:4:52", "0 - GMT"],"Africa/Luanda": ["0:52:56 - LMT 1892 0:52:56", "0:52:4 - AOT 1911_4_26 0:52:4", "1 - WAT"],"Africa/Lubumbashi": ["1:49:52 - LMT 1897_10_9 1:49:52", "2 - CAT"],"Africa/Lusaka": ["1:53:8 - LMT 1903_2 1:53:8", "2 - CAT"],"Africa/Malabo": ["0:35:8 - LMT 1912 0:35:8", "0 - GMT 1963_11_15", "1 - WAT"],"Africa/Maputo": ["2:10:20 - LMT 1903_2 2:10:20", "2 - CAT"],"Africa/Maseru": ["1:50 - LMT 1903_2 1:50", "2 - SAST 1943_8_19_2 2", "3 - SAST 1944_2_19_2 3", "2 - SAST"],"Africa/Mbabane": ["2:4:24 - LMT 1903_2 2:4:24", "2 - SAST"],"Africa/Mogadishu": ["3:1:28 - LMT 1893_10 3:1:28", "3 - EAT 1931 3", "2:30 - BEAT 1957 2:30", "3 - EAT"],"Africa/Monrovia": ["-0:43:8 - LMT 1882 -0:43:8", "-0:43:8 - MMT 1919_2 -0:43:8", "-0:44:30 - LRT 1972_4 -0:44:30", "0 - GMT"],"Africa/Nairobi": ["2:27:16 - LMT 1928_6 2:27:16", "3 - EAT 1930 3", "2:30 - BEAT 1940 2:30", "2:45 - BEAUT 1960 2:45", "3 - EAT"],"Africa/Ndjamena": ["1:0:12 - LMT 1912 1:0:12", "1 - WAT 1979_9_14 1", "2 - WAST 1980_2_8 2", "1 - WAT"],"Africa/Niamey": ["0:8:28 - LMT 1912 0:8:28", "-1 - WAT 1934_1_26 -1", "0 - GMT 1960", "1 - WAT"],"Africa/Nouakchott": ["-1:3:48 - LMT 1912 -1:3:48", "0 - GMT 1934_1_26", "-1 - WAT 1960_10_28 -1", "0 - GMT"],"Africa/Ouagadougou": ["-0:6:4 - LMT 1912 -0:6:4", "0 - GMT"],"Africa/Porto-Novo": ["0:10:28 - LMT 1912 0:10:28", "0 - GMT 1934_1_26", "1 - WAT"],"Africa/Sao_Tome": ["0:26:56 - LMT 1884 0:26:56", "-0:36:32 - LMT 1912 -0:36:32", "0 - GMT"],"Africa/Tripoli": ["0:52:44 - LMT 1920 0:52:44", "1 Libya CE%sT 1959 1", "2 - EET 1982 2", "1 Libya CE%sT 1990_4_4 1", "2 - EET 1996_8_30 2", "1 Libya CE%sT 1997_9_4 2", "2 - EET 2012_10_10_2 2", "1 Libya CE%sT"],"Africa/Tunis": ["0:40:44 - LMT 1881_4_12 0:40:44", "0:9:21 - PMT 1911_2_11 0:9:21", "1 Tunisia CE%sT"],"Africa/Windhoek": ["1:8:24 - LMT 1892_1_8 1:8:24", "1:30 - SWAT 1903_2 1:30", "2 - SAST 1942_8_20_2 2", "3 - SAST 1943_2_21_2 3", "2 - SAST 1990_2_21 2", "2 - CAT 1994_3_3 2", "1 Namibia WA%sT"],"America/Adak": ["12:13:21 - LMT 1867_9_18 12:13:21", "-11:46:38 - LMT 1900_7_20_12 -11:46:38", "-11 - NST 1942 -11", "-11 US N%sT 1946 -11", "-11 - NST 1967_3 -11", "-11 - BST 1969 -11", "-11 US B%sT 1983_9_30_2 -10", "-10 US AH%sT 1983_10_30 -10", "-10 US HA%sT"],"America/Anchorage": ["14:0:24 - LMT 1867_9_18 14:0:24", "-9:59:36 - LMT 1900_7_20_12 -9:59:36", "-10 - CAT 1942 -10", "-10 US CAT/CAWT 1945_7_14_23", "-10 US CAT/CAPT 1946 -10", "-10 - CAT 1967_3 -10", "-10 - AHST 1969 -10", "-10 US AH%sT 1983_9_30_2 -9", "-9 US Y%sT 1983_10_30 -9", "-9 US AK%sT"],"America/Anguilla": ["-4:12:16 - LMT 1912_2_2 -4:12:16", "-4 - AST"],"America/Antigua": ["-4:7:12 - LMT 1912_2_2 -4:7:12", "-5 - EST 1951 -5", "-4 - AST"],"America/Araguaina": ["-3:12:48 - LMT 1914 -3:12:48", "-3 Brazil BR%sT 1990_8_17 -3", "-3 - BRT 1995_8_14 -3", "-3 Brazil BR%sT 2003_8_24 -3", "-3 - BRT 2012_9_21 -3", "-3 Brazil BR%sT"],"America/Argentina/Buenos_Aires": ["-3:53:48 - LMT 1894_9_31 -3:53:48", "-4:16:48 - CMT 1920_4 -4:16:48", "-4 - ART 1930_11 -4", "-4 Arg AR%sT 1969_9_5 -4", "-3 Arg AR%sT 1999_9_3 -3", "-4 Arg AR%sT 2000_2_3 -3", "-3 Arg AR%sT"],"America/Argentina/Catamarca": ["-4:23:8 - LMT 1894_9_31 -4:23:8", "-4:16:48 - CMT 1920_4 -4:16:48", "-4 - ART 1930_11 -4", "-4 Arg AR%sT 1969_9_5 -4", "-3 Arg AR%sT 1991_2_3 -2", "-4 - WART 1991_9_20 -4", "-3 Arg AR%sT 1999_9_3 -3", "-4 Arg AR%sT 2000_2_3 -3", "-3 - ART 2004_5_1 -3", "-4 - WART 2004_5_20 -4", "-3 Arg AR%sT 2008_9_18 -3", "-3 - ART"],"America/Argentina/Cordoba": ["-4:16:48 - LMT 1894_9_31 -4:16:48", "-4:16:48 - CMT 1920_4 -4:16:48", "-4 - ART 1930_11 -4", "-4 Arg AR%sT 1969_9_5 -4", "-3 Arg AR%sT 1991_2_3 -2", "-4 - WART 1991_9_20 -4", "-3 Arg AR%sT 1999_9_3 -3", "-4 Arg AR%sT 2000_2_3 -3", "-3 Arg AR%sT"],"America/Argentina/Jujuy": ["-4:21:12 - LMT 1894_9_31 -4:21:12", "-4:16:48 - CMT 1920_4 -4:16:48", "-4 - ART 1930_11 -4", "-4 Arg AR%sT 1969_9_5 -4", "-3 Arg AR%sT 1990_2_4 -2", "-4 - WART 1990_9_28 -4", "-3 - WARST 1991_2_17 -3", "-4 - WART 1991_9_6 -4", "-2 - ARST 1992 -2", "-3 Arg AR%sT 1999_9_3 -3", "-4 Arg AR%sT 2000_2_3 -3", "-3 Arg AR%sT 2008_9_18 -3", "-3 - ART"],"America/Argentina/La_Rioja": ["-4:27:24 - LMT 1894_9_31 -4:27:24", "-4:16:48 - CMT 1920_4 -4:16:48", "-4 - ART 1930_11 -4", "-4 Arg AR%sT 1969_9_5 -4", "-3 Arg AR%sT 1991_2_1 -2", "-4 - WART 1991_4_7 -4", "-3 Arg AR%sT 1999_9_3 -3", "-4 Arg AR%sT 2000_2_3 -3", "-3 - ART 2004_5_1 -3", "-4 - WART 2004_5_20 -4", "-3 Arg AR%sT 2008_9_18 -3", "-3 - ART"],"America/Argentina/Mendoza": ["-4:35:16 - LMT 1894_9_31 -4:35:16", "-4:16:48 - CMT 1920_4 -4:16:48", "-4 - ART 1930_11 -4", "-4 Arg AR%sT 1969_9_5 -4", "-3 Arg AR%sT 1990_2_4 -2", "-4 - WART 1990_9_15 -4", "-3 - WARST 1991_2_1 -3", "-4 - WART 1991_9_15 -4", "-3 - WARST 1992_2_1 -3", "-4 - WART 1992_9_18 -4", "-3 Arg AR%sT 1999_9_3 -3", "-4 Arg AR%sT 2000_2_3 -3", "-3 - ART 2004_4_23 -3", "-4 - WART 2004_8_26 -4", "-3 Arg AR%sT 2008_9_18 -3", "-3 - ART"],"America/Argentina/Rio_Gallegos": ["-4:36:52 - LMT 1894_9_31 -4:36:52", "-4:16:48 - CMT 1920_4 -4:16:48", "-4 - ART 1930_11 -4", "-4 Arg AR%sT 1969_9_5 -4", "-3 Arg AR%sT 1999_9_3 -3", "-4 Arg AR%sT 2000_2_3 -3", "-3 - ART 2004_5_1 -3", "-4 - WART 2004_5_20 -4", "-3 Arg AR%sT 2008_9_18 -3", "-3 - ART"],"America/Argentina/Salta": ["-4:21:40 - LMT 1894_9_31 -4:21:40", "-4:16:48 - CMT 1920_4 -4:16:48", "-4 - ART 1930_11 -4", "-4 Arg AR%sT 1969_9_5 -4", "-3 Arg AR%sT 1991_2_3 -2", "-4 - WART 1991_9_20 -4", "-3 Arg AR%sT 1999_9_3 -3", "-4 Arg AR%sT 2000_2_3 -3", "-3 Arg AR%sT 2008_9_18 -3", "-3 - ART"],"America/Argentina/San_Juan": ["-4:34:4 - LMT 1894_9_31 -4:34:4", "-4:16:48 - CMT 1920_4 -4:16:48", "-4 - ART 1930_11 -4", "-4 Arg AR%sT 1969_9_5 -4", "-3 Arg AR%sT 1991_2_1 -2", "-4 - WART 1991_4_7 -4", "-3 Arg AR%sT 1999_9_3 -3", "-4 Arg AR%sT 2000_2_3 -3", "-3 - ART 2004_4_31 -3", "-4 - WART 2004_6_25 -4", "-3 Arg AR%sT 2008_9_18 -3", "-3 - ART"],"America/Argentina/San_Luis": ["-4:25:24 - LMT 1894_9_31 -4:25:24", "-4:16:48 - CMT 1920_4 -4:16:48", "-4 - ART 1930_11 -4", "-4 Arg AR%sT 1969_9_5 -4", "-3 Arg AR%sT 1990 -2", "-2 - ARST 1990_2_14 -2", "-4 - WART 1990_9_15 -4", "-3 - WARST 1991_2_1 -3", "-4 - WART 1991_5_1 -4", "-3 - ART 1999_9_3 -3", "-3 - WARST 2000_2_3 -3", "-3 - ART 2004_4_31 -3", "-4 - WART 2004_6_25 -4", "-3 Arg AR%sT 2008_0_21 -2", "-4 SanLuis WAR%sT"],"America/Argentina/Tucuman": ["-4:20:52 - LMT 1894_9_31 -4:20:52", "-4:16:48 - CMT 1920_4 -4:16:48", "-4 - ART 1930_11 -4", "-4 Arg AR%sT 1969_9_5 -4", "-3 Arg AR%sT 1991_2_3 -2", "-4 - WART 1991_9_20 -4", "-3 Arg AR%sT 1999_9_3 -3", "-4 Arg AR%sT 2000_2_3 -3", "-3 - ART 2004_5_1 -3", "-4 - WART 2004_5_13 -4", "-3 Arg AR%sT"],"America/Argentina/Ushuaia": ["-4:33:12 - LMT 1894_9_31 -4:33:12", "-4:16:48 - CMT 1920_4 -4:16:48", "-4 - ART 1930_11 -4", "-4 Arg AR%sT 1969_9_5 -4", "-3 Arg AR%sT 1999_9_3 -3", "-4 Arg AR%sT 2000_2_3 -3", "-3 - ART 2004_4_30 -3", "-4 - WART 2004_5_20 -4", "-3 Arg AR%sT 2008_9_18 -3", "-3 - ART"],"America/Aruba": ["-4:40:24 - LMT 1912_1_12 -4:40:24", "-4:30 - ANT 1965 -4:30", "-4 - AST"],"America/Asuncion": ["-3:50:40 - LMT 1890 -3:50:40", "-3:50:40 - AMT 1931_9_10 -3:50:40", "-4 - PYT 1972_9 -4", "-3 - PYT 1974_3 -3", "-4 Para PY%sT"],"America/Atikokan": ["-6:6:28 - LMT 1895 -6:6:28", "-6 Canada C%sT 1940_8_29 -6", "-5 - CDT 1942_1_9_2 -6", "-6 Canada C%sT 1945_8_30_2 -5", "-5 - EST"],"America/Bahia": ["-2:34:4 - LMT 1914 -2:34:4", "-3 Brazil BR%sT 2003_8_24 -3", "-3 - BRT 2011_9_16 -3", "-3 Brazil BR%sT 2012_9_21 -3", "-3 - BRT"],"America/Bahia_Banderas": ["-7:1 - LMT 1921_11_31_23_59 -7:1", "-7 - MST 1927_5_10_23 -7", "-6 - CST 1930_10_15 -6", "-7 - MST 1931_4_1_23 -7", "-6 - CST 1931_9 -6", "-7 - MST 1932_3_1 -7", "-6 - CST 1942_3_24 -6", "-7 - MST 1949_0_14 -7", "-8 - PST 1970 -8", "-7 Mexico M%sT 2010_3_4_2 -7", "-6 Mexico C%sT"],"America/Barbados": ["-3:58:29 - LMT 1924 -3:58:29", "-3:58:29 - BMT 1932 -3:58:29", "-4 Barb A%sT"],"America/Belem": ["-3:13:56 - LMT 1914 -3:13:56", "-3 Brazil BR%sT 1988_8_12 -3", "-3 - BRT"],"America/Belize": ["-5:52:48 - LMT 1912_3 -5:52:48", "-6 Belize C%sT"],"America/Blanc-Sablon": ["-3:48:28 - LMT 1884 -3:48:28", "-4 Canada A%sT 1970 -4", "-4 - AST"],"America/Boa_Vista": ["-4:2:40 - LMT 1914 -4:2:40", "-4 Brazil AM%sT 1988_8_12 -4", "-4 - AMT 1999_8_30 -4", "-4 Brazil AM%sT 2000_9_15 -3", "-4 - AMT"],"America/Bogota": ["-4:56:16 - LMT 1884_2_13 -4:56:16", "-4:56:16 - BMT 1914_10_23 -4:56:16", "-5 CO CO%sT"],"America/Boise": ["-7:44:49 - LMT 1883_10_18_12_15_11 -7:44:49", "-8 US P%sT 1923_4_13_2 -8", "-7 US M%sT 1974 -7", "-7 - MST 1974_1_3_2 -7", "-7 US M%sT"],"America/Cambridge_Bay": ["0 - zzz 1920", "-7 NT_YK M%sT 1999_9_31_2 -6", "-6 Canada C%sT 2000_9_29_2 -5", "-5 - EST 2000_10_5_0 -5", "-6 - CST 2001_3_1_3 -6", "-7 Canada M%sT"],"America/Campo_Grande": ["-3:38:28 - LMT 1914 -3:38:28", "-4 Brazil AM%sT"],"America/Cancun": ["-5:47:4 - LMT 1922_0_1_0_12_56 -5:47:4", "-6 - CST 1981_11_23 -6", "-5 Mexico E%sT 1998_7_2_2 -4", "-6 Mexico C%sT"],"America/Caracas": ["-4:27:44 - LMT 1890 -4:27:44", "-4:27:40 - CMT 1912_1_12 -4:27:40", "-4:30 - VET 1965 -4:30", "-4 - VET 2007_11_9_03 -4", "-4:30 - VET"],"America/Cayenne": ["-3:29:20 - LMT 1911_6 -3:29:20", "-4 - GFT 1967_9 -4", "-3 - GFT"],"America/Cayman": ["-5:25:32 - LMT 1890 -5:25:32", "-5:7:12 - KMT 1912_1 -5:7:12", "-5 - EST"],"America/Chicago": ["-5:50:36 - LMT 1883_10_18_12_9_24 -5:50:36", "-6 US C%sT 1920 -6", "-6 Chicago C%sT 1936_2_1_2 -6", "-5 - EST 1936_10_15_2 -5", "-6 Chicago C%sT 1942 -6", "-6 US C%sT 1946 -6", "-6 Chicago C%sT 1967 -6", "-6 US C%sT"],"America/Chihuahua": ["-7:4:20 - LMT 1921_11_31_23_55_40 -7:4:20", "-7 - MST 1927_5_10_23 -7", "-6 - CST 1930_10_15 -6", "-7 - MST 1931_4_1_23 -7", "-6 - CST 1931_9 -6", "-7 - MST 1932_3_1 -7", "-6 - CST 1996 -6", "-6 Mexico C%sT 1998 -6", "-6 - CST 1998_3_5_3 -6", "-7 Mexico M%sT"],"America/Costa_Rica": ["-5:36:13 - LMT 1890 -5:36:13", "-5:36:13 - SJMT 1921_0_15 -5:36:13", "-6 CR C%sT"],"America/Creston": ["-7:46:4 - LMT 1884 -7:46:4", "-7 - MST 1916_9_1 -7", "-8 - PST 1918_5_2 -8", "-7 - MST"],"America/Cuiaba": ["-3:44:20 - LMT 1914 -3:44:20", "-4 Brazil AM%sT 2003_8_24 -4", "-4 - AMT 2004_9_1 -4", "-4 Brazil AM%sT"],"America/Curacao": ["-4:35:47 - LMT 1912_1_12 -4:35:47", "-4:30 - ANT 1965 -4:30", "-4 - AST"],"America/Danmarkshavn": ["-1:14:40 - LMT 1916_6_28 -1:14:40", "-3 - WGT 1980_3_6_2 -3", "-3 EU WG%sT 1996 -3", "0 - GMT"],"America/Dawson": ["-9:17:40 - LMT 1900_7_20 -9:17:40", "-9 NT_YK Y%sT 1973_9_28_0 -9", "-8 NT_YK P%sT 1980 -8", "-8 Canada P%sT"],"America/Dawson_Creek": ["-8:0:56 - LMT 1884 -8:0:56", "-8 Canada P%sT 1947 -8", "-8 Vanc P%sT 1972_7_30_2 -7", "-7 - MST"],"America/Denver": ["-6:59:56 - LMT 1883_10_18_12_0_4 -6:59:56", "-7 US M%sT 1920 -7", "-7 Denver M%sT 1942 -7", "-7 US M%sT 1946 -7", "-7 Denver M%sT 1967 -7", "-7 US M%sT"],"America/Detroit": ["-5:32:11 - LMT 1905 -5:32:11", "-6 - CST 1915_4_15_2 -6", "-5 - EST 1942 -5", "-5 US E%sT 1946 -5", "-5 Detroit E%sT 1973 -5", "-5 US E%sT 1975 -5", "-5 - EST 1975_3_27_2 -5", "-5 US E%sT"],"America/Dominica": ["-4:5:36 - LMT 1911_6_1_0_1 -4:5:36", "-4 - AST"],"America/Edmonton": ["-7:33:52 - LMT 1906_8 -7:33:52", "-7 Edm M%sT 1987 -7", "-7 Canada M%sT"],"America/Eirunepe": ["-4:39:28 - LMT 1914 -4:39:28", "-5 Brazil AC%sT 1988_8_12 -5", "-5 - ACT 1993_8_28 -5", "-5 Brazil AC%sT 1994_8_22 -5", "-5 - ACT 2008_5_24_00 -5", "-4 - AMT"],"America/El_Salvador": ["-5:56:48 - LMT 1921 -5:56:48", "-6 Salv C%sT"],"America/Fortaleza": ["-2:34 - LMT 1914 -2:34", "-3 Brazil BR%sT 1990_8_17 -3", "-3 - BRT 1999_8_30 -3", "-3 Brazil BR%sT 2000_9_22 -2", "-3 - BRT 2001_8_13 -3", "-3 Brazil BR%sT 2002_9_1 -3"
-            , "-3 - BRT"],"America/Glace_Bay": ["-3:59:48 - LMT 1902_5_15 -3:59:48", "-4 Canada A%sT 1953 -4", "-4 Halifax A%sT 1954 -4", "-4 - AST 1972 -4", "-4 Halifax A%sT 1974 -4", "-4 Canada A%sT"],"America/Godthab": ["-3:26:56 - LMT 1916_6_28 -3:26:56", "-3 - WGT 1980_3_6_2 -3", "-3 EU WG%sT"],"America/Goose_Bay": ["-4:1:40 - LMT 1884 -4:1:40", "-3:30:52 - NST 1918 -3:30:52", "-3:30:52 Canada N%sT 1919 -3:30:52", "-3:30:52 - NST 1935_2_30 -3:30:52", "-3:30 - NST 1936 -3:30", "-3:30 StJohns N%sT 1942_4_11 -3:30", "-3:30 Canada N%sT 1946 -3:30", "-3:30 StJohns N%sT 1966_2_15_2 -3:30", "-4 StJohns A%sT 2011_10 -3", "-4 Canada A%sT"],"America/Grand_Turk": ["-4:44:32 - LMT 1890 -4:44:32", "-5:7:12 - KMT 1912_1 -5:7:12", "-5 TC E%sT"],"America/Grenada": ["-4:7 - LMT 1911_6 -4:7", "-4 - AST"],"America/Guadeloupe": ["-4:6:8 - LMT 1911_5_8 -4:6:8", "-4 - AST"],"America/Guatemala": ["-6:2:4 - LMT 1918_9_5 -6:2:4", "-6 Guat C%sT"],"America/Guayaquil": ["-5:19:20 - LMT 1890 -5:19:20", "-5:14 - QMT 1931 -5:14", "-5 - ECT"],"America/Guyana": ["-3:52:40 - LMT 1915_2 -3:52:40", "-3:45 - GBGT 1966_4_26 -3:45", "-3:45 - GYT 1975_6_31 -3:45", "-3 - GYT 1991 -3", "-4 - GYT"],"America/Halifax": ["-4:14:24 - LMT 1902_5_15 -4:14:24", "-4 Halifax A%sT 1918 -4", "-4 Canada A%sT 1919 -4", "-4 Halifax A%sT 1942_1_9_2 -4", "-4 Canada A%sT 1946 -4", "-4 Halifax A%sT 1974 -4", "-4 Canada A%sT"],"America/Havana": ["-5:29:28 - LMT 1890 -5:29:28", "-5:29:36 - HMT 1925_6_19_12 -5:29:36", "-5 Cuba C%sT"],"America/Hermosillo": ["-7:23:52 - LMT 1921_11_31_23_36_8 -7:23:52", "-7 - MST 1927_5_10_23 -7", "-6 - CST 1930_10_15 -6", "-7 - MST 1931_4_1_23 -7", "-6 - CST 1931_9 -6", "-7 - MST 1932_3_1 -7", "-6 - CST 1942_3_24 -6", "-7 - MST 1949_0_14 -7", "-8 - PST 1970 -8", "-7 Mexico M%sT 1999 -7", "-7 - MST"],"America/Indiana/Indianapolis": ["-5:44:38 - LMT 1883_10_18_12_15_22 -5:44:38", "-6 US C%sT 1920 -6", "-6 Indianapolis C%sT 1942 -6", "-6 US C%sT 1946 -6", "-6 Indianapolis C%sT 1955_3_24_2 -6", "-5 - EST 1957_8_29_2 -5", "-6 - CST 1958_3_27_2 -6", "-5 - EST 1969 -5", "-5 US E%sT 1971 -5", "-5 - EST 2006 -5", "-5 US E%sT"],"America/Indiana/Knox": ["-5:46:30 - LMT 1883_10_18_12_13_30 -5:46:30", "-6 US C%sT 1947 -6", "-6 Starke C%sT 1962_3_29_2 -6", "-5 - EST 1963_9_27_2 -5", "-6 US C%sT 1991_9_27_2 -5", "-5 - EST 2006_3_2_2 -5", "-6 US C%sT"],"America/Indiana/Marengo": ["-5:45:23 - LMT 1883_10_18_12_14_37 -5:45:23", "-6 US C%sT 1951 -6", "-6 Marengo C%sT 1961_3_30_2 -6", "-5 - EST 1969 -5", "-5 US E%sT 1974_0_6_2 -5", "-5 - CDT 1974_9_27_2 -5", "-5 US E%sT 1976 -5", "-5 - EST 2006 -5", "-5 US E%sT"],"America/Indiana/Petersburg": ["-5:49:7 - LMT 1883_10_18_12_10_53 -5:49:7", "-6 US C%sT 1955 -6", "-6 Pike C%sT 1965_3_25_2 -6", "-5 - EST 1966_9_30_2 -5", "-6 US C%sT 1977_9_30_2 -5", "-5 - EST 2006_3_2_2 -5", "-6 US C%sT 2007_10_4_2 -5", "-5 US E%sT"],"America/Indiana/Tell_City": ["-5:47:3 - LMT 1883_10_18_12_12_57 -5:47:3", "-6 US C%sT 1946 -6", "-6 Perry C%sT 1964_3_26_2 -6", "-5 - EST 1969 -5", "-5 US E%sT 1971 -5", "-5 - EST 2006_3_2_2 -5", "-6 US C%sT"],"America/Indiana/Vevay": ["-5:40:16 - LMT 1883_10_18_12_19_44 -5:40:16", "-6 US C%sT 1954_3_25_2 -6", "-5 - EST 1969 -5", "-5 US E%sT 1973 -5", "-5 - EST 2006 -5", "-5 US E%sT"],"America/Indiana/Vincennes": ["-5:50:7 - LMT 1883_10_18_12_9_53 -5:50:7", "-6 US C%sT 1946 -6", "-6 Vincennes C%sT 1964_3_26_2 -6", "-5 - EST 1969 -5", "-5 US E%sT 1971 -5", "-5 - EST 2006_3_2_2 -5", "-6 US C%sT 2007_10_4_2 -5", "-5 US E%sT"],"America/Indiana/Winamac": ["-5:46:25 - LMT 1883_10_18_12_13_35 -5:46:25", "-6 US C%sT 1946 -6", "-6 Pulaski C%sT 1961_3_30_2 -6", "-5 - EST 1969 -5", "-5 US E%sT 1971 -5", "-5 - EST 2006_3_2_2 -5", "-6 US C%sT 2007_2_11_2 -6", "-5 US E%sT"],"America/Inuvik": ["0 - zzz 1953", "-8 NT_YK P%sT 1979_3_29_2 -8", "-7 NT_YK M%sT 1980 -7", "-7 Canada M%sT"],"America/Iqaluit": ["0 - zzz 1942_7", "-5 NT_YK E%sT 1999_9_31_2 -4", "-6 Canada C%sT 2000_9_29_2 -5", "-5 Canada E%sT"],"America/Jamaica": ["-5:7:12 - LMT 1890 -5:7:12", "-5:7:12 - KMT 1912_1 -5:7:12", "-5 - EST 1974_3_28_2 -5", "-5 US E%sT 1984 -5", "-5 - EST"],"America/Juneau": ["15:2:19 - LMT 1867_9_18 15:2:19", "-8:57:41 - LMT 1900_7_20_12 -8:57:41", "-8 - PST 1942 -8", "-8 US P%sT 1946 -8", "-8 - PST 1969 -8", "-8 US P%sT 1980_3_27_2 -8", "-9 US Y%sT 1980_9_26_2 -8", "-8 US P%sT 1983_9_30_2 -7", "-9 US Y%sT 1983_10_30 -9", "-9 US AK%sT"],"America/Kentucky/Louisville": ["-5:43:2 - LMT 1883_10_18_12_16_58 -5:43:2", "-6 US C%sT 1921 -6", "-6 Louisville C%sT 1942 -6", "-6 US C%sT 1946 -6", "-6 Louisville C%sT 1961_6_23_2 -5", "-5 - EST 1968 -5", "-5 US E%sT 1974_0_6_2 -5", "-5 - CDT 1974_9_27_2 -5", "-5 US E%sT"],"America/Kentucky/Monticello": ["-5:39:24 - LMT 1883_10_18_12_20_36 -5:39:24", "-6 US C%sT 1946 -6", "-6 - CST 1968 -6", "-6 US C%sT 2000_9_29_2 -5", "-5 US E%sT"],"America/La_Paz": ["-4:32:36 - LMT 1890 -4:32:36", "-4:32:36 - CMT 1931_9_15 -4:32:36", "-3:32:36 - BOST 1932_2_21 -3:32:36", "-4 - BOT"],"America/Lima": ["-5:8:12 - LMT 1890 -5:8:12", "-5:8:36 - LMT 1908_6_28 -5:8:36", "-5 Peru PE%sT"],"America/Los_Angeles": ["-7:52:58 - LMT 1883_10_18_12_7_2 -7:52:58", "-8 US P%sT 1946 -8", "-8 CA P%sT 1967 -8", "-8 US P%sT"],"America/Maceio": ["-2:22:52 - LMT 1914 -2:22:52", "-3 Brazil BR%sT 1990_8_17 -3", "-3 - BRT 1995_9_13 -3", "-3 Brazil BR%sT 1996_8_4 -3", "-3 - BRT 1999_8_30 -3", "-3 Brazil BR%sT 2000_9_22 -2", "-3 - BRT 2001_8_13 -3", "-3 Brazil BR%sT 2002_9_1 -3", "-3 - BRT"],"America/Managua": ["-5:45:8 - LMT 1890 -5:45:8", "-5:45:12 - MMT 1934_5_23 -5:45:12", "-6 - CST 1973_4 -6", "-5 - EST 1975_1_16 -5", "-6 Nic C%sT 1992_0_1_4 -6", "-5 - EST 1992_8_24 -5", "-6 - CST 1993 -6", "-5 - EST 1997 -5", "-6 Nic C%sT"],"America/Manaus": ["-4:0:4 - LMT 1914 -4:0:4", "-4 Brazil AM%sT 1988_8_12 -4", "-4 - AMT 1993_8_28 -4", "-4 Brazil AM%sT 1994_8_22 -4", "-4 - AMT"],"America/Martinique": ["-4:4:20 - LMT 1890 -4:4:20", "-4:4:20 - FFMT 1911_4 -4:4:20", "-4 - AST 1980_3_6 -4", "-3 - ADT 1980_8_28 -3", "-4 - AST"],"America/Matamoros": ["-6:40 - LMT 1921_11_31_23_20 -6:40", "-6 - CST 1988 -6", "-6 US C%sT 1989 -6", "-6 Mexico C%sT 2010 -6", "-6 US C%sT"],"America/Mazatlan": ["-7:5:40 - LMT 1921_11_31_23_54_20 -7:5:40", "-7 - MST 1927_5_10_23 -7", "-6 - CST 1930_10_15 -6", "-7 - MST 1931_4_1_23 -7", "-6 - CST 1931_9 -6", "-7 - MST 1932_3_1 -7", "-6 - CST 1942_3_24 -6", "-7 - MST 1949_0_14 -7", "-8 - PST 1970 -8", "-7 Mexico M%sT"],"America/Menominee": ["-5:50:27 - LMT 1885_8_18_12 -5:50:27", "-6 US C%sT 1946 -6", "-6 Menominee C%sT 1969_3_27_2 -6", "-5 - EST 1973_3_29_2 -5", "-6 US C%sT"],"America/Merida": ["-5:58:28 - LMT 1922_0_1_0_1_32 -5:58:28", "-6 - CST 1981_11_23 -6", "-5 - EST 1982_11_2 -5", "-6 Mexico C%sT"],"America/Metlakatla": ["15:13:42 - LMT 1867_9_18 15:13:42", "-8:46:18 - LMT 1900_7_20_12 -8:46:18", "-8 - PST 1942 -8", "-8 US P%sT 1946 -8", "-8 - PST 1969 -8", "-8 US P%sT 1983_9_30_2 -7", "-8 - MeST"],"America/Mexico_City": ["-6:36:36 - LMT 1922_0_1_0_23_24 -6:36:36", "-7 - MST 1927_5_10_23 -7", "-6 - CST 1930_10_15 -6", "-7 - MST 1931_4_1_23 -7", "-6 - CST 1931_9 -6", "-7 - MST 1932_3_1 -7", "-6 Mexico C%sT 2001_8_30_02 -5", "-6 - CST 2002_1_20 -6", "-6 Mexico C%sT"],"America/Miquelon": ["-3:44:40 - LMT 1911_4_15 -3:44:40", "-4 - AST 1980_4 -4", "-3 - PMST 1987 -3", "-3 Canada PM%sT"],"America/Moncton": ["-4:19:8 - LMT 1883_11_9 -4:19:8", "-5 - EST 1902_5_15 -5", "-4 Canada A%sT 1933 -4", "-4 Moncton A%sT 1942 -4", "-4 Canada A%sT 1946 -4", "-4 Moncton A%sT 1973 -4", "-4 Canada A%sT 1993 -4", "-4 Moncton A%sT 2007 -4", "-4 Canada A%sT"],"America/Monterrey": ["-6:41:16 - LMT 1921_11_31_23_18_44 -6:41:16", "-6 - CST 1988 -6", "-6 US C%sT 1989 -6", "-6 Mexico C%sT"],"America/Montevideo": ["-3:44:44 - LMT 1898_5_28 -3:44:44", "-3:44:44 - MMT 1920_4_1 -3:44:44", "-3:30 Uruguay UY%sT 1942_11_14 -3:30", "-3 Uruguay UY%sT"],"America/Montreal": ["-4:54:16 - LMT 1884 -4:54:16", "-5 Mont E%sT 1918 -5", "-5 Canada E%sT 1919 -5", "-5 Mont E%sT 1942_1_9_2 -5", "-5 Canada E%sT 1946 -5", "-5 Mont E%sT 1974 -5", "-5 Canada E%sT"],"America/Montserrat": ["-4:8:52 - LMT 1911_6_1_0_1 -4:8:52", "-4 - AST"],"America/Nassau": ["-5:9:30 - LMT 1912_2_2 -5:9:30", "-5 Bahamas E%sT 1976 -5", "-5 US E%sT"],"America/New_York": ["-4:56:2 - LMT 1883_10_18_12_3_58 -4:56:2", "-5 US E%sT 1920 -5", "-5 NYC E%sT 1942 -5", "-5 US E%sT 1946 -5", "-5 NYC E%sT 1967 -5", "-5 US E%sT"],"America/Nipigon": ["-5:53:4 - LMT 1895 -5:53:4", "-5 Canada E%sT 1940_8_29 -5", "-4 - EDT 1942_1_9_2 -5", "-5 Canada E%sT"],"America/Nome": ["12:58:21 - LMT 1867_9_18 12:58:21", "-11:1:38 - LMT 1900_7_20_12 -11:1:38", "-11 - NST 1942 -11", "-11 US N%sT 1946 -11", "-11 - NST 1967_3 -11", "-11 - BST 1969 -11", "-11 US B%sT 1983_9_30_2 -10", "-9 US Y%sT 1983_10_30 -9", "-9 US AK%sT"],"America/Noronha": ["-2:9:40 - LMT 1914 -2:9:40", "-2 Brazil FN%sT 1990_8_17 -2", "-2 - FNT 1999_8_30 -2", "-2 Brazil FN%sT 2000_9_15 -1", "-2 - FNT 2001_8_13 -2", "-2 Brazil FN%sT 2002_9_1 -2", "-2 - FNT"],"America/North_Dakota/Beulah": ["-6:47:7 - LMT 1883_10_18_12_12_53 -6:47:7", "-7 US M%sT 2010_10_7_2 -6", "-6 US C%sT"],"America/North_Dakota/Center": ["-6:45:12 - LMT 1883_10_18_12_14_48 -6:45:12", "-7 US M%sT 1992_9_25_02 -6", "-6 US C%sT"],"America/North_Dakota/New_Salem": ["-6:45:39 - LMT 1883_10_18_12_14_21 -6:45:39", "-7 US M%sT 2003_9_26_02 -6", "-6 US C%sT"],"America/Ojinaga": ["-6:57:40 - LMT 1922_0_1_0_2_20 -6:57:40", "-7 - MST 1927_5_10_23 -7", "-6 - CST 1930_10_15 -6", "-7 - MST 1931_4_1_23 -7", "-6 - CST 1931_9 -6", "-7 - MST 1932_3_1 -7", "-6 - CST 1996 -6", "-6 Mexico C%sT 1998 -6", "-6 - CST 1998_3_5_3 -6", "-7 Mexico M%sT 2010 -7", "-7 US M%sT"],"America/Panama": ["-5:18:8 - LMT 1890 -5:18:8", "-5:19:36 - CMT 1908_3_22 -5:19:36", "-5 - EST"],"America/Pangnirtung": ["0 - zzz 1921", "-4 NT_YK A%sT 1995_3_2_2 -4", "-5 Canada E%sT 1999_9_31_2 -4", "-6 Canada C%sT 2000_9_29_2 -5", "-5 Canada E%sT"],"America/Paramaribo": ["-3:40:40 - LMT 1911 -3:40:40", "-3:40:52 - PMT 1935 -3:40:52", "-3:40:36 - PMT 1945_9 -3:40:36", "-3:30 - NEGT 1975_10_20 -3:30", "-3:30 - SRT 1984_9 -3:30", "-3 - SRT"],"America/Phoenix": ["-7:28:18 - LMT 1883_10_18_11_31_42 -7:28:18", "-7 US M%sT 1944_0_1_00_1 -6", "-7 - MST 1944_3_1_00_1 -7", "-7 US M%sT 1944_9_1_00_1 -6", "-7 - MST 1967 -7", "-7 US M%sT 1968_2_21 -7", "-7 - MST"],"America/Port-au-Prince": ["-4:49:20 - LMT 1890 -4:49:20", "-4:49 - PPMT 1917_0_24_12 -4:49", "-5 Haiti E%sT"],"America/Port_of_Spain": ["-4:6:4 - LMT 1912_2_2 -4:6:4", "-4 - AST"],"America/Porto_Velho": ["-4:15:36 - LMT 1914 -4:15:36", "-4 Brazil AM%sT 1988_8_12 -4", "-4 - AMT"],"America/Puerto_Rico": ["-4:24:25 - LMT 1899_2_28_12 -4:24:25", "-4 - AST 1942_4_3 -4", "-4 US A%sT 1946 -4", "-4 - AST"],"America/Rainy_River": ["-6:18:16 - LMT 1895 -6:18:16", "-6 Canada C%sT 1940_8_29 -6", "-5 - CDT 1942_1_9_2 -6", "-6 Canada C%sT"],"America/Rankin_Inlet": ["0 - zzz 1957", "-6 NT_YK C%sT 2000_9_29_2 -5", "-5 - EST 2001_3_1_3 -5", "-6 Canada C%sT"],"America/Recife": ["-2:19:36 - LMT 1914 -2:19:36", "-3 Brazil BR%sT 1990_8_17 -3", "-3 - BRT 1999_8_30 -3", "-3 Brazil BR%sT 2000_9_15 -2", "-3 - BRT 2001_8_13 -3", "-3 Brazil BR%sT 2002_9_1 -3", "-3 - BRT"],"America/Regina": ["-6:58:36 - LMT 1905_8 -6:58:36", "-7 Regina M%sT 1960_3_24_2 -7", "-6 - CST"],"America/Resolute": ["0 - zzz 1947_7_31", "-6 NT_YK C%sT 2000_9_29_2 -5", "-5 - EST 2001_3_1_3 -5", "-6 Canada C%sT 2006_9_29_2 -5", "-5 - EST 2007_2_11_3 -5", "-6 Canada C%sT"],"America/Rio_Branco": ["-4:31:12 - LMT 1914 -4:31:12", "-5 Brazil AC%sT 1988_8_12 -5", "-5 - ACT 2008_5_24_00 -5", "-4 - AMT"],"America/Santa_Isabel": ["-7:39:28 - LMT 1922_0_1_0_20_32 -7:39:28", "-7 - MST 1924 -7", "-8 - PST 1927_5_10_23 -8", "-7 - MST 1930_10_15 -7", "-8 - PST 1931_3_1 -8", "-7 - PDT 1931_8_30 -7", "-8 - PST 1942_3_24 -8", "-7 - PWT 1945_7_14_23", "-7 - PPT 1945_10_12 -7", "-8 - PST 1948_3_5 -8", "-7 - PDT 1949_0_14 -7", "-8 - PST 1954 -8", "-8 CA P%sT 1961 -8", "-8 - PST 1976 -8", "-8 US P%sT 1996 -8", "-8 Mexico P%sT 2001 -8", "-8 US P%sT 2002_1_20 -8", "-8 Mexico P%sT"],"America/Santarem": ["-3:38:48 - LMT 1914 -3:38:48", "-4 Brazil AM%sT 1988_8_12 -4", "-4 - AMT 2008_5_24_00 -4", "-3 - BRT"],"America/Santiago": ["-4:42:46 - LMT 1890 -4:42:46", "-4:42:46 - SMT 1910 -4:42:46", "-5 - CLT 1916_6_1 -5", "-4:42:46 - SMT 1918_8_1 -4:42:46", "-4 - CLT 1919_6_1 -4", "-4:42:46 - SMT 1927_8_1 -4:42:46", "-5 Chile CL%sT 1947_4_22 -5", "-4 Chile CL%sT"],"America/Santo_Domingo": ["-4:39:36 - LMT 1890 -4:39:36", "-4:40 - SDMT 1933_3_1_12 -4:40", "-5 DR E%sT 1974_9_27 -5", "-4 - AST 2000_9_29_02 -4", "-5 US E%sT 2000_11_3_01 -5", "-4 - AST"],"America/Sao_Paulo": ["-3:6:28 - LMT 1914 -3:6:28", "-3 Brazil BR%sT 1963_9_23_00 -3", "-2 - BRST 1964 -2", "-3 Brazil BR%sT"],"America/Scoresbysund": ["-1:27:52 - LMT 1916_6_28 -1:27:52", "-2 - CGT 1980_3_6_2 -2", "-2 C-Eur CG%sT 1981_2_29 -2", "-1 EU EG%sT"],"America/Sitka": ["14:58:47 - LMT 1867_9_18 14:58:47", "-9:1:13 - LMT 1900_7_20_12 -9:1:13", "-8 - PST 1942 -8", "-8 US P%sT 1946 -8", "-8 - PST 1969 -8", "-8 US P%sT 1983_9_30_2 -7", "-9 US Y%sT 1983_10_30 -9", "-9 US AK%sT"],"America/St_Johns": ["-3:30:52 - LMT 1884 -3:30:52", "-3:30:52 StJohns N%sT 1918 -3:30:52", "-3:30:52 Canada N%sT 1919 -3:30:52", "-3:30:52 StJohns N%sT 1935_2_30 -3:30:52", "-3:30 StJohns N%sT 1942_4_11 -3:30", "-3:30 Canada N%sT 1946 -3:30", "-3:30 StJohns N%sT 2011_10 -2:30", "-3:30 Canada N%sT"],"America/St_Kitts": ["-4:10:52 - LMT 1912_2_2 -4:10:52", "-4 - AST"],"America/St_Lucia": ["-4:4 - LMT 1890 -4:4", "-4:4 - CMT 1912 -4:4", "-4 - AST"],"America/St_Thomas": ["-4:19:44 - LMT 1911_6 -4:19:44", "-4 - AST"],"America/St_Vincent": ["-4:4:56 - LMT 1890 -4:4:56", "-4:4:56 - KMT 1912 -4:4:56", "-4 - AST"],"America/Swift_Current": ["-7:11:20 - LMT 1905_8 -7:11:20", "-7 Canada M%sT 1946_3_28_2 -7", "-7 Regina M%sT 1950 -7", "-7 Swift M%sT 1972_3_30_2 -7", "-6 - CST"],"America/Tegucigalpa": ["-5:48:52 - LMT 1921_3 -5:48:52", "-6 Hond C%sT"],"America/Thule": ["-4:35:8 - LMT 1916_6_28 -4:35:8", "-4 Thule A%sT"],"America/Thunder_Bay": ["-5:57 - LMT 1895 -5:57", "-6 - CST 1910 -6", "-5 - EST 1942 -5", "-5 Canada E%sT 1970 -5", "-5 Mont E%sT 1973 -5", "-5 - EST 1974 -5", "-5 Canada E%sT"],"America/Tijuana": ["-7:48:4 - LMT 1922_0_1_0_11_56 -7:48:4", "-7 - MST 1924 -7", "-8 - PST 1927_5_10_23 -8", "-7 - MST 1930_10_15 -7", "-8 - PST 1931_3_1 -8", "-7 - PDT 1931_8_30 -7", "-8 - PST 1942_3_24 -8", "-7 - PWT 1945_7_14_23", "-7 - PPT 1945_10_12 -7", "-8 - PST 1948_3_5 -8", "-7 - PDT 1949_0_14 -7", "-8 - PST 1954 -8", "-8 CA P%sT 1961 -8", "-8 - PST 1976 -8", "-8 US P%sT 1996 -8", "-8 Mexico P%sT 2001 -8", "-8 US P%sT 2002_1_20 -8", "-8 Mexico P%sT 2010 -8", "-8 US P%sT"],"America/Toronto": ["-5:17:32 - LMT 1895 -5:17:32", "-5 Canada E%sT 1919 -5", "-5 Toronto E%sT 1942_1_9_2 -5", "-5 Canada E%sT 1946 -5", "-5 Toronto E%sT 1974 -5", "-5 Canada E%sT"],"America/Tortola": ["-4:18:28 - LMT 1911_6 -4:18:28", "-4 - AST"],"America/Vancouver": ["-8:12:28 - LMT 1884 -8:12:28", "-8 Vanc P%sT 1987 -8", "-8 Canada P%sT"],"America/Whitehorse": ["-9:0:12 - LMT 1900_7_20 -9:0:12", "-9 NT_YK Y%sT 1966_6_1_2 -9", "-8 NT_YK P%sT 1980 -8", "-8 Canada P%sT"],"America/Winnipeg": ["-6:28:36 - LMT 1887_6_16 -6:28:36", "-6 Winn C%sT 2006 -6", "-6 Canada C%sT"],"America/Yakutat": ["14:41:5 - LMT 1867_9_18 14:41:5", "-9:18:55 - LMT 1900_7_20_12 -9:18:55", "-9 - YST 1942 -9", "-9 US Y%sT 1946 -9", "-9 - YST 1969 -9", "-9 US Y%sT 1983_10_30 -9", "-9 US AK%sT"],"America/Yellowknife": ["0 - zzz 1935", "-7 NT_YK M%sT 1980 -7", "-7 Canada M%sT"],"Antarctica/Casey": ["0 - zzz 1969", "8 - WST 2009_9_18_2 8", "11 - CAST 2010_2_5_2 11", "8 - WST 2011_9_28_2 8", "11 - CAST 2012_1_21_17", "8 - WST"],"Antarctica/Davis": ["0 - zzz 1957_0_13", "7 - DAVT 1964_10 7", "0 - zzz 1969_1", "7 - DAVT 2009_9_18_2 7", "5 - DAVT 2010_2_10_20", "7 - DAVT 2011_9_28_2 7", "5 - DAVT 2012_1_21_20", "7 - DAVT"],"Antarctica/DumontDUrville": ["0 - zzz 1947", "10 - PMT 1952_0_14 10", "0 - zzz 1956_10", "10 - DDUT"],"Antarctica/Macquarie": ["0 - zzz 1899_10", "10 - EST 1916_9_1_2 10", "11 - EST 1917_1 11", "10 Aus EST 1919_3 10", "0 - zzz 1948_2_25", "10 Aus EST 1967 10", "10 AT EST 2010_3_4_3 11", "11 - MIST"],"Antarctica/Mawson": ["0 - zzz 1954_1_13", "6 - MAWT 2009_9_18_2 6", "5 - MAWT"],"Antarctica/McMurdo": ["0 - zzz 1956", "12 NZAQ NZ%sT"],"Antarctica/Palmer": ["0 - zzz 1965", "-4 ArgAQ AR%sT 1969_9_5 -4", "-3 ArgAQ AR%sT 1982_4 -3", "-4 ChileAQ CL%sT"],"Antarctica/Rothera": ["0 - zzz 1976_11_1", "-3 - ROTT"],"Antarctica/Syowa": ["0 - zzz 1957_0_29", "3 - SYOT"],"Antarctica/Vostok": ["0 - zzz 1957_11_16", "6 - VOST"],"Europe/Oslo": ["0:43 - LMT 1895_0_1 0:43", "1 Norway CE%sT 1940_7_10_23 1", "1 C-Eur CE%sT 1945_3_2_2 1", "1 Norway CE%sT 1980 1", "1 EU CE%sT"],"Asia/Aden": ["2:59:54 - LMT 1950 2:59:54", "3 - AST"],"Asia/Almaty": ["5:7:48 - LMT 1924_4_2 5:7:48", "5 - ALMT 1930_5_21 5", "6 RussiaAsia ALM%sT 1991 6", "6 - ALMT 1992 6", "6 RussiaAsia ALM%sT 2005_2_15 6", "6 - ALMT"],"Asia/Amman": ["2:23:44 - LMT 1931 2:23:44", "2 Jordan EE%sT"],"Asia/Anadyr": ["11:49:56 - LMT 1924_4_2 11:49:56", "12 - ANAT 1930_5_21 12", "13 Russia ANA%sT 1982_3_1_0 13", "12 Russia ANA%sT 1991_2_31_2 12", "11 Russia ANA%sT 1992_0_19_2 11", "12 Russia ANA%sT 2010_2_28_2 12", "11 Russia ANA%sT 2011_2_27_2 11", "12 - ANAT"],"Asia/Aqtau": ["3:21:4 - LMT 1924_4_2 3:21:4", "4 - FORT 1930_5_21 4", "5 - FORT 1963 5", "5 - SHET 1981_9_1 5", "6 - SHET 1982_3_1 6", "5 RussiaAsia SHE%sT 1991 5", "5 - SHET 1991_11_16 5", "5 RussiaAsia AQT%sT 1995_2_26_2 5", "4 RussiaAsia AQT%sT 2005_2_15 4", "5 - AQTT"],"Asia/Aqtobe": ["3:48:40 - LMT 1924_4_2 3:48:40", "4 - AKTT 1930_5_21 4", "5 - AKTT 1981_3_1 5", "6 - AKTST 1981_9_1 6", "6 - AKTT 1982_3_1 6", "5 RussiaAsia AKT%sT 1991 5", "5 - AKTT 1991_11_16 5", "5 RussiaAsia AQT%sT 2005_2_15 5", "5 - AQTT"],"Asia/Ashgabat": ["3:53:32 - LMT 1924_4_2 3:53:32", "4 - ASHT 1930_5_21 4", "5 RussiaAsia ASH%sT 1991_2_31_2 5", "4 RussiaAsia ASH%sT 1991_9_27 4", "4 RussiaAsia TM%sT 1992_0_19_2 4", "5 - TMT"],"Asia/Baghdad": ["2:57:40 - LMT 1890 2:57:40", "2:57:36 - BMT 1918 2:57:36", "3 - AST 1982_4 3", "3 Iraq A%sT"],"Asia/Bahrain": ["3:22:20 - LMT 1920 3:22:20", "4 - GST 1972_5 4", "3 - AST"],"Asia/Baku": ["3:19:24 - LMT 1924_4_2 3:19:24", "3 - BAKT 1957_2 3", "4 RussiaAsia BAK%sT 1991_2_31_2 4", "4 - BAKST 1991_7_30 4", "3 RussiaAsia AZ%sT 1992_8_26_23 4", "4 - AZT 1996 4", "4 EUAsia AZ%sT 1997 4", "4 Azer AZ%sT"],"Asia/Bangkok": ["6:42:4 - LMT 1880 6:42:4", "6:42:4 - BMT 1920_3 6:42:4", "7 - ICT"],"Asia/Beirut": ["2:22 - LMT 1880 2:22", "2 Lebanon EE%sT"],"Asia/Bishkek": ["4:58:24 - LMT 1924_4_2 4:58:24", "5 - FRUT 1930_5_21 5", "6 RussiaAsia FRU%sT 1991_2_31_2 6", "6 - FRUST 1991_7_31_2 6", "5 Kyrgyz KG%sT 2005_7_12 6", "6 - KGT"],"Asia/Brunei": ["7:39:40 - LMT 1926_2 7:39:40", "7:30 - BNT 1933 7:30", "8 - BNT"],"Asia/Choibalsan": ["7:38 - LMT 1905_7 7:38", "7 - ULAT 1978 7", "8 - ULAT 1983_3 8", "9 Mongol CHO%sT 2008_2_31 9", "8 Mongol CHO%sT"],"Asia/Chongqing": ["7:6:20 - LMT 1928 7:6:20", "7 - LONT 1980_4 7", "8 PRC C%sT"],"Asia/Colombo": ["5:19:24 - LMT 1880 5:19:24", "5:19:32 - MMT 1906 5:19:32", "5:30 - IST 1942_0_5 5:30", "6 - IHST 1942_8 6", "6:30 - IST 1945_9_16_2 6:30", "5:30 - IST 1996_4_25_0 5:30", "6:30 - LKT 1996_9_26_0_30 6:30", "6 - LKT 2006_3_15_0_30 6", "5:30 - IST"],"Asia/Damascus": ["2:25:12 - LMT 1920 2:25:12", "2 Syria EE%sT"],"Asia/Dhaka": ["6:1:40 - LMT 1890 6:1:40", "5:53:20 - HMT 1941_9 5:53:20", "6:30 - BURT 1942_4_15 6:30", "5:30 - IST 1942_8 5:30", "6:30 - BURT 1951_8_30 6:30", "6 - DACT 1971_2_26 6", "6 - BDT 2009 6", "6 Dhaka BD%sT"],"Asia/Dili": ["8:22:20 - LMT 1912 8:22:20", "8 - TLT 1942_1_21_23 8", "9 - JST 1945_8_23 9", "9 - TLT 1976_4_3 9", "8 - CIT 2000_8_17_00 8", "9 - TLT"],"Asia/Dubai": ["3:41:12 - LMT 1920 3:41:12", "4 - GST"],"Asia/Dushanbe": ["4:35:12 - LMT 1924_4_2 4:35:12", "5 - DUST 1930_5_21 5", "6 RussiaAsia DUS%sT 1991_2_31_2 6", "6 - DUSST 1991_8_9_2 5", "5 - TJT"],"Asia/Gaza": ["2:17:52 - LMT 1900_9 2:17:52", "2 Zion EET 1948_4_15 2", "2 EgyptAsia EE%sT 1967_5_5 3", "2 Zion I%sT 1996 2", "2 Jordan EE%sT 1999 2", "2 Palestine EE%sT 2008_7_29_0 3", "2 - EET 2008_8 2", "2 Palestine EE%sT 2010 2", "2 - EET 2010_2_27_0_1 2", "2 Palestine EE%sT 2011_7_1 3", "2 - EET 2012 2", "2 Palestine EE%sT"],"Asia/Harbin": ["8:26:44 - LMT 1928 8:26:44", "8:30 - CHAT 1932_2 8:30", "8 - CST 1940 8", "9 - CHAT 1966_4 9", "8:30 - CHAT 1980_4 8:30", "8 PRC C%sT"],"Asia/Hebron": ["2:20:23 - LMT 1900_9 2:20:23", "2 Zion EET 1948_4_15 2", "2 EgyptAsia EE%sT 1967_5_5 3", "2 Zion I%sT 1996 2", "2 Jordan EE%sT 1999 2", "2 Palestine EE%sT"],"Asia/Ho_Chi_Minh": ["7:6:40 - LMT 1906_5_9 7:6:40", "7:6:20 - SMT 1911_2_11_0_1 7:6:20", "7 - ICT 1912_4 7", "8 - ICT 1931_4 8", "7 - ICT"],"Asia/Hong_Kong": ["7:36:42 - LMT 1904_9_30 7:36:42", "8 HK HK%sT 1941_11_25 8", "9 - JST 1945_8_15 9", "8 HK HK%sT"],"Asia/Hovd": ["6:6:36 - LMT 1905_7 6:6:36", "6 - HOVT 1978 6", "7 Mongol HOV%sT"],"Asia/Irkutsk": ["6:57:20 - LMT 1880 6:57:20", "6:57:20 - IMT 1920_0_25 6:57:20", "7 - IRKT 1930_5_21 7", "8 Russia IRK%sT 1991_2_31_2 8", "7 Russia IRK%sT 1992_0_19_2 7", "8 Russia IRK%sT 2011_2_27_2 8", "9 - IRKT"],"Asia/Jakarta": ["7:7:12 - LMT 1867_7_10 7:7:12", "7:7:12 - JMT 1923_11_31_23_47_12 7:7:12", "7:20 - JAVT 1932_10 7:20", "7:30 - WIT 1942_2_23 7:30", "9 - JST 1945_8_23 9", "7:30 - WIT 1948_4 7:30", "8 - WIT 1950_4 8", "7:30 - WIT 1964 7:30", "7 - WIT"],"Asia/Jayapura": ["9:22:48 - LMT 1932_10 9:22:48", "9 - EIT 1944_8_1 9", "9:30 - CST 1964 9:30", "9 - EIT"],"Asia/Jerusalem": ["2:20:56 - LMT 1880 2:20:56", "2:20:40 - JMT 1918 2:20:40", "2 Zion I%sT"],"Asia/Kabul": ["4:36:48 - LMT 1890 4:36:48", "4 - AFT 1945 4", "4:30 - AFT"],"Asia/Kamchatka": ["10:34:36 - LMT 1922_10_10 10:34:36", "11 - PETT 1930_5_21 11", "12 Russia PET%sT 1991_2_31_2 12", "11 Russia PET%sT 1992_0_19_2 11", "12 Russia PET%sT 2010_2_28_2 12", "11 Russia PET%sT 2011_2_27_2 11", "12 - PETT"],"Asia/Karachi": ["4:28:12 - LMT 1907 4:28:12", "5:30 - IST 1942_8 5:30", "6:30 - IST 1945_9_15 6:30", "5:30 - IST 1951_8_30 5:30", "5 - KART 1971_2_26 5", "5 Pakistan PK%sT"],"Asia/Kashgar": ["5:3:56 - LMT 1928 5:3:56", "5:30 - KAST 1940 5:30", "5 - KAST 1980_4 5", "8 PRC C%sT"],"Asia/Kathmandu": ["5:41:16 - LMT 1920 5:41:16", "5:30 - IST 1986 5:30", "5:45 - NPT"],"Asia/Khandyga": ["9:2:13 - LMT 1919_11_15 9:2:13", "8 - YAKT 1930_5_21 8", "9 Russia YAK%sT 1991_2_31_2 9", "8 Russia YAK%sT 1992_0_19_2 8", "9 Russia YAK%sT 2004 9", "10 Russia VLA%sT 2011_2_27_2 10", "11 - VLAT 2011_8_13_0 11", "10 - YAKT"],"Asia/Kolkata": ["5:53:28 - LMT 1880 5:53:28", "5:53:20 - HMT 1941_9 5:53:20", "6:30 - BURT 1942_4_15 6:30", "5:30 - IST 1942_8 5:30", "6:30 - IST 1945_9_15 6:30", "5:30 - IST"],"Asia/Krasnoyarsk": ["6:11:20 - LMT 1920_0_6 6:11:20", "6 - KRAT 1930_5_21 6", "7 Russia KRA%sT 1991_2_31_2 7", "6 Russia KRA%sT 1992_0_19_2 6", "7 Russia KRA%sT 2011_2_27_2 7", "8 - KRAT"],"Asia/Kuala_Lumpur": ["6:46:46 - LMT 1901_0_1 6:46:46", "6:55:25 - SMT 1905_5_1 6:55:25", "7 - MALT 1933_0_1 7", "7:20 - MALST 1936_0_1 7:20", "7:20 - MALT 1941_8_1 7:20", "7:30 - MALT 1942_1_16 7:30", "9 - JST 1945_8_12 9", "7:30 - MALT 1982_0_1 7:30", "8 - MYT"],"Asia/Kuching": ["7:21:20 - LMT 1926_2 7:21:20", "7:30 - BORT 1933 7:30", "8 NBorneo BOR%sT 1942_1_16 8", "9 - JST 1945_8_12 9", "8 - BORT 1982_0_1 8", "8 - MYT"],"Asia/Kuwait": ["3:11:56 - LMT 1950 3:11:56", "3 - AST"],"Asia/Macau": ["7:34:20 - LMT 1912 7:34:20", "8 Macau MO%sT 1999_11_20 8", "8 PRC C%sT"],"Asia/Magadan": ["10:3:12 - LMT 1924_4_2 10:3:12", "10 - MAGT 1930_5_21 10", "11 Russia MAG%sT 1991_2_31_2 11", "10 Russia MAG%sT 1992_0_19_2 10", "11 Russia MAG%sT 2011_2_27_2 11", "12 - MAGT"],"Asia/Makassar": ["7:57:36 - LMT 1920 7:57:36", "7:57:36 - MMT 1932_10 7:57:36", "8 - CIT 1942_1_9 8", "9 - JST 1945_8_23 9", "8 - CIT"],"Asia/Manila": ["-15:56 - LMT 1844_11_31 -15:56", "8:4 - LMT 1899_4_11 8:4", "8 Phil PH%sT 1942_4 8", "9 - JST 1944_10 9", "8 Phil PH%sT"],"Asia/Muscat": ["3:54:24 - LMT 1920 3:54:24", "4 - GST"],"Asia/Nicosia": ["2:13:28 - LMT 1921_10_14 2:13:28", "2 Cyprus EE%sT 1998_8 3", "2 EUAsia EE%sT"],"Asia/Novokuznetsk": ["5:48:48 - NMT 1920_0_6 5:48:48", "6 - KRAT 1930_5_21 6", "7 Russia KRA%sT 1991_2_31_2 7", "6 Russia KRA%sT 1992_0_19_2 6", "7 Russia KRA%sT 2010_2_28_2 7", "6 Russia NOV%sT 2011_2_27_2 6", "7 - NOVT"],"Asia/Novosibirsk": ["5:31:40 - LMT 1919_11_14_6 5:31:40", "6 - NOVT 1930_5_21 6", "7 Russia NOV%sT 1991_2_31_2 7", "6 Russia NOV%sT 1992_0_19_2 6", "7 Russia NOV%sT 1993_4_23 8", "6 Russia NOV%sT 2011_2_27_2 6", "7 - NOVT"],"Asia/Omsk": ["4:53:36 - LMT 1919_10_14 4:53:36", "5 - OMST 1930_5_21 5", "6 Russia OMS%sT 1991_2_31_2 6", "5 Russia OMS%sT 1992_0_19_2 5", "6 Russia OMS%sT 2011_2_27_2 6", "7 - OMST"],"Asia/Oral": ["3:25:24 - LMT 1924_4_2 3:25:24", "4 - URAT 1930_5_21 4", "5 - URAT 1981_3_1 5", "6 - URAST 1981_9_1 6", "6 - URAT 1982_3_1 6", "5 RussiaAsia URA%sT 1989_2_26_2 5", "4 RussiaAsia URA%sT 1991 4", "4 - URAT 1991_11_16 4", "4 RussiaAsia ORA%sT 2005_2_15 4", "5 - ORAT"],"Asia/Phnom_Penh": ["6:59:40 - LMT 1906_5_9 6:59:40", "7:6:20 - SMT 1911_2_11_0_1 7:6:20", "7 - ICT 1912_4 7", "8 - ICT 1931_4 8", "7 - ICT"],"Asia/Pontianak": ["7:17:20 - LMT 1908_4 7:17:20", "7:17:20 - PMT 1932_10 7:17:20", "7:30 - WIT 1942_0_29 7:30", "9 - JST 1945_8_23 9", "7:30 - WIT 1948_4 7:30", "8 - WIT 1950_4 8", "7:30 - WIT 1964 7:30", "8 - CIT 1988_0_1 8", "7 - WIT"],"Asia/Pyongyang": ["8:23 - LMT 1890 8:23", "8:30 - KST 1904_11 8:30", "9 - KST 1928 9", "8:30 - KST 1932 8:30", "9 - KST 1954_2_21 9", "8 - KST 1961_7_10 8", "9 - KST"],"Asia/Qatar": ["3:26:8 - LMT 1920 3:26:8", "4 - GST 1972_5 4", "3 - AST"],"Asia/Qyzylorda": ["4:21:52 - LMT 1924_4_2 4:21:52", "4 - KIZT 1930_5_21 4", "5 - KIZT 1981_3_1 5", "6 - KIZST 1981_9_1 6", "6 - KIZT 1982_3_1 6", "5 RussiaAsia KIZ%sT 1991 5", "5 - KIZT 1991_11_16 5", "5 - QYZT 1992_0_19_2 5", "6 RussiaAsia QYZ%sT 2005_2_15 6", "6 - QYZT"],"Asia/Rangoon": ["6:24:40 - LMT 1880 6:24:40", "6:24:40 - RMT 1920 6:24:40", "6:30 - BURT 1942_4 6:30", "9 - JST 1945_4_3 9", "6:30 - MMT"],"Asia/Riyadh": ["3:6:52 - LMT 1950 3:6:52", "3 - AST"],"Asia/Sakhalin": ["9:30:48 - LMT 1905_7_23 9:30:48", "9 - CJT 1938 9", "9 - JST 1945_7_25 9", "11 Russia SAK%sT 1991_2_31_2 11", "10 Russia SAK%sT 1992_0_19_2 10", "11 Russia SAK%sT 1997_2_30_2 11", "10 Russia SAK%sT 2011_2_27_2 10", "11 - SAKT"],"Asia/Samarkand": ["4:27:12 - LMT 1924_4_2 4:27:12", "4 - SAMT 1930_5_21 4", "5 - SAMT 1981_3_1 5", "6 - SAMST 1981_9_1 6", "6 - TAST 1982_3_1 6", "5 RussiaAsia SAM%sT 1991_8_1 6", "5 RussiaAsia UZ%sT 1992 5", "5 - UZT"],"Asia/Seoul": ["8:27:52 - LMT 1890 8:27:52", "8:30 - KST 1904_11 8:30", "9 - KST 1928 9", "8:30 - KST 1932 8:30", "9 - KST 1954_2_21 9", "8 ROK K%sT 1961_7_10 8", "8:30 - KST 1968_9 8:30", "9 ROK K%sT"],"Asia/Shanghai": ["8:5:57 - LMT 1928 8:5:57", "8 Shang C%sT 1949 8", "8 PRC C%sT"],"Asia/Singapore": ["6:55:25 - LMT 1901_0_1 6:55:25", "6:55:25 - SMT 1905_5_1 6:55:25", "7 - MALT 1933_0_1 7", "7:20 - MALST 1936_0_1 7:20", "7:20 - MALT 1941_8_1 7:20", "7:30 - MALT 1942_1_16 7:30", "9 - JST 1945_8_12 9", "7:30 - MALT 1965_7_9 7:30", "7:30 - SGT 1982_0_1 7:30", "8 - SGT"],"Asia/Taipei": ["8:6 - LMT 1896 8:6", "8 Taiwan C%sT"],"Asia/Tashkent": ["4:37:12 - LMT 1924_4_2 4:37:12", "5 - TAST 1930_5_21 5", "6 RussiaAsia TAS%sT 1991_2_31_2 6", "5 RussiaAsia TAS%sT 1991_8_1 6", "5 RussiaAsia UZ%sT 1992 5", "5 - UZT"],"Asia/Tbilisi": ["2:59:16 - LMT 1880 2:59:16", "2:59:16 - TBMT 1924_4_2 2:59:16", "3 - TBIT 1957_2 3", "4 RussiaAsia TBI%sT 1991_2_31_2 4", "4 - TBIST 1991_3_9 4", "3 RussiaAsia GE%sT 1992 3", "3 E-EurAsia GE%sT 1994_8_25 4", "4 E-EurAsia GE%sT 1996_9_27 5", "5 - GEST 1997_2_30 5", "4 E-EurAsia GE%sT 2004_5_27 5", "3 RussiaAsia GE%sT 2005_2_27_2 3", "4 - GET"],"Asia/Tehran": ["3:25:44 - LMT 1916 3:25:44", "3:25:44 - TMT 1946 3:25:44", "3:30 - IRST 1977_10 3:30", "4 Iran IR%sT 1979 4", "3:30 Iran IR%sT"],"Asia/Thimphu": ["5:58:36 - LMT 1947_7_15 5:58:36", "5:30 - IST 1987_9 5:30", "6 - BTT"],"Asia/Tokyo": ["9:18:59 - LMT 1887_11_31_15", "9 - JST 1896 9", "9 - CJT 1938 9", "9 Japan J%sT"],"Asia/Ulaanbaatar": ["7:7:32 - LMT 1905_7 7:7:32", "7 - ULAT 1978 7", "8 Mongol ULA%sT"],"Asia/Urumqi": ["5:50:20 - LMT 1928 5:50:20", "6 - URUT 1980_4 6", "8 PRC C%sT"],"Asia/Ust-Nera": ["9:32:54 - LMT 1919_11_15 9:32:54", "8 - YAKT 1930_5_21 8", "9 Russia YAKT 1981_3_1 9", "11 Russia MAG%sT 1991_2_31_2 11", "10 Russia MAG%sT 1992_0_19_2 10", "11 Russia MAG%sT 2011_2_27_2 11", "12 - MAGT 2011_8_13_0 12", "11 - VLAT"],"Asia/Vientiane": ["6:50:24 - LMT 1906_5_9 6:50:24", "7:6:20 - SMT 1911_2_11_0_1 7:6:20", "7 - ICT 1912_4 7", "8 - ICT 1931_4 8", "7 - ICT"],"Asia/Vladivostok": ["8:47:44 - LMT 1922_10_15 8:47:44", "9 - VLAT 1930_5_21 9", "10 Russia VLA%sT 1991_2_31_2 10", "9 Russia VLA%sST 1992_0_19_2 9", "10 Russia VLA%sT 2011_2_27_2 10", "11 - VLAT"],"Asia/Yakutsk": ["8:38:40 - LMT 1919_11_15 8:38:40", "8 - YAKT 1930_5_21 8", "9 Russia YAK%sT 1991_2_31_2 9", "8 Russia YAK%sT 1992_0_19_2 8", "9 Russia YAK%sT 2011_2_27_2 9", "10 - YAKT"],"Asia/Yekaterinburg": ["4:2:24 - LMT 1919_6_15_4 4:2:24", "4 - SVET 1930_5_21 4", "5 Russia SVE%sT 1991_2_31_2 5", "4 Russia SVE%sT 1992_0_19_2 4", "5 Russia YEK%sT 2011_2_27_2 5", "6 - YEKT"],"Asia/Yerevan": ["2:58 - LMT 1924_4_2 2:58", "3 - YERT 1957_2 3", "4 RussiaAsia YER%sT 1991_2_31_2 4", "4 - YERST 1991_8_23 4", "3 RussiaAsia AM%sT 1995_8_24_2 3", "4 - AMT 1997 4", "4 RussiaAsia AM%sT 2012_2_25_2 4", "4 - AMT"],"Atlantic/Azores": ["-1:42:40 - LMT 1884 -1:42:40", "-1:54:32 - HMT 1911_4_24 -1:54:32", "-2 Port AZO%sT 1966_3_3_2 -2", "-1 Port AZO%sT 1983_8_25_1 -1", "-1 W-Eur AZO%sT 1992_8_27_1 -1", "0 EU WE%sT 1993_2_28_1", "-1 EU AZO%sT"],"Atlantic/Bermuda": ["-4:19:18 - LMT 1930_0_1_2 -4:19:18", "-4 - AST 1974_3_28_2 -4", "-4 Bahamas A%sT 1976 -4", "-4 US A%sT"],"Atlantic/Canary": ["-1:1:36 - LMT 1922_2 -1:1:36", "-1 - CANT 1946_8_30_1 -1", "0 - WET 1980_3_6_0", "1 - WEST 1980_8_28_0", "0 EU WE%sT"],"Atlantic/Cape_Verde": ["-1:34:4 - LMT 1907 -1:34:4", "-2 - CVT 1942_8 -2", "-1 - CVST 1945_9_15 -1", "-2 - CVT 1975_10_25_2 -2", "-1 - CVT"],"Atlantic/Faroe": ["-0:27:4 - LMT 1908_0_11 -0:27:4", "0 - WET 1981", "0 EU WE%sT"],"Atlantic/Madeira": ["-1:7:36 - LMT 1884 -1:7:36", "-1:7:36 - FMT 1911_4_24 -1:7:36", "-1 Port MAD%sT 1966_3_3_2 -1", "0 Port WE%sT 1983_8_25_1", "0 EU WE%sT"],"Atlantic/Reykjavik": ["-1:27:24 - LMT 1837 -1:27:24", "-1:27:48 - RMT 1908 -1:27:48", "-1 Iceland IS%sT 1968_3_7_1 -1", "0 - GMT"],"Atlantic/South_Georgia": ["-2:26:8 - LMT 1890 -2:26:8", "-2 - GST"],"Atlantic/St_Helena": ["-0:22:48 - LMT 1890 -0:22:48", "-0:22:48 - JMT 1951 -0:22:48", "0 - GMT"],"Atlantic/Stanley": ["-3:51:24 - LMT 1890 -3:51:24", "-3:51:24 - SMT 1912_2_12 -3:51:24", "-4 Falk FK%sT 1983_4 -4", "-3 Falk FK%sT 1985_8_15 -3", "-4 Falk FK%sT 2010_8_5_02 -4", "-3 - FKST"],"Australia/Adelaide": ["9:14:20 - LMT 1895_1 9:14:20", "9 - CST 1899_4 9", "9:30 Aus CST 1971 9:30", "9:30 AS CST"],"Australia/Brisbane": ["10:12:8 - LMT 1895 10:12:8", "10 Aus EST 1971 10", "10 AQ EST"],"Australia/Broken_Hill": ["9:25:48 - LMT 1895_1 9:25:48", "10 - EST 1896_7_23 10", "9 - CST 1899_4 9", "9:30 Aus CST 1971 9:30", "9:30 AN CST 2000 10:30", "9:30 AS CST"],"Australia/Currie": ["9:35:28 - LMT 1895_8 9:35:28", "10 - EST 1916_9_1_2 10", "11 - EST 1917_1 11", "10 Aus EST 1971_6 10", "10 AT EST"],"Australia/Darwin": ["8:43:20 - LMT 1895_1 8:43:20", "9 - CST 1899_4 9", "9:30 Aus CST"],"Australia/Eucla": ["8:35:28 - LMT 1895_11 8:35:28", "8:45 Aus CWST 1943_6 8:45", "8:45 AW CWST"],"Australia/Hobart": ["9:49:16 - LMT 1895_8 9:49:16", "10 - EST 1916_9_1_2 10", "11 - EST 1917_1 11", "10 Aus EST 1967 10", "10 AT EST"],"Australia/Lindeman": ["9:55:56 - LMT 1895 9:55:56", "10 Aus EST 1971 10", "10 AQ EST 1992_6 10", "10 Holiday EST"],"Australia/Lord_Howe": ["10:36:20 - LMT 1895_1 10:36:20", "10 - EST 1981_2 10", "10:30 LH LHST"],"Australia/Melbourne": ["9:39:52 - LMT 1895_1 9:39:52", "10 Aus EST 1971 10", "10 AV EST"],"Australia/Perth": ["7:43:24 - LMT 1895_11 7:43:24", "8 Aus WST 1943_6 8", "8 AW WST"],"Australia/Sydney": ["10:4:52 - LMT 1895_1 10:4:52", "10 Aus EST 1971 10", "10 AN EST"],CET: ["1 C-Eur CE%sT"],CST6CDT: ["-6 US C%sT"],EET: ["2 EU EE%sT"],EST: ["-5 - EST"],EST5EDT: ["-5 US E%sT"],HST: ["-10 - HST"],MET: ["1 C-Eur ME%sT"],MST: ["-7 - MST"],MST7MDT: ["-7 US M%sT"],PST8PDT: ["-8 US P%sT"],WET: ["0 EU WE%sT"],"Europe/Amsterdam": ["0:19:32 - LMT 1835 0:19:32", "0:19:32 Neth %s 1937_6_1 1:19:32", "0:20 Neth NE%sT 1940_4_16_0 0:20", "1 C-Eur CE%sT 1945_3_2_2 1", "1 Neth CE%sT 1977 1", "1 EU CE%sT"],"Europe/Andorra": ["0:6:4 - LMT 1901 0:6:4", "0 - WET 1946_8_30", "1 - CET 1985_2_31_2 1", "1 EU CE%sT"],"Europe/Athens": ["1:34:52 - LMT 1895_8_14 1:34:52", "1:34:52 - AMT 1916_6_28_0_1 1:34:52", "2 Greece EE%sT 1941_3_30 3", "1 Greece CE%sT 1944_3_4 1", "2 Greece EE%sT 1981 2", "2 EU EE%sT"],"Europe/Belgrade": ["1:22 - LMT 1884 1:22", "1 - CET 1941_3_18_23 1", "1 C-Eur CE%sT 1945 1", "1 - CET 1945_4_8_2 1", "2 - CEST 1945_8_16_2 1", "1 - CET 1982_10_27 1", "1 EU CE%sT"],"Europe/Berlin": ["0:53:28 - LMT 1893_3 0:53:28", "1 C-Eur CE%sT 1945_4_24_2 2", "1 SovietZone CE%sT 1946 1", "1 Germany CE%sT 1980 1", "1 EU CE%sT"],"Europe/Prague": ["0:57:44 - LMT 1850 0:57:44", "0:57:44 - PMT 1891_9 0:57:44", "1 C-Eur CE%sT 1944_8_17_2 1", "1 Czech CE%sT 1979 1", "1 EU CE%sT"],"Europe/Brussels": ["0:17:30 - LMT 1880 0:17:30", "0:17:30 - BMT 1892_4_1_12 0:17:30", "0 - WET 1914_10_8", "1 - CET 1916_4_1_0 1", "1 C-Eur CE%sT 1918_10_11_11", "0 Belgium WE%sT 1940_4_20_2", "1 C-Eur CE%sT 1944_8_3 2", "1 Belgium CE%sT 1977 1", "1 EU CE%sT"],"Europe/Bucharest": ["1:44:24 - LMT 1891_9 1:44:24", "1:44:24 - BMT 1931_6_24 1:44:24", "2 Romania EE%sT 1981_2_29_2 2", "2 C-Eur EE%sT 1991 2", "2 Romania EE%sT 1994 2", "2 E-Eur EE%sT 1997 2", "2 EU EE%sT"],"Europe/Budapest": ["1:16:20 - LMT 1890_9 1:16:20"
-            , "1 C-Eur CE%sT 1918 1", "1 Hungary CE%sT 1941_3_6_2 1", "1 C-Eur CE%sT 1945 1", "1 Hungary CE%sT 1980_8_28_2 1", "1 EU CE%sT"],"Europe/Zurich": ["0:34:8 - LMT 1848_8_12 0:34:8", "0:29:44 - BMT 1894_5 0:29:44", "1 Swiss CE%sT 1981 1", "1 EU CE%sT"],"Europe/Chisinau": ["1:55:20 - LMT 1880 1:55:20", "1:55 - CMT 1918_1_15 1:55", "1:44:24 - BMT 1931_6_24 1:44:24", "2 Romania EE%sT 1940_7_15 2", "3 - EEST 1941_6_17 3", "1 C-Eur CE%sT 1944_7_24 2", "3 Russia MSK/MSD 1990 3", "3 - MSK 1990_4_6 3", "2 - EET 1991 2", "2 Russia EE%sT 1992 2", "2 E-Eur EE%sT 1997 2", "2 EU EE%sT"],"Europe/Copenhagen": ["0:50:20 - LMT 1890 0:50:20", "0:50:20 - CMT 1894_0_1 0:50:20", "1 Denmark CE%sT 1942_10_2_2 1", "1 C-Eur CE%sT 1945_3_2_2 1", "1 Denmark CE%sT 1980 1", "1 EU CE%sT"],"Europe/Dublin": ["-0:25 - LMT 1880_7_2 -0:25", "-0:25:21 - DMT 1916_4_21_2 -0:25:21", "0:34:39 - IST 1916_9_1_2 -0:25:21", "0 GB-Eire %s 1921_11_6", "0 GB-Eire GMT/IST 1940_1_25_2", "1 - IST 1946_9_6_2 1", "0 - GMT 1947_2_16_2", "1 - IST 1947_10_2_2 1", "0 - GMT 1948_3_18_2", "0 GB-Eire GMT/IST 1968_9_27 1", "1 - IST 1971_9_31_2", "0 GB-Eire GMT/IST 1996", "0 EU GMT/IST"],"Europe/Gibraltar": ["-0:21:24 - LMT 1880_7_2_0 -0:21:24", "0 GB-Eire %s 1957_3_14_2", "1 - CET 1982 1", "1 EU CE%sT"],"Europe/London": ["-0:1:15 - LMT 1847_11_1_0 -0:1:15", "0 GB-Eire %s 1968_9_27 1", "1 - BST 1971_9_31_2", "0 GB-Eire %s 1996", "0 EU GMT/BST"],"Europe/Helsinki": ["1:39:52 - LMT 1878_4_31 1:39:52", "1:39:52 - HMT 1921_4 1:39:52", "2 Finland EE%sT 1983 2", "2 EU EE%sT"],"Europe/Istanbul": ["1:55:52 - LMT 1880 1:55:52", "1:56:56 - IMT 1910_9 1:56:56", "2 Turkey EE%sT 1978_9_15 3", "3 Turkey TR%sT 1985_3_20 3", "2 Turkey EE%sT 2007 2", "2 EU EE%sT 2011_2_27_1", "2 - EET 2011_2_28_1", "2 EU EE%sT"],"Europe/Kaliningrad": ["1:22 - LMT 1893_3 1:22", "1 C-Eur CE%sT 1945 1", "2 Poland CE%sT 1946 2", "3 Russia MSK/MSD 1991_2_31_2 3", "2 Russia EE%sT 2011_2_27_2 2", "3 - FET"],"Europe/Kiev": ["2:2:4 - LMT 1880 2:2:4", "2:2:4 - KMT 1924_4_2 2:2:4", "2 - EET 1930_5_21 2", "3 - MSK 1941_8_20 3", "1 C-Eur CE%sT 1943_10_6 1", "3 Russia MSK/MSD 1990 3", "3 - MSK 1990_6_1_2 3", "2 - EET 1992 2", "2 E-Eur EE%sT 1995 2", "2 EU EE%sT"],"Europe/Lisbon": ["-0:36:32 - LMT 1884 -0:36:32", "-0:36:32 - LMT 1912_0_1 -0:36:32", "0 Port WE%sT 1966_3_3_2", "1 - CET 1976_8_26_1 1", "0 Port WE%sT 1983_8_25_1", "0 W-Eur WE%sT 1992_8_27_1", "1 EU CE%sT 1996_2_31_1", "0 EU WE%sT"],"Europe/Luxembourg": ["0:24:36 - LMT 1904_5 0:24:36", "1 Lux CE%sT 1918_10_25 1", "0 Lux WE%sT 1929_9_6_2", "0 Belgium WE%sT 1940_4_14_3 1", "1 C-Eur WE%sT 1944_8_18_3 2", "1 Belgium CE%sT 1977 1", "1 EU CE%sT"],"Europe/Madrid": ["-0:14:44 - LMT 1901_0_1_0 -0:14:44", "0 Spain WE%sT 1946_8_30 2", "1 Spain CE%sT 1979 1", "1 EU CE%sT"],"Europe/Malta": ["0:58:4 - LMT 1893_10_2_0 0:58:4", "1 Italy CE%sT 1942_10_2_2 1", "1 C-Eur CE%sT 1945_3_2_2 1", "1 Italy CE%sT 1973_2_31 1", "1 Malta CE%sT 1981 1", "1 EU CE%sT"],"Europe/Minsk": ["1:50:16 - LMT 1880 1:50:16", "1:50 - MMT 1924_4_2 1:50", "2 - EET 1930_5_21 2", "3 - MSK 1941_5_28 3", "1 C-Eur CE%sT 1944_6_3 2", "3 Russia MSK/MSD 1990 3", "3 - MSK 1991_2_31_2 3", "3 - EEST 1991_8_29_2 2", "2 - EET 1992_2_29_0 2", "3 - EEST 1992_8_27_0 2", "2 Russia EE%sT 2011_2_27_2 2", "3 - FET"],"Europe/Monaco": ["0:29:32 - LMT 1891_2_15 0:29:32", "0:9:21 - PMT 1911_2_11 0:9:21", "0 France WE%sT 1945_8_16_3 2", "1 France CE%sT 1977 1", "1 EU CE%sT"],"Europe/Moscow": ["2:30:20 - LMT 1880 2:30:20", "2:30 - MMT 1916_6_3 2:30", "2:30:48 Russia %s 1919_6_1_2 4:30:48", "3 Russia MSK/MSD 1922_9 3", "2 - EET 1930_5_21 2", "3 Russia MSK/MSD 1991_2_31_2 3", "2 Russia EE%sT 1992_0_19_2 2", "3 Russia MSK/MSD 2011_2_27_2 3", "4 - MSK"],"Europe/Paris": ["0:9:21 - LMT 1891_2_15_0_1 0:9:21", "0:9:21 - PMT 1911_2_11_0_1 0:9:21", "0 France WE%sT 1940_5_14_23 1", "1 C-Eur CE%sT 1944_7_25 2", "0 France WE%sT 1945_8_16_3 2", "1 France CE%sT 1977 1", "1 EU CE%sT"],"Europe/Riga": ["1:36:24 - LMT 1880 1:36:24", "1:36:24 - RMT 1918_3_15_2 1:36:24", "2:36:24 - LST 1918_8_16_3 2:36:24", "1:36:24 - RMT 1919_3_1_2 1:36:24", "2:36:24 - LST 1919_4_22_3 2:36:24", "1:36:24 - RMT 1926_4_11 1:36:24", "2 - EET 1940_7_5 2", "3 - MSK 1941_6 3", "1 C-Eur CE%sT 1944_9_13 1", "3 Russia MSK/MSD 1989_2_26_2 3", "3 - EEST 1989_8_24_2 2", "2 Latvia EE%sT 1997_0_21 2", "2 EU EE%sT 2000_1_29 2", "2 - EET 2001_0_2 2", "2 EU EE%sT"],"Europe/Rome": ["0:49:56 - LMT 1866_8_22 0:49:56", "0:49:56 - RMT 1893_10_1_0 0:49:56", "1 Italy CE%sT 1942_10_2_2 1", "1 C-Eur CE%sT 1944_6 2", "1 Italy CE%sT 1980 1", "1 EU CE%sT"],"Europe/Samara": ["3:20:36 - LMT 1919_6_1_2 3:20:36", "3 - SAMT 1930_5_21 3", "4 - SAMT 1935_0_27 4", "4 Russia KUY%sT 1989_2_26_2 4", "3 Russia KUY%sT 1991_2_31_2 3", "2 Russia KUY%sT 1991_8_29_2 2", "3 - KUYT 1991_9_20_3 3", "4 Russia SAM%sT 2010_2_28_2 4", "3 Russia SAM%sT 2011_2_27_2 3", "4 - SAMT"],"Europe/Simferopol": ["2:16:24 - LMT 1880 2:16:24", "2:16 - SMT 1924_4_2 2:16", "2 - EET 1930_5_21 2", "3 - MSK 1941_10 3", "1 C-Eur CE%sT 1944_3_13 2", "3 Russia MSK/MSD 1990 3", "3 - MSK 1990_6_1_2 3", "2 - EET 1992 2", "2 E-Eur EE%sT 1994_4 3", "3 E-Eur MSK/MSD 1996_2_31_3 3", "4 - MSD 1996_9_27_3 3", "3 Russia MSK/MSD 1997 3", "3 - MSK 1997_2_30_1", "2 EU EE%sT"],"Europe/Sofia": ["1:33:16 - LMT 1880 1:33:16", "1:56:56 - IMT 1894_10_30 1:56:56", "2 - EET 1942_10_2_3 2", "1 C-Eur CE%sT 1945 1", "1 - CET 1945_3_2_3 1", "2 - EET 1979_2_31_23 2", "2 Bulg EE%sT 1982_8_26_2 3", "2 C-Eur EE%sT 1991 2", "2 E-Eur EE%sT 1997 2", "2 EU EE%sT"],"Europe/Stockholm": ["1:12:12 - LMT 1879_0_1 1:12:12", "1:0:14 - SET 1900_0_1 1:0:14", "1 - CET 1916_4_14_23 1", "2 - CEST 1916_9_1_01 2", "1 - CET 1980 1", "1 EU CE%sT"],"Europe/Tallinn": ["1:39 - LMT 1880 1:39", "1:39 - TMT 1918_1 1:39", "1 C-Eur CE%sT 1919_6 1", "1:39 - TMT 1921_4 1:39", "2 - EET 1940_7_6 2", "3 - MSK 1941_8_15 3", "1 C-Eur CE%sT 1944_8_22 2", "3 Russia MSK/MSD 1989_2_26_2 3", "3 - EEST 1989_8_24_2 2", "2 C-Eur EE%sT 1998_8_22 3", "2 EU EE%sT 1999_10_1 3", "2 - EET 2002_1_21 2", "2 EU EE%sT"],"Europe/Tirane": ["1:19:20 - LMT 1914 1:19:20", "1 - CET 1940_5_16 1", "1 Albania CE%sT 1984_6 2", "1 EU CE%sT"],"Europe/Uzhgorod": ["1:29:12 - LMT 1890_9 1:29:12", "1 - CET 1940 1", "1 C-Eur CE%sT 1944_9 2", "2 - CEST 1944_9_26 2", "1 - CET 1945_5_29 1", "3 Russia MSK/MSD 1990 3", "3 - MSK 1990_6_1_2 3", "1 - CET 1991_2_31_3 1", "2 - EET 1992 2", "2 E-Eur EE%sT 1995 2", "2 EU EE%sT"],"Europe/Vaduz": ["0:38:4 - LMT 1894_5 0:38:4", "1 - CET 1981 1", "1 EU CE%sT"],"Europe/Vienna": ["1:5:21 - LMT 1893_3 1:5:21", "1 C-Eur CE%sT 1920 1", "1 Austria CE%sT 1940_3_1_2 1", "1 C-Eur CE%sT 1945_3_2_2 1", "2 - CEST 1945_3_12_2 1", "1 - CET 1946 1", "1 Austria CE%sT 1981 1", "1 EU CE%sT"],"Europe/Vilnius": ["1:41:16 - LMT 1880 1:41:16", "1:24 - WMT 1917 1:24", "1:35:36 - KMT 1919_9_10 1:35:36", "1 - CET 1920_6_12 1", "2 - EET 1920_9_9 2", "1 - CET 1940_7_3 1", "3 - MSK 1941_5_24 3", "1 C-Eur CE%sT 1944_7 2", "3 Russia MSK/MSD 1991_2_31_2 3", "3 - EEST 1991_8_29_2 2", "2 C-Eur EE%sT 1998 2", "2 - EET 1998_2_29_1", "1 EU CE%sT 1999_9_31_1", "2 - EET 2003_0_1 2", "2 EU EE%sT"],"Europe/Volgograd": ["2:57:40 - LMT 1920_0_3 2:57:40", "3 - TSAT 1925_3_6 3", "3 - STAT 1930_5_21 3", "4 - STAT 1961_10_11 4", "4 Russia VOL%sT 1989_2_26_2 4", "3 Russia VOL%sT 1991_2_31_2 3", "4 - VOLT 1992_2_29_2 4", "3 Russia VOL%sT 2011_2_27_2 3", "4 - VOLT"],"Europe/Warsaw": ["1:24 - LMT 1880 1:24", "1:24 - WMT 1915_7_5 1:24", "1 C-Eur CE%sT 1918_8_16_3 2", "2 Poland EE%sT 1922_5 2", "1 Poland CE%sT 1940_5_23_2 1", "1 C-Eur CE%sT 1944_9 2", "1 Poland CE%sT 1977 1", "1 W-Eur CE%sT 1988 1", "1 EU CE%sT"],"Europe/Zaporozhye": ["2:20:40 - LMT 1880 2:20:40", "2:20 - CUT 1924_4_2 2:20", "2 - EET 1930_5_21 2", "3 - MSK 1941_7_25 3", "1 C-Eur CE%sT 1943_9_25 1", "3 Russia MSK/MSD 1991_2_31_2 3", "2 E-Eur EE%sT 1995 2", "2 EU EE%sT"],"Indian/Antananarivo": ["3:10:4 - LMT 1911_6 3:10:4", "3 - EAT 1954_1_27_23 3", "4 - EAST 1954_4_29_23 3", "3 - EAT"],"Indian/Chagos": ["4:49:40 - LMT 1907 4:49:40", "5 - IOT 1996 5", "6 - IOT"],"Indian/Christmas": ["7:2:52 - LMT 1895_1 7:2:52", "7 - CXT"],"Indian/Cocos": ["6:27:40 - LMT 1900 6:27:40", "6:30 - CCT"],"Indian/Comoro": ["2:53:4 - LMT 1911_6 2:53:4", "3 - EAT"],"Indian/Kerguelen": ["0 - zzz 1950", "5 - TFT"],"Indian/Mahe": ["3:41:48 - LMT 1906_5 3:41:48", "4 - SCT"],"Indian/Maldives": ["4:54 - LMT 1880 4:54", "4:54 - MMT 1960 4:54", "5 - MVT"],"Indian/Mauritius": ["3:50 - LMT 1907 3:50", "4 Mauritius MU%sT"],"Indian/Mayotte": ["3:0:56 - LMT 1911_6 3:0:56", "3 - EAT"],"Indian/Reunion": ["3:41:52 - LMT 1911_5 3:41:52", "4 - RET"],"Pacific/Apia": ["12:33:4 - LMT 1879_6_5 12:33:4", "-11:26:56 - LMT 1911 -11:26:56", "-11:30 - SAMT 1950 -11:30", "-11 - WST 2010_8_26 -11", "-10 - WSDT 2011_3_2_4 -10", "-11 - WST 2011_8_24_3 -11", "-10 - WSDT 2011_11_30 -10", "14 - WSDT 2012_3_1_4 14", "13 WS WS%sT"],"Pacific/Auckland": ["11:39:4 - LMT 1868_10_2 11:39:4", "11:30 NZ NZ%sT 1946_0_1 12", "12 NZ NZ%sT"],"Pacific/Chatham": ["12:13:48 - LMT 1957_0_1 12:13:48", "12:45 Chatham CHA%sT"],"Pacific/Chuuk": ["10:7:8 - LMT 1901 10:7:8", "10 - CHUT"],"Pacific/Easter": ["-7:17:44 - LMT 1890 -7:17:44", "-7:17:28 - EMT 1932_8 -7:17:28", "-7 Chile EAS%sT 1982_2_13_21 -6", "-6 Chile EAS%sT"],"Pacific/Efate": ["11:13:16 - LMT 1912_0_13 11:13:16", "11 Vanuatu VU%sT"],"Pacific/Enderbury": ["-11:24:20 - LMT 1901 -11:24:20", "-12 - PHOT 1979_9 -12", "-11 - PHOT 1995 -11", "13 - PHOT"],"Pacific/Fakaofo": ["-11:24:56 - LMT 1901 -11:24:56", "-11 - TKT 2011_11_30 -11", "13 - TKT"],"Pacific/Fiji": ["11:55:44 - LMT 1915_9_26 11:55:44", "12 Fiji FJ%sT"],"Pacific/Funafuti": ["11:56:52 - LMT 1901 11:56:52", "12 - TVT"],"Pacific/Galapagos": ["-5:58:24 - LMT 1931 -5:58:24", "-5 - ECT 1986 -5", "-6 - GALT"],"Pacific/Gambier": ["-8:59:48 - LMT 1912_9 -8:59:48", "-9 - GAMT"],"Pacific/Guadalcanal": ["10:39:48 - LMT 1912_9 10:39:48", "11 - SBT"],"Pacific/Guam": ["-14:21 - LMT 1844_11_31 -14:21", "9:39 - LMT 1901 9:39", "10 - GST 2000_11_23 10", "10 - ChST"],"Pacific/Honolulu": ["-10:31:26 - LMT 1896_0_13_12 -10:31:26", "-10:30 - HST 1933_3_30_2 -10:30", "-9:30 - HDT 1933_4_21_12 -9:30", "-10:30 - HST 1942_1_09_2 -10:30", "-9:30 - HDT 1945_8_30_2 -9:30", "-10:30 - HST 1947_5_8_2 -10:30", "-10 - HST"],"Pacific/Johnston": ["-10 - HST"],"Pacific/Kiritimati": ["-10:29:20 - LMT 1901 -10:29:20", "-10:40 - LINT 1979_9 -10:40", "-10 - LINT 1995 -10", "14 - LINT"],"Pacific/Kosrae": ["10:51:56 - LMT 1901 10:51:56", "11 - KOST 1969_9 11", "12 - KOST 1999 12", "11 - KOST"],"Pacific/Kwajalein": ["11:9:20 - LMT 1901 11:9:20", "11 - MHT 1969_9 11", "-12 - KWAT 1993_7_20 -12", "12 - MHT"],"Pacific/Majuro": ["11:24:48 - LMT 1901 11:24:48", "11 - MHT 1969_9 11", "12 - MHT"],"Pacific/Marquesas": ["-9:18 - LMT 1912_9 -9:18", "-9:30 - MART"],"Pacific/Midway": ["-11:49:28 - LMT 1901 -11:49:28", "-11 - NST 1956_5_3 -11", "-10 - NDT 1956_8_2 -10", "-11 - NST 1967_3 -11", "-11 - BST 1983_10_30 -11", "-11 - SST"],"Pacific/Nauru": ["11:7:40 - LMT 1921_0_15 11:7:40", "11:30 - NRT 1942_2_15 11:30", "9 - JST 1944_7_15 9", "11:30 - NRT 1979_4 11:30", "12 - NRT"],"Pacific/Niue": ["-11:19:40 - LMT 1901 -11:19:40", "-11:20 - NUT 1951 -11:20", "-11:30 - NUT 1978_9_1 -11:30", "-11 - NUT"],"Pacific/Norfolk": ["11:11:52 - LMT 1901 11:11:52", "11:12 - NMT 1951 11:12", "11:30 - NFT"],"Pacific/Noumea": ["11:5:48 - LMT 1912_0_13 11:5:48", "11 NC NC%sT"],"Pacific/Pago_Pago": ["12:37:12 - LMT 1879_6_5 12:37:12", "-11:22:48 - LMT 1911 -11:22:48", "-11:30 - SAMT 1950 -11:30", "-11 - NST 1967_3 -11", "-11 - BST 1983_10_30 -11", "-11 - SST"],"Pacific/Palau": ["8:57:56 - LMT 1901 8:57:56", "9 - PWT"],"Pacific/Pitcairn": ["-8:40:20 - LMT 1901 -8:40:20", "-8:30 - PNT 1998_3_27_00 -8:30", "-8 - PST"],"Pacific/Pohnpei": ["10:32:52 - LMT 1901 10:32:52", "11 - PONT"],"Pacific/Port_Moresby": ["9:48:40 - LMT 1880 9:48:40", "9:48:32 - PMMT 1895 9:48:32", "10 - PGT"],"Pacific/Rarotonga": ["-10:39:4 - LMT 1901 -10:39:4", "-10:30 - CKT 1978_10_12 -10:30", "-10 Cook CK%sT"],"Pacific/Saipan": ["-14:17 - LMT 1844_11_31 -14:17", "9:43 - LMT 1901 9:43", "9 - MPT 1969_9 9", "10 - MPT 2000_11_23 10", "10 - ChST"],"Pacific/Tahiti": ["-9:58:16 - LMT 1912_9 -9:58:16", "-10 - TAHT"],"Pacific/Tarawa": ["11:32:4 - LMT 1901 11:32:4", "12 - GILT"],"Pacific/Tongatapu": ["12:19:20 - LMT 1901 12:19:20", "12:20 - TOT 1941 12:20", "13 - TOT 1999 13", "13 Tonga TO%sT"],"Pacific/Wake": ["11:6:28 - LMT 1901 11:6:28", "12 - WAKT"],"Pacific/Wallis": ["12:15:20 - LMT 1901 12:15:20", "12 - WFT"]},rules: {Ghana: ["1936 1942 8 1 7 0 0 0:20 GHST", "1936 1942 11 31 7 0 0 0 GMT"],Algeria: ["1916 1916 5 14 7 23 2 1 S", "1916 1919 9 1 0 23 2 0", "1917 1917 2 24 7 23 2 1 S", "1918 1918 2 9 7 23 2 1 S", "1919 1919 2 1 7 23 2 1 S", "1920 1920 1 14 7 23 2 1 S", "1920 1920 9 23 7 23 2 0", "1921 1921 2 14 7 23 2 1 S", "1921 1921 5 21 7 23 2 0", "1939 1939 8 11 7 23 2 1 S", "1939 1939 10 19 7 1 0 0", "1944 1945 3 1 1 2 0 1 S", "1944 1944 9 8 7 2 0 0", "1945 1945 8 16 7 1 0 0", "1971 1971 3 25 7 23 2 1 S", "1971 1971 8 26 7 23 2 0", "1977 1977 4 6 7 0 0 1 S", "1977 1977 9 21 7 0 0 0", "1978 1978 2 24 7 1 0 1 S", "1978 1978 8 22 7 3 0 0", "1980 1980 3 25 7 0 0 1 S", "1980 1980 9 31 7 2 0 0"],Egypt: ["1940 1940 6 15 7 0 0 1 S", "1940 1940 9 1 7 0 0 0", "1941 1941 3 15 7 0 0 1 S", "1941 1941 8 16 7 0 0 0", "1942 1944 3 1 7 0 0 1 S", "1942 1942 9 27 7 0 0 0", "1943 1945 10 1 7 0 0 0", "1945 1945 3 16 7 0 0 1 S", "1957 1957 4 10 7 0 0 1 S", "1957 1958 9 1 7 0 0 0", "1958 1958 4 1 7 0 0 1 S", "1959 1981 4 1 7 1 0 1 S", "1959 1965 8 30 7 3 0 0", "1966 1994 9 1 7 3 0 0", "1982 1982 6 25 7 1 0 1 S", "1983 1983 6 12 7 1 0 1 S", "1984 1988 4 1 7 1 0 1 S", "1989 1989 4 6 7 1 0 1 S", "1990 1994 4 1 7 1 0 1 S", "1995 2010 3 5 8 0 2 1 S", "1995 2005 8 4 8 23 2 0", "2006 2006 8 21 7 23 2 0", "2007 2007 8 1 4 23 2 0", "2008 2008 7 4 8 23 2 0", "2009 2009 7 20 7 23 2 0", "2010 2010 7 11 7 0 0 0", "2010 2010 8 10 7 0 0 1 S", "2010 2010 8 4 8 23 2 0"],Morocco: ["1939 1939 8 12 7 0 0 1 S", "1939 1939 10 19 7 0 0 0", "1940 1940 1 25 7 0 0 1 S", "1945 1945 10 18 7 0 0 0", "1950 1950 5 11 7 0 0 1 S", "1950 1950 9 29 7 0 0 0", "1967 1967 5 3 7 12 0 1 S", "1967 1967 9 1 7 0 0 0", "1974 1974 5 24 7 0 0 1 S", "1974 1974 8 1 7 0 0 0", "1976 1977 4 1 7 0 0 1 S", "1976 1976 7 1 7 0 0 0", "1977 1977 8 28 7 0 0 0", "1978 1978 5 1 7 0 0 1 S", "1978 1978 7 4 7 0 0 0", "2008 2008 5 1 7 0 0 1 S", "2008 2008 8 1 7 0 0 0", "2009 2009 5 1 7 0 0 1 S", "2009 2009 7 21 7 0 0 0", "2010 2010 4 2 7 0 0 1 S", "2010 2010 7 8 7 0 0 0", "2011 2011 3 3 7 0 0 1 S", "2011 2011 6 31 7 0 0 0", "2012 2019 3 0 8 2 0 1 S", "2012 9999 8 0 8 3 0 0", "2012 2012 6 20 7 3 0 0", "2012 2012 7 20 7 2 0 1 S", "2013 2013 6 9 7 3 0 0", "2013 2013 7 8 7 2 0 1 S", "2014 2014 5 29 7 3 0 0", "2014 2014 6 29 7 2 0 1 S", "2015 2015 5 18 7 3 0 0", "2015 2015 6 18 7 2 0 1 S", "2016 2016 5 7 7 3 0 0", "2016 2016 6 7 7 2 0 1 S", "2017 2017 4 27 7 3 0 0", "2017 2017 5 26 7 2 0 1 S", "2018 2018 4 16 7 3 0 0", "2018 2018 5 15 7 2 0 1 S", "2019 2019 4 6 7 3 0 0", "2019 2019 5 5 7 2 0 1 S", "2020 2020 4 24 7 2 0 1 S", "2021 2021 4 13 7 2 0 1 S", "2022 2022 4 3 7 2 0 1 S", "2023 9999 3 0 8 2 0 1 S"],Spain: ["1917 1917 4 5 7 23 2 1 S", "1917 1919 9 6 7 23 2 0", "1918 1918 3 15 7 23 2 1 S", "1919 1919 3 5 7 23 2 1 S", "1924 1924 3 16 7 23 2 1 S", "1924 1924 9 4 7 23 2 0", "1926 1926 3 17 7 23 2 1 S", "1926 1929 9 1 6 23 2 0", "1927 1927 3 9 7 23 2 1 S", "1928 1928 3 14 7 23 2 1 S", "1929 1929 3 20 7 23 2 1 S", "1937 1937 4 22 7 23 2 1 S", "1937 1939 9 1 6 23 2 0", "1938 1938 2 22 7 23 2 1 S", "1939 1939 3 15 7 23 2 1 S", "1940 1940 2 16 7 23 2 1 S", "1942 1942 4 2 7 22 2 2 M", "1942 1942 8 1 7 22 2 1 S", "1943 1946 3 13 6 22 2 2 M", "1943 1943 9 3 7 22 2 1 S", "1944 1944 9 10 7 22 2 1 S", "1945 1945 8 30 7 1 0 1 S", "1946 1946 8 30 7 0 0 0", "1949 1949 3 30 7 23 0 1 S", "1949 1949 8 30 7 1 0 0", "1974 1975 3 13 6 23 0 1 S", "1974 1975 9 1 0 1 0 0", "1976 1976 2 27 7 23 0 1 S", "1976 1977 8 0 8 1 0 0", "1977 1978 3 2 7 23 0 1 S", "1978 1978 9 1 7 1 0 0"],SpainAfrica: ["1967 1967 5 3 7 12 0 1 S", "1967 1967 9 1 7 0 0 0", "1974 1974 5 24 7 0 0 1 S", "1974 1974 8 1 7 0 0 0", "1976 1977 4 1 7 0 0 1 S", "1976 1976 7 1 7 0 0 0", "1977 1977 8 28 7 0 0 0", "1978 1978 5 1 7 0 0 1 S", "1978 1978 7 4 7 0 0 0"],EU: ["1977 1980 3 1 0 1 1 1 S", "1977 1977 8 0 8 1 1 0", "1978 1978 9 1 7 1 1 0", "1979 1995 8 0 8 1 1 0", "1981 9999 2 0 8 1 1 1 S", "1996 9999 9 0 8 1 1 0"],SL: ["1935 1942 5 1 7 0 0 0:40 SLST", "1935 1942 9 1 7 0 0 0 WAT", "1957 1962 5 1 7 0 0 1 SLST", "1957 1962 8 1 7 0 0 0 GMT"],SA: ["1942 1943 8 15 0 2 0 1", "1943 1944 2 15 0 2 0 0"],Sudan: ["1970 1970 4 1 7 0 0 1 S", "1970 1985 9 15 7 0 0 0", "1971 1971 3 30 7 0 0 1 S", "1972 1985 3 0 8 0 0 1 S"],Libya: ["1951 1951 9 14 7 2 0 1 S", "1952 1952 0 1 7 0 0 0", "1953 1953 9 9 7 2 0 1 S", "1954 1954 0 1 7 0 0 0", "1955 1955 8 30 7 0 0 1 S", "1956 1956 0 1 7 0 0 0", "1982 1984 3 1 7 0 0 1 S", "1982 1985 9 1 7 0 0 0", "1985 1985 3 6 7 0 0 1 S", "1986 1986 3 4 7 0 0 1 S", "1986 1986 9 3 7 0 0 0", "1987 1989 3 1 7 0 0 1 S", "1987 1989 9 1 7 0 0 0", "1997 1997 3 4 7 0 0 1 S", "1997 1997 9 4 7 0 0 0", "2013 9999 2 5 8 1 0 1 S", "2013 9999 9 5 8 2 0 0"],Tunisia: ["1939 1939 3 15 7 23 2 1 S", "1939 1939 10 18 7 23 2 0", "1940 1940 1 25 7 23 2 1 S", "1941 1941 9 6 7 0 0 0", "1942 1942 2 9 7 0 0 1 S", "1942 1942 10 2 7 3 0 0", "1943 1943 2 29 7 2 0 1 S", "1943 1943 3 17 7 2 0 0", "1943 1943 3 25 7 2 0 1 S", "1943 1943 9 4 7 2 0 0", "1944 1945 3 1 1 2 0 1 S", "1944 1944 9 8 7 0 0 0", "1945 1945 8 16 7 0 0 0", "1977 1977 3 30 7 0 2 1 S", "1977 1977 8 24 7 0 2 0", "1978 1978 4 1 7 0 2 1 S", "1978 1978 9 1 7 0 2 0", "1988 1988 5 1 7 0 2 1 S", "1988 1990 8 0 8 0 2 0", "1989 1989 2 26 7 0 2 1 S", "1990 1990 4 1 7 0 2 1 S", "2005 2005 4 1 7 0 2 1 S", "2005 2005 8 30 7 1 2 0", "2006 2008 2 0 8 2 2 1 S", "2006 2008 9 0 8 2 2 0"],Namibia: ["1994 9999 8 1 0 2 0 1 S", "1995 9999 3 1 0 2 0 0"],US: ["1918 1919 2 0 8 2 0 1 D", "1918 1919 9 0 8 2 0 0 S", "1942 1942 1 9 7 2 0 1 W", "1945 1945 7 14 7 23 1 1 P", "1945 1945 8 30 7 2 0 0 S", "1967 2006 9 0 8 2 0 0 S", "1967 1973 3 0 8 2 0 1 D", "1974 1974 0 6 7 2 0 1 D", "1975 1975 1 23 7 2 0 1 D", "1976 1986 3 0 8 2 0 1 D", "1987 2006 3 1 0 2 0 1 D", "2007 9999 2 8 0 2 0 1 D", "2007 9999 10 1 0 2 0 0 S"],Brazil: ["1931 1931 9 3 7 11 0 1 S", "1932 1933 3 1 7 0 0 0", "1932 1932 9 3 7 0 0 1 S", "1949 1952 11 1 7 0 0 1 S", "1950 1950 3 16 7 1 0 0", "1951 1952 3 1 7 0 0 0", "1953 1953 2 1 7 0 0 0", "1963 1963 11 9 7 0 0 1 S", "1964 1964 2 1 7 0 0 0", "1965 1965 0 31 7 0 0 1 S", "1965 1965 2 31 7 0 0 0", "1965 1965 11 1 7 0 0 1 S", "1966 1968 2 1 7 0 0 0", "1966 1967 10 1 7 0 0 1 S", "1985 1985 10 2 7 0 0 1 S", "1986 1986 2 15 7 0 0 0", "1986 1986 9 25 7 0 0 1 S", "1987 1987 1 14 7 0 0 0", "1987 1987 9 25 7 0 0 1 S", "1988 1988 1 7 7 0 0 0", "1988 1988 9 16 7 0 0 1 S", "1989 1989 0 29 7 0 0 0", "1989 1989 9 15 7 0 0 1 S", "1990 1990 1 11 7 0 0 0", "1990 1990 9 21 7 0 0 1 S", "1991 1991 1 17 7 0 0 0", "1991 1991 9 20 7 0 0 1 S", "1992 1992 1 9 7 0 0 0", "1992 1992 9 25 7 0 0 1 S", "1993 1993 0 31 7 0 0 0", "1993 1995 9 11 0 0 0 1 S", "1994 1995 1 15 0 0 0 0", "1996 1996 1 11 7 0 0 0", "1996 1996 9 6 7 0 0 1 S", "1997 1997 1 16 7 0 0 0", "1997 1997 9 6 7 0 0 1 S", "1998 1998 2 1 7 0 0 0", "1998 1998 9 11 7 0 0 1 S", "1999 1999 1 21 7 0 0 0", "1999 1999 9 3 7 0 0 1 S", "2000 2000 1 27 7 0 0 0", "2000 2001 9 8 0 0 0 1 S", "2001 2006 1 15 0 0 0 0", "2002 2002 10 3 7 0 0 1 S", "2003 2003 9 19 7 0 0 1 S", "2004 2004 10 2 7 0 0 1 S", "2005 2005 9 16 7 0 0 1 S", "2006 2006 10 5 7 0 0 1 S", "2007 2007 1 25 7 0 0 0", "2007 2007 9 8 0 0 0 1 S", "2008 9999 9 15 0 0 0 1 S", "2008 2011 1 15 0 0 0 0", "2012 2012 1 22 0 0 0 0", "2013 2014 1 15 0 0 0 0", "2015 2015 1 22 0 0 0 0", "2016 2022 1 15 0 0 0 0", "2023 2023 1 22 0 0 0 0", "2024 2025 1 15 0 0 0 0", "2026 2026 1 22 0 0 0 0", "2027 2033 1 15 0 0 0 0", "2034 2034 1 22 0 0 0 0", "2035 2036 1 15 0 0 0 0", "2037 2037 1 22 0 0 0 0", "2038 9999 1 15 0 0 0 0"],Arg: ["1930 1930 11 1 7 0 0 1 S", "1931 1931 3 1 7 0 0 0", "1931 1931 9 15 7 0 0 1 S", "1932 1940 2 1 7 0 0 0", "1932 1939 10 1 7 0 0 1 S", "1940 1940 6 1 7 0 0 1 S", "1941 1941 5 15 7 0 0 0", "1941 1941 9 15 7 0 0 1 S", "1943 1943 7 1 7 0 0 0", "1943 1943 9 15 7 0 0 1 S", "1946 1946 2 1 7 0 0 0", "1946 1946 9 1 7 0 0 1 S", "1963 1963 9 1 7 0 0 0", "1963 1963 11 15 7 0 0 1 S", "1964 1966 2 1 7 0 0 0", "1964 1966 9 15 7 0 0 1 S", "1967 1967 3 2 7 0 0 0", "1967 1968 9 1 0 0 0 1 S", "1968 1969 3 1 0 0 0 0", "1974 1974 0 23 7 0 0 1 S", "1974 1974 4 1 7 0 0 0", "1988 1988 11 1 7 0 0 1 S", "1989 1993 2 1 0 0 0 0", "1989 1992 9 15 0 0 0 1 S", "1999 1999 9 1 0 0 0 1 S", "2000 2000 2 3 7 0 0 0", "2007 2007 11 30 7 0 0 1 S", "2008 2009 2 15 0 0 0 0", "2008 2008 9 15 0 0 0 1 S"],SanLuis: ["2008 2009 2 8 0 0 0 0", "2007 2009 9 8 0 0 0 1 S"],Para: ["1975 1988 9 1 7 0 0 1 S", "1975 1978 2 1 7 0 0 0", "1979 1991 3 1 7 0 0 0", "1989 1989 9 22 7 0 0 1 S", "1990 1990 9 1 7 0 0 1 S", "1991 1991 9 6 7 0 0 1 S", "1992 1992 2 1 7 0 0 0", "1992 1992 9 5 7 0 0 1 S", "1993 1993 2 31 7 0 0 0", "1993 1995 9 1 7 0 0 1 S", "1994 1995 1 0 8 0 0 0", "1996 1996 2 1 7 0 0 0", "1996 2001 9 1 0 0 0 1 S", "1997 1997 1 0 8 0 0 0", "1998 2001 2 1 0 0 0 0", "2002 2004 3 1 0 0 0 0", "2002 2003 8 1 0 0 0 1 S", "2004 2009 9 15 0 0 0 1 S", "2005 2009 2 8 0 0 0 0", "2010 9999 9 1 0 0 0 1 S", "2010 2012 3 8 0 0 0 0", "2013 9999 2 22 0 0 0 0"],Canada: ["1918 1918 3 14 7 2 0 1 D", "1918 1918 9 27 7 2 0 0 S", "1942 1942 1 9 7 2 0 1 W", "1945 1945 7 14 7 23 1 1 P", "1945 1945 8 30 7 2 0 0 S", "1974 1986 3 0 8 2 0 1 D", "1974 2006 9 0 8 2 0 0 S", "1987 2006 3 1 0 2 0 1 D", "2007 9999 2 8 0 2 0 1 D", "2007 9999 10 1 0 2 0 0 S"],Mexico: ["1939 1939 1 5 7 0 0 1 D", "1939 1939 5 25 7 0 0 0 S", "1940 1940 11 9 7 0 0 1 D", "1941 1941 3 1 7 0 0 0 S", "1943 1943 11 16 7 0 0 1 W", "1944 1944 4 1 7 0 0 0 S", "1950 1950 1 12 7 0 0 1 D", "1950 1950 6 30 7 0 0 0 S", "1996 2000 3 1 0 2 0 1 D", "1996 2000 9 0 8 2 0 0 S", "2001 2001 4 1 0 2 0 1 D", "2001 2001 8 0 8 2 0 0 S", "2002 9999 3 1 0 2 0 1 D", "2002 9999 9 0 8 2 0 0 S"],Barb: ["1977 1977 5 12 7 2 0 1 D", "1977 1978 9 1 0 2 0 0 S", "1978 1980 3 15 0 2 0 1 D", "1979 1979 8 30 7 2 0 0 S", "1980 1980 8 25 7 2 0 0 S"],Belize: ["1918 1942 9 2 0 0 0 0:30 HD", "1919 1943 1 9 0 0 0 0 S", "1973 1973 11 5 7 0 0 1 D", "1974 1974 1 9 7 0 0 0 S", "1982 1982 11 18 7 0 0 1 D", "1983 1983 1 12 7 0 0 0 S"],CO: ["1992 1992 4 3 7 0 0 1 S", "1993 1993 3 4 7 0 0 0"],NT_YK: ["1918 1918 3 14 7 2 0 1 D", "1918 1918 9 27 7 2 0 0 S", "1919 1919 4 25 7 2 0 1 D", "1919 1919 10 1 7 0 0 0 S", "1942 1942 1 9 7 2 0 1 W", "1945 1945 7 14 7 23 1 1 P", "1945 1945 8 30 7 2 0 0 S", "1965 1965 3 0 8 0 0 2 DD", "1965 1965 9 0 8 2 0 0 S", "1980 1986 3 0 8 2 0 1 D", "1980 2006 9 0 8 2 0 0 S", "1987 2006 3 1 0 2 0 1 D"],Chicago: ["1920 1920 5 13 7 2 0 1 D", "1920 1921 9 0 8 2 0 0 S", "1921 1921 2 0 8 2 0 1 D", "1922 1966 3 0 8 2 0 1 D", "1922 1954 8 0 8 2 0 0 S", "1955 1966 9 0 8 2 0 0 S"],CR: ["1979 1980 1 0 8 0 0 1 D", "1979 1980 5 1 0 0 0 0 S", "1991 1992 0 15 6 0 0 1 D", "1991 1991 6 1 7 0 0 0 S", "1992 1992 2 15 7 0 0 0 S"],Vanc: ["1918 1918 3 14 7 2 0 1 D", "1918 1918 9 27 7 2 0 0 S", "1942 1942 1 9 7 2 0 1 W", "1945 1945 7 14 7 23 1 1 P", "1945 1945 8 30 7 2 0 0 S", "1946 1986 3 0 8 2 0 1 D", "1946 1946 9 13 7 2 0 0 S", "1947 1961 8 0 8 2 0 0 S", "1962 2006 9 0 8 2 0 0 S"],Denver: ["1920 1921 2 0 8 2 0 1 D", "1920 1920 9 0 8 2 0 0 S", "1921 1921 4 22 7 2 0 0 S", "1965 1966 3 0 8 2 0 1 D", "1965 1966 9 0 8 2 0 0 S"],Detroit: ["1948 1948 3 0 8 2 0 1 D", "1948 1948 8 0 8 2 0 0 S", "1967 1967 5 14 7 2 0 1 D", "1967 1967 9 0 8 2 0 0 S"],Edm: ["1918 1919 3 8 0 2 0 1 D", "1918 1918 9 27 7 2 0 0 S", "1919 1919 4 27 7 2 0 0 S", "1920 1923 3 0 8 2 0 1 D", "1920 1920 9 0 8 2 0 0 S", "1921 1923 8 0 8 2 0 0 S", "1942 1942 1 9 7 2 0 1 W", "1945 1945 7 14 7 23 1 1 P", "1945 1945 8 0 8 2 0 0 S", "1947 1947 3 0 8 2 0 1 D", "1947 1947 8 0 8 2 0 0 S", "1967 1967 3 0 8 2 0 1 D", "1967 1967 9 0 8 2 0 0 S", "1969 1969 3 0 8 2 0 1 D", "1969 1969 9 0 8 2 0 0 S", "1972 1986 3 0 8 2 0 1 D", "1972 2006 9 0 8 2 0 0 S"],Salv: ["1987 1988 4 1 0 0 0 1 D", "1987 1988 8 0 8 0 0 0 S"],Halifax: ["1916 1916 3 1 7 0 0 1 D", "1916 1916 9 1 7 0 0 0 S", "1920 1920 4 9 7 0 0 1 D", "1920 1920 7 29 7 0 0 0 S", "1921 1921 4 6 7 0 0 1 D", "1921 1922 8 5 7 0 0 0 S", "1922 1922 3 30 7 0 0 1 D", "1923 1925 4 1 0 0 0 1 D", "1923 1923 8 4 7 0 0 0 S", "1924 1924 8 15 7 0 0 0 S", "1925 1925 8 28 7 0 0 0 S", "1926 1926 4 16 7 0 0 1 D", "1926 1926 8 13 7 0 0 0 S", "1927 1927 4 1 7 0 0 1 D", "1927 1927 8 26 7 0 0 0 S", "1928 1931 4 8 0 0 0 1 D", "1928 1928 8 9 7 0 0 0 S", "1929 1929 8 3 7 0 0 0 S", "1930 1930 8 15 7 0 0 0 S", "1931 1932 8 24 1 0 0 0 S", "1932 1932 4 1 7 0 0 1 D", "1933 1933 3 30 7 0 0 1 D", "1933 1933 9 2 7 0 0 0 S", "1934 1934 4 20 7 0 0 1 D", "1934 1934 8 16 7 0 0 0 S", "1935 1935 5 2 7 0 0 1 D", "1935 1935 8 30 7 0 0 0 S", "1936 1936 5 1 7 0 0 1 D", "1936 1936 8 14 7 0 0 0 S", "1937 1938 4 1 0 0 0 1 D", "1937 1941 8 24 1 0 0 0 S", "1939 1939 4 28 7 0 0 1 D", "1940 1941 4 1 0 0 0 1 D", "1946 1949 3 0 8 2 0 1 D", "1946 1949 8 0 8 2 0 0 S", "1951 1954 3 0 8 2 0 1 D", "1951 1954 8 0 8 2 0 0 S", "1956 1959 3 0 8 2 0 1 D", "1956 1959 8 0 8 2 0 0 S", "1962 1973 3 0 8 2 0 1 D", "1962 1973 9 0 8 2 0 0 S"],StJohns: ["1917 1917 3 8 7 2 0 1 D", "1917 1917 8 17 7 2 0 0 S", "1919 1919 4 5 7 23 0 1 D", "1919 1919 7 12 7 23 0 0 S", "1920 1935 4 1 0 23 0 1 D", "1920 1935 9 0 8 23 0 0 S", "1936 1941 4 9 1 0 0 1 D", "1936 1941 9 2 1 0 0 0 S", "1946 1950 4 8 0 2 0 1 D", "1946 1950 9 2 0 2 0 0 S", "1951 1986 3 0 8 2 0 1 D", "1951 1959 8 0 8 2 0 0 S", "1960 1986 9 0 8 2 0 0 S", "1987 1987 3 1 0 0:1 0 1 D", "1987 2006 9 0 8 0:1 0 0 S", "1988 1988 3 1 0 0:1 0 2 DD", "1989 2006 3 1 0 0:1 0 1 D", "2007 2011 2 8 0 0:1 0 1 D", "2007 2010 10 1 0 0:1 0 0 S"],TC: ["1979 1986 3 0 8 2 0 1 D", "1979 2006 9 0 8 2 0 0 S", "1987 2006 3 1 0 2 0 1 D", "2007 9999 2 8 0 2 0 1 D", "2007 9999 10 1 0 2 0 0 S"],Guat: ["1973 1973 10 25 7 0 0 1 D", "1974 1974 1 24 7 0 0 0 S", "1983 1983 4 21 7 0 0 1 D", "1983 1983 8 22 7 0 0 0 S", "1991 1991 2 23 7 0 0 1 D", "1991 1991 8 7 7 0 0 0 S", "2006 2006 3 30 7 0 0 1 D", "2006 2006 9 1 7 0 0 0 S"],Cuba: ["1928 1928 5 10 7 0 0 1 D", "1928 1928 9 10 7 0 0 0 S", "1940 1942 5 1 0 0 0 1 D", "1940 1942 8 1 0 0 0 0 S", "1945 1946 5 1 0 0 0 1 D", "1945 1946 8 1 0 0 0 0 S", "1965 1965 5 1 7 0 0 1 D", "1965 1965 8 30 7 0 0 0 S", "1966 1966 4 29 7 0 0 1 D", "1966 1966 9 2 7 0 0 0 S", "1967 1967 3 8 7 0 0 1 D", "1967 1968 8 8 0 0 0 0 S", "1968 1968 3 14 7 0 0 1 D", "1969 1977 3 0 8 0 0 1 D", "1969 1971 9 0 8 0 0 0 S", "1972 1974 9 8 7 0 0 0 S", "1975 1977 9 0 8 0 0 0 S", "1978 1978 4 7 7 0 0 1 D", "1978 1990 9 8 0 0 0 0 S", "1979 1980 2 15 0 0 0 1 D", "1981 1985 4 5 0 0 0 1 D", "1986 1989 2 14 0 0 0 1 D", "1990 1997 3 1 0 0 0 1 D", "1991 1995 9 8 0 0 2 0 S", "1996 1996 9 6 7 0 2 0 S", "1997 1997 9 12 7 0 2 0 S", "1998 1999 2 0 8 0 2 1 D", "1998 2003 9 0 8 0 2 0 S", "2000 2004 3 1 0 0 2 1 D", "2006 2010 9 0 8 0 2 0 S", "2007 2007 2 8 0 0 2 1 D", "2008 2008 2 15 0 0 2 1 D", "2009 2010 2 8 0 0 2 1 D", "2011 2011 2 15 0 0 2 1 D", "2011 2011 10 13 7 0 2 0 S", "2012 2012 3 1 7 0 2 1 D", "2012 9999 10 1 0 0 2 0 S", "2013 9999 2 8 0 0 2 1 D"],Indianapolis: ["1941 1941 5 22 7 2 0 1 D", "1941 1954 8 0 8 2 0 0 S", "1946 1954 3 0 8 2 0 1 D"],Starke: ["1947 1961 3 0 8 2 0 1 D", "1947 1954 8 0 8 2 0 0 S", "1955 1956 9 0 8 2 0 0 S", "1957 1958 8 0 8 2 0 0 S", "1959 1961 9 0 8 2 0 0 S"],Marengo: ["1951 1951 3 0 8 2 0 1 D", "1951 1951 8 0 8 2 0 0 S", "1954 1960 3 0 8 2 0 1 D", "1954 1960 8 0 8 2 0 0 S"],Pike: ["1955 1955 4 1 7 0 0 1 D", "1955 1960 8 0 8 2 0 0 S", "1956 1964 3 0 8 2 0 1 D", "1961 1964 9 0 8 2 0 0 S"],Perry: ["1946 1946 3 0 8 2 0 1 D", "1946 1946 8 0 8 2 0 0 S", "1953 1954 3 0 8 2 0 1 D", "1953 1959 8 0 8 2 0 0 S", "1955 1955 4 1 7 0 0 1 D", "1956 1963 3 0 8 2 0 1 D", "1960 1960 9 0 8 2 0 0 S", "1961 1961 8 0 8 2 0 0 S", "1962 1963 9 0 8 2 0 0 S"],Vincennes: ["1946 1946 3 0 8 2 0 1 D", "1946 1946 8 0 8 2 0 0 S", "1953 1954 3 0 8 2 0 1 D", "1953 1959 8 0 8 2 0 0 S", "1955 1955 4 1 7 0 0 1 D", "1956 1963 3 0 8 2 0 1 D", "1960 1960 9 0 8 2 0 0 S", "1961 1961 8 0 8 2 0 0 S", "1962 1963 9 0 8 2 0 0 S"],Pulaski: ["1946 1960 3 0 8 2 0 1 D", "1946 1954 8 0 8 2 0 0 S", "1955 1956 9 0 8 2 0 0 S", "1957 1960 8 0 8 2 0 0 S"],Louisville: ["1921 1921 4 1 7 2 0 1 D", "1921 1921 8 1 7 2 0 0 S", "1941 1961 3 0 8 2 0 1 D", "1941 1941 8 0 8 2 0 0 S", "1946 1946 5 2 7 2 0 0 S", "1950 1955 8 0 8 2 0 0 S", "1956 1960 9 0 8 2 0 0 S"],Peru: ["1938 1938 0 1 7 0 0 1 S", "1938 1938 3 1 7 0 0 0", "1938 1939 8 0 8 0 0 1 S", "1939 1940 2 24 0 0 0 0", "1986 1987 0 1 7 0 0 1 S", "1986 1987 3 1 7 0 0 0", "1990 1990 0 1 7 0 0 1 S", "1990 1990 3 1 7 0 0 0", "1994 1994 0 1 7 0 0 1 S", "1994 1994 3 1 7 0 0 0"],CA: ["1948 1948 2 14 7 2 0 1 D", "1949 1949 0 1 7 2 0 0 S", "1950 1966 3 0 8 2 0 1 D", "1950 1961 8 0 8 2 0 0 S", "1962 1966 9 0 8 2 0 0 S"],Nic: ["1979 1980 2 16 0 0 0 1 D", "1979 1980 5 23 1 0 0 0 S", "2005 2005 3 10 7 0 0 1 D", "2005 2005 9 1 0 0 0 0 S", "2006 2006 3 30 7 2 0 1 D", "2006 2006 9 1 0 1 0 0 S"],Menominee: ["1946 1946 3 0 8 2 0 1 D", "1946 1946 8 0 8 2 0 0 S", "1966 1966 3 0 8 2 0 1 D", "1966 1966 9 0 8 2 0 0 S"],Moncton: ["1933 1935 5 8 0 1 0 1 D", "1933 1935 8 8 0 1 0 0 S", "1936 1938 5 1 0 1 0 1 D", "1936 1938 8 1 0 1 0 0 S", "1939 1939 4 27 7 1 0 1 D", "1939 1941 8 21 6 1 0 0 S", "1940 1940 4 19 7 1 0 1 D", "1941 1941 4 4 7 1 0 1 D", "1946 1972 3 0 8 2 0 1 D", "1946 1956 8 0 8 2 0 0 S", "1957 1972 9 0 8 2 0 0 S", "1993 2006 3 1 0 0:1 0 1 D", "1993 2006 9 0 8 0:1 0 0 S"],Uruguay: ["1923 1923 9 2 7 0 0 0:30 HS", "1924 1926 3 1 7 0 0 0", "1924 1925 9 1 7 0 0 0:30 HS", "1933 1935 9 0 8 0 0 0:30 HS", "1934 1936 2 25 6 23:30 2 0", "1936 1936 10 1 7 0 0 0:30 HS", "1937 1941 2 0 8 0 0 0", "1937 1940 9 0 8 0 0 0:30 HS", "1941 1941 7 1 7 0 0 0:30 HS", "1942 1942 0 1 7 0 0 0", "1942 1942 11 14 7 0 0 1 S", "1943 1943 2 14 7 0 0 0", "1959 1959 4 24 7 0 0 1 S", "1959 1959 10 15 7 0 0 0", "1960 1960 0 17 7 0 0 1 S", "1960 1960 2 6 7 0 0 0", "1965 1967 3 1 0 0 0 1 S", "1965 1965 8 26 7 0 0 0", "1966 1967 9 31 7 0 0 0", "1968 1970 4 27 7 0 0 0:30 HS", "1968 1970 11 2 7 0 0 0", "1972 1972 3 24 7 0 0 1 S", "1972 1972 7 15 7 0 0 0", "1974 1974 2 10 7 0 0 0:30 HS", "1974 1974 11 22 7 0 0 1 S", "1976 1976 9 1 7 0 0 0", "1977 1977 11 4 7 0 0 1 S", "1978 1978 3 1 7 0 0 0", "1979 1979 9 1 7 0 0 1 S", "1980 1980 4 1 7 0 0 0", "1987 1987 11 14 7 0 0 1 S", "1988 1988 2 14 7 0 0 0", "1988 1988 11 11 7 0 0 1 S", "1989 1989 2 12 7 0 0 0", "1989 1989 9 29 7 0 0 1 S", "1990 1992 2 1 0 0 0 0", "1990 1991 9 21 0 0 0 1 S", "1992 1992 9 18 7 0 0 1 S", "1993 1993 1 28 7 0 0 0", "2004 2004 8 19 7 0 0 1 S", "2005 2005 2 27 7 2 0 0", "2005 2005 9 9 7 2 0 1 S", "2006 2006 2 12 7 2 0 0", "2006 9999 9 1 0 2 0 1 S", "2007 9999 2 8 0 2 0 0"],Mont: ["1917 1917 2 25 7 2 0 1 D", "1917 1917 3 24 7 0 0 0 S", "1919 1919 2 31 7 2:30 0 1 D", "1919 1919 9 25 7 2:30 0 0 S", "1920 1920 4 2 7 2:30 0 1 D", "1920 1922 9 1 0 2:30 0 0 S", "1921 1921 4 1 7 2 0 1 D", "1922 1922 3 30 7 2 0 1 D", "1924 1924 4 17 7 2 0 1 D", "1924 1926 8 0 8 2:30 0 0 S", "1925 1926 4 1 0 2 0 1 D", "1927 1927 4 1 7 0 0 1 D", "1927 1932 8 0 8 0 0 0 S", "1928 1931 3 0 8 0 0 1 D", "1932 1932 4 1 7 0 0 1 D", "1933 1940 3 0 8 0 0 1 D", "1933 1933 9 1 7 0 0 0 S", "1934 1939 8 0 8 0 0 0 S", "1946 1973 3 0 8 2 0 1 D", "1945 1948 8 0 8 2 0 0 S", "1949 1950 9 0 8 2 0 0 S", "1951 1956 8 0 8 2 0 0 S", "1957 1973 9 0 8 2 0 0 S"],Bahamas: ["1964 1975 9 0 8 2 0 0 S", "1964 1975 3 0 8 2 0 1 D"],NYC: ["1920 1920 2 0 8 2 0 1 D", "1920 1920 9 0 8 2 0 0 S", "1921 1966 3 0 8 2 0 1 D", "1921 1954 8 0 8 2 0 0 S", "1955 1966 9 0 8 2 0 0 S"],Haiti: ["1983 1983 4 8 7 0 0 1 D", "1984 1987 3 0 8 0 0 1 D", "1983 1987 9 0 8 0 0 0 S", "1988 1997 3 1 0 1 2 1 D", "1988 1997 9 0 8 1 2 0 S", "2005 2006 3 1 0 0 0 1 D", "2005 2006 9 0 8 0 0 0 S", "2012 9999 2 8 0 2 0 1 D", "2012 9999 10 1 0 2 0 0 S"],Regina: ["1918 1918 3 14 7 2 0 1 D", "1918 1918 9 27 7 2 0 0 S", "1930 1934 4 1 0 0 0 1 D", "1930 1934 9 1 0 0 0 0 S", "1937 1941 3 8 0 0 0 1 D", "1937 1937 9 8 0 0 0 0 S", "1938 1938 9 1 0 0 0 0 S", "1939 1941 9 8 0 0 0 0 S", "1942 1942 1 9 7 2 0 1 W", "1945 1945 7 14 7 23 1 1 P", "1945 1945 8 0 8 2 0 0 S", "1946 1946 3 8 0 2 0 1 D", "1946 1946 9 8 0 2 0 0 S", "1947 1957 3 0 8 2 0 1 D", "1947 1957 8 0 8 2 0 0 S", "1959 1959 3 0 8 2 0 1 D", "1959 1959 9 0 8 2 0 0 S"],Chile: ["1927 1932 8 1 7 0 0 1 S", "1928 1932 3 1 7 0 0 0", "1942 1942 5 1 7 4 1 0", "1942 1942 7 1 7 5 1 1 S", "1946 1946 6 15 7 4 1 1 S", "1946 1946 8 1 7 3 1 0", "1947 1947 3 1 7 4 1 0", "1968 1968 10 3 7 4 1 1 S", "1969 1969 2 30 7 3 1 0", "1969 1969 10 23 7 4 1 1 S", "1970 1970 2 29 7 3 1 0", "1971 1971 2 14 7 3 1 0", "1970 1972 9 9 0 4 1 1 S", "1972 1986 2 9 0 3 1 0", "1973 1973 8 30 7 4 1 1 S", "1974 1987 9 9 0 4 1 1 S", "1987 1987 3 12 7 3 1 0", "1988 1989 2 9 0 3 1 0", "1988 1988 9 1 0 4 1 1 S", "1989 1989 9 9 0 4 1 1 S", "1990 1990 2 18 7 3 1 0", "1990 1990 8 16 7 4 1 1 S", "1991 1996 2 9 0 3 1 0", "1991 1997 9 9 0 4 1 1 S", "1997 1997 2 30 7 3 1 0", "1998 1998 2 9 0 3 1 0", "1998 1998 8 27 7 4 1 1 S", "1999 1999 3 4 7 3 1 0", "1999 2010 9 9 0 4 1 1 S", "2000 2007 2 9 0 3 1 0", "2008 2008 2 30 7 3 1 0", "2009 2009 2 9 0 3 1 0", "2010 2010 3 1 0 3 1 0", "2011 2011 4 2 0 3 1 0", "2011 2011 7 16 0 4 1 1 S", "2012 9999 3 23 0 3 1 0", "2012 9999 8 2 0 4 1 1 S"],DR: ["1966 1966 9 30 7 0 0 1 D", "1967 1967 1 28 7 0 0 0 S", "1969 1973 9 0 8 0 0 0:30 HD", "1970 1970 1 21 7 0 0 0 S", "1971 1971 0 20 7 0 0 0 S", "1972 1974 0 21 7 0 0 0 S"],"C-Eur": ["1916 1916 3 30 7 23 0 1 S", "1916 1916 9 1 7 1 0 0", "1917 1918 3 15 1 2 2 1 S", "1917 1918 8 15 1 2 2 0", "1940 1940 3 1 7 2 2 1 S", "1942 1942 10 2 7 2 2 0", "1943 1943 2 29 7 2 2 1 S", "1943 1943 9 4 7 2 2 0", "1944 1945 3 1 1 2 2 1 S", "1944 1944 9 2 7 2 2 0", "1945 1945 8 16 7 2 2 0", "1977 1980 3 1 0 2 2 1 S", "1977 1977 8 0 8 2 2 0"
-            , "1978 1978 9 1 7 2 2 0", "1979 1995 8 0 8 2 2 0", "1981 9999 2 0 8 2 2 1 S", "1996 9999 9 0 8 2 2 0"],Swift: ["1957 1957 3 0 8 2 0 1 D", "1957 1957 9 0 8 2 0 0 S", "1959 1961 3 0 8 2 0 1 D", "1959 1959 9 0 8 2 0 0 S", "1960 1961 8 0 8 2 0 0 S"],Hond: ["1987 1988 4 1 0 0 0 1 D", "1987 1988 8 0 8 0 0 0 S", "2006 2006 4 1 0 0 0 1 D", "2006 2006 7 1 1 0 0 0 S"],Thule: ["1991 1992 2 0 8 2 0 1 D", "1991 1992 8 0 8 2 0 0 S", "1993 2006 3 1 0 2 0 1 D", "1993 2006 9 0 8 2 0 0 S", "2007 9999 2 8 0 2 0 1 D", "2007 9999 10 1 0 2 0 0 S"],Toronto: ["1919 1919 2 30 7 23:30 0 1 D", "1919 1919 9 26 7 0 0 0 S", "1920 1920 4 2 7 2 0 1 D", "1920 1920 8 26 7 0 0 0 S", "1921 1921 4 15 7 2 0 1 D", "1921 1921 8 15 7 2 0 0 S", "1922 1923 4 8 0 2 0 1 D", "1922 1926 8 15 0 2 0 0 S", "1924 1927 4 1 0 2 0 1 D", "1927 1932 8 0 8 2 0 0 S", "1928 1931 3 0 8 2 0 1 D", "1932 1932 4 1 7 2 0 1 D", "1933 1940 3 0 8 2 0 1 D", "1933 1933 9 1 7 2 0 0 S", "1934 1939 8 0 8 2 0 0 S", "1945 1946 8 0 8 2 0 0 S", "1946 1946 3 0 8 2 0 1 D", "1947 1949 3 0 8 0 0 1 D", "1947 1948 8 0 8 0 0 0 S", "1949 1949 10 0 8 0 0 0 S", "1950 1973 3 0 8 2 0 1 D", "1950 1950 10 0 8 2 0 0 S", "1951 1956 8 0 8 2 0 0 S", "1957 1973 9 0 8 2 0 0 S"],Winn: ["1916 1916 3 23 7 0 0 1 D", "1916 1916 8 17 7 0 0 0 S", "1918 1918 3 14 7 2 0 1 D", "1918 1918 9 27 7 2 0 0 S", "1937 1937 4 16 7 2 0 1 D", "1937 1937 8 26 7 2 0 0 S", "1942 1942 1 9 7 2 0 1 W", "1945 1945 7 14 7 23 1 1 P", "1945 1945 8 0 8 2 0 0 S", "1946 1946 4 12 7 2 0 1 D", "1946 1946 9 13 7 2 0 0 S", "1947 1949 3 0 8 2 0 1 D", "1947 1949 8 0 8 2 0 0 S", "1950 1950 4 1 7 2 0 1 D", "1950 1950 8 30 7 2 0 0 S", "1951 1960 3 0 8 2 0 1 D", "1951 1958 8 0 8 2 0 0 S", "1959 1959 9 0 8 2 0 0 S", "1960 1960 8 0 8 2 0 0 S", "1963 1963 3 0 8 2 0 1 D", "1963 1963 8 22 7 2 0 0 S", "1966 1986 3 0 8 2 2 1 D", "1966 2005 9 0 8 2 2 0 S", "1987 2005 3 1 0 2 2 1 D"],Aus: ["1917 1917 0 1 7 0:1 0 1", "1917 1917 2 25 7 2 0 0", "1942 1942 0 1 7 2 0 1", "1942 1942 2 29 7 2 0 0", "1942 1942 8 27 7 2 0 1", "1943 1944 2 0 8 2 0 0", "1943 1943 9 3 7 2 0 1"],AT: ["1967 1967 9 1 0 2 2 1", "1968 1968 2 0 8 2 2 0", "1968 1985 9 0 8 2 2 1", "1969 1971 2 8 0 2 2 0", "1972 1972 1 0 8 2 2 0", "1973 1981 2 1 0 2 2 0", "1982 1983 2 0 8 2 2 0", "1984 1986 2 1 0 2 2 0", "1986 1986 9 15 0 2 2 1", "1987 1990 2 15 0 2 2 0", "1987 1987 9 22 0 2 2 1", "1988 1990 9 0 8 2 2 1", "1991 1999 9 1 0 2 2 1", "1991 2005 2 0 8 2 2 0", "2000 2000 7 0 8 2 2 1", "2001 9999 9 1 0 2 2 1", "2006 2006 3 1 0 2 2 0", "2007 2007 2 0 8 2 2 0", "2008 9999 3 1 0 2 2 0"],NZAQ: ["1974 1974 10 3 7 2 2 1 D", "1975 1988 9 0 8 2 2 1 D", "1989 1989 9 8 7 2 2 1 D", "1990 2006 9 1 0 2 2 1 D", "1975 1975 1 23 7 2 2 0 S", "1976 1989 2 1 0 2 2 0 S", "1990 2007 2 15 0 2 2 0 S", "2007 9999 8 0 8 2 2 1 D", "2008 9999 3 1 0 2 2 0 S"],ArgAQ: ["1964 1966 2 1 7 0 0 0", "1964 1966 9 15 7 0 0 1 S", "1967 1967 3 2 7 0 0 0", "1967 1968 9 1 0 0 0 1 S", "1968 1969 3 1 0 0 0 0", "1974 1974 0 23 7 0 0 1 S", "1974 1974 4 1 7 0 0 0"],ChileAQ: ["1972 1986 2 9 0 3 1 0", "1974 1987 9 9 0 4 1 1 S", "1987 1987 3 12 7 3 1 0", "1988 1989 2 9 0 3 1 0", "1988 1988 9 1 0 4 1 1 S", "1989 1989 9 9 0 4 1 1 S", "1990 1990 2 18 7 3 1 0", "1990 1990 8 16 7 4 1 1 S", "1991 1996 2 9 0 3 1 0", "1991 1997 9 9 0 4 1 1 S", "1997 1997 2 30 7 3 1 0", "1998 1998 2 9 0 3 1 0", "1998 1998 8 27 7 4 1 1 S", "1999 1999 3 4 7 3 1 0", "1999 2010 9 9 0 4 1 1 S", "2000 2007 2 9 0 3 1 0", "2008 2008 2 30 7 3 1 0", "2009 2009 2 9 0 3 1 0", "2010 2010 3 1 0 3 1 0", "2011 2011 4 2 0 3 1 0", "2011 2011 7 16 0 4 1 1 S", "2012 9999 3 23 0 3 1 0", "2012 9999 8 2 0 4 1 1 S"],Norway: ["1916 1916 4 22 7 1 0 1 S", "1916 1916 8 30 7 0 0 0", "1945 1945 3 2 7 2 2 1 S", "1945 1945 9 1 7 2 2 0", "1959 1964 2 15 0 2 2 1 S", "1959 1965 8 15 0 2 2 0", "1965 1965 3 25 7 2 2 1 S"],RussiaAsia: ["1981 1984 3 1 7 0 0 1 S", "1981 1983 9 1 7 0 0 0", "1984 1991 8 0 8 2 2 0", "1985 1991 2 0 8 2 2 1 S", "1992 1992 2 6 8 23 0 1 S", "1992 1992 8 6 8 23 0 0", "1993 9999 2 0 8 2 2 1 S", "1993 1995 8 0 8 2 2 0", "1996 9999 9 0 8 2 2 0"],Jordan: ["1973 1973 5 6 7 0 0 1 S", "1973 1975 9 1 7 0 0 0", "1974 1977 4 1 7 0 0 1 S", "1976 1976 10 1 7 0 0 0", "1977 1977 9 1 7 0 0 0", "1978 1978 3 30 7 0 0 1 S", "1978 1978 8 30 7 0 0 0", "1985 1985 3 1 7 0 0 1 S", "1985 1985 9 1 7 0 0 0", "1986 1988 3 1 5 0 0 1 S", "1986 1990 9 1 5 0 0 0", "1989 1989 4 8 7 0 0 1 S", "1990 1990 3 27 7 0 0 1 S", "1991 1991 3 17 7 0 0 1 S", "1991 1991 8 27 7 0 0 0", "1992 1992 3 10 7 0 0 1 S", "1992 1993 9 1 5 0 0 0", "1993 1998 3 1 5 0 0 1 S", "1994 1994 8 15 5 0 0 0", "1995 1998 8 15 5 0 2 0", "1999 1999 6 1 7 0 2 1 S", "1999 2002 8 5 8 0 2 0", "2000 2001 2 4 8 0 2 1 S", "2002 9999 2 4 8 24 0 1 S", "2003 2003 9 24 7 0 2 0", "2004 2004 9 15 7 0 2 0", "2005 2005 8 5 8 0 2 0", "2006 2011 9 5 8 0 2 0", "2013 9999 9 5 8 0 2 0"],Russia: ["1917 1917 6 1 7 23 0 1 MST", "1917 1917 11 28 7 0 0 0 MMT", "1918 1918 4 31 7 22 0 2 MDST", "1918 1918 8 16 7 1 0 1 MST", "1919 1919 4 31 7 23 0 2 MDST", "1919 1919 6 1 7 2 0 1 S", "1919 1919 7 16 7 0 0 0", "1921 1921 1 14 7 23 0 1 S", "1921 1921 2 20 7 23 0 2 M", "1921 1921 8 1 7 0 0 1 S", "1921 1921 9 1 7 0 0 0", "1981 1984 3 1 7 0 0 1 S", "1981 1983 9 1 7 0 0 0", "1984 1991 8 0 8 2 2 0", "1985 1991 2 0 8 2 2 1 S", "1992 1992 2 6 8 23 0 1 S", "1992 1992 8 6 8 23 0 0", "1993 2010 2 0 8 2 2 1 S", "1993 1995 8 0 8 2 2 0", "1996 2010 9 0 8 2 2 0"],Iraq: ["1982 1982 4 1 7 0 0 1 D", "1982 1984 9 1 7 0 0 0 S", "1983 1983 2 31 7 0 0 1 D", "1984 1985 3 1 7 0 0 1 D", "1985 1990 8 0 8 1 2 0 S", "1986 1990 2 0 8 1 2 1 D", "1991 2007 3 1 7 3 2 1 D", "1991 2007 9 1 7 3 2 0 S"],EUAsia: ["1981 9999 2 0 8 1 1 1 S", "1979 1995 8 0 8 1 1 0", "1996 9999 9 0 8 1 1 0"],Azer: ["1997 9999 2 0 8 4 0 1 S", "1997 9999 9 0 8 5 0 0"],Lebanon: ["1920 1920 2 28 7 0 0 1 S", "1920 1920 9 25 7 0 0 0", "1921 1921 3 3 7 0 0 1 S", "1921 1921 9 3 7 0 0 0", "1922 1922 2 26 7 0 0 1 S", "1922 1922 9 8 7 0 0 0", "1923 1923 3 22 7 0 0 1 S", "1923 1923 8 16 7 0 0 0", "1957 1961 4 1 7 0 0 1 S", "1957 1961 9 1 7 0 0 0", "1972 1972 5 22 7 0 0 1 S", "1972 1977 9 1 7 0 0 0", "1973 1977 4 1 7 0 0 1 S", "1978 1978 3 30 7 0 0 1 S", "1978 1978 8 30 7 0 0 0", "1984 1987 4 1 7 0 0 1 S", "1984 1991 9 16 7 0 0 0", "1988 1988 5 1 7 0 0 1 S", "1989 1989 4 10 7 0 0 1 S", "1990 1992 4 1 7 0 0 1 S", "1992 1992 9 4 7 0 0 0", "1993 9999 2 0 8 0 0 1 S", "1993 1998 8 0 8 0 0 0", "1999 9999 9 0 8 0 0 0"],Kyrgyz: ["1992 1996 3 7 0 0 2 1 S", "1992 1996 8 0 8 0 0 0", "1997 2005 2 0 8 2:30 0 1 S", "1997 2004 9 0 8 2:30 0 0"],Mongol: ["1983 1984 3 1 7 0 0 1 S", "1983 1983 9 1 7 0 0 0", "1985 1998 2 0 8 0 0 1 S", "1984 1998 8 0 8 0 0 0", "2001 2001 3 6 8 2 0 1 S", "2001 2006 8 6 8 2 0 0", "2002 2006 2 6 8 2 0 1 S"],PRC: ["1986 1986 4 4 7 0 0 1 D", "1986 1991 8 11 0 0 0 0 S", "1987 1991 3 10 0 0 0 1 D"],Syria: ["1920 1923 3 15 0 2 0 1 S", "1920 1923 9 1 0 2 0 0", "1962 1962 3 29 7 2 0 1 S", "1962 1962 9 1 7 2 0 0", "1963 1965 4 1 7 2 0 1 S", "1963 1963 8 30 7 2 0 0", "1964 1964 9 1 7 2 0 0", "1965 1965 8 30 7 2 0 0", "1966 1966 3 24 7 2 0 1 S", "1966 1976 9 1 7 2 0 0", "1967 1978 4 1 7 2 0 1 S", "1977 1978 8 1 7 2 0 0", "1983 1984 3 9 7 2 0 1 S", "1983 1984 9 1 7 2 0 0", "1986 1986 1 16 7 2 0 1 S", "1986 1986 9 9 7 2 0 0", "1987 1987 2 1 7 2 0 1 S", "1987 1988 9 31 7 2 0 0", "1988 1988 2 15 7 2 0 1 S", "1989 1989 2 31 7 2 0 1 S", "1989 1989 9 1 7 2 0 0", "1990 1990 3 1 7 2 0 1 S", "1990 1990 8 30 7 2 0 0", "1991 1991 3 1 7 0 0 1 S", "1991 1992 9 1 7 0 0 0", "1992 1992 3 8 7 0 0 1 S", "1993 1993 2 26 7 0 0 1 S", "1993 1993 8 25 7 0 0 0", "1994 1996 3 1 7 0 0 1 S", "1994 2005 9 1 7 0 0 0", "1997 1998 2 1 8 0 0 1 S", "1999 2006 3 1 7 0 0 1 S", "2006 2006 8 22 7 0 0 0", "2007 2007 2 5 8 0 0 1 S", "2007 2007 10 1 5 0 0 0", "2008 2008 3 1 5 0 0 1 S", "2008 2008 10 1 7 0 0 0", "2009 2009 2 5 8 0 0 1 S", "2010 2011 3 1 5 0 0 1 S", "2012 9999 2 5 8 0 0 1 S", "2009 9999 9 5 8 0 0 0"],Dhaka: ["2009 2009 5 19 7 23 0 1 S", "2009 2009 11 31 7 23:59 0 0"],Zion: ["1940 1940 5 1 7 0 0 1 D", "1942 1944 10 1 7 0 0 0 S", "1943 1943 3 1 7 2 0 1 D", "1944 1944 3 1 7 0 0 1 D", "1945 1945 3 16 7 0 0 1 D", "1945 1945 10 1 7 2 0 0 S", "1946 1946 3 16 7 2 0 1 D", "1946 1946 10 1 7 0 0 0 S", "1948 1948 4 23 7 0 0 2 DD", "1948 1948 8 1 7 0 0 1 D", "1948 1949 10 1 7 2 0 0 S", "1949 1949 4 1 7 0 0 1 D", "1950 1950 3 16 7 0 0 1 D", "1950 1950 8 15 7 3 0 0 S", "1951 1951 3 1 7 0 0 1 D", "1951 1951 10 11 7 3 0 0 S", "1952 1952 3 20 7 2 0 1 D", "1952 1952 9 19 7 3 0 0 S", "1953 1953 3 12 7 2 0 1 D", "1953 1953 8 13 7 3 0 0 S", "1954 1954 5 13 7 0 0 1 D", "1954 1954 8 12 7 0 0 0 S", "1955 1955 5 11 7 2 0 1 D", "1955 1955 8 11 7 0 0 0 S", "1956 1956 5 3 7 0 0 1 D", "1956 1956 8 30 7 3 0 0 S", "1957 1957 3 29 7 2 0 1 D", "1957 1957 8 22 7 0 0 0 S", "1974 1974 6 7 7 0 0 1 D", "1974 1974 9 13 7 0 0 0 S", "1975 1975 3 20 7 0 0 1 D", "1975 1975 7 31 7 0 0 0 S", "1985 1985 3 14 7 0 0 1 D", "1985 1985 8 15 7 0 0 0 S", "1986 1986 4 18 7 0 0 1 D", "1986 1986 8 7 7 0 0 0 S", "1987 1987 3 15 7 0 0 1 D", "1987 1987 8 13 7 0 0 0 S", "1988 1988 3 9 7 0 0 1 D", "1988 1988 8 3 7 0 0 0 S", "1989 1989 3 30 7 0 0 1 D", "1989 1989 8 3 7 0 0 0 S", "1990 1990 2 25 7 0 0 1 D", "1990 1990 7 26 7 0 0 0 S", "1991 1991 2 24 7 0 0 1 D", "1991 1991 8 1 7 0 0 0 S", "1992 1992 2 29 7 0 0 1 D", "1992 1992 8 6 7 0 0 0 S", "1993 1993 3 2 7 0 0 1 D", "1993 1993 8 5 7 0 0 0 S", "1994 1994 3 1 7 0 0 1 D", "1994 1994 7 28 7 0 0 0 S", "1995 1995 2 31 7 0 0 1 D", "1995 1995 8 3 7 0 0 0 S", "1996 1996 2 15 7 0 0 1 D", "1996 1996 8 16 7 0 0 0 S", "1997 1997 2 21 7 0 0 1 D", "1997 1997 8 14 7 0 0 0 S", "1998 1998 2 20 7 0 0 1 D", "1998 1998 8 6 7 0 0 0 S", "1999 1999 3 2 7 2 0 1 D", "1999 1999 8 3 7 2 0 0 S", "2000 2000 3 14 7 2 0 1 D", "2000 2000 9 6 7 1 0 0 S", "2001 2001 3 9 7 1 0 1 D", "2001 2001 8 24 7 1 0 0 S", "2002 2002 2 29 7 1 0 1 D", "2002 2002 9 7 7 1 0 0 S", "2003 2003 2 28 7 1 0 1 D", "2003 2003 9 3 7 1 0 0 S", "2004 2004 3 7 7 1 0 1 D", "2004 2004 8 22 7 1 0 0 S", "2005 2005 3 1 7 2 0 1 D", "2005 2005 9 9 7 2 0 0 S", "2006 2010 2 26 5 2 0 1 D", "2006 2006 9 1 7 2 0 0 S", "2007 2007 8 16 7 2 0 0 S", "2008 2008 9 5 7 2 0 0 S", "2009 2009 8 27 7 2 0 0 S", "2010 2010 8 12 7 2 0 0 S", "2011 2011 3 1 7 2 0 1 D", "2011 2011 9 2 7 2 0 0 S", "2012 2012 2 26 5 2 0 1 D", "2012 2012 8 23 7 2 0 0 S", "2013 9999 2 23 5 2 0 1 D", "2013 2026 9 2 0 2 0 0 S", "2027 2027 9 3 1 2 0 0 S", "2028 9999 9 2 0 2 0 0 S"],EgyptAsia: ["1957 1957 4 10 7 0 0 1 S", "1957 1958 9 1 7 0 0 0", "1958 1958 4 1 7 0 0 1 S", "1959 1967 4 1 7 1 0 1 S", "1959 1965 8 30 7 3 0 0", "1966 1966 9 1 7 3 0 0"],Palestine: ["1999 2005 3 15 5 0 0 1 S", "1999 2003 9 15 5 0 0 0", "2004 2004 9 1 7 1 0 0", "2005 2005 9 4 7 2 0 0", "2006 2007 3 1 7 0 0 1 S", "2006 2006 8 22 7 0 0 0", "2007 2007 8 8 4 2 0 0", "2008 2009 2 5 8 0 0 1 S", "2008 2008 8 1 7 0 0 0", "2009 2009 8 1 5 1 0 0", "2010 2010 2 26 7 0 0 1 S", "2010 2010 7 11 7 0 0 0", "2011 2011 3 1 7 0:1 0 1 S", "2011 2011 7 1 7 0 0 0", "2011 2011 7 30 7 0 0 1 S", "2011 2011 8 30 7 0 0 0", "2012 9999 2 4 8 24 0 1 S", "2012 9999 8 21 5 1 0 0"],HK: ["1941 1941 3 1 7 3:30 0 1 S", "1941 1941 8 30 7 3:30 0 0", "1946 1946 3 20 7 3:30 0 1 S", "1946 1946 11 1 7 3:30 0 0", "1947 1947 3 13 7 3:30 0 1 S", "1947 1947 11 30 7 3:30 0 0", "1948 1948 4 2 7 3:30 0 1 S", "1948 1951 9 0 8 3:30 0 0", "1952 1952 9 25 7 3:30 0 0", "1949 1953 3 1 0 3:30 0 1 S", "1953 1953 10 1 7 3:30 0 0", "1954 1964 2 18 0 3:30 0 1 S", "1954 1954 9 31 7 3:30 0 0", "1955 1964 10 1 0 3:30 0 0", "1965 1976 3 16 0 3:30 0 1 S", "1965 1976 9 16 0 3:30 0 0", "1973 1973 11 30 7 3:30 0 1 S", "1979 1979 4 8 0 3:30 0 1 S", "1979 1979 9 16 0 3:30 0 0"],Pakistan: ["2002 2002 3 2 0 0:1 0 1 S", "2002 2002 9 2 0 0:1 0 0", "2008 2008 5 1 7 0 0 1 S", "2008 2008 10 1 7 0 0 0", "2009 2009 3 15 7 0 0 1 S", "2009 2009 10 1 7 0 0 0"],NBorneo: ["1935 1941 8 14 7 0 0 0:20 TS", "1935 1941 11 14 7 0 0 0"],Macau: ["1961 1962 2 16 0 3:30 0 1 S", "1961 1964 10 1 0 3:30 0 0", "1963 1963 2 16 0 0 0 1 S", "1964 1964 2 16 0 3:30 0 1 S", "1965 1965 2 16 0 0 0 1 S", "1965 1965 9 31 7 0 0 0", "1966 1971 3 16 0 3:30 0 1 S", "1966 1971 9 16 0 3:30 0 0", "1972 1974 3 15 0 0 0 1 S", "1972 1973 9 15 0 0 0 0", "1974 1977 9 15 0 3:30 0 0", "1975 1977 3 15 0 3:30 0 1 S", "1978 1980 3 15 0 0 0 1 S", "1978 1980 9 15 0 0 0 0"],Phil: ["1936 1936 10 1 7 0 0 1 S", "1937 1937 1 1 7 0 0 0", "1954 1954 3 12 7 0 0 1 S", "1954 1954 6 1 7 0 0 0", "1978 1978 2 22 7 0 0 1 S", "1978 1978 8 21 7 0 0 0"],Cyprus: ["1975 1975 3 13 7 0 0 1 S", "1975 1975 9 12 7 0 0 0", "1976 1976 4 15 7 0 0 1 S", "1976 1976 9 11 7 0 0 0", "1977 1980 3 1 0 0 0 1 S", "1977 1977 8 25 7 0 0 0", "1978 1978 9 2 7 0 0 0", "1979 1997 8 0 8 0 0 0", "1981 1998 2 0 8 0 0 1 S"],ROK: ["1960 1960 4 15 7 0 0 1 D", "1960 1960 8 13 7 0 0 0 S", "1987 1988 4 8 0 0 0 1 D", "1987 1988 9 8 0 0 0 0 S"],Shang: ["1940 1940 5 3 7 0 0 1 D", "1940 1941 9 1 7 0 0 0 S", "1941 1941 2 16 7 0 0 1 D"],Taiwan: ["1945 1951 4 1 7 0 0 1 D", "1945 1951 9 1 7 0 0 0 S", "1952 1952 2 1 7 0 0 1 D", "1952 1954 10 1 7 0 0 0 S", "1953 1959 3 1 7 0 0 1 D", "1955 1961 9 1 7 0 0 0 S", "1960 1961 5 1 7 0 0 1 D", "1974 1975 3 1 7 0 0 1 D", "1974 1975 9 1 7 0 0 0 S", "1979 1979 5 30 7 0 0 1 D", "1979 1979 8 30 7 0 0 0 S"],"E-EurAsia": ["1981 9999 2 0 8 0 0 1 S", "1979 1995 8 0 8 0 0 0", "1996 9999 9 0 8 0 0 0"],Iran: ["1978 1980 2 21 7 0 0 1 D", "1978 1978 9 21 7 0 0 0 S", "1979 1979 8 19 7 0 0 0 S", "1980 1980 8 23 7 0 0 0 S", "1991 1991 4 3 7 0 0 1 D", "1992 1995 2 22 7 0 0 1 D", "1991 1995 8 22 7 0 0 0 S", "1996 1996 2 21 7 0 0 1 D", "1996 1996 8 21 7 0 0 0 S", "1997 1999 2 22 7 0 0 1 D", "1997 1999 8 22 7 0 0 0 S", "2000 2000 2 21 7 0 0 1 D", "2000 2000 8 21 7 0 0 0 S", "2001 2003 2 22 7 0 0 1 D", "2001 2003 8 22 7 0 0 0 S", "2004 2004 2 21 7 0 0 1 D", "2004 2004 8 21 7 0 0 0 S", "2005 2005 2 22 7 0 0 1 D", "2005 2005 8 22 7 0 0 0 S", "2008 2008 2 21 7 0 0 1 D", "2008 2008 8 21 7 0 0 0 S", "2009 2011 2 22 7 0 0 1 D", "2009 2011 8 22 7 0 0 0 S", "2012 2012 2 21 7 0 0 1 D", "2012 2012 8 21 7 0 0 0 S", "2013 2015 2 22 7 0 0 1 D", "2013 2015 8 22 7 0 0 0 S", "2016 2016 2 21 7 0 0 1 D", "2016 2016 8 21 7 0 0 0 S", "2017 2019 2 22 7 0 0 1 D", "2017 2019 8 22 7 0 0 0 S", "2020 2020 2 21 7 0 0 1 D", "2020 2020 8 21 7 0 0 0 S", "2021 2023 2 22 7 0 0 1 D", "2021 2023 8 22 7 0 0 0 S", "2024 2024 2 21 7 0 0 1 D", "2024 2024 8 21 7 0 0 0 S", "2025 2027 2 22 7 0 0 1 D", "2025 2027 8 22 7 0 0 0 S", "2028 2029 2 21 7 0 0 1 D", "2028 2029 8 21 7 0 0 0 S", "2030 2031 2 22 7 0 0 1 D", "2030 2031 8 22 7 0 0 0 S", "2032 2033 2 21 7 0 0 1 D", "2032 2033 8 21 7 0 0 0 S", "2034 2035 2 22 7 0 0 1 D", "2034 2035 8 22 7 0 0 0 S", "2036 2037 2 21 7 0 0 1 D", "2036 2037 8 21 7 0 0 0 S"],Japan: ["1948 1948 4 1 0 2 0 1 D", "1948 1951 8 8 6 2 0 0 S", "1949 1949 3 1 0 2 0 1 D", "1950 1951 4 1 0 2 0 1 D"],Port: ["1916 1916 5 17 7 23 0 1 S", "1916 1916 10 1 7 1 0 0", "1917 1917 1 28 7 23 2 1 S", "1917 1921 9 14 7 23 2 0", "1918 1918 2 1 7 23 2 1 S", "1919 1919 1 28 7 23 2 1 S", "1920 1920 1 29 7 23 2 1 S", "1921 1921 1 28 7 23 2 1 S", "1924 1924 3 16 7 23 2 1 S", "1924 1924 9 14 7 23 2 0", "1926 1926 3 17 7 23 2 1 S", "1926 1929 9 1 6 23 2 0", "1927 1927 3 9 7 23 2 1 S", "1928 1928 3 14 7 23 2 1 S", "1929 1929 3 20 7 23 2 1 S", "1931 1931 3 18 7 23 2 1 S", "1931 1932 9 1 6 23 2 0", "1932 1932 3 2 7 23 2 1 S", "1934 1934 3 7 7 23 2 1 S", "1934 1938 9 1 6 23 2 0", "1935 1935 2 30 7 23 2 1 S", "1936 1936 3 18 7 23 2 1 S", "1937 1937 3 3 7 23 2 1 S", "1938 1938 2 26 7 23 2 1 S", "1939 1939 3 15 7 23 2 1 S", "1939 1939 10 18 7 23 2 0", "1940 1940 1 24 7 23 2 1 S", "1940 1941 9 5 7 23 2 0", "1941 1941 3 5 7 23 2 1 S", "1942 1945 2 8 6 23 2 1 S", "1942 1942 3 25 7 22 2 2 M", "1942 1942 7 15 7 22 2 1 S", "1942 1945 9 24 6 23 2 0", "1943 1943 3 17 7 22 2 2 M", "1943 1945 7 25 6 22 2 1 S", "1944 1945 3 21 6 22 2 2 M", "1946 1946 3 1 6 23 2 1 S", "1946 1946 9 1 6 23 2 0", "1947 1949 3 1 0 2 2 1 S", "1947 1949 9 1 0 2 2 0", "1951 1965 3 1 0 2 2 1 S", "1951 1965 9 1 0 2 2 0", "1977 1977 2 27 7 0 2 1 S", "1977 1977 8 25 7 0 2 0", "1978 1979 3 1 0 0 2 1 S", "1978 1978 9 1 7 0 2 0", "1979 1982 8 0 8 1 2 0", "1980 1980 2 0 8 0 2 1 S", "1981 1982 2 0 8 1 2 1 S", "1983 1983 2 0 8 2 2 1 S"],"W-Eur": ["1977 1980 3 1 0 1 2 1 S", "1977 1977 8 0 8 1 2 0", "1978 1978 9 1 7 1 2 0", "1979 1995 8 0 8 1 2 0", "1981 9999 2 0 8 1 2 1 S", "1996 9999 9 0 8 1 2 0"],Iceland: ["1917 1918 1 19 7 23 0 1 S", "1917 1917 9 21 7 1 0 0", "1918 1918 10 16 7 1 0 0", "1939 1939 3 29 7 23 0 1 S", "1939 1939 10 29 7 2 0 0", "1940 1940 1 25 7 2 0 1 S", "1940 1940 10 3 7 2 0 0", "1941 1941 2 2 7 1 2 1 S", "1941 1941 10 2 7 1 2 0", "1942 1942 2 8 7 1 2 1 S", "1942 1942 9 25 7 1 2 0", "1943 1946 2 1 0 1 2 1 S", "1943 1948 9 22 0 1 2 0", "1947 1967 3 1 0 1 2 1 S", "1949 1949 9 30 7 1 2 0", "1950 1966 9 22 0 1 2 0", "1967 1967 9 29 7 1 2 0"],Falk: ["1937 1938 8 0 8 0 0 1 S", "1938 1942 2 19 0 0 0 0", "1939 1939 9 1 7 0 0 1 S", "1940 1942 8 0 8 0 0 1 S", "1943 1943 0 1 7 0 0 0", "1983 1983 8 0 8 0 0 1 S", "1984 1985 3 0 8 0 0 0", "1984 1984 8 16 7 0 0 1 S", "1985 2000 8 9 0 0 0 1 S", "1986 2000 3 16 0 0 0 0", "2001 2010 3 15 0 2 0 0", "2001 2010 8 1 0 2 0 1 S"],AS: ["1971 1985 9 0 8 2 2 1", "1986 1986 9 19 7 2 2 1", "1987 2007 9 0 8 2 2 1", "1972 1972 1 27 7 2 2 0", "1973 1985 2 1 0 2 2 0", "1986 1990 2 15 0 2 2 0", "1991 1991 2 3 7 2 2 0", "1992 1992 2 22 7 2 2 0", "1993 1993 2 7 7 2 2 0", "1994 1994 2 20 7 2 2 0", "1995 2005 2 0 8 2 2 0", "2006 2006 3 2 7 2 2 0", "2007 2007 2 0 8 2 2 0", "2008 9999 3 1 0 2 2 0", "2008 9999 9 1 0 2 2 1"],AQ: ["1971 1971 9 0 8 2 2 1", "1972 1972 1 0 8 2 2 0", "1989 1991 9 0 8 2 2 1", "1990 1992 2 1 0 2 2 0"],AN: ["1971 1985 9 0 8 2 2 1", "1972 1972 1 27 7 2 2 0", "1973 1981 2 1 0 2 2 0", "1982 1982 3 1 0 2 2 0", "1983 1985 2 1 0 2 2 0", "1986 1989 2 15 0 2 2 0", "1986 1986 9 19 7 2 2 1", "1987 1999 9 0 8 2 2 1", "1990 1995 2 1 0 2 2 0", "1996 2005 2 0 8 2 2 0", "2000 2000 7 0 8 2 2 1", "2001 2007 9 0 8 2 2 1", "2006 2006 3 1 0 2 2 0", "2007 2007 2 0 8 2 2 0", "2008 9999 3 1 0 2 2 0", "2008 9999 9 1 0 2 2 1"],AW: ["1974 1974 9 0 8 2 2 1", "1975 1975 2 1 0 2 2 0", "1983 1983 9 0 8 2 2 1", "1984 1984 2 1 0 2 2 0", "1991 1991 10 17 7 2 2 1", "1992 1992 2 1 0 2 2 0", "2006 2006 11 3 7 2 2 1", "2007 2009 2 0 8 2 2 0", "2007 2008 9 0 8 2 2 1"],Holiday: ["1992 1993 9 0 8 2 2 1", "1993 1994 2 1 0 2 2 0"],LH: ["1981 1984 9 0 8 2 0 1", "1982 1985 2 1 0 2 0 0", "1985 1985 9 0 8 2 0 0:30", "1986 1989 2 15 0 2 0 0", "1986 1986 9 19 7 2 0 0:30", "1987 1999 9 0 8 2 0 0:30", "1990 1995 2 1 0 2 0 0", "1996 2005 2 0 8 2 0 0", "2000 2000 7 0 8 2 0 0:30", "2001 2007 9 0 8 2 0 0:30", "2006 2006 3 1 0 2 0 0", "2007 2007 2 0 8 2 0 0", "2008 9999 3 1 0 2 0 0", "2008 9999 9 1 0 2 0 0:30"],AV: ["1971 1985 9 0 8 2 2 1", "1972 1972 1 0 8 2 2 0", "1973 1985 2 1 0 2 2 0", "1986 1990 2 15 0 2 2 0", "1986 1987 9 15 0 2 2 1", "1988 1999 9 0 8 2 2 1", "1991 1994 2 1 0 2 2 0", "1995 2005 2 0 8 2 2 0", "2000 2000 7 0 8 2 2 1", "2001 2007 9 0 8 2 2 1", "2006 2006 3 1 0 2 2 0", "2007 2007 2 0 8 2 2 0", "2008 9999 3 1 0 2 2 0", "2008 9999 9 1 0 2 2 1"],Neth: ["1916 1916 4 1 7 0 0 1 NST", "1916 1916 9 1 7 0 0 0 AMT", "1917 1917 3 16 7 2 2 1 NST", "1917 1917 8 17 7 2 2 0 AMT", "1918 1921 3 1 1 2 2 1 NST", "1918 1921 8 1 8 2 2 0 AMT", "1922 1922 2 0 8 2 2 1 NST", "1922 1936 9 2 0 2 2 0 AMT", "1923 1923 5 1 5 2 2 1 NST", "1924 1924 2 0 8 2 2 1 NST", "1925 1925 5 1 5 2 2 1 NST", "1926 1931 4 15 7 2 2 1 NST", "1932 1932 4 22 7 2 2 1 NST", "1933 1936 4 15 7 2 2 1 NST", "1937 1937 4 22 7 2 2 1 NST", "1937 1937 6 1 7 0 0 1 S", "1937 1939 9 2 0 2 2 0", "1938 1939 4 15 7 2 2 1 S", "1945 1945 3 2 7 2 2 1 S", "1945 1945 8 16 7 2 2 0"],Greece: ["1932 1932 6 7 7 0 0 1 S", "1932 1932 8 1 7 0 0 0", "1941 1941 3 7 7 0 0 1 S", "1942 1942 10 2 7 3 0 0", "1943 1943 2 30 7 0 0 1 S", "1943 1943 9 4 7 0 0 0", "1952 1952 6 1 7 0 0 1 S", "1952 1952 10 2 7 0 0 0", "1975 1975 3 12 7 0 2 1 S", "1975 1975 10 26 7 0 2 0", "1976 1976 3 11 7 2 2 1 S", "1976 1976 9 10 7 2 2 0", "1977 1978 3 1 0 2 2 1 S", "1977 1977 8 26 7 2 2 0", "1978 1978 8 24 7 4 0 0", "1979 1979 3 1 7 9 0 1 S", "1979 1979 8 29 7 2 0 0", "1980 1980 3 1 7 0 0 1 S", "1980 1980 8 28 7 0 0 0"],SovietZone: ["1945 1945 4 24 7 2 0 2 M", "1945 1945 8 24 7 3 0 1 S", "1945 1945 10 18 7 2 2 0"],Germany: ["1946 1946 3 14 7 2 2 1 S", "1946 1946 9 7 7 2 2 0", "1947 1949 9 1 0 2 2 0", "1947 1947 3 6 7 3 2 1 S", "1947 1947 4 11 7 2 2 2 M", "1947 1947 5 29 7 3 0 1 S", "1948 1948 3 18 7 2 2 1 S", "1949 1949 3 10 7 2 2 1 S"],Czech: ["1945 1945 3 8 7 2 2 1 S", "1945 1945 10 18 7 2 2 0", "1946 1946 4 6 7 2 2 1 S", "1946 1949 9 1 0 2 2 0", "1947 1947 3 20 7 2 2 1 S", "1948 1948 3 18 7 2 2 1 S", "1949 1949 3 9 7 2 2 1 S"],Belgium: ["1918 1918 2 9 7 0 2 1 S", "1918 1919 9 1 6 23 2 0", "1919 1919 2 1 7 23 2 1 S", "1920 1920 1 14 7 23 2 1 S", "1920 1920 9 23 7 23 2 0", "1921 1921 2 14 7 23 2 1 S", "1921 1921 9 25 7 23 2 0", "1922 1922 2 25 7 23 2 1 S", "1922 1927 9 1 6 23 2 0", "1923 1923 3 21 7 23 2 1 S", "1924 1924 2 29 7 23 2 1 S", "1925 1925 3 4 7 23 2 1 S", "1926 1926 3 17 7 23 2 1 S", "1927 1927 3 9 7 23 2 1 S", "1928 1928 3 14 7 23 2 1 S", "1928 1938 9 2 0 2 2 0", "1929 1929 3 21 7 2 2 1 S", "1930 1930 3 13 7 2 2 1 S", "1931 1931 3 19 7 2 2 1 S", "1932 1932 3 3 7 2 2 1 S", "1933 1933 2 26 7 2 2 1 S", "1934 1934 3 8 7 2 2 1 S", "1935 1935 2 31 7 2 2 1 S", "1936 1936 3 19 7 2 2 1 S", "1937 1937 3 4 7 2 2 1 S", "1938 1938 2 27 7 2 2 1 S", "1939 1939 3 16 7 2 2 1 S", "1939 1939 10 19 7 2 2 0", "1940 1940 1 25 7 2 2 1 S", "1944 1944 8 17 7 2 2 0", "1945 1945 3 2 7 2 2 1 S", "1945 1945 8 16 7 2 2 0", "1946 1946 4 19 7 2 2 1 S", "1946 1946 9 7 7 2 2 0"],Romania: ["1932 1932 4 21 7 0 2 1 S", "1932 1939 9 1 0 0 2 0", "1933 1939 3 2 0 0 2 1 S", "1979 1979 4 27 7 0 0 1 S", "1979 1979 8 0 8 0 0 0", "1980 1980 3 5 7 23 0 1 S", "1980 1980 8 0 8 1 0 0", "1991 1993 2 0 8 0 2 1 S", "1991 1993 8 0 8 0 2 0"],"E-Eur": ["1977 1980 3 1 0 0 0 1 S", "1977 1977 8 0 8 0 0 0", "1978 1978 9 1 7 0 0 0", "1979 1995 8 0 8 0 0 0", "1981 9999 2 0 8 0 0 1 S", "1996 9999 9 0 8 0 0 0"],Hungary: ["1918 1918 3 1 7 3 0 1 S", "1918 1918 8 29 7 3 0 0", "1919 1919 3 15 7 3 0 1 S", "1919 1919 8 15 7 3 0 0", "1920 1920 3 5 7 3 0 1 S", "1920 1920 8 30 7 3 0 0", "1945 1945 4 1 7 23 0 1 S", "1945 1945 10 3 7 0 0 0", "1946 1946 2 31 7 2 2 1 S", "1946 1949 9 1 0 2 2 0", "1947 1949 3 4 0 2 2 1 S", "1950 1950 3 17 7 2 2 1 S", "1950 1950 9 23 7 2 2 0", "1954 1955 4 23 7 0 0 1 S", "1954 1955 9 3 7 0 0 0", "1956 1956 5 1 0 0 0 1 S", "1956 1956 8 0 8 0 0 0", "1957 1957 5 1 0 1 0 1 S", "1957 1957 8 0 8 3 0 0", "1980 1980 3 6 7 1 0 1 S"],Swiss: ["1941 1942 4 1 1 1 0 1 S", "1941 1942 9 1 1 2 0 0"],Denmark: ["1916 1916 4 14 7 23 0 1 S", "1916 1916 8 30 7 23 0 0", "1940 1940 4 15 7 0 0 1 S", "1945 1945 3 2 7 2 2 1 S", "1945 1945 7 15 7 2 2 0", "1946 1946 4 1 7 2 2 1 S", "1946 1946 8 1 7 2 2 0", "1947 1947 4 4 7 2 2 1 S", "1947 1947 7 10 7 2 2 0", "1948 1948 4 9 7 2 2 1 S", "1948 1948 7 8 7 2 2 0"],"GB-Eire": ["1916 1916 4 21 7 2 2 1 BST", "1916 1916 9 1 7 2 2 0 GMT", "1917 1917 3 8 7 2 2 1 BST", "1917 1917 8 17 7 2 2 0 GMT", "1918 1918 2 24 7 2 2 1 BST", "1918 1918 8 30 7 2 2 0 GMT", "1919 1919 2 30 7 2 2 1 BST", "1919 1919 8 29 7 2 2 0 GMT", "1920 1920 2 28 7 2 2 1 BST", "1920 1920 9 25 7 2 2 0 GMT", "1921 1921 3 3 7 2 2 1 BST", "1921 1921 9 3 7 2 2 0 GMT", "1922 1922 2 26 7 2 2 1 BST", "1922 1922 9 8 7 2 2 0 GMT", "1923 1923 3 16 0 2 2 1 BST", "1923 1924 8 16 0 2 2 0 GMT", "1924 1924 3 9 0 2 2 1 BST", "1925 1926 3 16 0 2 2 1 BST", "1925 1938 9 2 0 2 2 0 GMT", "1927 1927 3 9 0 2 2 1 BST", "1928 1929 3 16 0 2 2 1 BST", "1930 1930 3 9 0 2 2 1 BST", "1931 1932 3 16 0 2 2 1 BST", "1933 1933 3 9 0 2 2 1 BST", "1934 1934 3 16 0 2 2 1 BST", "1935 1935 3 9 0 2 2 1 BST", "1936 1937 3 16 0 2 2 1 BST", "1938 1938 3 9 0 2 2 1 BST", "1939 1939 3 16 0 2 2 1 BST", "1939 1939 10 16 0 2 2 0 GMT", "1940 1940 1 23 0 2 2 1 BST", "1941 1941 4 2 0 1 2 2 BDST", "1941 1943 7 9 0 1 2 1 BST", "1942 1944 3 2 0 1 2 2 BDST", "1944 1944 8 16 0 1 2 1 BST", "1945 1945 3 2 1 1 2 2 BDST", "1945 1945 6 9 0 1 2 1 BST", "1945 1946 9 2 0 2 2 0 GMT", "1946 1946 3 9 0 2 2 1 BST", "1947 1947 2 16 7 2 2 1 BST", "1947 1947 3 13 7 1 2 2 BDST", "1947 1947 7 10 7 1 2 1 BST", "1947 1947 10 2 7 2 2 0 GMT", "1948 1948 2 14 7 2 2 1 BST", "1948 1948 9 31 7 2 2 0 GMT", "1949 1949 3 3 7 2 2 1 BST", "1949 1949 9 30 7 2 2 0 GMT", "1950 1952 3 14 0 2 2 1 BST", "1950 1952 9 21 0 2 2 0 GMT", "1953 1953 3 16 0 2 2 1 BST", "1953 1960 9 2 0 2 2 0 GMT", "1954 1954 3 9 0 2 2 1 BST", "1955 1956 3 16 0 2 2 1 BST", "1957 1957 3 9 0 2 2 1 BST", "1958 1959 3 16 0 2 2 1 BST", "1960 1960 3 9 0 2 2 1 BST", "1961 1963 2 0 8 2 2 1 BST", "1961 1968 9 23 0 2 2 0 GMT", "1964 1967 2 19 0 2 2 1 BST", "1968 1968 1 18 7 2 2 1 BST", "1972 1980 2 16 0 2 2 1 BST", "1972 1980 9 23 0 2 2 0 GMT", "1981 1995 2 0 8 1 1 1 BST", "1981 1989 9 23 0 1 1 0 GMT", "1990 1995 9 22 0 1 1 0 GMT"],Finland: ["1942 1942 3 3 7 0 0 1 S", "1942 1942 9 3 7 0 0 0", "1981 1982 2 0 8 2 0 1 S", "1981 1982 8 0 8 3 0 0"],Turkey: ["1916 1916 4 1 7 0 0 1 S", "1916 1916 9 1 7 0 0 0", "1920 1920 2 28 7 0 0 1 S", "1920 1920 9 25 7 0 0 0", "1921 1921 3 3 7 0 0 1 S", "1921 1921 9 3 7 0 0 0", "1922 1922 2 26 7 0 0 1 S", "1922 1922 9 8 7 0 0 0", "1924 1924 4 13 7 0 0 1 S", "1924 1925 9 1 7 0 0 0", "1925 1925 4 1 7 0 0 1 S", "1940 1940 5 30 7 0 0 1 S", "1940 1940 9 5 7 0 0 0", "1940 1940 11 1 7 0 0 1 S", "1941 1941 8 21 7 0 0 0", "1942 1942 3 1 7 0 0 1 S", "1942 1942 10 1 7 0 0 0", "1945 1945 3 2 7 0 0 1 S", "1945 1945 9 8 7 0 0 0", "1946 1946 5 1 7 0 0 1 S", "1946 1946 9 1 7 0 0 0", "1947 1948 3 16 0 0 0 1 S", "1947 1950 9 2 0 0 0 0", "1949 1949 3 10 7 0 0 1 S", "1950 1950 3 19 7 0 0 1 S", "1951 1951 3 22 7 0 0 1 S", "1951 1951 9 8 7 0 0 0", "1962 1962 6 15 7 0 0 1 S", "1962 1962 9 8 7 0 0 0", "1964 1964 4 15 7 0 0 1 S", "1964 1964 9 1 7 0 0 0", "1970 1972 4 2 0 0 0 1 S", "1970 1972 9 2 0 0 0 0", "1973 1973 5 3 7 1 0 1 S", "1973 1973 10 4 7 3 0 0", "1974 1974 2 31 7 2 0 1 S", "1974 1974 10 3 7 5 0 0", "1975 1975 2 30 7 0 0 1 S", "1975 1976 9 0 8 0 0 0", "1976 1976 5 1 7 0 0 1 S", "1977 1978 3 1 0 0 0 1 S", "1977 1977 9 16 7 0 0 0", "1979 1980 3 1 0 3 0 1 S", "1979 1982 9 11 1 0 0 0", "1981 1982 2 0 8 3 0 1 S", "1983 1983 6 31 7 0 0 1 S", "1983 1983 9 2 7 0 0 0", "1985 1985 3 20 7 0 0 1 S", "1985 1985 8 28 7 0 0 0", "1986 1990 2 0 8 2 2 1 S", "1986 1990 8 0 8 2 2 0", "1991 2006 2 0 8 1 2 1 S", "1991 1995 8 0 8 1 2 0", "1996 2006 9 0 8 1 2 0"],Poland: ["1918 1919 8 16 7 2 2 0", "1919 1919 3 15 7 2 2 1 S", "1944 1944 3 3 7 2 2 1 S", "1944 1944 9 4 7 2 0 0", "1945 1945 3 29 7 0 0 1 S", "1945 1945 10 1 7 0 0 0", "1946 1946 3 14 7 0 2 1 S", "1946 1946 9 7 7 2 2 0", "1947 1947 4 4 7 2 2 1 S", "1947 1949 9 1 0 2 2 0", "1948 1948 3 18 7 2 2 1 S", "1949 1949 3 10 7 2 2 1 S", "1957 1957 5 2 7 1 2 1 S", "1957 1958 8 0 8 1 2 0", "1958 1958 2 30 7 1 2 1 S", "1959 1959 4 31 7 1 2 1 S", "1959 1961 9 1 0 1 2 0", "1960 1960 3 3 7 1 2 1 S", "1961 1964 4 0 8 1 2 1 S", "1962 1964 8 0 8 1 2 0"],Lux: ["1916 1916 4 14 7 23 0 1 S", "1916 1916 9 1 7 1 0 0", "1917 1917 3 28 7 23 0 1 S", "1917 1917 8 17 7 1 0 0", "1918 1918 3 15 1 2 2 1 S", "1918 1918 8 15 1 2 2 0", "1919 1919 2 1 7 23 0 1 S", "1919 1919 9 5 7 3 0 0", "1920 1920 1 14 7 23 0 1 S", "1920 1920 9 24 7 2 0 0", "1921 1921 2 14 7 23 0 1 S", "1921 1921 9 26 7 2 0 0", "1922 1922 2 25 7 23 0 1 S", "1922 1922 9 2 0 1 0 0", "1923 1923 3 21 7 23 0 1 S", "1923 1923 9 2 0 2 0 0", "1924 1924 2 29 7 23 0 1 S", "1924 1928 9 2 0 1 0 0", "1925 1925 3 5 7 23 0 1 S", "1926 1926 3 17 7 23 0 1 S", "1927 1927 3 9 7 23 0 1 S", "1928 1928 3 14 7 23 0 1 S", "1929 1929 3 20 7 23 0 1 S"],Italy: ["1916 1916 5 3 7 0 2 1 S", "1916 1916 9 1 7 0 2 0", "1917 1917 3 1 7 0 2 1 S", "1917 1917 8 30 7 0 2 0", "1918 1918 2 10 7 0 2 1 S", "1918 1919 9 1 0 0 2 0", "1919 1919 2 2 7 0 2 1 S", "1920 1920 2 21 7 0 2 1 S", "1920 1920 8 19 7 0 2 0", "1940 1940 5 15 7 0 2 1 S", "1944 1944 8 17 7 0 2 0", "1945 1945 3 2 7 2 0 1 S", "1945 1945 8 15 7 0 2 0", "1946 1946 2 17 7 2 2 1 S", "1946 1946 9 6 7 2 2 0", "1947 1947 2 16 7 0 2 1 S", "1947 1947 9 5 7 0 2 0", "1948 1948 1 29 7 2 2 1 S", "1948 1948 9 3 7 2 2 0", "1966 1968 4 22 0 0 0 1 S", "1966 1969 8 22 0 0 0 0", "1969 1969 5 1 7 0 0 1 S", "1970 1970 4 31 7 0 0 1 S", "1970 1970 8 0 8 0 0 0", "1971 1972 4 22 0 0 0 1 S", "1971 1971 8 0 8 1 0 0", "1972 1972 9 1 7 0 0 0", "1973 1973 5 3 7 0 0 1 S", "1973 1974 8 0 8 0 0 0", "1974 1974 4 26 7 0 0 1 S", "1975 1975 5 1 7 0 2 1 S", "1975 1977 8 0 8 0 2 0", "1976 1976 4 30 7 0 2 1 S", "1977 1979 4 22 0 0 2 1 S", "1978 1978 9 1 7 0 2 0", "1979 1979 8 30 7 0 2 0"],Malta: ["1973 1973 2 31 7 0 2 1 S", "1973 1973 8 29 7 0 2 0", "1974 1974 3 21 7 0 2 1 S", "1974 1974 8 16 7 0 2 0", "1975 1979 3 15 0 2 0 1 S", "1975 1980 8 15 0 2 0 0", "1980 1980 2 31 7 2 0 1 S"],France: ["1916 1916 5 14 7 23 2 1 S", "1916 1919 9 1 0 23 2 0", "1917 1917 2 24 7 23 2 1 S", "1918 1918 2 9 7 23 2 1 S", "1919 1919 2 1 7 23 2 1 S", "1920 1920 1 14 7 23 2 1 S", "1920 1920 9 23 7 23 2 0", "1921 1921 2 14 7 23 2 1 S", "1921 1921 9 25 7 23 2 0", "1922 1922 2 25 7 23 2 1 S", "1922 1938 9 1 6 23 2 0", "1923 1923 4 26 7 23 2 1 S", "1924 1924 2 29 7 23 2 1 S", "1925 1925 3 4 7 23 2 1 S", "1926 1926 3 17 7 23 2 1 S", "1927 1927 3 9 7 23 2 1 S", "1928 1928 3 14 7 23 2 1 S", "1929 1929 3 20 7 23 2 1 S", "1930 1930 3 12 7 23 2 1 S", "1931 1931 3 18 7 23 2 1 S", "1932 1932 3 2 7 23 2 1 S", "1933 1933 2 25 7 23 2 1 S", "1934 1934 3 7 7 23 2 1 S", "1935 1935 2 30 7 23 2 1 S", "1936 1936 3 18 7 23 2 1 S", "1937 1937 3 3 7 23 2 1 S", "1938 1938 2 26 7 23 2 1 S", "1939 1939 3 15 7 23 2 1 S", "1939 1939 10 18 7 23 2 0", "1940 1940 1 25 7 2 0 1 S", "1941 1941 4 5 7 0 0 2 M", "1941 1941 9 6 7 0 0 1 S", "1942 1942 2 9 7 0 0 2 M", "1942 1942 10 2 7 3 0 1 S", "1943 1943 2 29 7 2 0 2 M", "1943 1943 9 4 7 3 0 1 S", "1944 1944 3 3 7 2 0 2 M", "1944 1944 9 8 7 1 0 1 S", "1945 1945 3 2 7 2 0 2 M", "1945 1945 8 16 7 3 0 0", "1976 1976 2 28 7 1 0 1 S", "1976 1976 8 26 7 1 0 0"],Latvia: ["1989 1996 2 0 8 2 2 1 S", "1989 1996 8 0 8 2 2 0"],Bulg: ["1979 1979 2 31 7 23 0 1 S", "1979 1979 9 1 7 1 0 0", "1980 1982 3 1 6 23 0 1 S", "1980 1980 8 29 7 1 0 0", "1981 1981 8 27 7 2 0 0"],Albania: ["1940 1940 5 16 7 0 0 1 S", "1942 1942 10 2 7 3 0 0", "1943 1943 2 29 7 2 0 1 S", "1943 1943 3 10 7 3 0 0", "1974 1974 4 4 7 0 0 1 S", "1974 1974 9 2 7 0 0 0", "1975 1975 4 1 7 0 0 1 S", "1975 1975 9 2 7 0 0 0", "1976 1976 4 2 7 0 0 1 S", "1976 1976 9 3 7 0 0 0", "1977 1977 4 8 7 0 0 1 S", "1977 1977 9 2 7 0 0 0", "1978 1978 4 6 7 0 0 1 S", "1978 1978 9 1 7 0 0 0", "1979 1979 4 5 7 0 0 1 S", "1979 1979 8 30 7 0 0 0", "1980 1980 4 3 7 0 0 1 S", "1980 1980 9 4 7 0 0 0", "1981 1981 3 26 7 0 0 1 S", "1981 1981 8 27 7 0 0 0", "1982 1982 4 2 7 0 0 1 S", "1982 1982 9 3 7 0 0 0", "1983 1983 3 18 7 0 0 1 S", "1983 1983 9 1 7 0 0 0", "1984 1984 3 1 7 0 0 1 S"],Austria: ["1920 1920 3 5 7 2 2 1 S", "1920 1920 8 13 7 2 2 0", "1946 1946 3 14 7 2 2 1 S", "1946 1948 9 1 0 2 2 0", "1947 1947 3 6 7 2 2 1 S", "1948 1948 3 18 7 2 2 1 S", "1980 1980 3 6 7 0 0 1 S", "1980 1980 8 28 7 0 0 0"],Mauritius: ["1982 1982 9 10 7 0 0 1 S", "1983 1983 2 21 7 0 0 0", "2008 2008 9 0 8 2 0 1 S", "2009 2009 2 0 8 2 0 0"],WS: ["2012 9999 8 0 8 3 0 1 D", "2012 9999 3 1 0 4 0 0"],NZ: ["1927 1927 10 6 7 2 0 1 S", "1928 1928 2 4 7 2 0 0 M", "1928 1933 9 8 0 2 0 0:30 S", "1929 1933 2 15 0 2 0 0 M", "1934 1940 3 0 8 2 0 0 M", "1934 1940 8 0 8 2 0 0:30 S", "1946 1946 0 1 7 0 0 0 S", "1974 1974 10 1 0 2 2 1 D", "1975 1975 1 0 8 2 2 0 S", "1975 1988 9 0 8 2 2 1 D", "1976 1989 2 1 0 2 2 0 S", "1989 1989 9 8 0 2 2 1 D", "1990 2006 9 1 0 2 2 1 D", "1990 2007 2 15 0 2 2 0 S", "2007 9999 8 0 8 2 2 1 D", "2008 9999 3 1 0 2 2 0 S"],Chatham: ["1974 1974 10 1 0 2:45 2 1 D", "1975 1975 1 0 8 2:45 2 0 S", "1975 1988 9 0 8 2:45 2 1 D", "1976 1989 2 1 0 2:45 2 0 S", "1989 1989 9 8 0 2:45 2 1 D", "1990 2006 9 1 0 2:45 2 1 D", "1990 2007 2 15 0 2:45 2 0 S", "2007 9999 8 0 8 2:45 2 1 D", "2008 9999 3 1 0 2:45 2 0 S"],Vanuatu: ["1983 1983 8 25 7 0 0 1 S", "1984 1991 2 23 0 0 0 0", "1984 1984 9 23 7 0 0 1 S", "1985 1991 8 23 0 0 0 1 S", "1992 1993 0 23 0 0 0 0", "1992 1992 9 23 0 0 0 1 S"],Fiji: ["1998 1999 10 1 0 2 0 1 S", "1999 2000 1 0 8 3 0 0", "2009 2009 10 29 7 2 0 1 S", "2010 2010 2 0 8 3 0 0", "2010 9999 9 18 0 2 0 1 S", "2011 2011 2 1 0 3 0 0", "2012 9999 0 18 0 3 0 0"],NC: ["1977 1978 11 1 0 0 0 1 S", "1978 1979 1 27 7 0 0 0", "1996 1996 11 1 7 2 2 1 S", "1997 1997 2 2 7 2 2 0"],Cook: ["1978 1978 10 12 7 0 0 0:30 HS", "1979 1991 2 1 0 0 0 0", "1979 1990 9 0 8 0 0 0:30 HS"],Tonga: ["1999 1999 9 7 7 2 2 1 S", "2000 2000 2 19 7 2 2 0", "2000 2001 10 1 0 2 0 1 S", "2001 2002 0 0 8 2 0 0"]},links: {"America/Kralendijk": "America/Curacao","America/Lower_Princes": "America/Curacao","America/Marigot": "America/Guadeloupe","America/Shiprock": "America/Denver","America/St_Barthelemy": "America/Guadeloupe","Antarctica/South_Pole": "Antarctica/McMurdo","Arctic/Longyearbyen": "Europe/Oslo","Europe/Bratislava": "Europe/Prague","Europe/Busingen": "Europe/Zurich","Europe/Guernsey": "Europe/London","Europe/Isle_of_Man": "Europe/London","Europe/Jersey": "Europe/London","Europe/Ljubljana": "Europe/Belgrade","Europe/Mariehamn": "Europe/Helsinki","Europe/Podgorica": "Europe/Belgrade","Europe/San_Marino": "Europe/Rome","Europe/Sarajevo": "Europe/Belgrade","Europe/Skopje": "Europe/Belgrade","Europe/Vatican": "Europe/Rome","Europe/Zagreb": "Europe/Belgrade"}}), function() {
-    $(function() {
-        var e, t, n, r, i, s;
-        return n = 10, e = 300, t = 100, r = $("[data-from-mobile-quantity]"), s = function(e) {
-            return r.length && e.available < parseInt(r.val(), 10)
-        }, i = function(e, t) {
-            var n;
-            return n = [], $.each(e, function(e, r) {
-                r.available = Math.floor(r.available / t);
-                if (r.available > 0)
-                    return n.push(r)
-            }), n
-        }, $.CalendarDayElement = function() {
-            function r(e) {
-                this.element = e.element, this.availabilities = e.availabilities, this.$calendar = e.$calendar, this.$quantitySelect = e.$quantitySelect, this.mobileView = e.mobileView
-            }
-            return r.prototype.initialize = function() {
-                return this.addClass(
-                ), this.addAvailabilities(), this.hideAvailabilities(), this.addHideClickEvent(), this
-            }, r.prototype.addClass = function() {
-                return this.element.addClass("fc-has-availabilities")
-            }, r.prototype.addAvailabilities = function() {
-                var e;
-                e = this.element.find(".availabilities");
-                if (e.length === 0)
-                    return this.element.append(this.availabilities.render())
-            }, r.prototype.hideAvailabilities = function() {
-                return this.element.find(".availabilities").hide()
-            }, r.prototype.addHideClickEvent = function() {
-                var r = this;
-                return this.element.on("click", ".availabilities ul li", function(i) {
-                    var s, o;
-                    i.stopPropagation(), s = $(i.currentTarget);
-                    if (!s.find("input:disabled").length) {
-                        r.$calendar.find(".selected").removeClass("selected"), s.addClass("selected"), s.parents(".fc-has-availabilities").addClass("selected"), s.parents(".availabilities").delay(e).fadeOut(t, function() {
-                            return r.$calendar.find(".not-highlighted").removeClass("not-highlighted")
-                        }), o = Math.min(n, s.data("available")), $("input#advance_availability_start_at").val(s.data("datetime")), $("input#advance_availability_tz_identifier").val(s.data("tz-identifier")), $("input#advance_availability_id").val(s.data("id")).triggerHandler("change"), $("input#advance_availability_available").val(o);
-                        if (r.mobileView == null)
-                            return r.$quantitySelect.drawQuantities(o)
-                    }
-                })
-            }, r
-        }(), $.AvailabilityTooltip = function() {
-            function e(e, t) {
-                this.date = e, this.availabilities = t
-            }
-            return e.prototype.render = function() {
-                var e, t, r = this;
-                return t = "<div class='availabilities' data-date='" + this.date + "'><ul class='none'>", e = parseInt($("input#advance_availability_id").val(), n), $.each(this.availabilities, function(n, r) {
-                    var i, s, o, u, a;
-                    return i = r.available, e === r.id ? (o = "selected", u = "checked='checked'") : (o = "", u = ""), a = moment(r.start_at).tz(r.tz_identifier).format("hh:mma"), s = i <= 0 ? "disabled" : "", t += "<li class='" + o + "' data-id='" + r.id + "' data-datetime='" + r.start_at + "' data-tz-identifier='" + r.tz_identifier + "' data-available='" + i + "'><label>", t += "<input name='availability_id' " + s + " " + u + " type='radio' />", t += "<span>" + a + " (" + i + " available)</span>", t += "</label></li>"
-                }), t + "</ul></div>"
-            }, e
-        }(), $.AdvanceCalendar = {$calendar: $("#calendar"),$submitButton: $(".main-buy[type='submit'], .next-button[type='submit']"),$calendarWrapper: $("#calendar-wrapper:visible"),mobileView: $("#advance-availability-wrapper").data("mobile-view"),initialize: function(e, t, n) {
-                var r = this;
-                return this.$quantitySelect = e, this.$calendarDayElement = t, this.$availabilityTooltip = n, $(function() {
-                    return r.$calendarWrapper.length ? (r.setClickHandlers(), $("input#select-a-date").prop("checked", !0), r.$submitButton.prop("disabled", !0), $("label[data-variant-label]:first").trigger("mouseup"), r.rerender()) : !0
-                }), this
-            },setClickHandlers: function() {
-                var e = this;
-                return $("input#select-a-date").click(function() {
-                    return e.$submitButton.prop("disabled", !0), e.$calendarWrapper.show(), e.rerender()
-                }), $("input#just-the-voucher").click(function() {
-                    e.$calendarWrapper.hide(), e.nukeActivitySelection(), e.$submitButton.prop("disabled", !1);
-                    if (e.mobileView == null)
-                        return e.$quantitySelect.drawQuantities(n)
-                }), $("#advance_availability_id").on("change", function(t) {
-                    var n;
-                    return n = $(t.currentTarget), e.$submitButton.prop("disabled", n.val().length === 0)
-                }), $("label[data-variant-label]").on("mouseup", function(t) {
-                    var n, r, i;
-                    n = $(t.currentTarget);
-                    if (n.find("input:first").prop("checked") && e.$calendar.data("advance-activity-id") != null)
-                        return !0;
-                    r = n.data("advance-activity-id"), i = n.data("num-of-items"), e.$submitButton.prop("disabled", r != null && $("#select-a-date:checked").length), e.nukeActivitySelection(), $("#advance-availability-wrapper").toggle(r != null);
-                    if (r != null && i != null)
-                        return e.$calendar.data("advance-activity-id", r), e.$calendar.data("num-of-items", i), e.rerender()
-                })
-            },nukeActivitySelection: function() {
-                return this.$calendar.find(".selected").removeClass("selected"), $("[data-advance-availability-attribute]").val(null), this.$calendar.find("input").prop("checked", !1)
-            },rerender: function() {
-                return this.$calendar.empty().fullCalendar(this.calendarOptions())
-            },calendarOptions: function() {
-                var e = this;
-                return {header: {left: "prev",center: "title",right: "next"},defaultView: "month",titleFormat: {month: "MMM"},dayNamesShort: ["S", "M", "T", "W", "R", "F", "S"],events: function(t, n, r) {
-                        return $.ajax({url: e.$calendar.data("events-feed-url"),data: {activity_ids: e.$calendar.data("advance-activity-id"),start_date: t,end_date: n}}).success(function(e) {
-                            var t, n;
-                            return t = {}, $.each(e.availabilities, function(e, n) {
-                                var r;
-                                return r = (new Date(n.start_at)).toDateString(), t[r] == null && (t[r] = []), t[r].push(n)
-                            }), n = [], $.each(t, function(e, t) {
-                                return n.push({title: "_",start: e,availabilities: t})
-                            }), r(n)
-                        })
-                    },dayClick: function(n, r, i, s) {
-                        var o, u, a;
-                        return a = $.fullCalendar.formatDate(n, "yyyy-MM-dd"), o = e.$calendar.find(".fc-day[data-date='" + a + "']"), o.hasClass("fc-has-availabilities") ? (u = e.$calendar.find(".fc-day:not([data-date='" + a + "'])"), u.find(".availabilities").hide(), o.removeClass("not-highlighted").find(".availabilities").fadeToggle(t, "swing", function() {
-                            return e.$calendar.find(".availabilities").not(":hidden").length ? u.addClass("not-highlighted") : u.removeClass("not-highlighted")
-                        })) : !0
-                    },eventRender: function(t, n) {
-                        var r, o, u;
-                        return u = e.$calendar.data("num-of-items") || 1, r = i(t.availabilities, u), r.length === 0 || r.length === 1 && s(r[0]) ? n : ($.grep(r, function(e, t) {
-                            return e.available > 0
-                        }).length && (o = $.fullCalendar.formatDate(t.start, "yyyy-MM-dd"), (new e.$calendarDayElement({element: e.$calendar.find(".fc-day[data-date='" + o + "']"),availabilities: new e.$availabilityTooltip(o, r),$calendar: e.$calendar,$quantitySelect: e.$quantitySelect,mobileView: e.mobileView})).initialize()), n)
-                    },viewRender: function(e, t) {
-                        var n, r;
-                        return r = moment(e.start).subtract("months", 1).format("MMM"), $(".fc-header-left .fc-button-prev").html("<h2><i class='icon-angle-left icon-small'></i> " + r + "</h2>"), n = moment(e.start).add("months", 1).format("MMM"), $(".fc-header-right .fc-button-next").html("<h2>" + n + " <i class='icon-angle-right icon-small'></i></h2>")
-                    },eventAfterAllRender: function(e) {
-                        return $("input[name='availability_id']:checked").parents(".fc-has-availabilities").addClass("selected")
-                    }}
-            }}.initialize($.QuantitySelect, $.CalendarDayElement, $.AvailabilityTooltip), $.AdvanceMobileCheckout = {$mobileVariantRadios: $("[data-mobile-variant]"),initialize: function() {
-                var e = this;
-                return $(function() {
-                    return e.$mobileVariantRadios.length ? (e.$mobileVariantRadios.on("click", function() {
-                        var e, t;
-                        return e = $(this).find("input[type='radio']"), t = $("button[type='submit']")
-                    }), e.$mobileVariantRadios.first().trigger("click")) : !0
-                }), this
-            }}.initialize(), $.AdvancePurchaseShowDetails = {$advanceAvailabilityEls: $(".redemption-advance-availability[data-advance-availability]"),apiUrl: $("#advance_availabilities_url").val(),initialize: function() {
-                var e = this;
-                return $(function() {
-                    if (e.$advanceAvailabilityEls.length)
-                        return e.getAvailabilities()
-                }), this
-            },getAvailabilities: function() {
-                var e = this;
-                return $.ajax({type: "GET",url: this.apiUrl,data: {ids: this.availabilityIds()}}).done(function(t) {
-                    if (t.code === 200)
-                        return e.setAvailabilities(t.availabilities)
-                }).error(function(t) {
-                    return e.renderError(e.$advanceAvailabilityEls)
-                })
-            },renderError: function(e) {
-                return e.html($(".checkout-flow").data("advance-server-error"))
-            },availabilityIds: function() {
-                var e;
-                return e = this.$advanceAvailabilityEls.map(function(e, t) {
-                    return $(t).data("advance-availability")
-                }), $.makeArray(e)
-            },setAvailabilities: function(e) {
-                var t = this;
-                return $.each(e, function(e, n) {
-                    var r;
-                    return r = $.grep(t.$advanceAvailabilityEls, function(e, t) {
-                        return $(e).data("advance-availability") === n.id
-                    }), $(r).html(moment(n.start_at).tz(n.tz_identifier).format("ddd, MMMM D, YYYY [at] h:mma z"))
-                })
-            }}.initialize()
-    })
-}.call(this), $(document).ready(function() {
-    var e = 5, t = 250;
-    $(".orbit-container").on("orbit:before-slide-change", function(t) {
-        t.stopPropagation();
-        var r = $("ul.photo-thumbs li.active"), i = $(".active", t.currentTarget).data("orbit-slide"), s = $("ul.photo-thumbs").find("[data-orbit-link='" + i + "']").parent();
-        s.length === 0 && (s = $("ul.photo-thumbs li.active").siblings().first()), $(".orbit-timer").hasClass("paused") === !1 && s.index() > Math.floor(e / 2) && n(), r.removeClass("active"), s.addClass("active")
-    }), $(".orbit-container .thumbs-containers .right-arrow").on("click", function() {
-        n()
-    }), $(".orbit-container .thumbs-containers .left-arrow").on("click", function() {
-        r()
-    });
-    var n = function() {
-        var e = $(".photo-thumbs li").width();
-        $(".photo-thumbs").animate({left: -e}, t, function() {
-            $(this).css({left: 0}), $(this).find("li").first().insertAfter($(".photo-thumbs li").last())
-        })
-    }, r = function() {
-        var e = $(".photo-thumbs li").width();
-        $(".photo-thumbs li").last().insertBefore($(".photo-thumbs li").first()), $(".photo-thumbs").css({left: -e}), $(".photo-thumbs").animate({left: 0}, t)
-    };
-    $("a[id^='variant-']").on("click", function() {
-        var e = $("option[data-id='" + this.id.split("-")[1] + "']").val();
-        e && ($("select#option_one_select").val(e), $.GearVariantsFilter.createSecondVariantList(e), $("select#option_one_select").siblings("span.selecttext").text(e))
-    })
-}), $(document).ready(function() {
-    $("select.mobile-checkout-select").each(function() {
-        $(this).wrap('<div class="selectbox checkout-mobile"/>'), $(this).after("<span class='selecttext'></span><span class='select-arrow'>&raquo;</span>");
-        var e = $(this).children("option:selected").text();
-        $(this).next(".selecttext").text(e), $(this).change(function() {
-            var e = $(this).children("option:selected").text();
-            $(this).next(".selecttext").text(e)
-        })
-    })
-}), $(document).ready(function() {
-    $("label.check input:checked").closest("label").addClass("checked"), $(document).on("click", "label.check", function() {
-        return $input = $(this).find("input"), $input.is(":checked") ? ($input.attr("checked", !1), $(this).removeClass("checked")) : ($input.attr("checked", !0), $(this).addClass("checked")), $input.trigger("change"), !1
-    })
-}), $.FloatingBuy = {init: function() {
-        if ($(".button-buy").length && $.ZOZIApp.is_mobile()) {
-            var e = $(".button-buy").first();
-            e.length && $(window).on("scroll", function() {
-                $window = $(this), myTop = e.offset().top, windowTop = $window.scrollTop(), windowBottom = windowTop + $window.height(), floatingHeight = $(".floating-buy").height() + 10, myTop > windowTop && myTop < windowBottom || windowTop === 0 || !$.ZOZIApp.is_mobile() ? $(".floating-buy").fadeOut() : $.ZOZIApp.is_mobile() && ($(".floating-buy").fadeIn(), $("footer").css("padding-bottom", floatingHeight))
-            })
-        }
-    }}, $(function() {
-    $.FloatingBuy.init()
-}), $(document).ready(function() {
-    $("label.selection").click(function() {
-        $("button.next-button").attr("disabled", "disabled"), $("p.small-note").show(), $("label.selection").removeClass("selected"), $("label.selection").next("div").hide(), $(this).addClass("selected"), $(this).next("div").show()
-    })
-}), $(document).ready(function() {
-    $("select.mobile-select").each(function() {
-        $(this).wrap('<div class="selectbox"/>'), $(this).after("<span class='selecttext'></span><span class='select-arrow'></span>");
-        var e = $(this).children("option:selected").text();
-        $(this).next(".selecttext").text(e)
-    }), $("select.typical").each(function() {
-        $(this).wrap('<div class="selectbox typical"/>'), $(this).after("<span class='selecttext'></span><span class='select-arrow'></span>");
-        var e = $(this).children("option:selected").text();
-        $(this).next(".selecttext").text(e)
-    }), $("select.wider").each(function() {
-        $(this).wrap('<div class="selectbox wider"/>'), $(this).after("<span class='selecttext'></span><span class='select-arrow'></span>");
-        var e = $(this).children("option:selected").text();
-        $(this).next(".selecttext").text(e)
-    }), $("select.slick").each(function() {
-        $(this).parent().hasClass("selectbox") || ($(this).wrap('<div class="selectbox slick"/>'), $(this).after("<span class='selecttext'></span>"));
-        var e = $(this).children("option:selected").text();
-        $(this).next(".selecttext").text(e)
-    }), $(".bucket-select").bind("change", function() {
-        var e = $(this).val();
-        return e && (window.location = e), !1
-    }), $("select.bucket-select").each(function() {
-        $(this).wrap('<div class="selectbox"/>'), $(this).after("<span class='selecttext'></span><span class='select-arrow'></span>");
-        var e = $(this).children("option:selected").text();
-        $(this).next(".selecttext").text(e)
-    }), $(document).on("change", "select.mobile-select, select.typical, select.wider, select.slick, .bucket-select, select.bucket-select", function() {
-        var e = $(this).children("option:selected").text();
-        $(this).next(".selecttext").text(e)
-    })
-}), $(document).ready(function() {
-    $(window).load(function() {
-        $(".more-experiences-list ul li").each(function() {
-            var e = $(this).find(".detail-info").height(), t = $(this).find(".button-space").height(), n = (e - t) / 2;
-            $(this).find(".button-space").css("margin-top", n)
-        })
-    }), $.MoreExperiences.perPage = $.Filtering.perPage || 15, $.MoreExperiences.init()
-}), $.MoreExperiences = {PAGE_HEIGHT_BUFFER: 200,MARKETS: ["gear", "getaways"],loading: !1,nextPage: 2,docPath: document.location.pathname,market: null,infiniteScroll: function(e) {
-        return typeof e == "undefined" ? $("body").data("infinite_scroll") : $("body").data("infinite_scroll", e)
-    },resetPageCounter: function() {
-        $.MoreExperiences.nextPage = 2, $.MoreExperiences.infiniteScroll(!0)
-    },init: function() {
-        function t() {
-            return $.MoreExperiences.infiniteScroll() && $(window).scrollTop() > $(document).height() - $(window).height() - $.MoreExperiences.PAGE_HEIGHT_BUFFER
-        }
-        function n(t) {
-            t.length ? ($container = $(".more-experiences-list ul"), $container.find("li.placeholder").remove(), $container.append(t), $.PromotionalPricing.init(), $.MoreExperiences.nextPage++, window.picturefill()) : ($.MoreExperiences.infiniteScroll(!1), e.addClass("all-items-loaded"), e.find('span[class*="infinite-text--"]').text("All items loaded")), $.MoreExperiences.loading = !1
-        }
-        function r() {
-            return $(".more-experiences-list ul").length && $.MoreExperiences.infiniteScroll()
-        }
-        $.each($.MoreExperiences.MARKETS, function(e, t) {
-            $.MoreExperiences.docPath.indexOf(t) > 0 && ($.MoreExperiences.market = t)
-        }), $.MoreExperiences.market === undefined && ($.cookie.json = !1, $.MoreExperiences.market = $.cookie("market") || "new-york", $.MoreExperiences.docPath.indexOf("local") > 0 && ($.MoreExperiences.market = "local/" + $.MoreExperiences.market));
-        var e = $("#infinite-text");
-        r() && $(window).scroll(function() {
-            if ($.Filtering.loading || $.MoreExperiences.loading || !$.MoreExperiences.infiniteScroll())
-                return;
-            if (t()) {
-                $.MoreExperiences.loading = !0, e.find('span[class*="infinite-text--"]').text("Loading more");
-                var r = "page=" + $.MoreExperiences.nextPage + "&per_page=" + $.MoreExperiences.perPage;
-                $.ajax({url: "/search/" + $.Filtering.productLine + "/show_more/?" + r,type: "get",data: $.Filtering.filterParams(),success: n})
-            }
-        })
-    }}, $(document).ready(function() {
-    $(".multi-day.check-in .num-available input").click(function() {
-        $(".full-calendar.multi-day.check-in").delay(300).slideUp(300), $(".start-date span.chosen-date").show(), $(".full-calendar.multi-day.check-out").delay(300).slideDown(300)
-    }), $(".multi-day.check-out .num-available input").click(function() {
-        $(".full-calendar.multi-day.check-out").delay(300).slideUp(300), $(".end-date span.chosen-date").show(), $("p.small-note").hide(), $(".button-buy").delay(300).removeAttr("disabled")
-    }), $("label.start-date").click(function() {
-        $(".num-available ul li").removeClass("selected"), $(".date-options tbody td").removeClass("selected"), $(".full-calendar.multi-day.check-out").slideUp(300), $(".full-calendar.multi-day.check-in").slideDown(300), $(".start-date span.chosen-date").hide()
-    })
-}), $(document).ready(function() {
-    $newCreditCard = $(".new-credit-card"), $("input.existing-card").click(function() {
-        $newCreditCard.hide()
-    }), $("input#newCard").click(function() {
-        $newCreditCard.show()
-    })
-}), $(document).ready(function() {
-    function e(e) {
-        $(e).on("click", ".c-radios label", function() {
-            $input = $(this).find("input"), $input.attr("checked", !0), $(this).addClass("active").siblings(".active").removeClass("active").end().siblings().find("input[checked]").attr("checked", !1), $input.trigger("change")
-        })
-    }
-    $(".checkout-flow .c-radios input").change(function() {
-        var e = $(this).parent("label");
-        $("button.next-button").removeAttr("disabled")
-    }), $("li.choice input").change(function() {
-        var e = $(this).parent("label");
-        $("li.choice label", e.closest("ul")).removeClass("active"), e.addClass("active"), $("p.small-note").hide(), $("button.next-button").removeAttr("disabled")
-    }), $(".c-radios input:checked").closest("label").addClass("active"), $(".checkout-options input:checked").change(), e("#payment-section"), e("#shipping-section"), e("#gifting-section"), e(".booking-box--experience-options")
-}), $(document).ready(function() {
-    $("#fullCalendar label").click(function() {
-        var e = $("#fullCalendar"), t = e.offset();
-        $(window).scrollTop(t.top)
-    }), $("label.just-purchase").click(function() {
-        $("p.small-note").hide(), $("button.next-button").removeAttr("disabled")
-    }), $("a.choose").click(function() {
-        $("p.small-note").hide(), $("button.next-button").removeAttr("disabled")
-    })
-}), $(document).ready(function() {
-    var e = function(e) {
-        if (!$.ZOZIApp.is_small_screen()) {
-            var t = e.find("[data-needs-columnizing]");
-            t.length && t.columnize({columns: 2}).removeAttr("data-needs-columnizing")
-        }
-    };
-    $(".section-header h2").click(function(t) {
-        var n = $(this).parents(".section-header");
-        t.preventDefault(), n.toggleClass("active"), e(n)
-    }), e($(".section-header.active"))
-}), $(document).ready(function() {
-    var e = $(window).width();
-    $(window).resize(function() {
-        var e = $(window).width()
-    }), $(window).load(function() {
-        if (e > 768) {
-            var t = ($(".orbit-container .orbit-slides-container img").width() + 2) / 4 - 2;
-            $("ul.photo-thumbs li img").width(t)
-        }
-        if (e > 1024) {
-            var n = ($(".orbit-container .orbit-slides-container img").width() + 2) / 5 - 2;
-            $("ul.photo-thumbs li img").width(n)
-        }
-    })
-}), $.Tooltip = {init: function() {
-        $(".tooltip-init").on("click", function(e) {
-            var t = $(this).parent().parent().find(".tooltip");
-            return t.length && ($(this).hasClass("is-active") ? $.Tooltip.hide({tooltip: t,context: this}) : $.Tooltip.show({tooltip: t,context: this})), $(window).resize(function() {
-                $.ZOZIApp.is_tablet() && $.Tooltip.hideAll()
-            }), !1
-        })
-    },show: function(e) {
-        var t = e.tooltip, n = e.context, r = 10, i = $(n).parent().position().top + $(n).height() + r;
-        return t.show().css("top", i), $(n).addClass("is-active"), $(document).on("click", {tooltip: t,context: n}, $.Tooltip.onHide), !1
-    },onHide: function(e) {
-        var t = e.data.tooltip, n = e.data.context;
-        $.Tooltip.hide({tooltip: t,context: n})
-    },hide: function(e) {
-        var t = e.tooltip, n = e.context;
-        return t.hide(), $(n).removeClass("is-active"), $(document).off("click", $.Tooltip.onHide), !1
-    },hideAll: function() {
-        $(".tooltip").hide(), $(".tooltip-init").removeClass("is-active"), $(document).off("click", $.Tooltip.onHide)
-    }}, $(function() {
-    $.Tooltip.init()
-}), $.ModuleRollover = {init: function() {
-        typeof bucket_list_deal_ids != "undefined" && $.BucketList.markAllAsAdded(bucket_list_deal_ids);
-        var e = 500;
-        $(".offer-snippet").on("click", ".offer-snippet-img, .area", function(e) {
-            return window.location = $(this).parent(".offer-snippet").data("target"), !1
-        }).hoverIntent(function() {
-            var t = $(this);
-            t.toggleClass("is-offer-snippet-open"), t.find(".area").animate({top: -53}, e)
-        }, function() {
-            var t = $(this);
-            t.find(".area").animate({top: 0}, e)
-        })
-    }}, $(function() {
-    $.ModuleRollover.init()
-}), $.Price = {set_promo_points: function(e) {
-        var t = e.find(".price.blue");
-        t.length > 0 ? (t.removeClass("blue"), t.find(".current").addClass("original")) : (e.find(".current").remove(), t = e.find(".original").first(), t = e.find(".price"));
-        var n = e.find(".promo-points-cost-details-page");
-        if (n.length === 0) {
-            var r = $("#details-page").data("promo_points_cost"), i = $("<span>").addClass("promo-points-cost promo-points-cost-details-page").html(r);
-            t.after(i), e.addClass("promotional_item promo_item_for_user")
-        }
-    },update: function(e, t, n) {
-        var r = $(e).find("span[data-original-price-value]");
-        $(e).find("span[data-current-price-value]").html(n), r.length > 0 && r.html(t)
-    }}, $.PromotionalPricing = {init: function() {
-        if ($("#main").data("prm_visitor")) {
-            var e = $("article.promotional_item"), t = this;
-            $.each(e, function(e, n) {
-                t.lockUnaffordableItems(n)
-            })
-        }
-    },lockUnaffordableItems: function(e) {
-        var t = $(e).data("promo_points_cost"), n = parseInt($("#promo-button").text(), 10) || 0, r = n >= t;
-        $(e).addClass("promo_item_for_user");
-        if (!r) {
-            var i = t - n, s = i === 1 ? "point" : "points";
-            $(e).parent().addClass("need-more-points"), $(e).find(".need-points-banner ").text("You need " + i + " more " + s)
-        }
-    }}, $(function() {
-    $.PromotionalPricing.init()
-}), $(document).ready(function() {
-    toggleGiftDetails = function() {
-        var e = $("#gifting-details, .gear-divider, .gear-shipping-message");
-        $(".buy-as-gift").hasClass("checked") ? e.slideDown(1e3) : e.slideUp(1e3)
-    }, $(".buy-as-gift").change(function() {
-        toggleGiftDetails()
-    }), $("label").hasClass("buy-as-gift-gear") && $("#gifting-details").hide(), $("input[name=gifting_details\\[delivery_method\\]]").change(function() {
-        $(this).val() === "email" ? $("#recipient-email").slideDown(1e3) : $("#recipient-email").slideUp(1e3)
-    }), $("#order_delivery_method_print").change(function() {
-        this.checked && ($("#order_recipient_email_address").prop("disabled", !0), $("#order_recipient_email_address").addClass("disabled"), $('label[for="order_recipient_email_address"]').css("color", "#AAA"))
-    }), $("#order_delivery_method_email").change(function() {
-        this.checked && ($("#order_recipient_email_address").prop("disabled", !1), $("#order_recipient_email_address").removeClass("disabled"), $('label[for="order_recipient_email_address"]').css("color", "#666"))
-    })
-}), $.MODALS = {list: ["bucket_list"],viewed: {},addViewed: function(e) {
-        this.viewed[e] = !0
-    },calculateMask: function() {
-        var e = this, t = 0;
-        return $.each(this.list, function(n, r) {
-            e.viewed[r] === !0 && (t += Math.pow(2, n))
-        }), t
-    },update: function(e, t) {
-        $.MODALS.addViewed(e), $.ajax({type: "POST",url: "modals",data: {modal_mask: $.MODALS.calculateMask()},complete: t})
-    },init: function(e) {
-        if (e === undefined)
-            return;
-        var t = $.map(parseInt(e).toString(2).split(), function(e) {
-            return parseInt(e, 10)
-        });
-        for (var n = 0; n < t.length; n++)
-            if (t[n] > 0) {
-                var r = this.list[n];
-                this.addViewed(r)
-            }
-    }}, $(function() {
-    var e = $("[data-modal-mask]").data("modal-mask");
-    $.MODALS.init(e)
-}), $.BucketList = {init: function() {
-        var e = this;
-        typeof bucket_list_deal_ids != "undefined" && e.markAllAsAdded(bucket_list_deal_ids), $(".add-to-bucket-list").bind("ajax:success", function(t, n, r, i) {
-            e.markAsAdded(this)
-        })
-    },markAsAdded: function(e) {
-        var t = $(e), n = t.data("in_list_text");
-        $.each(t, function() {
-            $(this).get(0).lastChild.data = n
-        }), t.removeClass("add-to-bucket-list").addClass("item-in-bucket-list checked");
-        var r = t.closest(".offer-snippet").data("target");
-        r ? (t.attr("href", r), t.on("click", function(e) {
-            return window.location = $(this).attr("href"), !1
-        })) : t.on("click", !1)
-    },markAllAsAdded: function(e) {
-        var t = this;
-        $.each(e, function(e, n) {
-            var r = $(".bucket-list-btn[data-deal-id=" + n + "] a");
-            r.length > 0 && t.markAsAdded(r)
-        })
-    }}, $(function() {
-    $.BucketList.init()
-}), $.Facebook = {initialized: !1,facebook_login: {init: function() {
-            $(".fb-login").on("click", function(e) {
-                e.preventDefault();
-                var t = $(this);
-                FB.login(function(e) {
-                    e.authResponse && (window.location = t.data("fb-callback-url"))
-                }, {scope: "email"})
-            })
-        }},facebook_send_dialog: {init: function() {
-            $("a.fb-book").on("click", function(e) {
-                var t = $(this);
-                return FB.ui({method: "send",link: t.data("fb-link")}), !1
-            }), $("a.fb-feed").on("click", function(e) {
-                var t = $(this);
-                return FB.ui({method: "feed",link: t.data("fb-link"),picture: t.data("fb-picture"),name: t.data("fb-name"),caption: t.data("fb-caption"),description: t.data("fb-description"),display: t.data("fb-display")}), !1
-            })
-        }}}, $(function() {
-    $.Facebook.initialized || ($.Facebook.facebook_login.init(), $.Facebook.facebook_send_dialog.init(), $.Facebook.initialized = !0)
-}), $.FlashMessage = {init: function() {
-        var e = $(".flash_message");
-        e.length > 0 && (e.slideDown("slow"), $(".close_flash").on("click", function(t) {
-            e.slideUp().hide()
-        }))
-    }}, $(function() {
-    $.FlashMessage.init()
-}), $.PopupFooter = {init: function() {
-        if (typeof $.cookie == "undefined")
-            return;
-        var e = this;
-        $.cookie.json = !0;
-        var t = $(".footer-pop-up"), n = t.data("pop-ups") || [], r = n[0], i = $.cookie("footer_pop_up_ignored_" + r) || [];
-        $(".footer-pop-up-close").on("click", function(n) {
-            t.slideUp(), $("footer").animate({marginBottom: 0}), e.setClosedCookie(r)
-        }), $(".footer-pop-up-ignore").on("click", function(e) {
-            var n = $(".footer-pop-up-content"), s = n.parent().data("current-promotion-end-date");
-            typeof s != "undefined" && s.length > 0 && (t.slideUp(), $("#footer").animate({marginBottom: 0}), i.push(n.data("pop-up")), $.cookie("footer_pop_up_ignored_" + r, i, {expires: new Date(s),path: "/"}))
-        }), n = $.grep(n, function(e) {
-            return $.inArray(e, i) == -1
-        }), $(".footer-pop-up-content").on("click", "a", function() {
-            return e.setClosedCookie(r), !0
-        });
-        if ($.cookie("footer_pop_up_closed_" + r) === null && n.length > 0) {
-            var s = $(".footer-pop-up-content");
-            s.load("/promotion_banner_images/" + r), s.data("pop-up", r), setTimeout(function() {
-                t.slideDown(function() {
-                    $("#footer").css("margin-bottom", t.height())
-                })
-            }, 2e3)
-        }
-    },setClosedCookie: function(e) {
-        var t = new Date;
-        t.setMinutes(t.getMinutes() + 600), $.cookie("footer_pop_up_closed_" + e, !0, {expires: t,path: "/"})
-    }}, $(function() {
-    $.PopupFooter.init()
-}), $.ShoppingCart = {MAX_ITEMS_TO_DISPLAY_AT_ONCE: 5,SHOPPING_CART_NAME: "shopping-cart",SHOPPING_CART_HIDE_DELAY: 200,KEEP_SHOPPING_TIME_DELAY: 4e3,CART_ITEM_TEMPLATE: "<li class='item'>                          <a href='' data-item='details'>                           <div class='row'>                             <div class='small-3 columns img'>                               <img src=''>                             </div>                             <div class='small-6 columns'>                               <div class='row'>                                 <span class='title'>                                   <span class='description'></span>                                     <div class='river-item--info river-item-s-desktop-s-mobile--info'></div>                                   </span>                               </div>                             </div>                             <div class='small-2 columns last'>                               <div class='row'>                                 <span class='qty'></span>                               </div>                               <div class='row bottom'>                                 <span class='price'>                                   <div class='row'>                                     <span class='original'>                                       <span></span>                                     </span>                                   </div>                                   <div class='row'>                                     <span class='current'>                                       <span></span>                                     </span>                                   </div>                                 </span>                               </div>                             </div>                           </div>                         </a>                       </li>",build_item: function(e, t) {
-        return t.find("img").attr("src", e.photo_url), t.find('a[data-item="details"]').attr("href", e.link), t.find("span.description").text(e.brief_description), e.variant_details ? t.find("div.river-item--info").text(e.variant_details) : t.find("div.river-item--info").remove(), e.price != e.full_price && t.find("span.original span").html("$" + e.full_price), t.find("span.current span").html("$" + e.price), t.find("span.qty").html("Qty " + e.quantity), t
-    },add_items_to_popup: function(e) {
-        var t = $("#cart-modal .cart-items"), n = $.ShoppingCart.CART_ITEM_TEMPLATE, r, i;
-        t.empty(), $.each(e, function(e, s) {
-            r = $(n).clone(), i = $.ShoppingCart.build_item(s, r), t.append(i)
-        })
-    },get_items: function() {
-        var e = $("#cart-modal");
-        $.ajax({url: e.data("cart-items-url"),type: "GET",async: !1,success: function(e) {
-                $.ShoppingCart.add_items_to_popup(e.items), $.ShoppingCart.update_popup()
-            }})
-    },init_popup: function() {
-        $.ShoppingCart.update_popup(), $.ShoppingCart.adjust_position(), $(window).resize($.ShoppingCart.adjust_position)
-    },update_popup: function() {
-        var e = parseInt($("#main").data("shopping_cart_items"), 10) || 0, t = e + (e === 1 ? " item" : " items");
-        $("#cart-modal li.top span.count").text(t), $.ShoppingCart.toggleEnabled(e)
-    },adjust_height: function() {
-        var e = $("#cart-modal"), t = e.find(".cart-items"), n = t.children(), r = 0;
-        if (n.length > $.ShoppingCart.MAX_ITEMS_TO_DISPLAY_AT_ONCE) {
-            for (var i = 0; i < $.ShoppingCart.MAX_ITEMS_TO_DISPLAY_AT_ONCE; i++)
-                r += $(n.get(i)).outerHeight();
-            t.css("max-height", r + "px"), t.css("overflow-y", "scroll")
-        }
-        if ($(window).height() < $(".small-screen-header").height() + e.height()) {
-            t.css("overflow-y", "scroll");
-            var s = 10;
-            $.ZOZIApp.is_mobile() ? s += $(".small-screen-header").height() : s += $(".main-nav").height();
-            var o = s + e.height() - t.height();
-            r = $(window).height() - o, t.css("max-height", r + "px")
-        }
-    },adjust_position: function() {
-        var e = $("#cart-modal");
-        if (!$.ZOZIApp.is_mobile()) {
-            var t = $(".cart.large-screen"), n = $(window).width() - t.offset().left - t.outerWidth();
-            e.css("right", n)
-        } else
-            e.css("right", 0);
-        e.css("top", -e.outerHeight()).show()
-    },toggleEnabled: function(e) {
-        return
-        var t = $("#cart_modal_checkout_button"), n = $("#cart-modal .view-all"), r = $("#cart-modal [data-continue-shopping]");
-        e === 0 ? (t.get(0).href = "javascript:void(0)", t.addClass("disabled"), t.attr("disabled", !0), r.text("Start Shopping").attr("title", "Start Shopping"), n.attr("disabled", !0), n.get(0).href = "") : (t.get(0).href = "/purchases/new", t.removeClass("disabled"), t.attr("disabled", !1), r.text("Continue Shopping").attr("title", "Continue Shopping"), n.attr("disabled", !1), n.get(0).href = "/purchases/new")
-    },show_dialog: function() {
-        var e = $("#cart-modal"), t = $("li.cart").attr("data-dirty") === "true";
-        t && ($.ShoppingCart.get_items(), $("li.cart").attr("data-dirty", "false")), $.ZOZIApp.is_mobile() ? e.animate({top: $(".small-screen-header").height()}, $.ZOZIApp.TRANSITION_SPEED) : e.animate({top: $("nav.main-nav").height()}, $.ZOZIApp.TRANSITION_SPEED), $.ShoppingCart.adjust_height(), $("li.cart").addClass("hovered"), $(document).trigger({type: $.ZOZIEvents.MODAL_MENU_OPEN,context: $.ShoppingCart.SHOPPING_CART_NAME,callback: $.ShoppingCart.hide_dialog})
-    },hide_dialog: function() {
-        var e = $("#cart-modal"), t = -e.outerHeight();
-        e.animate({top: t}, $.ZOZIApp.TRANSITION_SPEED), $("li.cart").removeClass("hovered"), $(document).trigger({type: $.ZOZIEvents.MODAL_MENU_CLOSE,context: $.Navigation.SHOPPING_CART_NAME})
-    },shouldHideDialog: function() {
-        return $("#cart-modal:hover").length === 0 && $(".cart:hover").length === 0
-    },addItemToCart: function(e) {
-        $.ajax({type: "PUT",url: "/shopping_cart_item/create",data: $("#purchase").serialize(),success: $.ShoppingCart.keepShopping,error: function(e) {
-                $.ZOZIApp.add_flash_error(e.responseText), $(document).trigger({type: $.ZOZIEvents.CART_UPDATE_ERROR})
-            }})
-    },keepShopping: function(e) {
-        var t = e.cart.items.length;
-        $("#main").data("shopping_cart_items", t), $("li.cart").attr("data-dirty", "true"), $(document).trigger({type: $.ZOZIEvents.CART_QUANTITY_UPDATED,count: t}), $.ShoppingCart.show_dialog(), setTimeout(function() {
-            $.ShoppingCart.shouldHideDialog() && $.ShoppingCart.hide_dialog()
-        }, $.ShoppingCart.KEEP_SHOPPING_TIME_DELAY)
-    },attach_evant_handlers: function() {
-        $("li.cart.large-screen").hover($.ShoppingCart.show_dialog), $("li.cart.large-screen, #cart-modal").mouseleave(function(e) {
-            var t = e.toElement || e.relatedTarget;
-            setTimeout(function() {
-                $.ShoppingCart.shouldHideDialog() && $.ShoppingCart.hide_dialog()
-            }, $.ShoppingCart.SHOPPING_CART_HIDE_DELAY)
-        }), $("li.cart.small-screen").click(function() {
-            parseInt($("#cart-modal").css("top"), 10) == -$("#cart-modal").outerHeight() ? $.ShoppingCart.show_dialog() : $.ShoppingCart.hide_dialog()
-        }), $("#cart-modal [data-continue-shopping]").click($.ShoppingCart.hide_dialog), $(document).on($.ZOZIEvents.ADD_ITEM_TO_CART, $.ShoppingCart.addItemToCart)
-    },init: function() {
-        $.ShoppingCart.init_popup(), $.ShoppingCart.attach_evant_handlers()
-    }}, $(function() {
-    $.ShoppingCart.init()
-}), $(function() {
-    $("body").ajaxError(function(e, t, n) {
-        t.status == 401 && (window.location = t.getResponseHeader("Location"))
-    })
-}), function(e) {
-    var t = /([^&=]+)=?([^&]*)/g, n = function(e) {
-        return decodeURIComponent(e.replace(/\+/g, " "))
-    };
-    e.parseParams = function(e) {
-        var r = {}, i;
-        if (e != undefined) {
-            e.substr(0, 1) == "?" && (e = e.substr(1));
-            while (i = t.exec(e)) {
-                var s = n(i[1]), o = n(i[2]);
-                s.indexOf("[]") > 0 ? (s = s.replace(/\[\]/g, ""), r[s] == undefined ? r[s] = [o] : r[s].push(o)) : r[s] = o
-            }
-        }
-        return r
-    }
-}(jQuery), $.Navigation = {NAV_MENU_NAME: "navigation",init: function() {
-        return;
-        $.Navigation.data = $("[data-slick_header_data]").data(), $.Navigation.data.cart_items_count = parseInt($.Navigation.data.cart_items_count), $.Navigation.setupCartItemsCount(), $.Navigation.teardownNavigation(), $.Navigation.hookupAccountMenu(), $(".expand-menu-link").on("click", function() {
-            return $("body").hasClass("is-nav-expanded") ? $.Navigation.closeNav() : $.Navigation.openNav(), !1
-        }), $.Navigation.initSubmenu()
-    },setupCartItemsCount: function() {
-        $.Navigation.updateCartItemCount($.Navigation.data.cart_items_count), $(document).on($.ZOZIEvents.CART_QUANTITY_UPDATED, $.Navigation.onCartItemCountUpdated), $("a.button-cart").each(function(e, t) {
-            var n = $(t), r = $("<div class='icon-caret-down'>");
-            n.append(r)
-        })
-    },onCartItemCountUpdated: function(e) {
-        var t = e.count;
-        $.Navigation.updateCartItemCount(t)
-    },updateCartItemCount: function(e) {
-        $("a.button-cart").each(function(t, n) {
-            var r = $(n);
-            e > 0 && ($count = $("<div class='count-container'>"), $count.html(e), r.html($count))
-        })
-    },hookupNavigation: function() {
-        $(".main-nav--link").off("mouseenter mouseleave"), $(".main-nav--sub-nav--row").off("mouseenter mouseleave"), $(".small-screen-toggle-arrow").on("click", function() {
-            $(this).siblings(".main-nav--sub-nav").toggle(), $(this).toggleClass("is-active"), $(this).parent().toggleClass("is-active")
-        })
-    },
-    hookupAccountMenu: function() {
-        $(".large-screen-account-nav a.account-nav--toggle").on("click", function(e) {
-            e.preventDefault()
-        }), $(".account-nav--user-name").html($.Navigation.data.user_name).width(9999).width("auto")
-    },teardownNavigation: function() {
-        var e;
-        $(".main-nav--link").mouseenter(function() {
-            $(this).siblings(".main-nav--sub-nav").show()
-        }), $(".main-nav--link").mouseleave(function() {
-            var t = $(this);
-            e = setTimeout(function() {
-                t.siblings(".main-nav--sub-nav").hide()
-            }, 50)
-        }), $(".main-nav--sub-nav--row").mouseenter(function() {
-            clearTimeout(e), $(this).parent().show()
-        }), $(".main-nav--sub-nav--row").mouseleave(function() {
-            $(this).parent().hide()
-        }), $(".small-screen-toggle-arrow").off("click"), $(".small-screen-toggle-arrow").removeClass("is-active"), $(".main-nav--group").removeClass("is-active"), $(".main-nav--sub-nav").hide()
-    },openNav: function() {
-        $("body").addClass("is-nav-expanded"), $.Navigation.hookupNavigation(), $(".main-nav").offset().top == 0 && $(".main-nav").css("padding-top", 45), $(".small-screen-account-nav #nav-toggle").parent().removeClass("is-active"), $(document).trigger({type: $.ZOZIEvents.MODAL_MENU_OPEN,context: $.Navigation.NAV_MENU_NAME,callback: $.Navigation.closeNav})
-    },closeNav: function() {
-        $("body").removeClass("is-nav-expanded"), $.Navigation.teardownNavigation(), $(".main-nav").css("padding-top", ""), $(document).trigger({type: $.ZOZIEvents.MODAL_MENU_CLOSE,context: $.Navigation.NAV_MENU_NAME})
-    },initSubmenu: function() {
-        $(window).resize($.Navigation.fixSubmenuPosition), $.Navigation.fixSubmenuPosition()
-    },fixSubmenuPosition: function() {
-        var e = $(".main-nav--sub-nav");
-        $.ZOZIApp.is_mobile() ? (e.css("padding-left", 0), e.css("padding-right", 0)) : window.setTimeout(function() {
-            var t = $(".main-nav--list").parents(".row"), n = t.offset().left;
-            e.css("padding-left", n), e.css("padding-right", n)
-        }, 50)
-    }}, $(function() {
-    $.Navigation.init()
-}), $.IndexCarousel = {ANIMATION_TIMER: {},init: function() {
-        this.centerCarouselImages(), $(window).resize(this.centerCarouselImages), $("#featured1").on("orbit:ready", this.showCarousel()), $(document).on($.ZOZIEvents.FILTER_SELECTED, this.hideCarousel), $(document).on($.ZOZIEvents.FILTER_UNSELECTED, this.showCarousel)
-    },showCarousel: function() {
-        $(".main-content-area").removeClass("is-loading"), $(".loading-logo").hide(), $(".slideshow-wrapper").css({display: ""}), clearTimeout(this.ANIMATION_TIMER), this.ANIMATION_TIMER = setTimeout(function() {
-            $(".slideshow-wrapper").css({opacity: 1})
-        }, 1)
-    },hideCarousel: function() {
-        $(".slideshow-wrapper").css({opacity: ""}), clearTimeout(this.ANIMATION_TIMER), this.ANIMATION_TIMER = setTimeout(function() {
-            $(".slideshow-wrapper").css({display: "none"})
-        }, $.ZOZIApp.SLOW_TRANSITION_SPEED)
-    },centerCarouselImages: function() {
-        var e = $(window).width(), t = $(".slideshow-wrapper").height(), n, r, i, s, o, u, a;
-        $(".featured-item--photo").each(function(f, l) {
-            a = $(l), n = Math.max.apply(Math, a.find("img").map(function() {
-                return $(this).width()
-            })), r = Math.max.apply(Math, a.find("img").map(function() {
-                return $(this).height()
-            })), i = n > e, s = r > t, o = i ? (e - n) / 2 : 0, u = s ? (t - r) / 2 : 0, $(l).find(".responsive-image").css({"margin-left": o + "px","margin-top": u + "px"})
-        })
-    }}, $(function() {
-    $.IndexCarousel.init()
-}), $.Filtering = {SIDE_BAR_NAME: "filter-side-bar",SORT_MENU_NAME: "filter-sort-menu",FILTER_CARD_Y_OFFSET: 256,CAROUSEL_Y_OFFSET: 355,loading: !1,init: function() {
-        $.Filtering.sideBar = $(".filter-side-bar-container");
-        if (!$.Filtering.sideBar.length)
-            return;
-        $.Filtering.topBar = $(".filter-top-bar-container"), $.Filtering.sortBar = $(".filter-sort-container"), $.Filtering.carousel = $(".index-carousel"), $.Filtering.footer = $(".main-footer"), $.Filtering.experiencesContainer = $(".more-experiences-list"), $.Filtering.infoCard = $.Filtering.sideBar.find(".filter-info-card"), $.Filtering.perPage = $(".filter-side-bar-container").data("per-page"), $.Filtering.productLine = $(".filter-side-bar-container").data("product-line"), $.Filtering.categoryBoxBar = $(".category-boxes-container"), $.Filtering.priceSlider = $("#price-slider"), $.Filtering.priceBar = $("#price-option"), $.Filtering.priceRange = $("#min-price, #max-price"), $.Filtering.priceClear = $("#price-option .filter-side-bar--clear"), this.setupMenuArrows(), this.setupOpenAndCloseHandlers(), this.initTopBar(), this.initSideBar(), this.initPriceBar(), setTimeout(this.activateDefaultFilter, $.ZOZIApp.SLOW_TRANSITION_SPEED)
-    },activateDefaultFilter: function() {
-        activeArrow = $.Filtering.sideBar.find(".arrow-toggle-button.is-active");
-        if (activeArrow.length === 0) {
-            var e = $.Filtering.sideBar.find(".arrow-toggle-button:first");
-            $.Filtering.activateFilter(e)
-        } else
-            $.Filtering.activateFilter(activeArrow)
-    },activateFilter: function(e) {
-        $(e).addClass("is-active"), $(e).parent().find("input[type=radio]").prop("checked", !0)
-    },setupOpenAndCloseHandlers: function() {
-        $.Filtering.topBar.find(".arrow-toggle-button").click(function() {
-            $(this).hasClass("is-active") ? $.Filtering.closeSideBar() : ($(this).addClass("is-active"), $(".filter-side-bar-container").addClass("is-expanded"), $(document).trigger({type: $.ZOZIEvents.MODAL_MENU_OPEN,context: $.Filtering.SIDE_BAR_NAME,callback: $.Filtering.closeSideBar})), $.Filtering.resizeContainer()
-        }), $(".button-sort").click(function() {
-            $(".filter-sort-container").hasClass("is-active") ? $.Filtering.closeSortMenu() : ($(".filter-sort-container").addClass("is-active"), $(document).trigger({type: $.ZOZIEvents.MODAL_MENU_OPEN,context: $.Filtering.SORT_MENU_NAME,callback: $.Filtering.closeSortMenu}))
-        })
-    },setupMenuArrows: function() {
-        $.Filtering.sideBar.find(".arrow-toggle-button").click(function() {
-            $(this).toggleClass("is-active");
-            var e = $(this).hasClass("is-active");
-            $.Filtering.sideBar.find(".arrow-toggle-button").removeClass("is-active"), e && $(this).addClass("is-active"), $(this).parent().find("input[type=radio]").prop("checked", e)
-        }), $(".filter-side-bar-container").on("click", "input[type=radio]", function() {
-            var e = $(this).parent().find(".arrow-toggle-button"), t = !e.hasClass("is-active");
-            $.Filtering.sideBar.find(".arrow-toggle-button").removeClass("is-active"), t && e.addClass("is-active"), $(this).prop("checked", t)
-        })
-    },initTopBar: function() {
-        $.Filtering.topBar.on("activate", $.Filtering.activateTopBar), $.Filtering.topBar.on("de-activate", $.Filtering.deactivateTopBar), $.Filtering.toggleTopBar(), $(window).resize(function() {
-            $.Filtering.toggleTopBar()
-        })
-    },toggleTopBar: function() {
-        var e = $(".filter-side-bar--group--option.is-active").length;
-        $(window).width() >= 768 && e == 0 ? $.Filtering.topBar.trigger("de-activate") : $.Filtering.topBar.trigger("activate")
-    },activateTopBar: function() {
-        $.Filtering.topBar.addClass("is-active"), $("body").addClass("is-top-bar-active"), $.Filtering.setupSideBarPositioning(), $(".index-carousel").addClass("is-below-filter")
-    },deactivateTopBar: function() {
-        $.Filtering.topBar.removeClass("is-active"), $("body").removeClass("is-top-bar-active"), $.Filtering.sortBar.removeClass("is-active"), $.Filtering.setupSideBarPositioning(), $(".index-carousel").removeClass("is-below-filter")
-    },closeSideBar: function() {
-        $.Filtering.topBar.find(".arrow-toggle-button").removeClass("is-active"), $(".filter-side-bar-container").removeClass("is-expanded"), $(document).trigger({type: $.ZOZIEvents.MODAL_MENU_CLOSE,context: $.Filtering.SIDE_BAR_NAME})
-    },closeSelection: function(e) {
-        e.data.option.trigger("click")
-    },optionSelection: function() {
-        $.Filtering.updateFilter($(this)), $.Filtering.updateBrowserUrl(), $.Filtering.toggleTopBar(), $.Filtering.update()
-    },updateBrowserUrl: function() {
-        Modernizr.history && window.history.pushState($(document).html(), "ZOZI", window.location.pathname + "?" + $.Filtering.urlParams())
-    },update: function() {
-        $.Filtering.fadeExperiences("out"), $.Filtering.loading = !0, $.ajax({type: "GET",url: "/search/" + $.Filtering.productLine + "/filter?per_page=" + $.Filtering.perPage,data: $.Filtering.filterParams()}).done(function(e) {
-            $.Filtering.updateExperiences(e), $.MoreExperiences.resetPageCounter(), window.picturefill(), $.Filtering.fadeExperiences("in"), $.Filtering.resizeContainer(), $.Filtering.loading = !1;
-            var t = $("ul#filtered_experiences").data("total_results");
-            $.Filtering.updateTotalResults(t), $.Filtering.toggleCategoryBoxes(), $(".category-boxes-container").on("click", "a", $.Filtering.categoryBoxSelection)
-        })
-    },sort: function() {
-        $.Filtering.sortBar.find("a").removeClass("is-active"), $(this).addClass("is-active"), $.Filtering.updateBrowserUrl(), $.Filtering.update(), $.Filtering.closeSortMenu()
-    },closeSortMenu: function() {
-        $(".filter-sort-container").removeClass("is-active"), $(document).trigger({type: $.ZOZIEvents.MODAL_MENU_CLOSE,context: $.Filtering.SORT_MENU_NAME})
-    },checkFilterByKeyValue: function(e, t) {
-        $("input[data-filter-category=" + e + '][data-filter-name="' + t + '"]').prop("checked", !0).next().addClass("is-active")
-    },categoryBoxSelection: function(e) {
-        e.preventDefault(), $(".filter-side-bar-container input[type=checkbox]").prop("checked", !1), $(".filter-side-bar--clear").hide(), $(".filter-side-bar--group--option.is-active").removeClass("is-active"), $(".filter-side-bar--group-counter").hide(), $.each($(this).data(), function(e, t) {
-            $.each(t, function(t, n) {
-                $.Filtering.checkFilterByKeyValue(e, n)
-            })
-        }), $.Filtering.updateBrowserUrl(), $.each($(".filter-side-bar--group"), function(e, t) {
-            var n = $(t).find(".filter-side-bar--group--option.is-active").length;
-            if (n) {
-                var r = $(t).find(".filter-side-bar--group-counter");
-                r.html(n), r.show();
-                var i = $(t).find(".filter-side-bar--clear");
-                i.show()
-            }
-        }), $.Filtering.optionSelection()
-    },updateFilter: function(e) {
-        var t = $.Filtering.isPriceFilter(e) ? e.parents(".filter-side-bar--group--option") : e, n = t.siblings("input:checkbox"), r = t.closest(".filter-side-bar--group").find(".filter-side-bar--group-counter"), i = $("#infinite-text").find('span[class*="infinite-text--"]');
-        $.Filtering.isPriceFilter(e) ? n.prop("checked", !0) : (t.toggleClass("is-active"), n.trigger("click")), i.text("Loading"), $.Filtering.updateFilterSelection(t, n, r), $.Filtering.updateClearButtons(t, r), $.Filtering.updateCarouselState()
-    },toggleCategoryBoxes: function() {
-        var e = $(".filter-side-bar--group--option.is-active");
-        e.length > 0 ? $(".category-boxes-container").hide() : $.ZOZIApp.is_mobile() || $(".category-boxes-container").show()
-    },updateCarouselState: function() {
-        var e = $(".filter-side-bar--group--option.is-active");
-        e.length > 0 ? ($(".filter-info-card").fadeOut($.ZOZIApp.SLOW_TRANSITION_SPEED), $(document).trigger($.ZOZIEvents.FILTER_SELECTED)) : ($(document).trigger($.ZOZIEvents.FILTER_UNSELECTED), $(".filter-info-card").show())
-    },parameterizedFilters: function() {
-        var e = $.Filtering.filterData();
-        return e.price && (e.price_min = $("#min-price").val(), e.price_max = $("#max-price").val()), e
-    },filterParams: function() {
-        return $.extend({}, $.Filtering.sortData(), $.Filtering.parameterizedFilters())
-    },urlParams: function() {
-        return $.param($.extend({}, $.Filtering.sortData(), $.Filtering.parameterizedFilters()))
-    },filterData: function() {
-        var e = {};
-        return $("a.filter-side-bar--group--option.is-active+input[data-filter-category], [data-filter-static]").each(function(t, n) {
-            var r = $(n), i = r.data();
-            e[i.filterCategory] || (e[i.filterCategory] = []), e[i.filterCategory].push(i.filterName)
-        }), e
-    },sortData: function() {
-        return $el = $(".filter-sort-container--option.is-active"), {sort_by: $el.data("sort-by"),sort_order: $el.data("sort-order")}
-    },updateExperiences: function(e) {
-        $.Filtering.experiencesContainer.html(e)
-    },fadeExperiences: function(e) {
-        var t = $.Filtering.experiencesContainer, n = $("#infinite-text"), r = n.find('span[class*="infinite-text--"]');
-        n.removeClass("all-items-loaded"), $(".more-experiences-list").find("ul li").length ? n.show() : n.hide(), e == "out" ? ($.each(r, function(e, t) {
-            var n, r;
-            n = $(t), r = n.data("title"), $(t).text(r)
-        }), t.fadeOut($.ZOZIApp.TRANSITION_SPEED)) : t.fadeIn($.ZOZIApp.TRANSITION_SPEED)
-    },updateTotalResults: function(e) {
-        $("[data-search-total]").text(e), $("[data-search-label]").text(e === 1 ? "Result" : "Results")
-    },calculateChecked: function() {
-        var e = $(".filter-side-bar--group--option.is-active");
-        e.length > 0 && ($.Filtering.activateTopBar(), total = 0, $.each(e, function(e, t) {
-            count = $(t).children("span.count").text(), total += parseInt(count, 10)
-        }), $.Filtering.updateTotalResults(total))
-    },updateFilterSelection: function(e, t, n) {
-        var r, i, s = parseInt(n.html()) || 0;
-        t.is(":checked") ? (r = e.parents(".filter-side-bar--group--list"), i = r.find(".filter-side-bar--group--option.is-active"), t.data("filter-category") == "price" ? (s = 1, t.siblings("a").addClass("is-active"), t.prop("checked", !0)) : s++) : s--, n.html(s)
-    },filterSelectionText: function(e) {
-        return e.parent().find("a").html()
-    },updateClearButtons: function(e, t) {
-        var n = e.closest(".filter-side-bar--group").find(".filter-side-bar--clear"), r = $(".filter-side-bar--selection .filter-side-bar--clear"), i = parseInt(t.html(), 10) || 0;
-        i == 0 ? (t.hide(), n.hide()) : (t.show(), n.show()), $(".filter-side-bar--selection-option").length > 0 ? r.show() : r.hide()
-    },clearGroup: function() {
-        $(this).siblings(".filter-side-bar--group--list").find(".filter-side-bar--group--option.is-active").trigger("click")
-    },clearAll: function() {
-        $(".filter-side-bar--group--option.is-active").trigger("click"), $.Filtering.deactivateTopBar()
-    },initSideBar: function() {
-        $.Filtering.setupSideBarPositioning(), $(window).resize(function() {
-            $.Filtering.setupSideBarPositioning()
-        }), $(window).scroll(function() {
-            $.Filtering.checkIfSticky(), $.Filtering.resizeContainer()
-        }), $.Filtering.setupInitialOptionSelections(), $.Filtering.sideBar.on("click", ".filter-side-bar--group--option", $.Filtering.optionSelection), $.Filtering.sideBar.on("click", ".filter-side-bar--group .filter-side-bar--clear", $.Filtering.clearGroup), $.Filtering.sideBar.on("click", ".filter-side-bar--selection .filter-side-bar--clear", $.Filtering.clearAll), $.Filtering.sideBar.on("facets:update", "[data-filter-category][data-filter-name]", $.Filtering.updateFilterText), $.Filtering.sortBar.on("click", ".filter-sort-container--option:not(.is-active)", $.Filtering.sort), $.Filtering.priceRange.on("change", $.Filtering.optionSelection), $.Filtering.categoryBoxBar.on("click", "a", $.Filtering.categoryBoxSelection), $.Filtering.priceClear.on("click", $.Filtering.resetPriceSlider), $.Filtering.calculateChecked()
-    },initPriceBar: function() {
-        var e = $.Filtering.priceBar.data("min-price"), t = $.Filtering.priceBar.data("max-price"), n = t, r = $.parseParams(window.location.search);
-        r.price && (n = parseInt(r.price_max) / 100), $.Filtering.priceSlider.slider({range: "min",min: e,max: t,value: n,step: 50,slide: function(e, t) {
-                $.Filtering.setSliderText(t.value)
-            },stop: function(t, n) {
-                $.Filtering.definePriceInputs(e, n.value), $.Filtering.priceRange.first().trigger("change")
-            }}), $.Filtering.setSliderText($("#price-slider").slider("value")), $.Filtering.definePriceInputs(e, t)
-    },resetPriceSlider: function() {
-        var e = $.Filtering.priceBar.data("max-price");
-        $("#price-slider").slider("value", e), $.Filtering.setSliderText(e)
-    },setSliderText: function(e) {
-        $("#filter-price").text("Under $" + (e + 1))
-    },setupInitialOptionSelections: function() {
-        var e = $.parseParams(window.location.search);
-        $.each(e, function(e, t) {
-            $.isArray(t) ? $(t).each(function(t, n) {
-                $.Filtering.setupOptionSelection(e, n)
-            }) : $.Filtering.setupOptionSelection(e, t)
-        })
-    },setupOptionSelection: function(e, t) {
-        $menuItem = $("input[data-filter-category='" + e + "'][data-filter-name='" + t + "']").siblings("a"), $menuItem.hasClass("is-disabled") || $.Filtering.updateFilter($menuItem)
-    },setupSideBarPositioning: function() {
-        $.Filtering.sideBar.removeClass("is-sticky"), $.Filtering.highestAllowablePos = $.Filtering.getHighestAllowablePos(), $.Filtering.resizeContainer(), $.Filtering.checkIfSticky(), $.Filtering.infoCardVisible() && $.Filtering.adjustFeatureItemTitleArea()
-    },resizeContainer: function() {
-        var e = $.Filtering.sideBar.find(".filter-side-bar--group"), t = $.Filtering.sideBar.find(".filter-side-bar--group--list"), n = $.Filtering.bottomOfWindowOffset(), r = $.Filtering.footerOffset() - n, i = n - $.Filtering.sideBar.position().top;
-        r < 10 && (i += r - 10), $.Filtering.sideBar.height(i);
-        var s = e.find("input:not(:checked)").parent().height(), o = e.length, u = i - s * o;
-        t.height(u);
-        var a = $.Filtering.sideBar.find(".filter-side-bar--group--option").height();
-        t.each(function() {
-            $(this).removeClass("is-scrollable");
-            var e = $(this).children().length * a + 10;
-            e > u ? $(this).addClass("is-scrollable") : $(this).height(e)
-        })
-    },bottomOfWindowOffset: function() {
-        return window.scrollY + $(window).height()
-    },footerOffset: function() {
-        return $.Filtering.footer.offset().top
-    },getHighestAllowablePos: function() {
-        return $.Filtering.infoCardVisible() ? $.Filtering.FILTER_CARD_Y_OFFSET : $.Filtering.CAROUSEL_Y_OFFSET
-    },checkIfSticky: function() {
-        var e = $(window).scrollTop();
-        e >= $.Filtering.highestAllowablePos || $.Filtering.topBar.hasClass("is-active") ? $.Filtering.sideBar.addClass("is-sticky") : $.Filtering.sideBar.removeClass("is-sticky")
-    },infoCardVisible: function() {
-        return $.Filtering.infoCard.length > 0 && $.Filtering.infoCard.is(":visible")
-    },adjustFeatureItemTitleArea: function() {
-        $(".featured-item--content > .row").addClass("is-filter-info-active")
-    },updateFilterText: function(e, t) {
-        var n = t.count == 0;
-        $(this).siblings(".filter-side-bar--group--option").toggleClass("is-disabled", n), $(this).parent().find(".count").text(t.count)
-    },isPriceFilter: function(e) {
-        return e.is("input")
-    },definePriceInputs: function(e, t) {
-        $("#min-price").val(e * 100), $("#max-price").val(t * 100)
-    }}, $(function() {
-    $.Filtering.init()
-}), $.FacetParser = {update: function(e) {
-        $.each(e, function(e, t) {
-            e == "price_range" ? $.FacetParser.setPriceCount(t) : $.FacetParser.setFilterCount(e, t)
-        })
-    },setPriceCount: function(e) {
-        var t;
-        t = [], $.each(e, function(e, n) {
-            var r = $.FacetParser.filterSelector("price", e + 1);
-            $(r).trigger("facets:update", [{count: n.count}]), t.push(n.name)
-        }), selector = $.FacetParser.filterUnselector("price_range", t), $(selector).trigger("facets:update", [{count: 0}])
-    },setFilterCount: function(e, t) {
-        var n;
-        n = [], $.each(t, function(t, r) {
-            var i = $.FacetParser.filterSelector(e, r.name);
-            $(i).trigger("facets:update", [{count: r.count}]), n.push(r.name)
-        }), selector = $.FacetParser.filterUnselector(e, n), $(selector).trigger("facets:update", [{count: 0}])
-    },filterSelector: function(e, t) {
-        return '[data-filter-category="' + e + '"][data-filter-name="' + t + '"]'
-    },filterUnselector: function(e, t) {
-        var n = '[data-filter-category="' + e + '"]';
-        return $.each(t, function(e, t) {
-            n += ':not([data-filter-name="' + t + '"])'
-        }), n
-    }}, $.SignupPage = {init: function() {
-        var e = $("#signup_market_selector");
-        $(e).find("option:eq(1)").attr("selected", !0), e.customSelect(), $("#facebook_connect_button").on("click", function(e) {
-            var t = $(this);
-            FB.login(function(e) {
-                e.authResponse && (window.location = t.data("fb-callback-url"))
-            }, {scope: "email"})
-        })
-    }}, $(function() {
-    $.SignupPage.init()
-}), $.InlineErrors = {clear: function(e) {
-        e.removeClass("field_with_errors"), e.attr("placeholder", e.attr("data-original-placeholder")), e.removeAttr("data-original-placeholder")
-    },shortenPlaceholderError: function(e, t) {
-        var n = $.merge($("label[for=" + e.attr("id") + "]").parents(".is-required[data-short-error-messages]"), $("label[data-short-error-messages][for=" + e.attr("id") + "].is-required"));
-        e.val(""), n.length > 0 && (!$.ZOZIApp.is_mobile() || n.data("short-error-messages") === "always" ? t.match("can't be blank") ? t = "Fill me in" : t.match("is not valid|is invalid") ? t = "Invalid" : t.match("too short") && (t = "Too short") : t.match("Email address has already been taken") ? t = "'" + e.val() + "' is taken" : t.match("Email address should look like an email address") && (t = "'" + e.val() + "' is not valid")), e.val(""), $.InlineErrors.insertPlaceholderError(e, t)
-    },insertPlaceholderError: function(e, t) {
-        e.addClass("field_with_errors");
-        var n = e.attr("placeholder");
-        e.attr("data-original-placeholder", n), e.attr("placeholder", t)
-    },add: function(e, t, n) {
-        $.each(n, function(t, n) {
-            var r = $("input[name='" + e + "[" + t + "]']"), i = t.substr(0, 1).toUpperCase() + t.substr(1);
-            i = i.replace("_", " ");
-            var s = i + " " + n;
-            r.val(""), $.InlineErrors.insertPlaceholderError(r, s)
-        }), $(".relative-flash").html(t), $.FlashMessage.init(), $("html, body").animate({scrollTop: 0}, "slow")
-    }}, $(document).ready(function() {
-    $("span[class^=error]").each(function() {
-        var e = $(this).prev("input"), t = $.trim($(this).text());
-        $.InlineErrors.shortenPlaceholderError(e, t), $(this).hide()
-    }), $(document).on("focus", "input.field_with_errors", function(e) {
-        var t = $(e.target);
-        $.InlineErrors.clear(t)
-    }), $(document).on("focus", ".field_with_errors input[data-original-email]", function(e) {
-        var t = $(e.target), n = t.attr("data-original-email");
-        t.val(n), $.InlineErrors.clear(t)
-    })
-}), $.AccountSection = {init: function() {
-        $(document).on("click", ".account--buttons--save", $.AccountSection.submitForm), $(document).on("click", ".default-title", $.AccountSection.toggleCheck), $(document).on("click", ".credit-card--delete a, .shipping-address--delete a", $.AccountSection.showModal), $(document).on("click", ".my-account--modal a[data-close]", $.AccountSection.closeModal), !$.ZOZIApp.is_mobile() && $("form.edit_user").length && ($(document).on("click", ".account--buttons--cancel", $.AccountSection.resetForm), $("input#return_to_user_edit").attr("value", !0)), $("select#user_shipping_address_country").on("change", function(e) {
-            var t = $(this).val(), n = $("#shipping_address_state_code_wrapper");
-            $("select#user_shipping_address_select").attr("disabled", !0);
-            var r = $(this).data("url") + "?parent_region=" + t;
-            n.load(r)
-        })
-    },submitForm: function(e) {
-        e.preventDefault(), $("form").submit()
-    },resetForm: function(e) {
-        e.preventDefault(), $(this).parents("form").find("input[data-original-value]").each(function() {
-            var e = $(this).data("original-value");
-            $.InlineErrors.clear($(this)), typeof e == "boolean" ? $(this).prop("checked", e) : $(this).val(e)
-        })
-    },followLink: function(e) {
-        e.preventDefault(), window.location = $(this).find("a").attr("href")
-    },toggleCheck: function(e) {
-        var t = $(this).find("input");
-        t.val(t.is(":checked"))
-    },closeModal: function(e) {
-        e.preventDefault(), $(".my-account--modal:visible, .modal-shade").fadeOut()
-    },showModal: function(e) {
-        e.preventDefault(), $(".my-account--modal, .modal-shade").fadeIn()
-    }}, $(function() {
-    $.AccountSection.init()
-}), $.ScrollableRow = {init: function() {
-        $("[data-scroll-index-button]").on("click", this.scrollIndexRow), $(".is-scrollable-row ul").on("scroll", this.checkIfAtEnd), $('[data-scroll-index-button="left"]').addClass("disabled")
-    },scrollIndexRow: function(e) {
-        var t = 3, n = 25, r = $(this).parents(".index-row").find(".is-scrollable-row ul"), i = r.children("li:first").outerWidth(!0) + t, s = r.outerWidth(!0) + n, o = r.scrollLeft(), u = $(this).data("scrollIndexButton"), a = u === "right" ? -o % i + s + o : o - s + i - o % (i + t) - n;
-        r.animate({scrollLeft: a}, $.ZOZIApp.SLOW_TRANSITION_SPEED)
-    },checkIfAtEnd: function(e) {
-        var t = $(e.target), n = t.scrollLeft(), r = t.parents(".index-row"), i = t.get(0).scrollWidth - t.width(), s = r.find('[data-scroll-index-button="left"]'), o = r.find('[data-scroll-index-button="right"]');
-        s.toggleClass("disabled", n === 0), o.toggleClass("disabled", n >= i)
-    }}, $(function() {
-    $.ScrollableRow.init()
-}), $.BucketListPage = {REMOVE_CONFIRMATION_TEMPLATE: '<div class="remove-confirmation">     <div class="remove-confirmation--button-container">       <button class="button button-orange" data-confirm-button="true">Remove Item</button>       <button class="button button-white" data-cancel-button="true">Cancel</button>     </div>   </div>',EMPTY_BUCKET_LIST_TEMPLATE: '<div class="empty-bucket-list">     <h4> No items in your list </h4>     <div class="collect-bucket-list-text">Collect and share your favorite experiences and gear from ZOZI.</div>     <a href=/' + $.cookie("market") + ' class="button button-orange start-browsing-button">Start Browsing</a>   </div>',init: function() {
-        $.cookie.json = !1;
-        var e = $('<button class="remove-button">');
-        $('.bucket-list [data-type="experience"]').append(e), $(".bucket-list").on("click", ".remove-button", $.BucketListPage.confirmRemoval), $("[data-edit-bucket-list-button]").on("click", $.BucketListPage.toggleEditMode), $(".bucket-list--modal[data-type=clear] a.button").on("click", $.BucketListPage.removeMultipleItems), $("[data-share-bucket-list-button], [data-clear-bucket-list-button]").on("click", $.BucketListPage.showModal), $(".button[data-close-modal]").on("click", $.BucketListPage.closeModal), $("a.button[data-share-type]").on("click", function(e) {
-            var t = $(e.target).data("share-type"), n = $(".bucket-list--buttons:visible").data("share-url");
-            e.preventDefault(), $.BucketListPage.share(t, n)
-        }), $(".responsive_application_slick-bucket_list_items").length && !$('.bucket-list [data-type="experience"]').length && $.BucketListPage.showEmptyBucketList()
-    },toggleEditMode: function() {
-        var e = $("#main");
-        e.toggleClass("is-editing"), $("[data-edit-bucket-list-button]").toggleClass("button-gray-hollow").toggleClass("button-orange").html(e.hasClass("is-editing") ? "Done Editing" : "Edit"), $(".remove-confirmation").remove(), $("[data-cancel-button]").off("click", $.BucketListPage.cancelRemoval), $("[data-confirm-button]").off("click", $.BucketListPage.removeItem), $.BucketListPage.toggleShareButton()
-    },confirmRemoval: function() {
-        $(this).parent().find(".gradient-overlay").after($($.BucketListPage.REMOVE_CONFIRMATION_TEMPLATE)), $("[data-cancel-button]").on("click", $.BucketListPage.cancelRemoval), $("[data-confirm-button]").on("click", $.BucketListPage.removeItem)
-    },removeMultipleItems: function() {
-        var e = $(this).data("type");
-        return $.BucketListPage.toggleCancelButton(), $.ajax({type: "DELETE",url: "/bucket_list/destroy_multiple",data: {type: e},success: $.BucketListPage.onRemoveSuccess}), !1
-    },toggleCancelButton: function() {
-        var e = $("[data-close-modal]:visible");
-        e.toggleClass("is-processing"), e.hasClass("is-processing") ? ($(".bucket-list--modal[data-type=clear] a.button").off("click", $.BucketListPage.removeMultipleItems), $(".button[data-close-modal]").off("click", $.BucketListPage.closeModal), e.html("Please Wait")) : ($('.bucket-list [data-type="experience"]').length > 0 ? ($(".bucket-list--modal[data-type=clear] a.button").on("click", $.BucketListPage.removeMultipleItems), $(".button[data-close-modal]").on("click", $.BucketListPage.closeModal)) : ($.BucketListPage.toggleEditMode(), $(".bucket-list-actions a").attr("disabled", "disabled"), $("[data-edit-bucket-list-button]").off("click", $.BucketListPage.toggleEditMode), $("[data-share-bucket-list-button]").off("click", $.BucketListPage.showModal)), $.BucketListPage.closeModal(), e.html("Cancel"))
-    },removeItem: function() {
-        var e = $(this).parents("[data-deal-id]").data("deal-id");
-        return $(this).parents('[data-type="experience"]').css("display", "none"), $.ajax({type: "DELETE",url: "/bucket_list/" + e,success: $.BucketListPage.onRemoveSuccess,error: $.BucketListPage.onRemoveError}), !1
-    },onRemoveSuccess: function(e) {
-        $.each(e.deal_ids, function(e, t) {
-            $("[data-deal-id=" + t + "]").parent().remove()
-        });
-        var t = $('.bucket-list [data-type="experience"]').length, n = t + (t === 1 ? " item" : " items");
-        $(".bucket-list-actions h3").html(n), $.BucketListPage.toggleCancelButton(), t || ($.BucketListPage.showEmptyBucketList(), $(".bucket-list-actions").remove(), $(".bucket-list").remove())
-    },onRemoveError: function(e) {
-        var t = JSON.parse(e.responseText);
-        dealId = t.deal_id, message = t.message, $("[data-deal-id=" + dealId + "]").parent().css("display", ""), $.ZOZIApp.add_flash_error(message)
-    },cancelRemoval: function() {
-        return $("[data-cancel-button]").off("click", $.BucketListPage.cancelRemoval), $("[data-confirm-button]").off("click", $.BucketListPage.removeItem), $(this).parent().parent().remove(), !1
-    },share: function(e, t) {
-        $.ajax({type: "POST",dataType: "json",url: t,data: {share_type: e},async: !1,success: function(t) {
-                switch (e) {
-                    case "twitter":
-                        window.open(t.share_url, "_blank", "menubar=0,resizable=1,width=800,height=600");
-                        break;
-                    case "facebook":
-                        FB.ui({method: "feed",link: t.share_url,name: t.name,description: t.description})
-                }
-            }})
-    },toggleShareButton: function() {
-        $("[data-share-bucket-list-button], [data-clear-bucket-list-button]").toggle()
-    },closeModal: function() {
-        $(".bucket-list--modal:visible, .modal-shade").fadeOut()
-    },showModal: function() {
-        $(this).data("share-bucket-list-button") ? $(".bucket-list--modal[data-type=share], .modal-shade").fadeIn() : $(".bucket-list--modal[data-type=clear], .modal-shade").fadeIn()
-    },showEmptyBucketList: function() {
-        $(".account_right_side").append($.BucketListPage.EMPTY_BUCKET_LIST_TEMPLATE)
-    }}, $(function() {
-    $.BucketListPage.init()
-}), function(e) {
-    e.fn.numeric = function(t, n) {
-        typeof t == "boolean" && (t = {decimal: t}), t = t || {}, typeof t.negative == "undefined" && (t.negative = !0);
-        var r = t.decimal === !1 ? "" : t.decimal || ".", i = t.negative === !0 ? !0 : !1;
-        return n = typeof n == "function" ? n : function() {
-        }, this.data("numeric.decimal", r).data("numeric.negative", i).data("numeric.callback", n).keypress(e.fn.numeric.keypress).keyup(e.fn.numeric.keyup).blur(e.fn.numeric.blur)
-    }, e.fn.numeric.keypress = function(t) {
-        var n = e.data(this, "numeric.decimal"), r = e.data(this, "numeric.negative"), i = t.charCode ? t.charCode : t.keyCode ? t.keyCode : 0;
-        if (i == 13 && this.nodeName.toLowerCase() == "input")
-            return !0;
-        if (i == 13)
-            return !1;
-        var s = !1;
-        if (t.ctrlKey && i == 97 || t.ctrlKey && i == 65)
-            return !0;
-        if (t.ctrlKey && i == 120 || t.ctrlKey && i == 88)
-            return !0;
-        if (t.ctrlKey && i == 99 || t.ctrlKey && i == 67)
-            return !0;
-        if (t.ctrlKey && i == 122 || t.ctrlKey && i == 90)
-            return !0;
-        if (t.ctrlKey && i == 118 || t.ctrlKey && i == 86 || t.shiftKey && i == 45)
-            return !0;
-        if (i < 48 || i > 57) {
-            var o = e(this).val();
-            if (!(o.indexOf("-") === 0 || !r || i != 45 || o.length !== 0 && parseInt(e.fn.getSelectionStart(this), 10) !== 0))
-                return !0;
-            n && i == n.charCodeAt(0) && o.indexOf(n) != -1 && (s = !1), i != 8 && i != 9 && i != 13 && i != 35 && i != 36 && i != 37 && i != 39 && i != 46 ? s = !1 : typeof t.charCode != "undefined" && (t.keyCode == t.which && t.which !== 0 ? (s = !0, t.which == 46 && (s = !1)) : t.keyCode !== 0 && t.charCode === 0 && t.which === 0 && (s = !0)), n && i == n.charCodeAt(0) && (o.indexOf(n) == -1 ? s = !0 : s = !1)
-        } else
-            s = !0;
-        return s
-    }, e.fn.numeric.keyup = function(t) {
-        var n = e(this).val();
-        if (n && n.length > 0) {
-            var r = e.fn.getSelectionStart(this), i = e.fn.getSelectionEnd(this), s = e.data(this, "numeric.decimal"), o = e.data(this, "numeric.negative");
-            if (s !== "" && s !== null) {
-                var u = n.indexOf(s);
-                u === 0 && (this.value = "0" + n), u == 1 && n.charAt(0) == "-" && (this.value = "-0" + n.substring(1)), n = this.value
-            }
-            var a = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, "-", s], f = n.length;
-            for (var l = f - 1; l >= 0; l--) {
-                var c = n.charAt(l);
-                l !== 0 && c == "-" ? n = n.substring(0, l) + n.substring(l + 1) : l === 0 && !o && c == "-" && (n = n.substring(1));
-                var h = !1;
-                for (var p = 0; p < a.length; p++)
-                    if (c == a[p]) {
-                        h = !0;
-                        break
-                    }
-                if (!h || c == " ")
-                    n = n.substring(0, l) + n.substring(l + 1)
-            }
-            var d = n.indexOf(s);
-            if (d > 0)
-                for (var v = f - 1; v > d; v--) {
-                    var m = n.charAt(v);
-                    m == s && (n = n.substring(0, v) + n.substring(v + 1))
-                }
-            this.value = n, e.fn.setSelection(this, [r, i])
-        }
-    }, e.fn.numeric.blur = function() {
-        var t = e.data(this, "numeric.decimal"), n = e.data(this, "numeric.callback"), r = this.value;
-        if (r !== "") {
-            var i = new RegExp("^\\d+$|^\\d*" + t + "\\d+$");
-            i.exec(r) || n.apply(this)
-        }
-    }, e.fn.removeNumeric = function() {
-        return this.data("numeric.decimal", null).data("numeric.negative", null).data("numeric.callback", null).unbind("keypress", e.fn.numeric.keypress).unbind("blur", e.fn.numeric.blur)
-    }, e.fn.getSelectionStart = function(e) {
-        if (e.type === "number")
-            return undefined;
-        if (e.createTextRange) {
-            var t = document.selection.createRange().duplicate();
-            return t.moveEnd("character", e.value.length), t.text === "" ? e.value.length : e.value.lastIndexOf(t.text)
-        }
-        return e.selectionStart
-    }, e.fn.getSelectionEnd = function(e) {
-        if (e.type === "number")
-            return undefined;
-        if (e.createTextRange) {
-            var t = document.selection.createRange().duplicate();
-            return t.moveStart("character", -e.value.length), t.text.length
-        }
-        return e.selectionEnd
-    }, e.fn.setSelection = function(e, t) {
-        typeof t == "number" && (t = [t, t]);
-        if (t && t.constructor == Array && t.length == 2)
-            if (e.type === "number")
-                e.focus();
-            else if (e.createTextRange) {
-                var n = e.createTextRange();
-                n.collapse(!0), n.moveStart("character", t[0]), n.moveEnd("character", t[1]), n.select()
-            } else
-                e.setSelectionRange && (e.focus(), e.setSelectionRange(t[0], t[1]))
-    }
-}(jQuery), $.Quantity = {init: function() {
-        var e = $(".quantity-input input");
-        e.numeric({negative: !1}), e.keyup(function() {
-            var e = $(this), t = parseInt(e.attr("data-quantity-available"));
-            e.val() > t && (e.val(t), e.trigger("change"), e.parents(".quantity-input").find(".quantity--input--error").show())
-        }), e.focusout(function() {
-            $(this).parents(".quantity-input").find(".quantity--input--error").fadeOut(500)
-        })
-    }}, $.Quantity.init(), function(e, t) {
-    function i(t, n) {
-        var r, i, o, u = t.nodeName.toLowerCase();
-        return "area" === u ? (r = t.parentNode, i = r.name, !t.href || !i || r.nodeName.toLowerCase() !== "map" ? !1 : (o = e("img[usemap=#" + i + "]")[0], !!o && s(o))) : (/input|select|textarea|button|object/.test(u) ? !t.disabled : "a" === u ? t.href || n : n) && s(t)
-    }
-    function s(t) {
-        return e.expr.filters.visible(t) && !e(t).parents().addBack().filter(function() {
-            return e.css(this, "visibility") === "hidden"
-        }).length
-    }
-    var n = 0, r = /^ui-id-\d+$/;
-    e.ui = e.ui || {}, e.extend(e.ui, {version: "1.10.3",keyCode: {BACKSPACE: 8,COMMA: 188,DELETE: 46,DOWN: 40,END: 35,ENTER: 13,ESCAPE: 27,HOME: 36,LEFT: 37,NUMPAD_ADD: 107,NUMPAD_DECIMAL: 110,NUMPAD_DIVIDE: 111,NUMPAD_ENTER: 108,NUMPAD_MULTIPLY: 106,NUMPAD_SUBTRACT: 109,PAGE_DOWN: 34,PAGE_UP: 33,PERIOD: 190,RIGHT: 39,SPACE: 32,TAB: 9,UP: 38}}), e.fn.extend({focus: function(t) {
-            return function(n, r) {
-                return typeof n == "number" ? this.each(function() {
-                    var t = this;
-                    setTimeout(function() {
-                        e(t).focus(), r && r.call(t)
-                    }, n)
-                }) : t.apply(this, arguments)
-            }
-        }(e.fn.focus),scrollParent: function() {
-            var t;
-            return e.ui.ie && /(static|relative)/.test(this.css("position")) || /absolute/.test(this.css("position")) ? t = this.parents().filter(function() {
-                return /(relative|absolute|fixed)/.test(e.css(this, "position")) && /(auto|scroll)/.test(e.css(this, "overflow") + e.css(this, "overflow-y") + e.css(this, "overflow-x"))
-            }).eq(0) : t = this.parents().filter(function() {
-                return /(auto|scroll)/.test(e.css(this, "overflow") + e.css(this, "overflow-y") + e.css(this, "overflow-x"))
-            }).eq(0), /fixed/.test(this.css("position")) || !t.length ? e(
-            document) : t
-        },zIndex: function(n) {
-            if (n !== t)
-                return this.css("zIndex", n);
-            if (this.length) {
-                var r = e(this[0]), i, s;
-                while (r.length && r[0] !== document) {
-                    i = r.css("position");
-                    if (i === "absolute" || i === "relative" || i === "fixed") {
-                        s = parseInt(r.css("zIndex"), 10);
-                        if (!isNaN(s) && s !== 0)
-                            return s
-                    }
-                    r = r.parent()
-                }
-            }
-            return 0
-        },uniqueId: function() {
-            return this.each(function() {
-                this.id || (this.id = "ui-id-" + ++n)
-            })
-        },removeUniqueId: function() {
-            return this.each(function() {
-                r.test(this.id) && e(this).removeAttr("id")
-            })
-        }}), e.extend(e.expr[":"], {data: e.expr.createPseudo ? e.expr.createPseudo(function(t) {
-            return function(n) {
-                return !!e.data(n, t)
-            }
-        }) : function(t, n, r) {
-            return !!e.data(t, r[3])
-        },focusable: function(t) {
-            return i(t, !isNaN(e.attr(t, "tabindex")))
-        },tabbable: function(t) {
-            var n = e.attr(t, "tabindex"), r = isNaN(n);
-            return (r || n >= 0) && i(t, !r)
-        }}), e("<a>").outerWidth(1).jquery || e.each(["Width", "Height"], function(n, r) {
-        function u(t, n, r, s) {
-            return e.each(i, function() {
-                n -= parseFloat(e.css(t, "padding" + this)) || 0, r && (n -= parseFloat(e.css(t, "border" + this + "Width")) || 0), s && (n -= parseFloat(e.css(t, "margin" + this)) || 0)
-            }), n
-        }
-        var i = r === "Width" ? ["Left", "Right"] : ["Top", "Bottom"], s = r.toLowerCase(), o = {innerWidth: e.fn.innerWidth,innerHeight: e.fn.innerHeight,outerWidth: e.fn.outerWidth,outerHeight: e.fn.outerHeight};
-        e.fn["inner" + r] = function(n) {
-            return n === t ? o["inner" + r].call(this) : this.each(function() {
-                e(this).css(s, u(this, n) + "px")
-            })
-        }, e.fn["outer" + r] = function(t, n) {
-            return typeof t != "number" ? o["outer" + r].call(this, t) : this.each(function() {
-                e(this).css(s, u(this, t, !0, n) + "px")
-            })
-        }
-    }), e.fn.addBack || (e.fn.addBack = function(e) {
-        return this.add(e == null ? this.prevObject : this.prevObject.filter(e))
-    }), e("<a>").data("a-b", "a").removeData("a-b").data("a-b") && (e.fn.removeData = function(t) {
-        return function(n) {
-            return arguments.length ? t.call(this, e.camelCase(n)) : t.call(this)
-        }
-    }(e.fn.removeData)), e.ui.ie = !!/msie [\w.]+/.exec(navigator.userAgent.toLowerCase()), e.support.selectstart = "onselectstart" in document.createElement("div"), e.fn.extend({disableSelection: function() {
-            return this.bind((e.support.selectstart ? "selectstart" : "mousedown") + ".ui-disableSelection", function(e) {
-                e.preventDefault()
-            })
-        },enableSelection: function() {
-            return this.unbind(".ui-disableSelection")
-        }}), e.extend(e.ui, {plugin: {add: function(t, n, r) {
-                var i, s = e.ui[t].prototype;
-                for (i in r)
-                    s.plugins[i] = s.plugins[i] || [], s.plugins[i].push([n, r[i]])
-            },call: function(e, t, n) {
-                var r, i = e.plugins[t];
-                if (!i || !e.element[0].parentNode || e.element[0].parentNode.nodeType === 11)
-                    return;
-                for (r = 0; r < i.length; r++)
-                    e.options[i[r][0]] && i[r][1].apply(e.element, n)
-            }},hasScroll: function(t, n) {
-            if (e(t).css("overflow") === "hidden")
-                return !1;
-            var r = n && n === "left" ? "scrollLeft" : "scrollTop", i = !1;
-            return t[r] > 0 ? !0 : (t[r] = 1, i = t[r] > 0, t[r] = 0, i)
-        }})
-}(jQuery), function(e, t) {
-    var n = 0, r = Array.prototype.slice, i = e.cleanData;
-    e.cleanData = function(t) {
-        for (var n = 0, r; (r = t[n]) != null; n++)
-            try {
-                e(r).triggerHandler("remove")
-            } catch (s) {
-            }
-        i(t)
-    }, e.widget = function(t, n, r) {
-        var i, s, o, u, a = {}, f = t.split(".")[0];
-        t = t.split(".")[1], i = f + "-" + t, r || (r = n, n = e.Widget), e.expr[":"][i.toLowerCase()] = function(t) {
-            return !!e.data(t, i)
-        }, e[f] = e[f] || {}, s = e[f][t], o = e[f][t] = function(e, t) {
-            if (!this._createWidget)
-                return new o(e, t);
-            arguments.length && this._createWidget(e, t)
-        }, e.extend(o, s, {version: r.version,_proto: e.extend({}, r),_childConstructors: []}), u = new n, u.options = e.widget.extend({}, u.options), e.each(r, function(t, r) {
-            if (!e.isFunction(r)) {
-                a[t] = r;
-                return
-            }
-            a[t] = function() {
-                var e = function() {
-                    return n.prototype[t].apply(this, arguments)
-                }, i = function(e) {
-                    return n.prototype[t].apply(this, e)
-                };
-                return function() {
-                    var t = this._super, n = this._superApply, s;
-                    return this._super = e, this._superApply = i, s = r.apply(this, arguments), this._super = t, this._superApply = n, s
-                }
-            }()
-        }), o.prototype = e.widget.extend(u, {widgetEventPrefix: s ? u.widgetEventPrefix : t}, a, {constructor: o,namespace: f,widgetName: t,widgetFullName: i}), s ? (e.each(s._childConstructors, function(t, n) {
-            var r = n.prototype;
-            e.widget(r.namespace + "." + r.widgetName, o, n._proto)
-        }), delete s._childConstructors) : n._childConstructors.push(o), e.widget.bridge(t, o)
-    }, e.widget.extend = function(n) {
-        var i = r.call(arguments, 1), s = 0, o = i.length, u, a;
-        for (; s < o; s++)
-            for (u in i[s])
-                a = i[s][u], i[s].hasOwnProperty(u) && a !== t && (e.isPlainObject(a) ? n[u] = e.isPlainObject(n[u]) ? e.widget.extend({}, n[u], a) : e.widget.extend({}, a) : n[u] = a);
-        return n
-    }, e.widget.bridge = function(n, i) {
-        var s = i.prototype.widgetFullName || n;
-        e.fn[n] = function(o) {
-            var u = typeof o == "string", a = r.call(arguments, 1), f = this;
-            return o = !u && a.length ? e.widget.extend.apply(null, [o].concat(a)) : o, u ? this.each(function() {
-                var r, i = e.data(this, s);
-                if (!i)
-                    return e.error("cannot call methods on " + n + " prior to initialization; " + "attempted to call method '" + o + "'");
-                if (!e.isFunction(i[o]) || o.charAt(0) === "_")
-                    return e.error("no such method '" + o + "' for " + n + " widget instance");
-                r = i[o].apply(i, a);
-                if (r !== i && r !== t)
-                    return f = r && r.jquery ? f.pushStack(r.get()) : r, !1
-            }) : this.each(function() {
-                var t = e.data(this, s);
-                t ? t.option(o || {})._init() : e.data(this, s, new i(o, this))
-            }), f
-        }
-    }, e.Widget = function() {
-    }, e.Widget._childConstructors = [], e.Widget.prototype = {widgetName: "widget",widgetEventPrefix: "",defaultElement: "<div>",options: {disabled: !1,create: null},_createWidget: function(t, r) {
-            r = e(r || this.defaultElement || this)[0], this.element = e(r), this.uuid = n++, this.eventNamespace = "." + this.widgetName + this.uuid, this.options = e.widget.extend({}, this.options, this._getCreateOptions(), t), this.bindings = e(), this.hoverable = e(), this.focusable = e(), r !== this && (e.data(r, this.widgetFullName, this), this._on(!0, this.element, {remove: function(e) {
-                    e.target === r && this.destroy()
-                }}), this.document = e(r.style ? r.ownerDocument : r.document || r), this.window = e(this.document[0].defaultView || this.document[0].parentWindow)), this._create(), this._trigger("create", null, this._getCreateEventData()), this._init()
-        },_getCreateOptions: e.noop,_getCreateEventData: e.noop,_create: e.noop,_init: e.noop,destroy: function() {
-            this._destroy(), this.element.unbind(this.eventNamespace).removeData(this.widgetName).removeData(this.widgetFullName).removeData(e.camelCase(this.widgetFullName)), this.widget().unbind(this.eventNamespace).removeAttr("aria-disabled").removeClass(this.widgetFullName + "-disabled " + "ui-state-disabled"), this.bindings.unbind(this.eventNamespace), this.hoverable.removeClass("ui-state-hover"), this.focusable.removeClass("ui-state-focus")
-        },_destroy: e.noop,widget: function() {
-            return this.element
-        },option: function(n, r) {
-            var i = n, s, o, u;
-            if (arguments.length === 0)
-                return e.widget.extend({}, this.options);
-            if (typeof n == "string") {
-                i = {}, s = n.split("."), n = s.shift();
-                if (s.length) {
-                    o = i[n] = e.widget.extend({}, this.options[n]);
-                    for (u = 0; u < s.length - 1; u++)
-                        o[s[u]] = o[s[u]] || {}, o = o[s[u]];
-                    n = s.pop();
-                    if (r === t)
-                        return o[n] === t ? null : o[n];
-                    o[n] = r
-                } else {
-                    if (r === t)
-                        return this.options[n] === t ? null : this.options[n];
-                    i[n] = r
-                }
-            }
-            return this._setOptions(i), this
-        },_setOptions: function(e) {
-            var t;
-            for (t in e)
-                this._setOption(t, e[t]);
-            return this
-        },_setOption: function(e, t) {
-            return this.options[e] = t, e === "disabled" && (this.widget().toggleClass(this.widgetFullName + "-disabled ui-state-disabled", !!t).attr("aria-disabled", t), this.hoverable.removeClass("ui-state-hover"), this.focusable.removeClass("ui-state-focus")), this
-        },enable: function() {
-            return this._setOption("disabled", !1)
-        },disable: function() {
-            return this._setOption("disabled", !0)
-        },_on: function(t, n, r) {
-            var i, s = this;
-            typeof t != "boolean" && (r = n, n = t, t = !1), r ? (n = i = e(n), this.bindings = this.bindings.add(n)) : (r = n, n = this.element, i = this.widget()), e.each(r, function(r, o) {
-                function u() {
-                    if (!t && (s.options.disabled === !0 || e(this).hasClass("ui-state-disabled")))
-                        return;
-                    return (typeof o == "string" ? s[o] : o).apply(s, arguments)
-                }
-                typeof o != "string" && (u.guid = o.guid = o.guid || u.guid || e.guid++);
-                var a = r.match(/^(\w+)\s*(.*)$/), f = a[1] + s.eventNamespace, l = a[2];
-                l ? i.delegate(l, f, u) : n.bind(f, u)
-            })
-        },_off: function(e, t) {
-            t = (t || "").split(" ").join(this.eventNamespace + " ") + this.eventNamespace, e.unbind(t).undelegate(t)
-        },_delay: function(e, t) {
-            function n() {
-                return (typeof e == "string" ? r[e] : e).apply(r, arguments)
-            }
-            var r = this;
-            return setTimeout(n, t || 0)
-        },_hoverable: function(t) {
-            this.hoverable = this.hoverable.add(t), this._on(t, {mouseenter: function(t) {
-                    e(t.currentTarget).addClass("ui-state-hover")
-                },mouseleave: function(t) {
-                    e(t.currentTarget).removeClass("ui-state-hover")
-                }})
-        },_focusable: function(t) {
-            this.focusable = this.focusable.add(t), this._on(t, {focusin: function(t) {
-                    e(t.currentTarget).addClass("ui-state-focus")
-                },focusout: function(t) {
-                    e(t.currentTarget).removeClass("ui-state-focus")
-                }})
-        },_trigger: function(t, n, r) {
-            var i, s, o = this.options[t];
-            r = r || {}, n = e.Event(n), n.type = (t === this.widgetEventPrefix ? t : this.widgetEventPrefix + t).toLowerCase(), n.target = this.element[0], s = n.originalEvent;
-            if (s)
-                for (i in s)
-                    i in n || (n[i] = s[i]);
-            return this.element.trigger(n, r), !(e.isFunction(o) && o.apply(this.element[0], [n].concat(r)) === !1 || n.isDefaultPrevented())
-        }}, e.each({show: "fadeIn",hide: "fadeOut"}, function(t, n) {
-        e.Widget.prototype["_" + t] = function(r, i, s) {
-            typeof i == "string" && (i = {effect: i});
-            var o, u = i ? i === !0 || typeof i == "number" ? n : i.effect || n : t;
-            i = i || {}, typeof i == "number" && (i = {duration: i}), o = !e.isEmptyObject(i), i.complete = s, i.delay && r.delay(i.delay), o && e.effects && e.effects.effect[u] ? r[t](i) : u !== t && r[u] ? r[u](i.duration, i.easing, s) : r.queue(function(n) {
-                e(this)[t](), s && s.call(r[0]), n()
-            })
-        }
-    })
-}(jQuery), function(e, t) {
-    var n = !1;
-    e(document).mouseup(function() {
-        n = !1
-    }), e.widget("ui.mouse", {version: "1.10.3",options: {cancel: "input,textarea,button,select,option",distance: 1,delay: 0},_mouseInit: function() {
-            var t = this;
-            this.element.bind("mousedown." + this.widgetName, function(e) {
-                return t._mouseDown(e)
-            }).bind("click." + this.widgetName, function(n) {
-                if (!0 === e.data(n.target, t.widgetName + ".preventClickEvent"))
-                    return e.removeData(n.target, t.widgetName + ".preventClickEvent"), n.stopImmediatePropagation(), !1
-            }), this.started = !1
-        },_mouseDestroy: function() {
-            this.element.unbind("." + this.widgetName), this._mouseMoveDelegate && e(document).unbind("mousemove." + this.widgetName, this._mouseMoveDelegate).unbind("mouseup." + this.widgetName, this._mouseUpDelegate)
-        },_mouseDown: function(t) {
-            if (n)
-                return;
-            this._mouseStarted && this._mouseUp(t), this._mouseDownEvent = t;
-            var r = this, i = t.which === 1, s = typeof this.options.cancel == "string" && t.target.nodeName ? e(t.target).closest(this.options.cancel).length : !1;
-            if (!i || s || !this._mouseCapture(t))
-                return !0;
-            this.mouseDelayMet = !this.options.delay, this.mouseDelayMet || (this._mouseDelayTimer = setTimeout(function() {
-                r.mouseDelayMet = !0
-            }, this.options.delay));
-            if (this._mouseDistanceMet(t) && this._mouseDelayMet(t)) {
-                this._mouseStarted = this._mouseStart(t) !== !1;
-                if (!this._mouseStarted)
-                    return t.preventDefault(), !0
-            }
-            return !0 === e.data(t.target, this.widgetName + ".preventClickEvent") && e.removeData(t.target, this.widgetName + ".preventClickEvent"), this._mouseMoveDelegate = function(e) {
-                return r._mouseMove(e)
-            }, this._mouseUpDelegate = function(e) {
-                return r._mouseUp(e)
-            }, e(document).bind("mousemove." + this.widgetName, this._mouseMoveDelegate).bind("mouseup." + this.widgetName, this._mouseUpDelegate), t.preventDefault(), n = !0, !0
-        },_mouseMove: function(t) {
-            return e.ui.ie && (!document.documentMode || document.documentMode < 9) && !t.button ? this._mouseUp(t) : this._mouseStarted ? (this._mouseDrag(t), t.preventDefault()) : (this._mouseDistanceMet(t) && this._mouseDelayMet(t) && (this._mouseStarted = this._mouseStart(this._mouseDownEvent, t) !== !1, this._mouseStarted ? this._mouseDrag(t) : this._mouseUp(t)), !this._mouseStarted)
-        },_mouseUp: function(t) {
-            return e(document).unbind("mousemove." + this.widgetName, this._mouseMoveDelegate).unbind("mouseup." + this.widgetName, this._mouseUpDelegate), this._mouseStarted && (this._mouseStarted = !1, t.target === this._mouseDownEvent.target && e.data(t.target, this.widgetName + ".preventClickEvent", !0), this._mouseStop(t)), !1
-        },_mouseDistanceMet: function(e) {
-            return Math.max(Math.abs(this._mouseDownEvent.pageX - e.pageX), Math.abs(this._mouseDownEvent.pageY - e.pageY)) >= this.options.distance
-        },_mouseDelayMet: function() {
-            return this.mouseDelayMet
-        },_mouseStart: function() {
-        },_mouseDrag: function() {
-        },_mouseStop: function() {
-        },_mouseCapture: function() {
-            return !0
-        }})
-}(jQuery), function(e, t) {
-    var n = 5;
-    e.widget("ui.slider", e.ui.mouse, {version: "1.10.3",widgetEventPrefix: "slide",options: {animate: !1,distance: 0,max: 100,min: 0,orientation: "horizontal",range: !1,step: 1,value: 0,values: null,change: null,slide: null,start: null,stop: null},_create: function() {
-            this._keySliding = !1, this._mouseSliding = !1, this._animateOff = !0, this._handleIndex = null, this._detectOrientation(), this._mouseInit(), this.element.addClass("ui-slider ui-slider-" + this.orientation + " ui-widget" + " ui-widget-content" + " ui-corner-all"), this._refresh(), this._setOption("disabled", this.options.disabled), this._animateOff = !1
-        },_refresh: function() {
-            this._createRange(), this._createHandles(), this._setupEvents(), this._refreshValue()
-        },_createHandles: function() {
-            var t, n, r = this.options, i = this.element.find(".ui-slider-handle").addClass("ui-state-default ui-corner-all"), s = "<a class='ui-slider-handle ui-state-default ui-corner-all' href='#'></a>", o = [];
-            n = r.values && r.values.length || 1, i.length > n && (i.slice(n).remove(), i = i.slice(0, n));
-            for (t = i.length; t < n; t++)
-                o.push(s);
-            this.handles = i.add(e(o.join("")).appendTo(this.element)), this.handle = this.handles.eq(0), this.handles.each(function(t) {
-                e(this).data("ui-slider-handle-index", t)
-            })
-        },_createRange: function() {
-            var t = this.options, n = "";
-            t.range ? (t.range === !0 && (t.values ? t.values.length && t.values.length !== 2 ? t.values = [t.values[0], t.values[0]] : e.isArray(t.values) && (t.values = t.values.slice(0)) : t.values = [this._valueMin(), this._valueMin()]), !this.range || !this.range.length ? (this.range = e("<div></div>").appendTo(this.element), n = "ui-slider-range ui-widget-header ui-corner-all") : this.range.removeClass("ui-slider-range-min ui-slider-range-max").css({left: "",bottom: ""}), this.range.addClass(n + (t.range === "min" || t.range === "max" ? " ui-slider-range-" + t.range : ""))) : this.range = e([])
-        },_setupEvents: function() {
-            var e = this.handles.add(this.range).filter("a");
-            this._off(e), this._on(e, this._handleEvents), this._hoverable(e), this._focusable(e)
-        },_destroy: function() {
-            this.handles.remove(), this.range.remove(), this.element.removeClass("ui-slider ui-slider-horizontal ui-slider-vertical ui-widget ui-widget-content ui-corner-all"), this._mouseDestroy()
-        },_mouseCapture: function(t) {
-            var n, r, i, s, o, u, a, f, l = this, c = this.options;
-            return c.disabled ? !1 : (this.elementSize = {width: this.element.outerWidth(),height: this.element.outerHeight()}, this.elementOffset = this.element.offset(), n = {x: t.pageX,y: t.pageY}, r = this._normValueFromMouse(n), i = this._valueMax() - this._valueMin() + 1, this.handles.each(function(t) {
-                var n = Math.abs(r - l.values(t));
-                if (i > n || i === n && (t === l._lastChangedValue || l.values(t) === c.min))
-                    i = n, s = e(this), o = t
-            }), u = this._start(t, o), u === !1 ? !1 : (this._mouseSliding = !0, this._handleIndex = o, s.addClass("ui-state-active").focus(), a = s.offset(), f = !e(t.target).parents().addBack().is(".ui-slider-handle"), this._clickOffset = f ? {left: 0,top: 0} : {left: t.pageX - a.left - s.width() / 2,top: t.pageY - a.top - s.height() / 2 - (parseInt(s.css("borderTopWidth"), 10) || 0) - (parseInt(s.css("borderBottomWidth"), 10) || 0) + (parseInt(s.css("marginTop"), 10) || 0)}, this.handles.hasClass("ui-state-hover") || this._slide(t, o, r), this._animateOff = !0, !0))
-        },_mouseStart: function() {
-            return !0
-        },_mouseDrag: function(e) {
-            var t = {x: e.pageX,y: e.pageY}, n = this._normValueFromMouse(t);
-            return this._slide(e, this._handleIndex, n), !1
-        },_mouseStop: function(e) {
-            return this.handles.removeClass("ui-state-active"), this._mouseSliding = !1, this._stop(e, this._handleIndex), this._change(e, this._handleIndex), this._handleIndex = null, this._clickOffset = null, this._animateOff = !1, !1
-        },_detectOrientation: function() {
-            this.orientation = this.options.orientation === "vertical" ? "vertical" : "horizontal"
-        },_normValueFromMouse: function(e) {
-            var t, n, r, i, s;
-            return this.orientation === "horizontal" ? (t = this.elementSize.width, n = e.x - this.elementOffset.left - (this._clickOffset ? this._clickOffset.left : 0)) : (t = this.elementSize.height, n = e.y - this.elementOffset.top - (this._clickOffset ? this._clickOffset.top : 0)), r = n / t, r > 1 && (r = 1), r < 0 && (r = 0), this.orientation === "vertical" && (r = 1 - r), i = this._valueMax() - this._valueMin(), s = this._valueMin() + r * i, this._trimAlignValue(s)
-        },_start: function(e, t) {
-            var n = {handle: this.handles[t],value: this.value()};
-            return this.options.values && this.options.values.length && (n.value = this.values(t), n.values = this.values()), this._trigger("start", e, n)
-        },_slide: function(e, t, n) {
-            var r, i, s;
-            this.options.values && this.options.values.length ? (r = this.values(t ? 0 : 1), this.options.values.length === 2 && this.options.range === !0 && (t === 0 && n > r || t === 1 && n < r) && (n = r), n !== this.values(t) && (i = this.values(), i[t] = n, s = this._trigger("slide", e, {handle: this.handles[t],value: n,values: i}), r = this.values(t ? 0 : 1), s !== !1 && this.values(t, n, !0))) : n !== this.value() && (s = this._trigger("slide", e, {handle: this.handles[t],value: n}), s !== !1 && this.value(n))
-        },_stop: function(e, t) {
-            var n = {handle: this.handles[t],value: this.value()};
-            this.options.values && this.options.values.length && (n.value = this.values(t), n.values = this.values()), this._trigger("stop", e, n)
-        },_change: function(e, t) {
-            if (!this._keySliding && !this._mouseSliding) {
-                var n = {handle: this.handles[t],value: this.value()};
-                this.options.values && this.options.values.length && (n.value = this.values(t), n.values = this.values()), this._lastChangedValue = t, this._trigger("change", e, n)
-            }
-        },value: function(e) {
-            if (arguments.length) {
-                this.options.value = this._trimAlignValue(e), this._refreshValue(), this._change(null, 0);
-                return
-            }
-            return this._value()
-        },values: function(t, n) {
-            var r, i, s;
-            if (arguments.length > 1) {
-                this.options.values[t] = this._trimAlignValue(n), this._refreshValue(), this._change(null, t);
-                return
-            }
-            if (!arguments.length)
-                return this._values();
-            if (!e.isArray(arguments[0]))
-                return this.options.values && this.options.values.length ? this._values(t) : this.value();
-            r = this.options.values, i = arguments[0];
-            for (s = 0; s < r.length; s += 1)
-                r[s] = this._trimAlignValue(i[s]), this._change(null, s);
-            this._refreshValue()
-        },_setOption: function(t, n) {
-            var r, i = 0;
-            t === "range" && this.options.range === !0 && (n === "min" ? (this.options.value = this._values(0), this.options.values = null) : n === "max" && (this.options.value = this._values(this.options.values.length - 1), this.options.values = null)), e.isArray(this.options.values) && (i = this.options.values.length), e.Widget.prototype._setOption.apply(this, arguments);
-            switch (t) {
-                case "orientation":
-                    this._detectOrientation(), this.element.removeClass("ui-slider-horizontal ui-slider-vertical").addClass("ui-slider-" + this.orientation), this._refreshValue();
-                    break;
-                case "value":
-                    this._animateOff = !0, this._refreshValue(), this._change(null, 0), this._animateOff = !1;
-                    break;
-                case "values":
-                    this._animateOff = !0, this._refreshValue();
-                    for (r = 0; r < i; r += 1)
-                        this._change(null, r);
-                    this._animateOff = !1;
-                    break;
-                case "min":
-                case "max":
-                    this._animateOff = !0, this._refreshValue(), this._animateOff = !1;
-                    break;
-                case "range":
-                    this._animateOff = !0, this._refresh(), this._animateOff = !1
-            }
-        },_value: function() {
-            var e = this.options.value;
-            return e = this._trimAlignValue(e), e
-        },_values: function(e) {
-            var t, n, r;
-            if (arguments.length)
-                return t = this.options.values[e], t = this._trimAlignValue(t), t;
-            if (this.options.values && this.options.values.length) {
-                n = this.options.values.slice();
-                for (r = 0; r < n.length; r += 1)
-                    n[r] = this._trimAlignValue(n[r]);
-                return n
-            }
-            return []
-        },_trimAlignValue: function(e) {
-            if (e <= this._valueMin())
-                return this._valueMin();
-            if (e >= this._valueMax())
-                return this._valueMax();
-            var t = this.options.step > 0 ? this.options.step : 1, n = (e - this._valueMin()) % t, r = e - n;
-            return Math.abs(n) * 2 >= t && (r += n > 0 ? t : -t), parseFloat(r.toFixed(5))
-        },_valueMin: function() {
-            return this.options.min
-        },_valueMax: function() {
-            return this.options.max
-        },_refreshValue: function() {
-            var t, n, r, i, s, o = this.options.range, u = this.options, a = this, f = this._animateOff ? !1 : u.animate, l = {};
-            this.options.values && this.options.values.length ? this.handles.each(function(r) {
-                n = (a.values(r) - a._valueMin()) / (a._valueMax() - a._valueMin()) * 100, l[a.orientation === "horizontal" ? "left" : "bottom"] = n + "%", e(this).stop(1, 1)[f ? "animate" : "css"](l, u.animate), a.options.range === !0 && (a.orientation === "horizontal" ? (r === 0 && a.range.stop(1, 1)[f ? "animate" : "css"]({left: n + "%"}, u.animate), r === 1 && a.range[f ? "animate" : "css"]({width: n - t + "%"}, {queue: !1,duration: u.animate})) : (r === 0 && a.range.stop(1, 1)[f ? "animate" : "css"]({bottom: n + "%"}, u.animate), r === 1 && a.range[f ? "animate" : "css"]({height: n - t + "%"}, {queue: !1,duration: u.animate}))), t = n
-            }) : (r = this.value(), i = this._valueMin(), s = this._valueMax(), n = s !== i ? (r - i) / (s - i) * 100 : 0, l[this.orientation === "horizontal" ? "left" : "bottom"] = n + "%", this.handle.stop(1, 1)[f ? "animate" : "css"](l, u.animate), o === "min" && this.orientation === "horizontal" && this.range.stop(1, 1)[f ? "animate" : "css"]({width: n + "%"}, u.animate), o === "max" && this.orientation === "horizontal" && this.range[f ? "animate" : "css"]({width: 100 - n + "%"}, {queue: !1,duration: u.animate}), o === "min" && this.orientation === "vertical" && this.range.stop(1, 1)[f ? "animate" : "css"]({height: n + "%"}, u.animate), o === "max" && this.orientation === "vertical" && this.range[f ? "animate" : "css"]({height: 100 - n + "%"}, {queue: !1,duration: u.animate}))
-        },_handleEvents: {keydown: function(t) {
-                var r, i, s, o, u = e(t.target).data("ui-slider-handle-index");
-                switch (t.keyCode) {
-                    case e.ui.keyCode.HOME:
-                    case e.ui.keyCode.END:
-                    case e.ui.keyCode.PAGE_UP:
-                    case e.ui.keyCode.PAGE_DOWN:
-                    case e.ui.keyCode.UP:
-                    case e.ui.keyCode.RIGHT:
-                    case e.ui.keyCode.DOWN:
-                    case e.ui.keyCode.LEFT:
-                        t.preventDefault();
-                        if (!this._keySliding) {
-                            this._keySliding = !0, e(t.target).addClass("ui-state-active"), r = this._start(t, u);
-                            if (r === !1)
-                                return
-                        }
-                }
-                o = this.options.step, this.options.values && this.options.values.length ? i = s = this.values(u) : i = s = this.value();
-                switch (t.keyCode) {
-                    case e.ui.keyCode.HOME:
-                        s = this._valueMin();
-                        break;
-                    case e.ui.keyCode.END:
-                        s = this._valueMax();
-                        break;
-                    case e.ui.keyCode.PAGE_UP:
-                        s = this._trimAlignValue(i + (this._valueMax() - this._valueMin()) / n);
-                        break;
-                    case e.ui.keyCode.PAGE_DOWN:
-                        s = this._trimAlignValue(i - (this._valueMax() - this._valueMin()) / n);
-                        break;
-                    case e.ui.keyCode.UP:
-                    case e.ui.keyCode.RIGHT:
-                        if (i === this._valueMax())
-                            return;
-                        s = this._trimAlignValue(i + o);
-                        break;
-                    case e.ui.keyCode.DOWN:
-                    case e.ui.keyCode.LEFT:
-                        if (i === this._valueMin())
-                            return;
-                        s = this._trimAlignValue(i - o)
-                }
-                this._slide(t, u, s)
-            },click: function(e) {
-                e.preventDefault()
-            },keyup: function(t) {
-                var n = e(t.target).data("ui-slider-handle-index");
-                this._keySliding && (this._keySliding = !1, this._stop(t, n), this._change(t, n), e(t.target).removeClass("ui-state-active"))
-            }}})
-}(jQuery), !function(e) {
-    function t(e, t) {
-        if (!(e.originalEvent.touches.length > 1)) {
-            e.preventDefault();
-            var n = e.originalEvent.changedTouches[0], r = document.createEvent("MouseEvents");
-            r.initMouseEvent(t, !0, !0, window, 1, n.screenX, n.screenY, n.clientX, n.clientY, !1, !1, !1, !1, 0, null), e.target.dispatchEvent(r)
-        }
-    }
-    if (e.support.touch = "ontouchend" in document, e.support.touch) {
-        var n, r = e.ui.mouse.prototype, i = r._mouseInit, s = r._mouseDestroy;
-        r._touchStart = function(e) {
-            var r = this;
-            !n && r._mouseCapture(e.originalEvent.changedTouches[0]) && (n = !0, r._touchMoved = !1, t(e, "mouseover"), t(e, "mousemove"), t(e, "mousedown"))
-        }, r._touchMove = function(e) {
-            n && (this._touchMoved = !0, t(e, "mousemove"))
-        }, r._touchEnd = function(e) {
-            n && (t(e, "mouseup"), t(e, "mouseout"), this._touchMoved || t(e, "click"), n = !1)
-        }, r._mouseInit = function() {
-            var t = this;
-            t.element.bind({touchstart: e.proxy(t, "_touchStart"),touchmove: e.proxy(t, "_touchMove"),touchend: e.proxy(t, "_touchEnd")}), i.call(t)
-        }, r._mouseDestroy = function() {
-            var t = this;
-            t.element.unbind({touchstart: e.proxy(t, "_touchStart"),touchmove: e.proxy(t, "_touchMove"),touchend: e.proxy(t, "_touchEnd")}), s.call(t)
-        }
-    }
-}(jQuery);
+$.ZOZIApp={TRANSITION_SPEED:200,SLOW_TRANSITION_SPEED:500,openMenus:[],init:function(){$.ZOZIApp.mobile_menu_open();$.ZOZIApp.mobile_menu_close()},is_tablet:function(){return 1024>=$(window).width()},is_mobile:function(){return 768>=$(window).width()},is_small_screen:function(){return 480>=$(window).width()},mobile_menu_open:function(){},mobile_menu_close:function(){},dispatch_menu_close:function(){$(document).trigger({type:$.ZOZIEvents.MODAL_MENU_CLOSE,context:"Zozi-app"})},close_all_menus:function(){$(".modal-shade").fadeOut($.ZOZIApp.TRANSITION_SPEED);
+$(".modal-shade").off("click",$.ZOZIApp.dispatch_menu_close);$(window).off("resize",$.ZOZIApp.dispatch_menu_close)},add_flash_error:function(a){var d=$(".relative-flash"),f=$('<div id="flash_error" class="flash_message" style="overflow: hidden;"></div>');a=$('<p><a href="#" class="close_flash" title="close"></a>'+a+"</p>");f.append(a);d.html(f);$(".close_flash").on("click",function(a){f.slideUp().hide()});$(window).scrollTop("flashError")}};$(function(){$.ZOZIApp.init()});
+$.ZOZIEvents={MODAL_MENU_OPEN:"zozi-modal-menu-open",MODAL_MENU_CLOSE:"zozi-modal-menu-close",FILTER_SELECTED:"zozi-filter-selected",FILTER_UNSELECTED:"zozi-filter-unselected",ADD_ITEM_TO_CART:"zozi-add-item-to-cart",CART_QUANTITY_UPDATED:"zozi-cart-quantity-updated",CART_UPDATE_ERROR:"zozi-cart-update-error"};var _AvantMetrics=_AvantMetrics||[],AvantMetrics;
+this._AvantMetrics&&!this.AvantMetrics&&(AvantMetrics=function(){function a(a){return(a=(new RegExp("(^|;)[ ]*"+a+"=([^;]*)")).exec(b.cookie))?h(a[2]):"0"}function d(c){var h;h=g+"?url="+e(b.location.href)+"&ref=";var d=e,f,l="";try{l=top.document.referrer}catch(m){if(parent)try{l=parent.document.referrer}catch(fa){l=""}}f=(""===l&&(l=b.referrer),l);h=h+d(f)+"&name="+e(b.title)+"&avmws="+e(a("avmws"))+"&rand="+Math.random()+"&lib=1";"undefined"!=typeof c&&(h+="&data="+e(k(c)));c=document.createElement("script");
+c.type="text/javascript";c.async=!0;c.src=h;h=document.getElementsByTagName("script")[0];h.parentNode.insertBefore(c,h)}function f(){if(-1<a("avmws").indexOf("-hgco.1"))try{for(var e=b.getElementsByTagName("input"),c=e.length,h=0;h<c;h++)if("image"==e[h].type&&0==e[h].src.toLowerCase().indexOf("https://checkout.google.com")){e[h].style.visibility="hidden";break}}catch(d){}}var g=("https:"==document.location.protocol?"https://ssl":"http://www")+".avmws.com/1012513/",b=document,c=window,e=c.encodeURIComponent||
+escape,h=c.decodeURIComponent||unescape,k=function(a){function b(a){return h.lastIndex=0,h.test(a)?'"'+a.replace(h,function(a){var b=d[a];return"string"==typeof b?b:"\\u"+("0000"+a.charCodeAt(0).toString(16)).slice(-4)})+'"':'"'+a+'"'}function e(a){return 10>a?"0"+a:a}function c(a,h){var d,k,f,g=h[a];if(null===g)return"null";switch(typeof g){case "string":return b(g);case "number":return isFinite(g)?String(g):"null";case "boolean":case "null":return String(g);case "object":f=[];if(g instanceof Array){for(d=
+0;d<g.length;d++)f[d]=c(d,g)||"null";return k=0===f.length?"[]":"["+f.join(",")+"]",k}if(g instanceof Date)return b(g.getUTCFullYear()+"-"+e(g.getUTCMonth()+1)+"-"+e(g.getUTCDate())+"T"+e(g.getUTCHours())+":"+e(g.getUTCMinutes())+":"+e(g.getUTCSeconds())+"Z");for(d in g)(k=c(d,g))&&(f[f.length]=b(d)+":"+k);return k=0===f.length?"{}":"{"+f.join(",")+"}",k}}var h=RegExp('[\\"\x00-\u001f\u007f-\u00c3\u201a\u00c5\u00b8\u00c3\u201a\u00c2\u00ad\u00c3\u02dc\u00e2\u201a\u00ac-\u00c3\u02dc\u00e2\u20ac\u017e\u00c3\u0153\u00c2\u008f\u00c3\u00a1\u00c5\u00be\u00c2\u00b4\u00c3\u00a1\u00c5\u00be\u00c2\u00b5\u00c3\u00a2\u00e2\u201a\u00ac\u00c5\u2019-\u00c3\u00a2\u00e2\u201a\u00ac\u00c2\u008f\u2028-\u00c3\u00a2\u00e2\u201a\u00ac\u00c2\u00af\u00c3\u00a2\u00c2\u0081 -\u00c3\u00a2\u00c2\u0081\u00c2\u00af\u00c3\u00af\u00c2\u00bb\u00c2\u00bf\u00c3\u00af\u00c2\u00bf\u00c2\u00b0-\u00c3\u00af\u00c2\u00bf\u00c2\u00bf]',
+"g"),d={"\b":"\\b","\t":"\\t","\n":"\\n","\f":"\\f","\r":"\\r",'"':'\\"',"\\":"\\\\"};return c("",{"":a})},c=!1;try{f();for(var l in this._AvantMetrics)switch(this._AvantMetrics[l][0]){case "order":c=!0}c?d(this._AvantMetrics):/avad/.exec(document.location.href)&&d()}catch(m){}}());var libFuncName=null;
+if("undefined"==typeof jQuery&&"undefined"==typeof Zepto&&"function"==typeof $)libFuncName=$;else if("function"==typeof jQuery)libFuncName=jQuery;else{if("function"!=typeof Zepto)throw new TypeError;libFuncName=Zepto}
+(function(a){(function(){Array.prototype.filter||(Array.prototype.filter=function(a,f){if(null==this)throw new TypeError;var g=Object(this),b=g.length>>>0;if("function"!=typeof a)try{throw new TypeError;}catch(c){return}for(var e=[],h=0;h<b;h++)if(h in g){var k=g[h];a&&a.call(f,k,h,g)&&e.push(k)}return e},Function.prototype.bind||(Function.prototype.bind=function(a){if("function"!=typeof this)throw new TypeError("Function.prototype.bind - what is trying to be bound is not callable");var f=Array.prototype.slice.call(arguments,
+1),g=this,b=function(){},c=function(){return g.apply(this instanceof b&&a?this:a,f.concat(Array.prototype.slice.call(arguments)))};return b.prototype=this.prototype,c.prototype=new b,c}));a.fn.stop=a.fn.stop||function(){return this}})();(function(d,f,g){var b;try{b=Zepto}catch(c){b=jQuery}d.Foundation={name:"Foundation",version:"4.1.0",cache:{},init:function(b,c,d,f,g,p){d=[b,d,f,g];f=[];(p=p||!1)&&(this.nc=p);this.rtl=/rtl/i.test(a("html").attr("dir"));this.scope=b||this.scope;if(c&&"string"==typeof c){if(/off/i.test(c))return this.off();
+b=c.split(" ");if(0<b.length)for(p=b.length-1;0<=p;p--)f.push(this.init_lib(b[p],d))}else for(var s in this.libs)f.push(this.init_lib(s,d));return"function"==typeof c&&d.unshift(c),this.response_obj(f,d)},response_obj:function(a,b){try{for(var c in b)if("function"==typeof b[c])return b[c]({errors:a.filter(function(a){if("string"==typeof a)return a})})}catch(d){}return a},init_lib:function(a,b){return this.trap(function(){if(this.libs.hasOwnProperty(a))return this.patch(this.libs[a]),this.libs[a].init.apply(this.libs[a],
+b)}.bind(this),a)},trap:function(a,b){if(!this.nc)try{return a()}catch(c){return this.error({name:b,message:"could not be initialized",more:c.name+" "+c.message})}return a()},patch:function(a){this.fix_outer(a);a.scope=this.scope;a.rtl=this.rtl},inherit:function(a,b){for(var c=b.split(" "),d=c.length-1;0<=d;d--)this.lib_methods.hasOwnProperty(c[d])&&(this.libs[a.name][c[d]]=this.lib_methods[c[d]])},random_str:function(a){var b="0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz".split("");
+a||(a=Math.floor(Math.random()*b.length));for(var c="",d=0;d<a;d++)c+=b[Math.floor(Math.random()*b.length)];return c},libs:{},lib_methods:{set_data:function(a,b){var c=[this.name,+new Date,Foundation.random_str(5)].join("-");return Foundation.cache[c]=b,a.attr("data-"+this.name+"-id",c),b},get_data:function(a){return Foundation.cache[a.attr("data-"+this.name+"-id")]},remove_data:function(b){b?(delete Foundation.cache[b.attr("data-"+this.name+"-id")],b.attr("data-"+this.name+"-id","")):a("[data-"+
+this.name+"-id]").each(function(){delete Foundation.cache[a(this).attr("data-"+this.name+"-id")];a(this).attr("data-"+this.name+"-id","")})},throttle:function(a,b){var c=null;return function(){var d=this,f=arguments;clearTimeout(c);c=setTimeout(function(){a.apply(d,f)},b)}},data_options:function(b){function c(a){return!isNaN(a-0)&&null!==a&&""!==a&&!1!==a&&!0!==a}function d(b){return"string"==typeof b?a.trim(b):b}var f={},g,p=(b.attr("data-options")||":").split(";");for(b=p.length-1;0<=b;b--)g=p[b].split(":"),
+/true/i.test(g[1])&&(g[1]=!0),/false/i.test(g[1])&&(g[1]=!1),c(g[1])&&(g[1]=parseInt(g[1],10)),2===g.length&&0<g[0].length&&(f[d(g[0])]=d(g[1]));return f},delay:function(a,b){return setTimeout(a,b)},scrollTo:function(b,c,f){if(!(0>f)){var g=(c-a(d).scrollTop())/f*10;this.scrollToTimerCache=setTimeout(function(){isNaN(parseInt(g,10))||(d.scrollTo(0,a(d).scrollTop()+g),this.scrollTo(b,c,f-10))}.bind(this),10)}},scrollLeft:function(a){if(a.length)return"scrollLeft"in a[0]?a[0].scrollLeft:a[0].pageXOffset},
+empty:function(a){if(a.length&&0<a.length)return!1;if(a.length&&0===a.length)return!0;for(var b in a)if(hasOwnProperty.call(a,b))return!1;return!0}},fix_outer:function(a){a.outerHeight=function(a,b){return"function"==typeof Zepto?a.height():"undefined"!=typeof b?a.outerHeight(b):a.outerHeight()};a.outerWidth=function(a){return"function"==typeof Zepto?a.width():"undefined"!=typeof bool?a.outerWidth(bool):a.outerWidth()}},error:function(a){return a.name+" "+a.message+"; "+a.more},off:function(){return a(this.scope).off(".fndtn"),
+a(d).off(".fndtn"),!0},zj:b};a.fn.foundation=function(){var a=Array.prototype.slice.call(arguments,0);return this.each(function(){return Foundation.init.apply(Foundation,[this].concat(a)),this})}})(this,this.document)})(libFuncName);
+(function(a,d,f,g){Foundation.libs.alerts={name:"alerts",version:"4.0.0",settings:{speed:300,callback:function(){}},init:function(b,c,e){return this.scope=b||this.scope,"object"==typeof c&&a.extend(!0,this.settings,c),"string"!=typeof c?(this.settings.init||this.events(),this.settings.init):this[c].call(this,e)},events:function(){var b=this;a(this.scope).on("click.fndtn.alerts","[data-alert] a.close",function(c){c.preventDefault();a(this).closest("[data-alert]").fadeOut(b.speed,function(){a(this).remove();
+b.settings.callback()})});this.settings.init=!0},off:function(){a(this.scope).off(".fndtn.alerts")}}})(Foundation.zj,this,this.document);
+(function(a,d,f,g){Foundation.libs.clearing={name:"clearing",version:"4.1.0",settings:{templates:{viewing:'<a href="#" class="clearing-close">&times;</a><div class="visible-img" style="display: none"><img src="//:0"><p class="clearing-caption"></p><a href="#" class="clearing-main-prev"><span></span></a><a href="#" class="clearing-main-next"><span></span></a></div>'},close_selectors:".clearing-close",init:!1,locked:!1},init:function(b,c){return Foundation.inherit(this,"set_data get_data remove_data throttle"),
+"object"==typeof b&&(c=a.extend(!0,this.settings,b)),"string"!=typeof b?(a(this.scope).find("ul[data-clearing]").each(function(){var b=Foundation.libs.clearing,c=a(this),d=d||{};b.get_data(c)||(d.$parent=c.parent(),b.set_data(c,a.extend(!0,b.settings,d)),b.assemble(c.find("li")),b.settings.init||b.events().swipe_events())}),this.settings.init):this[b].call(this,c)},events:function(){var b=this;return a(this.scope).on("click.fndtn.clearing","ul[data-clearing] li",function(c,e,d){e=e||a(this);d=d||
+e;var f=b.get_data(e.parent());c.preventDefault();f||b.init();b.open(a(c.target),e,d);b.update_paddles(d)}).on("click.fndtn.clearing",".clearing-main-next",function(a){this.nav(a,"next")}.bind(this)).on("click.fndtn.clearing",".clearing-main-prev",function(a){this.nav(a,"prev")}.bind(this)).on("click.fndtn.clearing",this.settings.close_selectors,function(a){Foundation.libs.clearing.close(a,this)}).on("keydown.fndtn.clearing",function(a){this.keydown(a)}.bind(this)),a(d).on("resize.fndtn.clearing",
+function(a){this.resize()}.bind(this)),this.settings.init=!0,this},swipe_events:function(){var b=this;a(this.scope).on("touchstart.fndtn.clearing",".visible-img",function(b){b.touches||(b=b.originalEvent);var e={start_page_x:b.touches[0].pageX,start_page_y:b.touches[0].pageY,start_time:(new Date).getTime(),delta_x:0,is_scrolling:g};a(this).data("swipe-transition",e);b.stopPropagation()}).on("touchmove.fndtn.clearing",".visible-img",function(c){c.touches||(c=c.originalEvent);if(!(1<c.touches.length||
+c.scale&&1!==c.scale)){var e=a(this).data("swipe-transition");"undefined"==typeof e&&(e={});e.delta_x=c.touches[0].pageX-e.start_page_x;"undefined"==typeof e.is_scrolling&&(e.is_scrolling=!!(e.is_scrolling||Math.abs(e.delta_x)<Math.abs(c.touches[0].pageY-e.start_page_y)));if(!e.is_scrolling&&!e.active){c.preventDefault();var d=0>e.delta_x?"next":"prev";e.active=!0;b.nav(c,d)}}}).on("touchend.fndtn.clearing",".visible-img",function(b){a(this).data("swipe-transition",{});b.stopPropagation()})},assemble:function(a){var c=
+a.parent();a=this.get_data(c);c=c.detach();c='<div class="carousel">'+this.outerHTML(c[0])+"</div>";return a.$parent.append('<div class="clearing-assembled"><div>'+a.templates.viewing+c+"</div></div>")},open:function(a,c,e){var d=e.closest(".clearing-assembled"),f=d.find("div").first(),g=f.find(".visible-img"),m=g.find("img").not(a);this.locked()||(m.attr("src",this.load(a)),this.loaded(m,function(){d.addClass("clearing-blackout");f.addClass("clearing-container");g.show();this.fix_height(e).caption(g.find(".clearing-caption"),
+a).center(m).shift(c,e,function(){e.siblings().removeClass("visible");e.addClass("visible")})}.bind(this)))},close:function(b,c){b.preventDefault();var e;e=a(c);e=/blackout/.test(e.selector)?e:e.closest(".clearing-blackout");var d,f;return c===b.target&&e&&(d=e.find("div").first(),f=d.find(".visible-img"),this.settings.prev_index=0,e.find("ul[data-clearing]").attr("style","").closest(".clearing-blackout").removeClass("clearing-blackout"),d.removeClass("clearing-container"),f.hide()),!1},keydown:function(b){var c=
+a(".clearing-blackout").find("ul[data-clearing]");39===b.which&&this.go(c,"next");37===b.which&&this.go(c,"prev");27===b.which&&a("a.clearing-close").trigger("click")},nav:function(b,c){var e=a(".clearing-blackout").find("ul[data-clearing]");b.preventDefault();this.go(e,c)},resize:function(){var b=a(".clearing-blackout .visible-img").find("img");b.length&&this.center(b)},fix_height:function(b){b=b.parent().children();var c=this;return b.each(function(){var b=a(this),d=b.find("img");b.height()>c.outerHeight(d)&&
+b.addClass("fix-height")}).closest("ul").width(100*b.length+"%"),this},update_paddles:function(a){var c=a.closest(".carousel").siblings(".visible-img");a.next().length?c.find(".clearing-main-right").removeClass("disabled"):c.find(".clearing-main-right").addClass("disabled");a.prev().length?c.find(".clearing-main-prev").removeClass("disabled"):c.find(".clearing-main-prev").addClass("disabled")},center:function(a){return this.rtl?a.css({marginRight:-(this.outerWidth(a)/2),marginTop:-(this.outerHeight(a)/
+2)}):a.css({marginLeft:-(this.outerWidth(a)/2),marginTop:-(this.outerHeight(a)/2)}),this},load:function(a){var c=a.parent().attr("href");return this.preload(a),c?c:a.attr("src")},preload:function(a){this.img(a.closest("li").next()).img(a.closest("li").prev())},loaded:function(a,c){function e(){c()}function d(){this.one("load",e);if(/MSIE (\d+\.\d+);/.test(navigator.userAgent)){var a=this.attr("src"),b=a.match(/\?/)?"&":"?",b=b+("random="+(new Date).getTime());this.attr("src",a+b)}}a.attr("src")?a[0].complete||
+4===a[0].readyState?c():d.call(a):c()},img:function(a){if(a.length){var c=new Image,e=a.find("a");e.length?c.src=e.attr("href"):c.src=a.find("img").attr("src")}return this},caption:function(a,c){var e=c.data("caption");return e?a.text(e).show():a.text("").hide(),this},go:function(a,c){var e=a.find(".visible"),d=e[c]();d.length&&d.find("img").trigger("click",[e,d])},shift:function(a,c,e){var d=c.parent(),f=this.settings.prev_index||c.index();a=this.direction(d,a,c);var g=parseInt(d.css("left"),10),
+m=this.outerWidth(c),p;c.index()===f||/skip/.test(a)?/skip/.test(a)&&(p=c.index()-this.settings.up_count,this.lock(),0<p?d.animate({left:-(p*m)},300,this.unlock()):d.animate({left:0},300,this.unlock())):/left/.test(a)?(this.lock(),d.animate({left:g+m},300,this.unlock())):/right/.test(a)&&(this.lock(),d.animate({left:g-m},300,this.unlock()));e()},direction:function(b,c,e){b=b.find("li");c=this.outerWidth(b)+this.outerWidth(b)/4;c=Math.floor(this.outerWidth(a(".clearing-container"))/c)-1;e=b.index(e);
+var d;return this.settings.up_count=c,this.adjacent(this.settings.prev_index,e)?e>c&&e>this.settings.prev_index?d="right":e>c-1&&e<=this.settings.prev_index?d="left":d=!1:d="skip",this.settings.prev_index=e,d},adjacent:function(a,c){for(var e=c+1;e>=c-1;e--)if(e===a)return!0;return!1},lock:function(){this.settings.locked=!0},unlock:function(){this.settings.locked=!1},locked:function(){return this.settings.locked},outerHTML:function(a){return a.outerHTML||(new XMLSerializer).serializeToString(a)},
+off:function(){a(this.scope).off(".fndtn.clearing");a(d).off(".fndtn.clearing");this.remove_data();this.settings.init=!1}}})(Foundation.zj,this,this.document);
+(function(a,d,f){function g(a){return a}function b(a){return decodeURIComponent(a.replace(c," "))}var c=/\+/g,e=a.cookie=function(c,k,l){if(k!==f){l=a.extend({},e.defaults,l);null===k&&(l.expires=-1);if("number"==typeof l.expires){var m=l.expires,p=l.expires=new Date;p.setDate(p.getDate()+m)}return k=e.json?JSON.stringify(k):String(k),d.cookie=[encodeURIComponent(c),"=",e.raw?k:encodeURIComponent(k),l.expires?"; expires="+l.expires.toUTCString():"",l.path?"; path="+l.path:"",l.domain?"; domain="+
+l.domain:"",l.secure?"; secure":""].join("")}k=e.raw?g:b;l=d.cookie.split("; ");m=0;for(p=l.length;m<p;m++){var s=l[m].split("=");if(k(s.shift())===c)return c=k(s.join("=")),e.json?JSON.parse(c):c}return null};e.defaults={};a.removeCookie=function(b,c){return null!==a.cookie(b)?(a.cookie(b,null,c),!0):!1}})(Foundation.zj,document);
+(function(a,d,f,g){Foundation.libs.dropdown={name:"dropdown",version:"4.1.0",settings:{activeClass:"open"},init:function(b,c,e){return this.scope=b||this.scope,Foundation.inherit(this,"throttle scrollLeft"),"object"==typeof c&&a.extend(!0,this.settings,c),"string"!=typeof c?(this.settings.init||this.events(),this.settings.init):this[c].call(this,e)},events:function(){var b=this;a(this.scope).on("click.fndtn.dropdown","[data-dropdown]",function(c){c.preventDefault();c.stopPropagation();b.toggle(a(this))});
+a("*, html, body").on("click.fndtn.dropdown",function(c){a(c.target).data("dropdown")||a("[data-dropdown-content]").css(Foundation.rtl?"right":"left","-99999px").removeClass(b.settings.activeClass)});a(d).on("resize.fndtn.dropdown",b.throttle(function(){b.resize.call(b)},50)).trigger("resize");this.settings.init=!0},toggle:function(b,c){var e=a("#"+b.data("dropdown"));a("[data-dropdown-content]").not(e).css(Foundation.rtl?"right":"left","-99999px").removeClass(this.settings.activeClass);e.hasClass(this.settings.activeClass)?
+e.css(Foundation.rtl?"right":"left","-99999px").removeClass(this.settings.activeClass):this.css(e.addClass(this.settings.activeClass),b)},resize:function(){var b=a("[data-dropdown-content].open"),c=a("[data-dropdown='"+b.attr("id")+"']");b.length&&c.length&&this.css(b,c)},css:function(b,c){var e=c.position();e.top+=c.offsetParent().offset().top;e.left+=c.offsetParent().offset().left;if(this.small())b.css({position:"absolute",width:"95%",left:"2.5%","max-width":"none",top:e.top+this.outerHeight(c)});
+else{if(!Foundation.rtl&&a(d).width()>this.outerWidth(b)+c.offset().left)var f=e.left;else b.hasClass("right")||b.addClass("right"),f=e.left-(this.outerWidth(b)-this.outerWidth(c));b.attr("style","").css({position:"absolute",top:e.top+this.outerHeight(c),left:f})}return b},small:function(){return 768>a(d).width()||a("html").hasClass("lt-ie9")},off:function(){a(this.scope).off(".fndtn.dropdown");a("html, body").off(".fndtn.dropdown");a(d).off(".fndtn.dropdown");a("[data-dropdown-content]").off(".fndtn.dropdown");
+this.settings.init=!1}}})(Foundation.zj,this,this.document);
+(function(a,d,f,g){Foundation.libs.forms={name:"forms",version:"4.0.4",settings:{disable_class:"no-custom"},init:function(b,c,e){return this.scope=b||this.scope,"object"==typeof c&&a.extend(!0,this.settings,c),"string"!=typeof c?(this.settings.init||this.events(),this.assemble(),this.settings.init):this[c].call(this,e)},assemble:function(){a('form.custom input[type="radio"]',a(this.scope)).not('[data-customforms="disabled"]').each(this.append_custom_markup);a('form.custom input[type="checkbox"]',
+a(this.scope)).not('[data-customforms="disabled"]').each(this.append_custom_markup);a("form.custom select",a(this.scope)).not('[data-customforms="disabled"]').each(this.append_custom_select)},events:function(){var b=this;a(this.scope).on("click.fndtn.forms","form.custom span.custom.checkbox",function(c){c.preventDefault();c.stopPropagation();b.toggle_checkbox(a(this))}).on("click.fndtn.forms","form.custom span.custom.radio",function(c){c.preventDefault();c.stopPropagation();b.toggle_radio(a(this))}).on("change.fndtn.forms",
+'form.custom select:not([data-customforms="disabled"])',function(c){b.refresh_custom_select(a(this))}).on("click.fndtn.forms","form.custom label",function(c){var e=a("#"+b.escape(a(this).attr("for"))+':not([data-customforms="disabled"])'),d,f;0!==e.length&&("checkbox"===e.attr("type")?(c.preventDefault(),d=a(this).find("span.custom.checkbox"),0==d.length&&(d=e.add(this).siblings("span.custom.checkbox").first()),b.toggle_checkbox(d)):"radio"===e.attr("type")&&(c.preventDefault(),f=a(this).find("span.custom.radio"),
+0==f.length&&(f=e.add(this).siblings("span.custom.radio").first()),b.toggle_radio(f)))}).on("click.fndtn.forms","form.custom div.custom.dropdown a.current, form.custom div.custom.dropdown a.selector",function(c){var e=a(this).closest("div.custom.dropdown"),d=e.prev();e.hasClass("open")||a(b.scope).trigger("click");c.preventDefault();if(!1===d.is(":disabled"))return e.toggleClass("open"),e.hasClass("open")?a(b.scope).on("click.fndtn.forms.customdropdown",function(){e.removeClass("open");a(b.scope).off(".fndtn.forms.customdropdown")}):
+a(b.scope).on(".fndtn.forms.customdropdown"),!1}).on("click.fndtn.forms touchend.fndtn.forms","form.custom div.custom.dropdown li",function(b){var e=a(this),d=e.closest("div.custom.dropdown"),f=d.prev(),g=0;b.preventDefault();b.stopPropagation();a(this).hasClass("disabled")||(a("div.dropdown").not(d).removeClass("open"),b=e.closest("ul").find("li.selected"),b.removeClass("selected"),e.addClass("selected"),d.removeClass("open").find("a.current").html(e.html()),e.closest("ul").find("li").each(function(a){e[0]==
+this&&(g=a)}),f[0].selectedIndex=g,f.data("prevalue",b.html()),f.trigger("change"))});a(d).on("keydown",function(b){var e=a(".custom.dropdown.open");0<e.length&&(b.preventDefault(),13===b.which&&e.find("li.selected").trigger("click"),38===b.which?(b=e.find("li.selected"),e=b.prev(":not(.disabled)"),0<e.length&&(b.removeClass("selected"),e.addClass("selected"))):40===b.which&&(b=e.find("li.selected"),e=b.next(":not(.disabled)"),0<e.length&&(b.removeClass("selected"),e.addClass("selected"))))});this.settings.init=
+!0},append_custom_markup:function(b,c){var e=a(c).hide(),d=e.attr("type"),f=e.next("span.custom."+d);0===f.length&&(f=a('<span class="custom '+d+'"></span>').insertAfter(e));f.toggleClass("checked",e.is(":checked"));f.toggleClass("disabled",e.is(":disabled"))},append_custom_select:function(b,c){var e=Foundation.libs.forms,d=a(c),f=d.next("div.custom.dropdown"),g=f.find("ul");f.find(".current");f.find(".selector");var m=d.find("option"),p=m.filter(":selected"),s=d.attr("class")?d.attr("class").split(" "):
+[],D=0,A="",y,Y=!1;d.hasClass(e.settings.disable_class)||(0===f.length?(e=d.hasClass("small")?"small":d.hasClass("medium")?"medium":d.hasClass("large")?"large":d.hasClass("expand")?"expand":"",f=a('<div class="'+["custom","dropdown",e].concat(s).filter(function(a,b,c){return""==a?!1:c.indexOf(a)==b}).join(" ")+'"><a href="#" class="selector"></a><ul /></div>'),f.find(".selector"),g=f.find("ul"),A=m.map(function(){return"<li>"+a(this).html()+"</li>"}).get().join(""),g.append(A),Y=f.prepend('<a href="#" class="current">'+
+p.html()+"</a>").find(".current"),d.after(f).hide()):(A=m.map(function(){return"<li>"+a(this).html()+"</li>"}).get().join(""),g.html("").append(A)),f.toggleClass("disabled",d.is(":disabled")),y=g.find("li"),m.each(function(b){this.selected&&(y.eq(b).addClass("selected"),Y&&Y.html(a(this).html()));a(this).is(":disabled")&&y.eq(b).addClass("disabled")}),f.is(".small, .medium, .large, .expand")||(f.addClass("open"),e=Foundation.libs.forms,e.hidden_fix.adjust(g),D=e.outerWidth(y)>D?e.outerWidth(y):D,
+Foundation.libs.forms.hidden_fix.reset(),f.removeClass("open")))},refresh_custom_select:function(b){var c=this,e=0,d=b.next();b=b.find("option");d.find("ul").html("");b.each(function(){var b=a("<li>"+a(this).html()+"</li>");d.find("ul").append(b)});b.each(function(b){this.selected&&(d.find("li").eq(b).addClass("selected"),d.find(".current").html(a(this).html()));a(this).is(":disabled")&&d.find("li").eq(b).addClass("disabled")});d.removeAttr("style").find("ul").removeAttr("style");d.find("li").each(function(){d.addClass("open");
+c.outerWidth(a(this))>e&&(e=c.outerWidth(a(this)));d.removeClass("open")})},toggle_checkbox:function(a){var c=a.prev(),e=c[0];!1===c.is(":disabled")&&(e.checked=e.checked?!1:!0,a.toggleClass("checked"),c.trigger("change"))},toggle_radio:function(a){var c=a.prev(),e=c.closest("form.custom"),d=c[0];!1===c.is(":disabled")&&(e.find('input[type="radio"][name="'+this.escape(c.attr("name"))+'"]').next().not(a).removeClass("checked"),a.hasClass("checked")||a.toggleClass("checked"),d.checked=a.hasClass("checked"),
+c.trigger("change"))},escape:function(a){return a.replace(/[-[\]{}()*+?.,\\^$|#\s]/g,"\\$&")},hidden_fix:{tmp:[],hidden:null,adjust:function(b){var c=this;c.hidden=b.parents().andSelf().filter(":hidden");c.hidden.each(function(){var b=a(this);c.tmp.push(b.attr("style"));b.css({visibility:"hidden",display:"block"})})},reset:function(){var b=this;b.hidden.each(function(c){var e=a(this);c=b.tmp[c];c===g?e.removeAttr("style"):e.attr("style",c)});b.tmp=[];b.hidden=null}},off:function(){a(this.scope).off(".fndtn.forms")}}})(Foundation.zj,
+this,this.document);
+(function(a,d,f,g){Foundation.libs.joyride={name:"joyride",version:"4.0.0",defaults:{tipLocation:"bottom",nubPosition:"auto",scrollSpeed:300,timer:0,startTimerOnClick:!0,startOffset:0,nextButton:!0,tipAnimation:"fade",pauseAfter:[],tipAnimationFadeSpeed:300,cookieMonster:!1,cookieName:"joyride",cookieDomain:!1,cookieExpires:365,tipContainer:"body",postRideCallback:function(){},postStepCallback:function(){},template:{link:'<a href="#close" class="joyride-close-tip">&times;</a>',timer:'<div class="joyride-timer-indicator-wrap"><span class="joyride-timer-indicator"></span></div>',
+tip:'<div class="joyride-tip-guide"><span class="joyride-nub"></span></div>',wrapper:'<div class="joyride-content-wrapper"></div>',button:'<a href="#" class="small button joyride-next-tip"></a>'}},settings:{},init:function(b,c,e){return this.scope=b||this.scope,Foundation.inherit(this,"throttle data_options scrollTo scrollLeft delay"),"object"==typeof c?a.extend(!0,this.settings,this.defaults,c):a.extend(!0,this.settings,this.defaults,e),"string"!=typeof c?(this.settings.init||this.events(),this.settings.init):
+this[c].call(this,e)},events:function(){var b=this;a(this.scope).on("click.joyride",".joyride-next-tip, .joyride-modal-bg",function(a){a.preventDefault();1>this.settings.$li.next().length?this.end():0<this.settings.timer?(clearTimeout(this.settings.automate),this.hide(),this.show(),this.startTimer()):(this.hide(),this.show())}.bind(this)).on("click.joyride",".joyride-close-tip",function(a){a.preventDefault();this.end()}.bind(this));a(d).on("resize.fndtn.joyride",b.throttle(function(){0<a("[data-joyride]").length&&
+b.settings.$next_tip&&(b.is_phone()?b.pos_phone():b.pos_default(!1,!0))},100));this.settings.init=!0},start:function(){var b=this,c=a(this.scope).find("[data-joyride]"),e=["timer","scrollSpeed","startOffset","tipAnimationFadeSpeed","cookieExpires"],d=e.length;this.settings.init||this.init();this.settings.$content_el=c;this.settings.body_offset=a(this.settings.tipContainer).position();this.settings.$tip_content=this.settings.$content_el.find("> li");this.settings.paused=!1;this.settings.attempts=0;
+this.settings.tipLocationPatterns={top:["bottom"],bottom:[],left:["right","top","bottom"],right:["left","top","bottom"]};"function"!=typeof a.cookie&&(this.settings.cookieMonster=!1);if(!this.settings.cookieMonster||this.settings.cookieMonster&&null===a.cookie(this.settings.cookieName))this.settings.$tip_content.each(function(c){var f=a(this);a.extend(!0,b.settings,b.data_options(f));for(var g=d-1;0<=g;g--)b.settings[e[g]]=parseInt(b.settings[e[g]],10);b.create({$li:f,index:c})}),!this.settings.startTimerOnClick&&
+0<this.settings.timer?(this.show("init"),this.startTimer()):this.show("init")},resume:function(){this.set_li();this.show()},tip_template:function(b){var c,e;return b.tip_class=b.tip_class||"",c=a(this.settings.template.tip).addClass(b.tip_class),e=a.trim(a(b.li).html())+this.button_text(b.button_text)+this.settings.template.link+this.timer_instance(b.index),c.append(a(this.settings.template.wrapper)),c.first().attr("data-index",b.index),a(".joyride-content-wrapper",c).append(e),c[0]},timer_instance:function(b){var c;
+return 0===b&&this.settings.startTimerOnClick&&0<this.settings.timer||0===this.settings.timer?c="":c=this.outerHTML(a(this.settings.template.timer)[0]),c},button_text:function(b){return this.settings.nextButton?(b=a.trim(b)||"Next",b=this.outerHTML(a(this.settings.template.button).append(b)[0])):b="",b},create:function(b){var c=b.$li.attr("data-button")||b.$li.attr("data-text"),e=b.$li.attr("class");b=a(this.tip_template({tip_class:e,index:b.index,button_text:c,li:b.$li}));a(this.settings.tipContainer).append(b)},
+show:function(b){var c=null;this.settings.$li===g||-1===a.inArray(this.settings.$li.index(),this.settings.pauseAfter)?(this.settings.paused?this.settings.paused=!1:this.set_li(b),this.settings.attempts=0,this.settings.$li.length&&0<this.settings.$target.length?(this.settings.tipSettings=a.extend(this.settings,this.data_options(this.settings.$li)),this.settings.timer=parseInt(this.settings.timer,10),this.settings.tipSettings.tipLocationPattern=this.settings.tipLocationPatterns[this.settings.tipSettings.tipLocation],
+/body/i.test(this.settings.$target.selector)||this.scroll_to(),this.is_phone()?this.pos_phone(!0):this.pos_default(!0),c=this.settings.$next_tip.find(".joyride-timer-indicator"),/pop/i.test(this.settings.tipAnimation)?(c.width(0),0<thsi.settings.timer?(this.settings.$next_tip.show(),this.delay(function(){c.animate({width:c.parent().width()},this.settings.timer,"linear")}.bind(this),this.settings.tipAnimationFadeSpeed)):this.settings.$next_tip.show()):/fade/i.test(this.settings.tipAnimation)&&(c.width(0),
+0<this.settings.timer?(this.settings.$next_tip.fadeIn(this.settings.tipAnimationFadeSpeed).show(),this.delay(function(){c.animate({width:c.parent().width()},this.settings.timer,"linear")}.bind(this),this.settings.tipAnimationFadeSpeed)):this.settings.$next_tip.fadeIn(this.settings.tipAnimationFadeSpeed)),this.settings.$current_tip=this.settings.$next_tip):this.settings.$li&&1>this.settings.$target.length?this.show():this.end()):this.settings.paused=!0},is_phone:function(){return Modernizr?Modernizr.mq("only screen and (max-width: 767px)")||
+0<a(".lt-ie9").length:767>this.settings.$window.width()?!0:!1},hide:function(){this.settings.postStepCallback(this.settings.$li.index(),this.settings.$current_tip);a(".joyride-modal-bg").hide();this.settings.$current_tip.hide()},set_li:function(a){a?(this.settings.$li=this.settings.$tip_content.eq(this.settings.startOffset),this.set_next_tip(),this.settings.$current_tip=this.settings.$next_tip):(this.settings.$li=this.settings.$li.next(),this.set_next_tip());this.set_target()},set_next_tip:function(){this.settings.$next_tip=
+a(".joyride-tip-guide[data-index='"+this.settings.$li.index()+"']");this.settings.$next_tip.data("closed","")},set_target:function(){var b=this.settings.$li.attr("data-class"),c=this.settings.$li.attr("data-id");this.settings.$target=c?a(f.getElementById(c)):b?a("."+b).first():a("body")},scroll_to:function(){var b;b=a(d).height()/2;b=Math.ceil(this.settings.$target.offset().top-b+this.outerHeight(this.settings.$next_tip));0<b&&this.scrollTo(a("html, body"),b,this.settings.scrollSpeed)},paused:function(){return-1===
+a.inArray(this.settings.$li.index()+1,this.settings.pauseAfter)?!0:!1},restart:function(){this.hide();this.settings.$li=g;this.show("init")},pos_default:function(b,c){Math.ceil(a(d).height()/2);this.settings.$next_tip.offset();var e=this.settings.$next_tip.find(".joyride-nub"),f=Math.ceil(this.outerHeight(e)/2),g=b||!1;g&&(this.settings.$next_tip.css("visibility","hidden"),this.settings.$next_tip.show());if(/body/i.test(this.settings.$target.selector))this.settings.$li.length&&this.pos_modal(e);else{if(this.bottom()){var l=
+this.settings.$target.offset().left;Foundation.rtl&&(l=this.settings.$target.offset().width-this.settings.$next_tip.width()+l);this.settings.$next_tip.css({top:this.settings.$target.offset().top+f+this.outerHeight(this.settings.$target),left:l});this.nub_position(e,this.settings.tipSettings.nubPosition,"top")}else this.top()?(l=this.settings.$target.offset().left,Foundation.rtl&&(l=this.settings.$target.offset().width-this.settings.$next_tip.width()+l),this.settings.$next_tip.css({top:this.settings.$target.offset().top-
+this.outerHeight(this.settings.$next_tip)-f,left:l}),this.nub_position(e,this.settings.tipSettings.nubPosition,"bottom")):this.right()?(this.settings.$next_tip.css({top:this.settings.$target.offset().top,left:this.outerWidth(this.settings.$target)+this.settings.$target.offset().left}),this.nub_position(e,this.settings.tipSettings.nubPosition,"left")):this.left()&&(this.settings.$next_tip.css({top:this.settings.$target.offset().top,left:this.settings.$target.offset().left-this.outerWidth(this.settings.$next_tip)-
+f}),this.nub_position(e,this.settings.tipSettings.nubPosition,"right"));!this.visible(this.corners(this.settings.$next_tip))&&this.settings.attempts<this.settings.tipSettings.tipLocationPattern.length&&(e.removeClass("bottom").removeClass("top").removeClass("right").removeClass("left"),this.settings.tipSettings.tipLocation=this.settings.tipSettings.tipLocationPattern[this.settings.attempts],this.settings.attempts++,this.pos_default())}g&&(this.settings.$next_tip.hide(),this.settings.$next_tip.css("visibility",
+"visible"))},pos_phone:function(b){var c=this.outerHeight(this.settings.$next_tip);this.settings.$next_tip.offset();var e=this.outerHeight(this.settings.$target),d=a(".joyride-nub",this.settings.$next_tip),f=Math.ceil(this.outerHeight(d)/2);b=b||!1;d.removeClass("bottom").removeClass("top").removeClass("right").removeClass("left");b&&(this.settings.$next_tip.css("visibility","hidden"),this.settings.$next_tip.show());/body/i.test(this.settings.$target.selector)?this.settings.$li.length&&this.pos_modal(d):
+this.top()?(this.settings.$next_tip.offset({top:this.settings.$target.offset().top-c-f}),d.addClass("bottom")):(this.settings.$next_tip.offset({top:this.settings.$target.offset().top+e+f}),d.addClass("top"));b&&(this.settings.$next_tip.hide(),this.settings.$next_tip.css("visibility","visible"))},pos_modal:function(b){this.center();b.hide();this.settings.$next_tip.data("closed")||(1>a(".joyride-modal-bg").length&&a("body").append('<div class="joyride-modal-bg">').show(),/pop/i.test(this.settings.tipAnimation)?
+a(".joyride-modal-bg").show():a(".joyride-modal-bg").fadeIn(this.settings.tipAnimationFadeSpeed))},center:function(){var b=a(d);return this.settings.$next_tip.css({top:(b.height()-this.outerHeight(this.settings.$next_tip))/2+b.scrollTop(),left:(b.width()-this.outerWidth(this.settings.$next_tip))/2+this.scrollLeft(b)}),!0},bottom:function(){return/bottom/i.test(this.settings.tipSettings.tipLocation)},top:function(){return/top/i.test(this.settings.tipSettings.tipLocation)},right:function(){return/right/i.test(this.settings.tipSettings.tipLocation)},
+left:function(){return/left/i.test(this.settings.tipSettings.tipLocation)},corners:function(b){var c=a(d),e=c.width()+this.scrollLeft(c),f=c.width()+c.scrollTop();return[b.offset().top<=c.scrollTop(),e<=b.offset().left+this.outerWidth(b),f<=b.offset().top+this.outerHeight(b),this.scrollLeft(c)>=b.offset().left]},visible:function(a){for(var c=a.length;c--;)if(a[c])return!1;return!0},nub_position:function(a,c,e){"auto"===c?a.addClass(e):a.addClass(c)},startTimer:function(){this.settings.$li.length?
+this.settings.automate=setTimeout(function(){this.hide();this.show();this.startTimer()}.bind(this),this.settings.timer):clearTimeout(this.settings.automate)},end:function(){this.settings.cookieMonster&&a.cookie(this.settings.cookieName,"ridden",{expires:this.settings.cookieExpires,domain:this.settings.cookieDomain});0<this.settings.timer&&clearTimeout(this.settings.automate);this.settings.$next_tip.data("closed",!0);a(".joyride-modal-bg").hide();this.settings.$current_tip.hide();this.settings.postStepCallback(this.settings.$li.index(),
+this.settings.$current_tip);this.settings.postRideCallback(this.settings.$li.index(),this.settings.$current_tip)},outerHTML:function(a){return a.outerHTML||(new XMLSerializer).serializeToString(a)},off:function(){a(this.scope).off(".joyride");a(d).off(".joyride");a(".joyride-close-tip, .joyride-next-tip, .joyride-modal-bg").off(".joyride");a(".joyride-tip-guide, .joyride-modal-bg").remove();clearTimeout(this.settings.automate);this.settings={}}}})(Foundation.zj,this,this.document);
+(function(a,d,f,g){Foundation.libs.magellan={name:"magellan",version:"4.0.0",settings:{activeClass:"active"},init:function(b,c,e){return this.scope=b||this.scope,Foundation.inherit(this,"data_options"),"object"==typeof c&&a.extend(!0,this.settings,c),"string"!=typeof c?(this.settings.init||(this.fixed_magellan=a("[data-magellan-expedition]"),this.set_threshold(),this.last_destination=a("[data-magellan-destination]").last(),this.events()),this.settings.init):this[c].call(this,e)},events:function(){var b=
+this;a(this.scope).on("arrival.fndtn.magellan","[data-magellan-arrival]",function(c){c=a(this);var e=c.closest("[data-magellan-expedition]").attr("data-magellan-active-class")||b.settings.activeClass;c.closest("[data-magellan-expedition]").find("[data-magellan-arrival]").not(c).removeClass(e);c.addClass(e)});this.fixed_magellan.on("update-position.fndtn.magellan",function(){a(this)}).trigger("update-position");a(d).on("resize.fndtn.magellan",function(){this.fixed_magellan.trigger("update-position")}.bind(this)).on("scroll.fndtn.magellan",
+function(){var c=a(d).scrollTop();b.fixed_magellan.each(function(){var e=a(this);"undefined"==typeof e.data("magellan-top-offset")&&e.data("magellan-top-offset",e.offset().top);"undefined"==typeof e.data("magellan-fixed-position")&&e.data("magellan-fixed-position",!1);var d=c+b.settings.threshold>e.data("magellan-top-offset"),f=e.attr("data-magellan-top-offset");e.data("magellan-fixed-position")!=d&&(e.data("magellan-fixed-position",d),d?e.css({position:"fixed",top:0}):e.css({position:"",top:""}),
+d&&"undefined"!=typeof f&&0!=f&&e.css({position:"fixed",top:f+"px"}))})});0<this.last_destination.length&&a(d).on("scroll.fndtn.magellan",function(c){var e=a(d).scrollTop(),f=e+a(d).height(),g=Math.ceil(b.last_destination.offset().top);a("[data-magellan-destination]").each(function(){var c=a(this),d=c.attr("data-magellan-destination");c.offset().top-e<=b.settings.threshold&&a("[data-magellan-arrival='"+d+"']").trigger("arrival");f>=a(b.scope).height()&&g>e&&g<f&&a("[data-magellan-arrival]").last().trigger("arrival")})});
+this.settings.init=!0},set_threshold:function(){this.settings.threshold||(this.settings.threshold=0<this.fixed_magellan.length?this.outerHeight(this.fixed_magellan,!0):0)},off:function(){a(this.scope).off(".fndtn.magellan")}}})(Foundation.zj,this,this.document);
+(function(a,d,f,g){Foundation.libs=Foundation.libs||{};Foundation.libs.orbit={name:"orbit",version:"4.1.0",settings:{timer_speed:1E4,animation_speed:500,bullets:!0,stack_on_small:!0,container_class:"orbit-container",stack_on_small_class:"orbit-stack-on-small",next_class:"orbit-next",prev_class:"orbit-prev",timer_container_class:"orbit-timer",timer_paused_class:"paused",timer_progress_class:"orbit-progress",slides_container_class:"orbit-slides-container",bullets_container_class:"orbit-bullets",bullets_active_class:"active",
+slide_number_class:"orbit-slide-number",caption_class:"orbit-caption",active_slide_class:"active",orbit_transition_class:"orbit-transitioning"},init:function(b,c,e){var d=this;Foundation.inherit(d,"data_options");"object"==typeof c&&a.extend(!0,d.settings,c);a("[data-orbit]",b).each(function(b,c){a.extend(!0,{},d)._init(b,c)})},_container_html:function(){return'<div class="'+this.settings.container_class+'"></div>'},_bullets_container_html:function(b){var c=this,e=a('<ol class="'+c.settings.bullets_container_class+
+'"></ol>');return b.each(function(b,d){var f=a('<li data-orbit-slide-number="'+(b+1)+'" class=""></li>');0===b&&f.addClass(c.settings.bullets_active_class);e.append(f)}),e},_slide_number_html:function(b,c){var e=a('<div class="'+this.settings.slide_number_class+'"></div>');return e.append("<span>"+b+"</span> of <span>"+c+"</span>"),e},_timer_html:function(){return"number"==typeof this.settings.timer_speed&&0<this.settings.timer_speed?'<div class="'+this.settings.timer_container_class+'"><span></span><div class="'+
+this.settings.timer_progress_class+'"></div></div>':""},_next_html:function(){return'<a href="#" class="'+this.settings.next_class+'">Next <span></span></a>'},_prev_html:function(){return'<a href="#" class="'+this.settings.prev_class+'">Prev <span></span></a>'},_init:function(b,c){var e=a(c),d=e.wrap(this._container_html()).parent(),f=e.children();a.extend(!0,this.settings,this.data_options(e));d.append(this._prev_html());d.append(this._next_html());e.addClass(this.settings.slides_container_class);
+this.settings.stack_on_small&&d.addClass(this.settings.stack_on_small_class);d.append(this._slide_number_html(1,f.length));d.append(this._timer_html());this.settings.bullets&&d.after(this._bullets_container_html(f));e.append(f.first().clone().attr("data-orbit-slide",""));e.prepend(f.last().clone().attr("data-orbit-slide",""));e.css("marginLeft","-100%");f.first().addClass(this.settings.active_slide_class);this._init_events(e);this._init_dimensions(e);this._start_timer(e)},_init_events:function(b){var c=
+this,e=b.parent();a(d).on("load.fndtn.orbit",function(){b.height("");b.height(b.height(e.height()));b.trigger("orbit:ready")}).on("resize.fndtn.orbit",function(){b.height("");b.height(b.height(e.height()))});a(f).on("click.fndtn.orbit","[data-orbit-link]",function(e){e.preventDefault();e=a(e.currentTarget).attr("data-orbit-link");e=b.find("[data-orbit-slide="+e+"]").first();1===e.length&&(c._reset_timer(b,!0),c._goto(b,e.index(),function(){}))});e.siblings("."+c.settings.bullets_container_class).on("click.fndtn.orbit",
+"[data-orbit-slide-number]",function(e){e.preventDefault();c._reset_timer(b,!0);c._goto(b,a(e.currentTarget).data("orbit-slide-number"),function(){})});e.on("orbit:after-slide-change.fndtn.orbit",function(a,b){var d=e.find("."+c.settings.slide_number_class);1===d.length&&d.replaceWith(c._slide_number_html(b.slide_number,b.total_slides))}).on("orbit:next-slide.fndtn.orbit click.fndtn.orbit","."+c.settings.next_class,function(a){a.preventDefault();c._reset_timer(b,!0);c._goto(b,"next",function(){})}).on("orbit:prev-slide.fndtn.orbit click.fndtn.orbit",
+"."+c.settings.prev_class,function(a){a.preventDefault();c._reset_timer(b,!0);c._goto(b,"prev",function(){})}).on("orbit:toggle-play-pause.fndtn.orbit click.fndtn.orbit touchstart.fndtn.orbit","."+c.settings.timer_container_class,function(b){b.preventDefault();b=a(b.currentTarget).toggleClass(c.settings.timer_paused_class);var e=b.closest("."+c.settings.container_class).find("."+c.settings.slides_container_class);b.hasClass(c.settings.timer_paused_class)?c._stop_timer(e):c._start_timer(e)}).on("touchstart.fndtn.orbit",
+function(a){a.touches||(a=a.originalEvent);var b={start_page_x:a.touches[0].pageX,start_page_y:a.touches[0].pageY,start_time:(new Date).getTime(),delta_x:0,is_scrolling:g};e.data("swipe-transition",b);a.stopPropagation()}).on("touchmove.fndtn.orbit",function(a){a.touches||(a=a.originalEvent);if(!(1<a.touches.length||a.scale&&1!==a.scale)){var d=e.data("swipe-transition");"undefined"==typeof d&&(d={});d.delta_x=a.touches[0].pageX-d.start_page_x;"undefined"==typeof d.is_scrolling&&(d.is_scrolling=!!(d.is_scrolling||
+Math.abs(d.delta_x)<Math.abs(a.touches[0].pageY-d.start_page_y)));d.is_scrolling||d.active||(a.preventDefault(),c._stop_timer(b),a=0>d.delta_x?"next":"prev",d.active=!0,c._goto(b,a,function(){}))}}).on("touchend.fndtn.orbit",function(a){e.data("swipe-transition",{});a.stopPropagation()})},_init_dimensions:function(a){var c=a.parent(),e=a.children();a.css("width",100*e.length+"%");e.css("width",100/e.length+"%");a.height(c.height());a.css("width",100*e.length+"%")},_start_timer:function(a){var c=this,
+e=a.parent().find("."+c.settings.timer_container_class),d=e.find("."+c.settings.timer_progress_class),e=d.width()/e.width();d.animate({width:"100%"},c.settings.timer_speed-e*c.settings.timer_speed,"linear",function(){c._reset_timer(a,!1);c._goto(a,"next",function(){c._start_timer(a)})});a.trigger("orbit:timer-started")},_stop_timer:function(a){var c=a.parent(),e=c.find("."+this.settings.timer_container_class),e=e.find("."+this.settings.timer_progress_class).width()/e.width();this._rebuild_timer(c,
+100*e+"%");a.trigger("orbit:timer-stopped");e=c.find("."+this.settings.timer_container_class);e.addClass(this.settings.timer_paused_class)},_reset_timer:function(a,c){var e=a.parent();this._rebuild_timer(e,"0%");"boolean"==typeof c&&c&&e.find("."+this.settings.timer_container_class).addClass(this.settings.timer_paused_class)},_rebuild_timer:function(b,c){var e=b.find("."+this.settings.timer_container_class),d=a(this._timer_html()),f=d.find("."+this.settings.timer_progress_class);"function"==typeof Zepto?
+(e.remove(),b.append(d),f.css("width",c)):"function"==typeof jQuery&&(e=e.find("."+this.settings.timer_progress_class),e.css("width",c),e.stop())},_goto:function(b,c,e){var d=this,f=b.parent(),g=b.children(),m=b.find("."+d.settings.active_slide_class),p=m.index(),s=Foundation.rtl?"marginRight":"marginLeft";if(f.hasClass(d.settings.orbit_transition_class))return!1;"prev"===c?0===p?p=g.length-1:p--:"next"===c?p=(p+1)%g.length:"number"==typeof c&&(p=c%g.length);p===g.length-1&&"next"===c?(b.css(s,"0%"),
+p=1):0===p&&"prev"===c&&(b.css(s,"-"+100*(g.length-1)+"%"),p=g.length-2);f.addClass(d.settings.orbit_transition_class);m.removeClass(d.settings.active_slide_class);a(g[p]).addClass(d.settings.active_slide_class);c=f.siblings("."+d.settings.bullets_container_class);1===c.length&&(c.children().removeClass(d.settings.bullets_active_class),a(c.children()[p-1]).addClass(d.settings.bullets_active_class));c="-"+100*p+"%";b.trigger("orbit:before-slide-change");b.css(s)===c?(f.removeClass(d.settings.orbit_transition_class),
+b.trigger("orbit:after-slide-change",[{slide_number:p,total_slides:b.children().length-2}]),e()):(g={},g[s]=c,b.animate(g,d.settings.animation_speed,"linear",function(){f.removeClass(d.settings.orbit_transition_class);b.trigger("orbit:after-slide-change",[{slide_number:p,total_slides:b.children().length-2}]);e()}))}}})(Foundation.zj,this,this.document);
+(function(a,d,f){function g(a){var b={},c=/^jQuery\d+$/;return f.each(a.attributes,function(a,e){e.specified&&!c.test(e.name)&&(b[e.name]=e.value)}),b}function b(a,b){var c=f(this);if(this.value==c.attr("placeholder")&&c.hasClass("placeholder"))if(c.data("placeholder-password")){c=c.hide().next().show().attr("id",c.removeAttr("id").data("placeholder-id"));if(!0===a)return c[0].value=b;c.focus()}else this.value="",c.removeClass("placeholder"),this==d.activeElement&&this.select()}function c(){var a,
+c=f(this),e=this.id;if(""==this.value){if("password"==this.type){if(!c.data("placeholder-textinput")){try{a=c.clone().attr({type:"text"})}catch(d){a=f("<input>").attr(f.extend(g(this),{type:"text"}))}a.removeAttr("name").data({"placeholder-password":!0,"placeholder-id":e}).bind("focus.placeholder",b);c.data({"placeholder-textinput":a,"placeholder-id":e}).before(a)}c=c.removeAttr("id").hide().prev().attr("id",e).show()}c.addClass("placeholder");c[0].value=c.attr("placeholder")}else c.removeClass("placeholder")}
+var e="placeholder"in d.createElement("input"),h="placeholder"in d.createElement("textarea"),k=f.fn,l=f.valHooks,m,p;e&&h?(p=k.placeholder=function(){return this},p.input=p.textarea=!0):(p=k.placeholder=function(){return this.filter((e?"textarea":":input")+"[placeholder]").not(".placeholder").bind({"focus.placeholder":b,"blur.placeholder":c}).data("placeholder-enabled",!0).trigger("blur.placeholder"),this},p.input=e,p.textarea=h,m={get:function(a){var b=f(a);return b.data("placeholder-enabled")&&
+b.hasClass("placeholder")?"":a.value},set:function(a,e){var g=f(a);return g.data("placeholder-enabled")?(""==e?(a.value=e,a!=d.activeElement&&c.call(a)):g.hasClass("placeholder")?b.call(a,!0,e)||(a.value=e):a.value=e,g):a.value=e}},e||(l.input=m),h||(l.textarea=m),f(function(){f(d).delegate("form","submit.placeholder",function(){var a=f(".placeholder",this).each(b);setTimeout(function(){a.each(c)},10)})}),f(a).bind("beforeunload.placeholder",function(){f(".placeholder").each(function(){this.value=
+""})}))})(this,document,Foundation.zj);
+(function(a,d,f,g){Foundation.libs.reveal={name:"reveal",version:"4.0.9",locked:!1,settings:{animation:"fadeAndPop",animationSpeed:250,closeOnBackgroundClick:!0,dismissModalClass:"close-reveal-modal",bgClass:"reveal-modal-bg",open:function(){},opened:function(){},close:function(){},closed:function(){},bg:a(".reveal-modal-bg"),css:{open:{opacity:0,visibility:"visible",display:"block"},close:{opacity:1,visibility:"hidden",display:"none"}}},init:function(b,c,e){return this.scope=b||this.scope,Foundation.inherit(this,
+"data_options delay"),"object"==typeof c&&a.extend(!0,this.settings,c),"string"!=typeof c?(this.events(),this.settings.init):this[c].call(this,e)},events:function(){var b=this;return a(this.scope).off(".fndtn.reveal").on("click.fndtn.reveal","[data-reveal-id]",function(c){c.preventDefault();b.locked||(b.locked=!0,b.open.call(b,a(this)))}).on("click.fndtn.reveal touchend.click.fndtn.reveal",this.close_targets(),function(c){c.preventDefault();b.locked||(b.locked=!0,b.close.call(b,a(this).closest(".reveal-modal")))}).on("open.fndtn.reveal",
+".reveal-modal",this.settings.open).on("opened.fndtn.reveal",".reveal-modal",this.settings.opened).on("opened.fndtn.reveal",".reveal-modal",this.open_video).on("close.fndtn.reveal",".reveal-modal",this.settings.close).on("closed.fndtn.reveal",".reveal-modal",this.settings.closed).on("closed.fndtn.reveal",".reveal-modal",this.close_video),!0},open:function(b){b=b?a("#"+b.data("reveal-id")):a(this.scope);if(!b.hasClass("open")){var c=a(".reveal-modal.open");"undefined"==typeof b.data("css-top")&&b.data("css-top",
+parseInt(b.css("top"),10)).data("offset",this.cache_offset(b));b.trigger("open");1>c.length&&this.toggle_bg(b);this.hide(c,this.settings.css.open);this.show(b,this.settings.css.open)}},close:function(b){b=b||a(this.scope);var c=a(".reveal-modal.open");0<c.length&&(this.locked=!0,b.trigger("close"),this.toggle_bg(b),this.hide(c,this.settings.css.close))},close_targets:function(){var a="."+this.settings.dismissModalClass;return this.settings.closeOnBackgroundClick?a+", ."+this.settings.bgClass:a},toggle_bg:function(b){0===
+a(".reveal-modal-bg").length&&(this.settings.bg=a("<div />",{"class":this.settings.bgClass}).appendTo("body"));0<this.settings.bg.filter(":visible").length?this.hide(this.settings.bg):this.show(this.settings.bg)},show:function(b,c){if(c){if(/pop/i.test(this.settings.animation)){c.top=a(d).scrollTop()-b.data("offset")+"px";var e={top:a(d).scrollTop()+b.data("css-top")+"px",opacity:1};return this.delay(function(){return b.css(c).animate(e,this.settings.animationSpeed,"linear",function(){this.locked=
+!1;b.trigger("opened")}.bind(this)).addClass("open")}.bind(this),this.settings.animationSpeed/2)}return/fade/i.test(this.settings.animation)?(e={opacity:1},this.delay(function(){return b.css(c).animate(e,this.settings.animationSpeed,"linear",function(){this.locked=!1;b.trigger("opened")}.bind(this)).addClass("open")}.bind(this),this.settings.animationSpeed/2)):b.css(c).show().css({opacity:1}).addClass("open").trigger("opened")}return/fade/i.test(this.settings.animation)?b.fadeIn(this.settings.animationSpeed/
+2):b.show()},hide:function(b,c){if(c){if(/pop/i.test(this.settings.animation)){var e={top:-a(d).scrollTop()-b.data("offset")+"px",opacity:0};return this.delay(function(){return b.animate(e,this.settings.animationSpeed,"linear",function(){this.locked=!1;b.css(c).trigger("closed")}.bind(this)).removeClass("open")}.bind(this),this.settings.animationSpeed/2)}return/fade/i.test(this.settings.animation)?(e={opacity:0},this.delay(function(){return b.animate(e,this.settings.animationSpeed,"linear",function(){this.locked=
+!1;b.css(c).trigger("closed")}.bind(this)).removeClass("open")}.bind(this),this.settings.animationSpeed/2)):b.hide().css(c).removeClass("open").trigger("closed")}return/fade/i.test(this.settings.animation)?b.fadeOut(this.settings.animationSpeed/2):b.hide()},close_video:function(b){b=a(this).find(".flex-video");var c=b.find("iframe");0<c.length&&(c.attr("data-src",c[0].src),c.attr("src","about:blank"),b.fadeOut(100).hide())},open_video:function(b){b=a(this).find(".flex-video");var c=b.find("iframe");
+0<c.length&&("string"==typeof c.attr("data-src")&&(c[0].src=c.attr("data-src")),b.show().fadeIn(100))},cache_offset:function(a){var c=a.show().height()+parseInt(a.css("top"),10);return a.hide(),c},off:function(){a(this.scope).off(".fndtn.reveal")}}})(Foundation.zj,this,this.document);
+(function(a,d,f,g){Foundation.libs.section={name:"section",version:"4.1.1",settings:{deep_linking:!1,one_up:!0,callback:function(){}},init:function(a,c,e){return Foundation.inherit(this,"throttle data_options position_right offset_right"),"string"!=typeof c?(this.set_active_from_hash(),this.events(),!0):this[c].call(this,e)},events:function(){var b=this;a(this.scope).on("click.fndtn.section","[data-section] .title",function(c){a(this).closest("[data-section]");b.toggle_active.call(this,c,b)});a(d).on("resize.fndtn.section",
+b.throttle(function(){b.resize.call(this)},30)).on("hashchange",function(){b.settings.toggled||(b.set_active_from_hash(),a(this).trigger("resize"))}).trigger("resize");a(f).on("click.fndtn.section",function(b){1>a(b.target).closest(".title").length&&a('[data-section="vertical-nav"], [data-section="horizontal-nav"]').find("section, .section").removeClass("active").attr("style","")})},toggle_active:function(b,c){var e=a(this),d=e.closest("section, .section"),f=d.find(".content"),g=d.closest("[data-section]");
+c=Foundation.libs.section;var m=a.extend({},c.settings,c.data_options(g));c.settings.toggled=!0;!m.deep_linking&&0<f.length&&b.preventDefault();if(d.hasClass("active"))(c.small(g)||c.is_vertical(g)||c.is_horizontal(g)||c.is_accordion(g))&&d.removeClass("active").attr("style","");else{var f=null,p=c.outerHeight(d.find(".title"));if(c.small(g)||m.one_up)f=e.closest("[data-section]").find("section.active, .section.active"),c.small(g)?f.attr("style",""):f.attr("style","visibility: hidden; padding-top: "+
+p+"px;");c.small(g)?d.attr("style",""):d.css("padding-top",p);d.addClass("active");null!==f&&f.removeClass("active").attr("style","")}setTimeout(function(){c.settings.toggled=!1},300);m.callback()},resize:function(){var b=a("[data-section]"),c=Foundation.libs.section;b.each(function(){var b=a(this),d=b.find("section.active, .section.active");a.extend({},c.settings,c.data_options(b));if(1<d.length)d.not(":first").removeClass("active").attr("style","");else if(1>d.length&&!c.is_vertical(b)&&!c.is_horizontal(b)&&
+!c.is_accordion(b)){var f=b.find("section, .section").first();f.addClass("active");c.small(b)?f.attr("style",""):f.css("padding-top",c.outerHeight(f.find(".title")))}c.small(b)?d.attr("style",""):d.css("padding-top",c.outerHeight(d.find(".title")));c.position_titles(b);c.is_horizontal(b)&&!c.small(b)?c.position_content(b):c.position_content(b,!1)})},is_vertical:function(a){return/vertical-nav/i.test(a.data("section"))},is_horizontal:function(a){return/horizontal-nav/i.test(a.data("section"))},is_accordion:function(a){return/accordion/i.test(a.data("section"))},
+is_tabs:function(a){return/tabs/i.test(a.data("section"))},set_active_from_hash:function(){var b=d.location.hash.substring(1),c=this;a("[data-section]").each(function(){var e=a(this),d=a.extend({},c.settings,c.data_options(e));0<b.length&&d.deep_linking&&(e.find("section, .section").attr("style","").removeClass("active"),e.find('.content[data-slug="'+b+'"]').closest("section, .section").addClass("active"))})},position_titles:function(b,c){var e=b.find(".title"),d=0,f=this;"boolean"==typeof c?e.attr("style",
+""):e.each(function(){f.rtl?a(this).css("right",d):a(this).css("left",d);d+=f.outerWidth(a(this))})},position_content:function(b,c){var e=b.find(".title"),d=b.find(".content"),f=this;"boolean"==typeof c?(d.attr("style",""),b.attr("style","")):(b.find("section, .section").each(function(){var b=a(this).find(".title"),c=a(this).find(".content");f.rtl?c.css({right:f.position_right(b)+1,top:f.outerHeight(b)-2}):c.css({left:b.position().left-1,top:f.outerHeight(b)-2})}),"function"==typeof Zepto?b.height(this.outerHeight(e.first())):
+b.height(this.outerHeight(e.first())-2))},position_right:function(a){var c=a.closest("[data-section]"),e=a.closest("[data-section]").width(),c=c.find(".title").length;return e-a.position().left-a.width()*(a.index()+1)-c},reflow:function(){a("[data-section]").trigger("resize")},small:function(b){a.extend({},this.settings,this.data_options(b));return this.is_tabs(b)?!1:b&&this.is_accordion(b)?!0:a("html").hasClass("lt-ie9")?!0:a("html").hasClass("ie8compat")?!0:768>a(this.scope).width()},off:function(){a(this.scope).off(".fndtn.section");
+a(d).off(".fndtn.section");a(f).off(".fndtn.section")}}})(Foundation.zj,this,this.document);
+(function(a,d,f,g){Foundation.libs.tooltips={name:"tooltips",version:"4.1.0",settings:{selector:".has-tip",additionalInheritableClasses:[],tooltipClass:".tooltip",tipTemplate:function(a,c){return'<span data-selector="'+a+'" class="'+Foundation.libs.tooltips.settings.tooltipClass.substring(1)+'">'+c+'<span class="nub"></span></span>'}},cache:{},init:function(b,c,e){var d=this;this.scope=b||this.scope;"object"==typeof c&&a.extend(!0,this.settings,c);if("string"==typeof c)return this[c].call(this,e);
+Modernizr.touch?a(this.scope).on("click.fndtn.tooltip touchstart.fndtn.tooltip touchend.fndtn.tooltip","[data-tooltip]",function(b){b.preventDefault();a(d.settings.tooltipClass).hide();d.showOrCreateTip(a(this))}).on("click.fndtn.tooltip touchstart.fndtn.tooltip touchend.fndtn.tooltip",this.settings.tooltipClass,function(b){b.preventDefault();a(this).fadeOut(150)}):a(this.scope).on("mouseenter.fndtn.tooltip mouseleave.fndtn.tooltip","[data-tooltip]",function(b){var c=a(this);"mouseover"===b.type||
+"mouseenter"===b.type?d.showOrCreateTip(c):("mouseout"===b.type||"mouseleave"===b.type)&&d.hide(c)})},showOrCreateTip:function(a){var c=this.getTip(a);return c&&0<c.length?this.show(a):this.create(a)},getTip:function(b){b=this.selector(b);var c=null;return b&&(c=a("span[data-selector="+b+"]"+this.settings.tooltipClass)),"object"==typeof c?c:!1},selector:function(a){var c=a.attr("id"),e=a.attr("data-tooltip")||a.attr("data-selector");return(c&&1>c.length||!c)&&"string"!=typeof e&&(e="tooltip"+Math.random().toString(36).substring(7),
+a.attr("data-selector",e)),c&&0<c.length?c:e},create:function(b){var c=a(this.settings.tipTemplate(this.selector(b),a("<div>").html(b.attr("title")).html())),e=this.inheritable_classes(b);c.addClass(e).appendTo("body");Modernizr.touch&&c.append('<span class="tap-to-close">tap to close </span>');b.removeAttr("title").attr("title","");this.show(b)},reposition:function(b,c,e){var f,g,l,m;c.css("visibility","hidden").show();f=b.data("width");g=c.children(".nub");l=this.outerHeight(g);this.outerHeight(g);
+m=function(a,b,c,e,d,f){return a.css({top:b?b:"auto",bottom:e?e:"auto",left:d?d:"auto",right:c?c:"auto",width:f?f:"auto"}).end()};m(c,b.offset().top+this.outerHeight(b)+10,"auto","auto",b.offset().left,f);767>a(d).width()?(m(c,b.offset().top+this.outerHeight(b)+10,"auto","auto",12.5,a(this.scope).width()),c.addClass("tip-override"),m(g,-l,"auto","auto",b.offset().left)):(g=b.offset().left,Foundation.rtl&&(g=b.offset().left+b.offset().width-this.outerWidth(c)),m(c,b.offset().top+this.outerHeight(b)+
+10,"auto","auto",g,f),c.removeClass("tip-override"),e&&-1<e.indexOf("tip-top")?m(c,b.offset().top-this.outerHeight(c),"auto","auto",g,f).removeClass("tip-override"):e&&-1<e.indexOf("tip-left")?m(c,b.offset().top+this.outerHeight(b)/2-2.5*l,"auto","auto",b.offset().left-this.outerWidth(c)-l,f).removeClass("tip-override"):e&&-1<e.indexOf("tip-right")&&m(c,b.offset().top+this.outerHeight(b)/2-2.5*l,"auto","auto",b.offset().left+this.outerWidth(b)+l,f).removeClass("tip-override"));c.css("visibility",
+"visible").hide()},inheritable_classes:function(b){var c=["tip-top","tip-left","tip-bottom","tip-right","noradius"].concat(this.settings.additionalInheritableClasses);b=(b=b.attr("class"))?a.map(b.split(" "),function(b,d){if(-1!==a.inArray(b,c))return b}).join(" "):"";return a.trim(b)},show:function(a){var c=this.getTip(a);this.reposition(a,c,a.attr("class"));c.fadeIn(150)},hide:function(a){this.getTip(a).fadeOut(150)},reload:function(){var b=a(this);return b.data("fndtn-tooltips")?b.foundationTooltips("destroy").foundationTooltips("init"):
+b.foundationTooltips("init")},off:function(){a(this.scope).off(".fndtn.tooltip");a(this.settings.tooltipClass).each(function(b){a("[data-tooltip]").get(b).attr("title",a(this).text())}).remove()}}})(Foundation.zj,this,this.document);
+(function(a,d,f,g){Foundation.libs.topbar={name:"topbar",version:"4.1.0",settings:{index:0,stickyClass:"sticky",custom_back_text:!0,back_text:"Back",init:!1},init:function(b,c){var e=this;return"object"==typeof b&&a.extend(!0,this.settings,b),"string"!=typeof b?(a(".top-bar").each(function(){e.settings.$w=a(d);e.settings.$topbar=a(this);e.settings.$section=e.settings.$topbar.find("section");e.settings.$titlebar=e.settings.$topbar.children("ul").first();e.settings.$topbar.data("index",0);var b=a("<div class='top-bar-js-breakpoint'/>").insertAfter(e.settings.$topbar);
+e.settings.breakPoint=b.width();b.remove();e.assemble();e.settings.$topbar.parent().hasClass("fixed")&&a("body").css("padding-top",e.outerHeight(e.settings.$topbar))}),e.settings.init||this.events(),this.settings.init):this[b].call(this,c)},events:function(){var b=this,c=this.outerHeight(a(".top-bar"));a(this.scope).on("click.fndtn.topbar",".top-bar .toggle-topbar",function(e){var f=a(this).closest(".top-bar"),g=f.find("section, .section");f.children("ul").first();f.data("height")||b.largestUL();
+e.preventDefault();b.breakpoint()&&f.toggleClass("expanded").css("min-height","");f.hasClass("expanded")||(b.rtl?(g.css({right:"0%"}),g.find(">.name").css({right:"100%"})):(g.css({left:"0%"}),g.find(">.name").css({left:"100%"})),g.find("li.moved").removeClass("moved"),f.data("index",0));f.parent().hasClass("fixed")?(f.parent().removeClass("fixed"),a("body").css("padding-top","0"),d.scrollTo(0,0)):f.hasClass("fixed expanded")&&(f.parent().addClass("fixed"),a("body").css("padding-top",c))}).on("click.fndtn.topbar",
+".top-bar .has-dropdown>a",function(c){var d=a(this).closest(".top-bar"),f=d.find("section, .section"),g=d.children("ul").first();(Modernizr.touch||b.breakpoint())&&c.preventDefault();if(b.breakpoint()){c=a(this);var m=c.closest("li");d.data("index",d.data("index")+1);m.addClass("moved");b.rtl?(f.css({right:-(100*d.data("index"))+"%"}),f.find(">.name").css({right:100*d.data("index")+"%"})):(f.css({left:-(100*d.data("index"))+"%"}),f.find(">.name").css({left:100*d.data("index")+"%"}));c.siblings("ul").height(d.data("height")+
+b.outerHeight(g,!0));d.css("min-height",d.data("height")+2*b.outerHeight(g,!0))}});a(d).on("resize.fndtn.topbar",function(){b.breakpoint()||a(".top-bar").css("min-height","").removeClass("expanded")}.bind(this));a(this.scope).on("click.fndtn",".top-bar .has-dropdown .back",function(c){c.preventDefault();c=a(this);var d=c.closest(".top-bar"),f=d.find("section, .section"),g=c.closest("li.moved");g.parent();d.data("index",d.data("index")-1);b.rtl?(f.css({right:-(100*d.data("index"))+"%"}),f.find(">.name").css({right:100*
+d.data("index")+"%"})):(f.css({left:-(100*d.data("index"))+"%"}),f.find(">.name").css({left:100*d.data("index")+"%"}));0===d.data("index")&&d.css("min-height",0);setTimeout(function(){g.removeClass("moved")},300)})},breakpoint:function(){return a(d).width()<=this.settings.breakPoint||a("html").hasClass("lt-ie9")},assemble:function(){var b=this;this.settings.$section.detach();this.settings.$section.find(".has-dropdown>a").each(function(){var c=a(this),d=c.siblings(".dropdown"),f=a('<li class="title back js-generated"><h5><a href="#"></a></h5></li>');
+1==b.settings.custom_back_text?f.find("h5>a").html("&laquo; "+b.settings.back_text):f.find("h5>a").html("&laquo; "+c.html());d.prepend(f)});this.settings.$section.appendTo(this.settings.$topbar);this.sticky()},largestUL:function(){var b=this.settings.$topbar.find("section ul ul"),c=b.first(),d=0,f=this;b.each(function(){a(this).children("li").length>c.children("li").length&&(c=a(this))});c.children("li").each(function(){d+=f.outerHeight(a(this),!0)});this.settings.$topbar.data("height",d)},sticky:function(){var b=
+"."+this.settings.stickyClass;if(0<a(b).length){var c=a(b).length?a(b).offset().top:0,e=a(d),f=this.outerHeight(a(".top-bar"));e.scroll(function(){e.scrollTop()>=c?(a(b).addClass("fixed"),a("body").css("padding-top",f)):e.scrollTop()<c&&(a(b).removeClass("fixed"),a("body").css("padding-top","0"))})}},off:function(){a(this.scope).off(".fndtn.topbar");a(d).off(".fndtn.topbar")}}})(Foundation.zj,this,this.document);
+(function(a){a.fn.extend({customSelect:function(d){if("undefined"==typeof document.body.style.maxHeight)return this;d=a.extend({customClass:"customSelect",mapClass:!0,mapStyle:!0},d);var f=d.customClass,g=function(b,c){var d=b.find(":selected"),g=c.children(":first"),k=d.html()||"&nbsp;";g.html(k);d.attr("disabled")?c.addClass(f+"DisabledOption"):c.removeClass(f+"DisabledOption");setTimeout(function(){c.removeClass(f+"Open");a(document).off("mouseup."+(f+"Open"))},60)};return this.each(function(){var b=
+a(this),c=a("<span />").addClass(f+"Inner"),e=a("<span />");b.after(e.append(c));e.addClass(f);d.mapClass&&e.addClass(b.attr("class"));d.mapStyle&&e.attr("style",b.attr("style"));b.addClass("hasCustomSelect").on("update",function(){g(b,e);var a=parseInt(b.outerWidth(),10)-(parseInt(e.outerWidth(),10)-parseInt(e.width(),10));e.css({display:"inline-block"});var d=e.outerHeight();b.attr("disabled")?e.addClass(f+"Disabled"):e.removeClass(f+"Disabled");c.css({width:a,display:"inline-block"});b.css({"-webkit-appearance":"menulist-button",
+width:e.outerWidth(),position:"absolute",opacity:0,height:d,fontSize:e.css("font-size")})}).on("change",function(){e.addClass(f+"Changed");g(b,e)}).on("keyup",function(a){e.hasClass(f+"Open")?(13==a.which||27==a.which)&&g(b,e):(b.blur(),b.focus())}).on("mousedown",function(a){e.removeClass(f+"Changed")}).on("mouseup",function(c){e.hasClass(f+"Open")||(0<a("."+(f+"Open")).not(e).length&&"undefined"!=typeof InstallTrigger?b.focus():(e.addClass(f+"Open"),c.stopPropagation(),a(document).one("mouseup."+
+(f+"Open"),function(c){c.target!=b.get(0)&&0>a.inArray(c.target,b.find("*").get())?b.blur():g(b,e)})))}).focus(function(){e.removeClass(f+"Changed").addClass(f+"Focus")}).blur(function(){e.removeClass(f+"Focus "+(f+"Open"))}).hover(function(){e.addClass(f+"Hover")},function(){e.removeClass(f+"Hover")}).trigger("update")})}})})(jQuery);
+(function(a){a.fn.hoverIntent=function(d,f,g){var b={interval:100,sensitivity:7,timeout:0};"object"==typeof d?b=a.extend(b,d):a.isFunction(f)?b=a.extend(b,{over:d,out:f,selector:g}):b=a.extend(b,{over:d,out:d,selector:f});var c,e,h,k,l=function(a){c=a.pageX;e=a.pageY},m=function(d,f){f.hoverIntent_t=clearTimeout(f.hoverIntent_t);if(Math.abs(h-c)+Math.abs(k-e)<b.sensitivity)return a(f).off("mousemove.hoverIntent",l),f.hoverIntent_s=1,b.over.apply(f,[d]);h=c;k=e;f.hoverIntent_t=setTimeout(function(){m(d,
+f)},b.interval)};d=function(c){var d=jQuery.extend({},c),e=this;e.hoverIntent_t&&(e.hoverIntent_t=clearTimeout(e.hoverIntent_t));"mouseenter"==c.type?(h=d.pageX,k=d.pageY,a(e).on("mousemove.hoverIntent",l),1!=e.hoverIntent_s&&(e.hoverIntent_t=setTimeout(function(){m(d,e)},b.interval))):(a(e).off("mousemove.hoverIntent",l),1==e.hoverIntent_s&&(e.hoverIntent_t=setTimeout(function(){e.hoverIntent_t=clearTimeout(e.hoverIntent_t);e.hoverIntent_s=0;b.out.apply(e,[d])},b.timeout)))};return this.on({"mouseenter.hoverIntent":d,
+"mouseleave.hoverIntent":d},b.selector)}})(jQuery);$(document).foundation();$(document).foundation("reveal",{animationSpeed:150});
+(function(a,d){function f(b){a.extend(!0,La,b)}function g(f,g,ja){function G(){setTimeout(function(){!w.start&&a("body").is(":visible")&&t()},0)}function l(){return f.is(":visible")}function m(b){w&&b==w.name||(P++,w&&(z("viewDestroy",w,w,w.element),v(),w.triggerEventDestroy(),n(),w.element.remove(),Z.deactivateButton(w.name)),Z.activateButton(b),w=new va[b](a("<div class='fc-view fc-view-"+b+"' style='position:relative'/>").appendTo(H),q),t(),x(),P--)}function t(a){(!w.start||a||E<w.start||E>=w.end)&&
+l()&&p(a)}function p(a){P++;w.start&&(z("viewDestroy",w,w,w.element),v(),C());n();w.render(E,a||0);r();x();(w.afterRender||ka)();Z.updateTitle(w.title);a=new Date;a>=w.start&&a<w.end?Z.disableButton("today"):Z.enableButton("today");z("viewRender",w,w,w.element);w.trigger("viewDisplay",R);P--;!g.lazyFetching||B(w.visStart,w.visEnd)?L(w.visStart,w.visEnd):wa()}function Na(){l()&&(v(),C(),J(),r(),wa())}function J(){g.contentHeight?K=g.contentHeight:g.height?K=g.height-(aa?aa.height():0)-ba(H):K=Math.round(H.width()/
+Math.max(g.aspectRatio,.5))}function r(){K===d&&J();P++;w.setHeight(K);w.setWidth(H.width());P--;D=f.outerWidth()}function u(){if(!P)if(w.start){var a=++O;setTimeout(function(){a==O&&!P&&l()&&D!=(D=f.outerWidth())&&(P++,Na(),w.trigger("windowResize",R),P--)},200)}else G()}function Xa(a){C();wa(a)}function wa(a){l()&&(w.setEventData(I),w.renderEvents(I,a),w.trigger("eventAfterAllRender"))}function C(){w.triggerEventDestroy();w.clearEvents();w.clearEventData()}function v(){w&&w.unselect()}function n(){H.css({width:"100%",
+height:H.height(),overflow:"hidden"})}function x(){H.css({width:"",height:"",overflow:""})}function z(a,b){if(g[a])return g[a].apply(b||R,Array.prototype.slice.call(arguments,2))}var q=this;q.options=g;q.render=function(c){H?l()&&(J(),p(c)):(f.addClass("fc"),g.isRTL?f.addClass("fc-rtl"):f.addClass("fc-ltr"),g.theme&&f.addClass("ui-widget"),H=a("<div class='fc-content' style='position:relative'/>").prependTo(f),Z=new b(q,g),(aa=Z.render())&&f.prepend(aa),m(g.defaultView),g.handleWindowResize&&a(window).resize(u),
+a("body").is(":visible")||G())};q.destroy=function(){w&&(z("viewDestroy",w,w,w.element),w.triggerEventDestroy());a(window).unbind("resize",u);Z.destroy();H.remove();f.removeClass("fc fc-rtl ui-widget")};q.refetchEvents=function(){C();L(w.visStart,w.visEnd)};q.reportEvents=function(a){I=a;wa()};q.reportEventChange=function(a){Xa(a)};q.rerenderEvents=Xa;q.changeView=m;q.select=function(a,b,c){w.select(a,b,c===d?!0:c)};q.unselect=v;q.prev=function(){t(-1)};q.next=function(){t(1)};q.prevYear=function(){e(E,
+-1);t()};q.nextYear=function(){e(E,1);t()};q.today=function(){E=new Date;t()};q.gotoDate=function(a,b,c){a instanceof Date?E=s(a):y(E,a,b,c);t()};q.incrementDate=function(a,b,c){a!==d&&e(E,a);b!==d&&h(E,b);c!==d&&k(E,c);t()};q.formatDate=function(a,b){return W(a,b,g)};q.formatDates=function(a,b,c){return da(a,b,c,g)};q.getDate=function(){return s(E)};q.getView=function(){return w};q.option=function(a,b){if(b===d)return g[a];if("height"==a||"contentHeight"==a||"aspectRatio"==a)g[a]=b,Na()};q.trigger=
+z;c.call(q,g,ja);var B=q.isFetchNeeded,L=q.fetchEvents,R=f[0],Z,aa,H,w,D,K,O=0,P=0,E=new Date,I=[],U;y(E,g.year,g.month,g.date);g.droppable&&a(document).bind("dragstart",function(b,c){var d=b.target,e=a(d);if(!e.parents(".fc").length){var f=g.dropAccept;if(a.isFunction(f)?f.call(d,e):e.is(f))U=d,w.dragStart(U,b,c)}}).bind("dragstop",function(a,b){U&&(w.dragStop(U,a,b),U=null)})}function b(b,c){function d(e){var g=a("<td class='fc-header-"+e+"'/>");e=c.header[e];return e&&a.each(e.split(" "),function(d){0<
+d&&g.append("<span class='fc-header-space'/>");var e;a.each(this.split(","),function(d,k){if("title"==k)g.append("<span class='fc-header-title'><h2>&nbsp;</h2></span>"),e&&e.addClass(f+"-corner-right"),e=null;else{var ja;b[k]?ja=b[k]:va[k]&&(ja=function(){G.removeClass(f+"-state-hover");b.changeView(k)});if(ja){var h=c.theme?X(c.buttonIcons,k):null,l=X(c.buttonText,k),G=a("<span class='fc-button fc-button-"+k+" "+f+"-state-default'>"+(h?"<span class='fc-icon-wrap'><span class='ui-icon ui-icon-"+h+
+"'/></span>":l)+"</span>").click(function(){G.hasClass(f+"-state-disabled")||ja()}).mousedown(function(){G.not("."+f+"-state-active").not("."+f+"-state-disabled").addClass(f+"-state-down")}).mouseup(function(){G.removeClass(f+"-state-down")}).hover(function(){G.not("."+f+"-state-active").not("."+f+"-state-disabled").addClass(f+"-state-hover")},function(){G.removeClass(f+"-state-hover").removeClass(f+"-state-down")}).appendTo(g);Oa(G);e||G.addClass(f+"-corner-left");e=G}}});e&&e.addClass(f+"-corner-right")}),
+g}this.render=function(){f=c.theme?"ui":"fc";if(c.header)return e=a("<table class='fc-header' style='width:100%'/>").append(a("<tr/>").append(d("left")).append(d("center")).append(d("right"))),e};this.destroy=function(){e.remove()};this.updateTitle=function(a){e.find("h2").html(a)};this.activateButton=function(a){e.find("span.fc-button-"+a).addClass(f+"-state-active")};this.deactivateButton=function(a){e.find("span.fc-button-"+a).removeClass(f+"-state-active")};this.disableButton=function(a){e.find("span.fc-button-"+
+a).addClass(f+"-state-disabled")};this.enableButton=function(a){e.find("span.fc-button-"+a).removeClass(f+"-state-disabled")};var e=a([]),f}function c(b,c){function e(c,d){f(c,function(e){if(d==x){if(e){b.eventDataTransform&&(e=a.map(e,b.eventDataTransform));c.eventDataTransform&&(e=a.map(e,c.eventDataTransform));for(var f=0;f<e.length;f++)e[f].source=c,l(e[f]);B=B.concat(e)}z--;z||r(B)}})}function f(c,d){var e,g=T.sourceFetchers,x;for(e=0;e<g.length;e++){x=g[e](c,v,n,d);if(!0===x)return;if("object"==
+typeof x){f(x,d);return}}if(e=c.events)a.isFunction(e)?(k(),e(s(v),s(n),function(a){d(a);h()})):a.isArray(e)?d(e):d();else if(c.url){var ja=c.success,z=c.error,q=c.complete,ea;a.isFunction(c.data)?ea=c.data():ea=c.data;ea=a.extend({},ea||{});e=ra(c.startParam,b.startParam);g=ra(c.endParam,b.endParam);e&&(ea[e]=Math.round(+v/1E3));g&&(ea[g]=Math.round(+n/1E3));k();a.ajax(a.extend({},Pa,c,{data:ea,success:function(b){b=b||[];var c=Qa(ja,this,arguments);a.isArray(c)&&(b=c);d(b)},error:function(){Qa(z,
+this,arguments);d()},complete:function(){Qa(q,this,arguments);h()}}))}else d()}function g(b){a.isFunction(b)||a.isArray(b)?b={events:b}:"string"==typeof b&&(b={url:b});if("object"==typeof b){var c=b;c.className?"string"==typeof c.className&&(c.className=c.className.split(/\s+/)):c.className=[];for(var e=T.sourceNormalizers,d=0;d<e.length;d++)e[d](c);return C.push(b),b}}function k(){q++||p("loading",null,!0,J())}function h(){--q||p("loading",null,!1,J())}function l(a){var c=a.source||{},e=ra(c.ignoreTimezone,
+b.ignoreTimezone);a._id=a._id||(a.id===d?"_fc"+hb++:a.id+"");a.date&&(a.start||(a.start=a.date),delete a.date);a._start=s(a.start=Y(a.start,e));a.end=Y(a.end,e);a.end&&a.end<=a.start&&(a.end=null);a._end=a.end?s(a.end):null;a.allDay===d&&(a.allDay=ra(c.allDayDefault,b.allDayDefault));a.className?"string"==typeof a.className&&(a.className=a.className.split(/\s+/)):a.className=[]}function t(a,b){return a&&b&&m(a)==m(b)}function m(a){return("object"==typeof a?a.events||a.url:"")||a}this.isFetchNeeded=
+function(a,b){return!v||a<v||b>n};this.fetchEvents=function(a,b){v=a;n=b;B=[];var c=++x,d=C.length;z=d;for(var f=0;f<d;f++)e(C[f],c)};this.addEventSource=function(a){(a=g(a))&&(z++,e(a,x))};this.removeEventSource=function(b){C=a.grep(C,function(a){return!t(a,b)});B=a.grep(B,function(a){return!t(a.source,b)});r(B)};this.updateEvent=function(a){var b,c=B.length,e,d=J().defaultEventEnd,f=a.start-a._start,n=a.end?a.end-(a._end||d(a)):0;for(b=0;b<c;b++)e=B[b],e._id==a._id&&e!=a&&(e.start=new Date(+e.start+
+f),a.end?e.end?e.end=new Date(+e.end+n):e.end=new Date(+d(e)+n):e.end=null,e.title=a.title,e.url=a.url,e.allDay=a.allDay,e.className=a.className,e.editable=a.editable,e.color=a.color,e.backgroundColor=a.backgroundColor,e.borderColor=a.borderColor,e.textColor=a.textColor,l(e));l(a);r(B)};this.renderEvent=function(a,b){l(a);a.source||(b&&(ba.events.push(a),a.source=ba),B.push(a));r(B)};this.removeEvents=function(b){if(b){if(!a.isFunction(b)){var c=b+"";b=function(a){return a._id==c}}B=a.grep(B,b,!0);
+for(e=0;e<C.length;e++)a.isArray(C[e].events)&&(C[e].events=a.grep(C[e].events,b,!0))}else{B=[];for(var e=0;e<C.length;e++)a.isArray(C[e].events)&&(C[e].events=[])}r(B)};this.clientEvents=function(b){return a.isFunction(b)?a.grep(B,b):b?(b+="",a.grep(B,function(a){return a._id==b})):B};this.normalizeEvent=l;for(var p=this.trigger,J=this.getView,r=this.reportEvents,ba={events:[]},C=[ba],v,n,x=0,z=0,q=0,B=[],L=0;L<c.length;L++)g(c[L])}function e(a,b,c){return a.setFullYear(a.getFullYear()+b),c||p(a),
+a}function h(a,b,c){if(+a){b=a.getMonth()+b;var e=s(a);e.setDate(1);e.setMonth(b);a.setMonth(b);for(c||p(a);a.getMonth()!=e.getMonth();)a.setDate(a.getDate()+(a<e?1:-1))}return a}function k(a,b,c){if(+a){b=a.getDate()+b;var e=s(a);e.setHours(9);e.setDate(b);a.setDate(b);c||p(a);l(a,e)}return a}function l(a,b){if(+a)for(;a.getDate()!=b.getDate();)a.setTime(+a+(a<b?1:-1)*ib)}function m(a,b){return a.setMinutes(a.getMinutes()+b),a}function p(a){return a.setHours(0),a.setMinutes(0),a.setSeconds(0),a.setMilliseconds(0),
+a}function s(a,b){return b?p(new Date(+a)):new Date(+a)}function D(){var a=0,b;do b=new Date(1970,a++,1);while(b.getHours());return b}function A(a,b){return Math.round((s(a,!0)-s(b,!0))/jb)}function y(a,b,c,e){b!==d&&b!=a.getFullYear()&&(a.setDate(1),a.setMonth(0),a.setFullYear(b));c!==d&&c!=a.getMonth()&&(a.setDate(1),a.setMonth(c));e!==d&&a.setDate(e)}function Y(a,b){return"object"==typeof a?a:"number"==typeof a?new Date(1E3*a):"string"==typeof a?a.match(/^\d+(\.\d+)?$/)?new Date(1E3*parseFloat(a)):
+(b===d&&(b=!0),fa(a,b)||(a?new Date(a):null)):null}function fa(a,b){var c=a.match(/^([0-9]{4})(-([0-9]{2})(-([0-9]{2})([T ]([0-9]{2}):([0-9]{2})(:([0-9]{2})(\.([0-9]+))?)?(Z|(([-+])([0-9]{2})(:?([0-9]{2}))?))?)?)?)?$/);if(!c)return null;var e=new Date(c[1],0,1);if(b||!c[13]){var d=new Date(c[1],0,1,9,0);c[3]&&(e.setMonth(c[3]-1),d.setMonth(c[3]-1));c[5]&&(e.setDate(c[5]),d.setDate(c[5]));l(e,d);c[7]&&e.setHours(c[7]);c[8]&&e.setMinutes(c[8]);c[10]&&e.setSeconds(c[10]);c[12]&&e.setMilliseconds(1E3*
+Number("0."+c[12]));l(e,d)}else e.setUTCFullYear(c[1],c[3]?c[3]-1:0,c[5]||1),e.setUTCHours(c[7]||0,c[8]||0,c[10]||0,c[12]?1E3*Number("0."+c[12]):0),c[14]&&(d=60*Number(c[16])+(c[18]?Number(c[18]):0),d*="-"==c[15]?1:-1,e=new Date(+e+6E4*d));return e}function pa(a){if("number"==typeof a)return 60*a;if("object"==typeof a)return 60*a.getHours()+a.getMinutes();if(a=a.match(/(\d+)(?::(\d+))?\s*(\w+)?/)){var b=parseInt(a[1],10);return a[3]&&(b%=12,"p"==a[3].toLowerCase().charAt(0)&&(b+=12)),60*b+(a[2]?parseInt(a[2],
+10):0)}}function W(a,b,c){return da(a,null,b,c)}function da(a,b,c,e){e=e||La;var d=a,f=b,g,k=c.length,h,l,t,m="";for(g=0;g<k;g++)if(h=c.charAt(g),"'"==h)for(l=g+1;l<k;l++){if("'"==c.charAt(l)){d&&(l==g+1?m+="'":m+=c.substring(g+1,l),g=l);break}}else if("("==h)for(l=g+1;l<k;l++){if(")"==c.charAt(l)){g=W(d,c.substring(g+1,l),e);parseInt(g.replace(/\D/,""),10)&&(m+=g);g=l;break}}else if("["==h)for(l=g+1;l<k;l++){if("]"==c.charAt(l)){h=c.substring(g+1,l);g=W(d,h,e);g!=W(f,h,e)&&(m+=g);g=l;break}}else if("{"==
+h)d=b,f=a;else if("}"==h)d=a,f=b;else{for(l=k;l>g;l--)if(t=ab[c.substring(g,l)]){d&&(m+=t(d,e));g=l-1;break}l==g&&d&&(m+=h)}return m}function V(a){if(a.end){var b=a.end;a=a.allDay;a=(b=s(b),a||b.getHours()||b.getMinutes()?k(b,1):p(b))}else a=k(s(a.start),1);return a}function Aa(b,c,e){b.unbind("mouseover").mouseover(function(b){for(var f=b.target,g,k,ha;f!=this;)g=f,f=f.parentNode;(k=g._fci)!==d&&(g._fci=d,ha=c[k],e(ha.event,ha.element,ha),a(b.target).trigger(b));b.stopPropagation()})}function sa(b,
+c,e){for(var d=0,f;d<b.length;d++)f=a(b[d]),f.width(Math.max(0,c-J(f,e)))}function t(b,c,e){for(var d=0,f;d<b.length;d++)f=a(b[d]),f.height(Math.max(0,c-ba(f,e)))}function J(b,c){var e=(parseFloat(a.css(b[0],"paddingLeft",!0))||0)+(parseFloat(a.css(b[0],"paddingRight",!0))||0),d;d=(parseFloat(a.css(b[0],"borderLeftWidth",!0))||0)+(parseFloat(a.css(b[0],"borderRightWidth",!0))||0);e+=d;d=c?(parseFloat(a.css(b[0],"marginLeft",!0))||0)+(parseFloat(a.css(b[0],"marginRight",!0))||0):0;return e+d}function ba(b,
+c){var e;e=(parseFloat(a.css(b[0],"paddingTop",!0))||0)+(parseFloat(a.css(b[0],"paddingBottom",!0))||0);var d;d=(parseFloat(a.css(b[0],"borderTopWidth",!0))||0)+(parseFloat(a.css(b[0],"borderBottomWidth",!0))||0);e+=d;d=c?(parseFloat(a.css(b[0],"marginTop",!0))||0)+(parseFloat(a.css(b[0],"marginBottom",!0))||0):0;return e+d}function ka(){}function M(a,b){return a-b}function K(a){return(10>a?"0":"")+a}function X(a,b){if(a[b]!==d)return a[b];for(var c=b.split(/(?=[A-Z])/),e=c.length-1,f;0<=e;e--)if(f=
+a[c[e].toLowerCase()],f!==d)return f;return a[""]}function la(a){return a.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/'/g,"&#039;").replace(/"/g,"&quot;").replace(/\n/g,"<br />")}function Oa(a){a.attr("unselectable","on").css("MozUserSelect","none").bind("selectstart.ui",function(){return!1})}function ma(a){a.children().removeClass("fc-first fc-last").filter(":first-child").addClass("fc-first").end().filter(":last-child").addClass("fc-last")}function Ya(a,b){var c=a.source||
+{},e=a.color,d=c.color,f=b("eventColor"),g=a.backgroundColor||e||c.backgroundColor||d||b("eventBackgroundColor")||f,e=a.borderColor||e||c.borderColor||d||b("eventBorderColor")||f,c=a.textColor||c.textColor||b("eventTextColor"),d=[];return g&&d.push("background-color:"+g),e&&d.push("border-color:"+e),c&&d.push("color:"+c),d.join(";")}function Qa(b,c,e){a.isFunction(b)&&(b=[b]);if(b){var d,f;for(d=0;d<b.length;d++)f=b[d].apply(c,e)||f;return f}}function ra(){for(var a=0;a<arguments.length;a++)if(arguments[a]!==
+d)return arguments[a]}function Ra(b,c,e){function d(){var c=f();z&&z.remove();z=a(c).appendTo(b);q=z.find("thead");B=q.find(".fc-day-header");L=z.find("tbody");R=L.find("tr");Z=L.find(".fc-day");aa=R.find("td:first-child");H=R.eq(0).find(".fc-day > div");w=R.eq(0).find(".fc-day-content > div");ma(q.add(q.find("tr")));ma(R);R.eq(0).addClass("fc-first");R.filter(":last").addClass("fc-last");Z.each(function(b,c){var e=C(Math.floor(b/U),b%U);J("dayRender",m,e,a(c))});Z.click(g).mousedown(D)}function f(){var a=
+qa+"-widget-header",b,c,e;b="<thead><tr>";ga&&(b+="<th class='fc-week-number "+a+"'>"+la(na)+"</th>");for(c=0;c<U;c++)e=C(0,c),b+="<th class='fc-day-header fc-"+Ta[e.getDay()]+" "+a+"'>"+la(x(e,Ga))+"</th>";var a="<table class='fc-border-separate' style='width:100%' cellspacing='0'>"+(b+="</tr></thead>",b),d;b=qa+"-widget-content";var n;n="<tbody>";for(c=0;c<I;c++){n+="<tr class='fc-week'>";ga&&(d=C(c,0),n+="<td class='fc-week-number "+b+"'><div>"+la(x(d,Ua))+"</div></td>");for(e=0;e<U;e++){d=C(c,
+e);var g;g=d;var k=qa+"-widget-content",z=m.start.getMonth(),h=p(new Date),q="",k=["fc-day","fc-"+Ta[g.getDay()],k];g=(g.getMonth()!=z&&k.push("fc-other-month"),+g==+h?k.push("fc-today",qa+"-state-highlight"):g<h?k.push("fc-past"):k.push("fc-future"),q+="<td class='"+k.join(" ")+"' data-date='"+x(g,"yyyy-MM-dd")+"'><div>",A&&(q+="<div class='fc-day-number'>"+g.getDate()+"</div>"),q+="<div class='fc-day-content'><div style='position:relative'>&nbsp;</div></div></div></td>",q);n+=g}n+="</tr>"}d=(n+=
+"</tbody>",n);return a+d+"</table>"}function g(b){if(!t("selectable")){var c=fa(a(this).data("date"));J("dayClick",this,c,!0,b)}}function h(a,b,c){c&&M.build();a=n(a,b);for(b=0;b<a.length;b++)c=a[b],l(c.row,c.leftCol,c.row,c.rightCol).click(g).mousedown(D)}function l(a,c,e,d){a=M.rect(a,c,e,d,b);return r(a,b)}var m=this;m.renderBasic=function(c,e,f){I=c;U=e;A=f;qa=t("theme")?"ui":"fc";Ga=t("columnFormat");ga=t("weekNumbers");na=t("weekNumberTitle");"iso"!=t("weekNumberCalculation")?Ua="w":Ua="W";
+L||(K=a("<div class='fc-event-container' style='position:absolute;z-index:8;top:0;left:0'/>").appendTo(b));d()};m.setHeight=function(b){O=b;b=O-q.height();var c,e,d;"variable"==t("weekMode")?c=e=Math.floor(b/(1==I?2:6)):(c=Math.floor(b/I),e=b-c*(I-1));aa.each(function(b,f){b<I&&(d=a(f),d.find("> div").css("min-height",(b==I-1?e:c)-ba(d)))})};m.setWidth=function(a){ka=a;ia.clear();X.clear();E=0;ga&&(E=q.find("th.fc-week-number").outerWidth());P=Math.floor((ka-E)/U);sa(B.slice(0,-1),P)};m.renderDayOverlay=
+h;m.defaultSelectionEnd=function(a,b){return s(a)};m.renderSelection=function(a,b,c){h(a,k(s(b),1),!0)};m.clearSelection=function(){y()};m.reportDayClick=function(a,b,c){var e=v(a);J("dayClick",Z[e.row*U+e.col],a,b,c)};m.dragStart=function(a,b,c){F.start(function(a){y();a&&l(a.row,a.col,a.row,a.col)},b)};m.dragStop=function(a,b,c){var e=F.stop();y();e&&(e=C(e),J("drop",a,e,!0,b,c))};m.defaultEventEnd=function(a){return s(a.start)};m.getHoverListener=function(){return F};m.colLeft=function(a){return ia.left(a)};
+m.colRight=function(a){return ia.right(a)};m.colContentLeft=function(a){return X.left(a)};m.colContentRight=function(a){return X.right(a)};m.getIsCellAllDay=function(){return!0};m.allDayRow=function(a){return R.eq(a)};m.getRowCnt=function(){return I};m.getColCnt=function(){return U};m.getColWidth=function(){return P};m.getDaySegmentContainer=function(){return K};oa.call(m,b,c,e);Ca.call(m);xa.call(m);db.call(m);var t=m.opt,J=m.trigger,r=m.renderOverlay,y=m.clearOverlays,D=m.daySelectionMousedown,
+C=m.cellToDate,v=m.dateToCell,n=m.rangeToSegments,x=c.formatDate,z,q,B,L,R,Z,aa,H,w,K,ka,O,P,E,I,U,A,M,F,ia,X,qa,Ga,ga,na,Ua;Oa(b.addClass("fc-grid"));M=new Da(function(b,c){var e,d,f;B.each(function(b,n){e=a(n);d=e.offset().left;b&&(f[1]=d);f=[d];c[b]=f});f[1]=d+e.outerWidth();R.each(function(c,n){c<I&&(e=a(n),d=e.offset().top,c&&(f[1]=d),f=[d],b[c]=f)});f[1]=d+e.outerHeight()});F=new ya(M);ia=new Ha(function(a){return H.eq(a)});X=new Ha(function(a){return w.eq(a)})}function db(){var a=this;a.renderEvents=
+function(b,c){a.renderDayEvents(b,c)};a.clearEvents=function(){a.getDaySegmentContainer().empty()};ua.call(a)}function Za(b,c,e){function f(){var c;c=Ia+"-widget-header";var e,d,n;d="<thead><tr>";da?(e=aa(0,0),n=A(e,fa),sb?n+=ca:n=ca+n,d+="<th class='fc-agenda-axis fc-week-number "+c+"'>"+la(n)+"</th>"):d+="<th class='fc-agenda-axis "+c+"'>&nbsp;</th>";for(n=0;n<Ba;n++)e=aa(0,n),d+="<th class='fc-"+Ta[e.getDay()]+" fc-col"+n+" "+c+"'>"+la(A(e,W))+"</th>";c="<table style='width:100%' class='fc-agenda-days fc-border-separate' cellspacing='0'>"+
+(d+="<th class='fc-agenda-gutter "+c+"'>&nbsp;</th></tr></thead>",d);n=Ia+"-widget-header";d=Ia+"-widget-content";var g;e=p(new Date);var x,k,h;n=""+("<tbody><tr><th class='fc-agenda-axis "+n+"'>&nbsp;</th>");k="";for(x=0;x<Ba;x++)g=aa(0,x),h=["fc-col"+x,"fc-"+Ta[g.getDay()],d],+g==+e?h.push(Ia+"-state-highlight","fc-today"):g<e?h.push("fc-past"):h.push("fc-future"),g="<td class='"+h.join(" ")+"'><div><div class='fc-day-content'><div style='position:relative'>&nbsp;</div></div></div></td>",k+=g;d=
+(n+=k,n+="<td class='fc-agenda-gutter "+d+"'>&nbsp;</td></tr></tbody>",n);c=c+d+"</table>";F&&F.remove();F=a(c).appendTo(b);O=F.find("thead");P=O.find("th").slice(1,-1);E=F.find("tbody");I=E.find("td").slice(0,-1);U=I.find("> div");X=I.find(".fc-day-content > div");qb=I.eq(0);V=U.eq(0);ma(O.add(O.find("tr")));ma(E.add(E.find("tr")))}function g(){function a(){ga.scrollTop(e)}var b=D(),c=s(b);c.setHours(n("firstHour"));var e=u(b,c)+1;a();setTimeout(a,0)}function h(a){if(!n("selectable")){var b=Math.min(Ba-
+1,Math.floor((a.pageX-F.offset().left-Sa)/bb)),c=aa(0,b),e=this.parentNode.className.match(/fc-slot(\d+)/);e?(e=parseInt(e[1])*n("slotMinutes"),c.setHours(Math.floor(e/60)),c.setMinutes(e%60+Ja),x("dayClick",I[b],c,!1,a)):x("dayClick",I[b],c,!0,a)}}function l(a,b,c){c&&Ea.build();a=w(a,b);for(b=0;b<a.length;b++)c=a[b],J(c.row,c.leftCol,c.row,c.rightCol).click(h).mousedown(R)}function J(a,b,c,e){a=Ea.rect(a,b,c,e,ia);return z(a,ia)}function r(a,b){for(var c=0;c<Ba;c++){var e=aa(0,c),d=k(s(e),1),f=
+new Date(Math.max(e,a)),n=new Date(Math.min(d,b));f<n&&(d=Ea.rect(0,c,0,c,na),f=u(e,f),e=u(e,n),d.top=f,d.height=e-f,z(d,na).click(h).mousedown(C))}}function y(a){return n("allDaySlot")&&!a.row}function K(a){var b=aa(0,a.col);a=a.row;return n("allDaySlot")&&a--,0<=a&&m(b,Ja+a*Va),b}function u(a,b){a=s(a,!0);if(b<m(s(a),Ja))return 0;if(b>=m(s(a),T))return Fa.height();var c=n("slotMinutes"),e=60*b.getHours()+b.getMinutes()-Ja,f=Math.floor(e/c),g=S[f];return g===d&&(g=S[f]=Fa.find("tr").eq(f).find("td div")[0].offsetTop),
+Math.max(0,Math.round(g-1+e%c/c*kb))}function ka(b,c){var e=n("selectHelper");Ea.build();if(e){var d=H(b).col;if(0<=d&&d<Ba){var d=Ea.rect(0,d,0,d,na),f=u(b,b),g=u(b,c);g>f&&(d.top=f,d.height=g-f,d.left+=2,d.width-=5,a.isFunction(e)?(e=e(b,c))&&(d.position="absolute",ta=a(e).css(d).appendTo(na)):(d.isStart=!0,d.isEnd=!0,ta=a(Z({title:"",start:b,end:c,className:["fc-select-helper"],editable:!1},d)),ta.css("opacity",n("dragOpacity"))),ta&&(ta.click(h).mousedown(C),na.append(ta),sa(ta,d.width,!0),t(ta,
+d.height,!0)))}}else r(b,c)}function wa(){q();ta&&(ta.remove(),ta=null)}function C(b){if(1==b.which&&n("selectable")){L(b);var c;Wa.start(function(a,b){wa();if(a&&a.col==b.col&&!y(a)){var e=K(b),d=K(a);c=[e,m(s(e),Va),d,m(s(d),Va)].sort(M);ka(c[0],c[3])}else c=null},b);a(document).one("mouseup",function(a){Wa.stop();c&&(+c[0]==+c[1]&&v(c[0],!1,a),B(c[0],c[3],!1,a))})}}function v(a,b,c){x("dayClick",I[H(a).col],a,b,c)}this.renderAgenda=function(c){Ba=c;Ia=n("theme")?"ui":"fc";sb=n("isRTL");Ja=pa(n("minTime"));
+T=pa(n("maxTime"));W=n("columnFormat");da=n("weekNumbers");ca=n("weekNumberTitle");"iso"!=n("weekNumberCalculation")?fa="w":fa="W";Va=n("snapMinutes")||n("slotMinutes");if(F)f();else{c=Ia+"-widget-header";var e=Ia+"-widget-content",d,g,x,k,z,q=0==n("slotMinutes")%15;f();ia=a("<div style='position:absolute;z-index:2;left:0;width:100%'/>").appendTo(b);n("allDaySlot")?(Y=a("<div class='fc-event-container' style='position:absolute;z-index:8;top:0;left:0'/>").appendTo(ia),d="<table style='width:100%' class='fc-agenda-allday' cellspacing='0'><tr><th class='"+
+c+" fc-agenda-axis'>"+n("allDayText")+"</th><td><div class='fc-day-content'><div style='position:relative'/></div></td><th class='"+c+" fc-agenda-gutter'>&nbsp;</th></tr></table>",qa=a(d).appendTo(ia),Ga=qa.find("tr"),Ga.find("td").click(h).mousedown(R),ia.append("<div class='fc-agenda-divider "+c+"'><div class='fc-agenda-divider-inner'/></div>")):Y=a([]);ga=a("<div style='position:absolute;width:100%;overflow-x:hidden;overflow-y:auto'/>").appendTo(ia);na=a("<div style='position:relative;width:100%;overflow:hidden'/>").appendTo(ga);
+Ua=a("<div class='fc-event-container' style='position:absolute;z-index:8;top:0;left:0'/>").appendTo(na);d="<table class='fc-agenda-slots' style='width:100%' cellspacing='0'><tbody>";g=D();k=m(s(g),T);m(g,Ja);for(x=mb=0;g<k;x++)z=g.getMinutes(),d+="<tr class='fc-slot"+x+" "+(z?"fc-minor":"")+"'><th class='fc-agenda-axis "+c+"'>"+(q&&z?"&nbsp;":A(g,n("axisFormat")))+"</th><td class='"+e+"'><div style='position:relative'>&nbsp;</div></td></tr>",m(g,n("slotMinutes")),mb++;Fa=a(d+"</tbody></table>").appendTo(na);
+Fa.find("td").click(h).mousedown(C)}};this.setWidth=function(b){eb.clear();fb.clear();b=O.find("th:first");qa&&(b=b.add(qa.find("th:first")));b=b.add(Fa.find("th:first"));Sa=0;sa(b.width("").each(function(b,c){Sa=Math.max(Sa,a(c).outerWidth())}),Sa);b=F.find(".fc-agenda-gutter");qa&&(b=b.add(qa.find("th.fc-agenda-gutter")));var c=ga[0].clientWidth;(rb=ga.width()-c)?(sa(b,rb),b.show().prev().removeClass("fc-last")):b.hide().prev().addClass("fc-last");bb=Math.floor((c-Sa)/Ba);sa(P.slice(0,-1),bb)};
+this.setHeight=function(a){a===d&&(a=N);N=a;S={};var b=E.position().top,c=ga.position().top;a=Math.min(a-b,Fa.height()+c+1);V.height(a-ba(qb));ia.css("top",b);ga.height(a-c-1);kb=Fa.find("tr:first").height()+1;lb=n("slotMinutes")/Va;cb=kb/lb};this.afterRender=function(){g()};this.defaultEventEnd=function(a){var b=s(a.start);return a.allDay?b:m(b,n("defaultEventMinutes"))};this.timePosition=u;this.getIsCellAllDay=y;this.allDayRow=function(a){return Ga};this.getCoordinateGrid=function(){return Ea};
+this.getHoverListener=function(){return Wa};this.colLeft=function(a){return eb.left(a)};this.colRight=function(a){return eb.right(a)};this.colContentLeft=function(a){return fb.left(a)};this.colContentRight=function(a){return fb.right(a)};this.getDaySegmentContainer=function(){return Y};this.getSlotSegmentContainer=function(){return Ua};this.getMinMinute=function(){return Ja};this.getMaxMinute=function(){return T};this.getSlotContainer=function(){return na};this.getRowCnt=function(){return 1};this.getColCnt=
+function(){return Ba};this.getColWidth=function(){return bb};this.getSnapHeight=function(){return cb};this.getSnapMinutes=function(){return Va};this.defaultSelectionEnd=function(a,b){return b?s(a):m(s(a),n("slotMinutes"))};this.renderDayOverlay=l;this.renderSelection=function(a,b,c){c?n("allDaySlot")&&l(a,k(s(b),1),!0):ka(a,b)};this.clearSelection=wa;this.reportDayClick=v;this.dragStart=function(a,b,c){Wa.start(function(a){q();if(a)if(y(a))J(a.row,a.col,a.row,a.col);else{a=K(a);var b=m(s(a),n("defaultEventMinutes"));
+r(a,b)}},b)};this.dragStop=function(a,b,c){var e=Wa.stop();q();e&&x("drop",a,K(e),y(e),b,c)};oa.call(this,b,c,e);Ca.call(this);xa.call(this);nb.call(this);var n=this.opt,x=this.trigger,z=this.renderOverlay,q=this.clearOverlays,B=this.reportSelection,L=this.unselect,R=this.daySelectionMousedown,Z=this.slotSegHtml,aa=this.cellToDate,H=this.dateToCell,w=this.rangeToSegments,A=c.formatDate,F,O,P,E,I,U,X,qb,V,ia,Y,qa,Ga,ga,na,Ua,Fa,ta,N,Sa,bb,rb,kb,Va,lb,cb,Ba,mb,Ea,Wa,eb,fb,S={},Ia,sb,Ja,T,W,da,ca,fa;
+Oa(b.addClass("fc-agenda"));Ea=new Da(function(b,c){var e,d,f;P.each(function(b,n){e=a(n);d=e.offset().left;b&&(f[1]=d);f=[d];c[b]=f});f[1]=d+e.outerWidth();n("allDaySlot")&&(e=Ga,d=e.offset().top,b[0]=[d,d+e.outerHeight()]);for(var g=na.offset().top,x=ga.offset().top,k=x+ga.outerHeight(),h=0;h<mb*lb;h++)b.push([Math.max(x,Math.min(k,g+cb*h)),Math.max(x,Math.min(k,g+cb*(h+1)))])});Wa=new ya(Ea);eb=new Ha(function(a){return U.eq(a)});fb=new Ha(function(a){return X.eq(a)})}function nb(){function b(a){return a.end?
+s(a.end):m(s(a.start),l("defaultEventMinutes"))}function c(a,b){var e="<",d=a.url,f=Ya(a,l),n=["fc-event","fc-event-vert"];return y(a)&&n.push("fc-event-draggable"),b.isStart&&n.push("fc-event-start"),b.isEnd&&n.push("fc-event-end"),n=n.concat(a.className),a.source&&(n=n.concat(a.source.className||[])),d?e+="a href='"+la(a.url)+"'":e+="div",e+=" class='"+n.join(" ")+"' style='position:absolute;top:"+b.top+"px;left:"+b.left+"px;"+f+"'><div class='fc-event-inner'><div class='fc-event-time'>"+la(ma(a.start,
+a.end,l("timeFormat")))+"</div><div class='fc-event-title'>"+la(a.title||"")+"</div></div><div class='fc-event-bg'></div>",b.isEnd&&D(a)&&(e+="<div class='ui-resizable-handle ui-resizable-s'>=</div>"),e+="</"+(d?"a":"div")+">",e}function e(a,b,c){var d=b.find("div.fc-event-time");y(a)&&f(a,b,d);c.isEnd&&D(a)&&g(a,b,d);u(a,b)}function f(a,b,c){function e(){S();if(B)if(L)c.hide(),b.draggable("option","grid",null),U(k(s(a.start),G),k(V(a),G));else{var d=v,f=m(s(a.start),d),n;a.end&&(n=m(s(a.end),d));
+c.text(ma(f,n,l("timeFormat")));c.css("display","");b.draggable("option","grid",[g,x])}}var d=h.getCoordinateGrid(),n=Z(),g=aa(),x=H(),z=w(),t,ha,B,ja,L,J,ea,r,G,v,u;b.draggable({scroll:!1,grid:[g,x],axis:1==n?"y":!1,opacity:l("dragOpacity"),revertDuration:l("dragRevertDuration"),start:function(c,e){p("eventDragStart",b,a,c,e);P(a,b);d.build();t=b.position();ha=d.cell(c.pageX,c.pageY);B=ja=!0;L=J=q(ha);v=u=G=ea=r=0},drag:function(a,c){var f=d.cell(a.pageX,a.pageY);if(B=!!f){L=q(f);ea=Math.round((c.position.left-
+t.left)/g);if(ea!=r){var f=R(0,ha.col),h=ha.col+ea,h=Math.max(0,h),h=Math.min(n-1,h),h=R(0,h);G=A(h,f)}L||(v=Math.round((c.position.top-t.top)/x)*z)}if(B!=ja||L!=J||ea!=r||v!=u)e(),ja=B,J=L,r=ea,u=v;b.draggable("option","revert",!B)},stop:function(c,d){S();p("eventDragStop",b,a,c,d);B&&(L||G||v)?E(this,a,G,L?0:v,L,c,d):(B=!0,L=!1,ea=0,G=0,v=0,e(),b.css("filter",""),b.css(t),O(a,b))}})}function g(a,b,c){var e,d,f=H(),n=w();b.resizable({handles:{s:".ui-resizable-handle"},grid:f,start:function(c,f){e=
+d=0;P(a,b);p("eventResizeStart",this,a,c,f)},resize:function(g,x){e=Math.round((Math.max(f,b.height())-x.originalSize.height)/f);e!=d&&(c.text(ma(a.start,e||a.end?m(K(a),n*e):null,l("timeFormat"))),d=e)},stop:function(c,d){p("eventResizeStop",this,a,c,d);e?I(this,a,0,n*e,c,d):O(a,b)}})}var h=this;h.renderEvents=function(f,g){var h,k=f.length,q=[],t=[];for(h=0;h<k;h++)f[h].allDay?q.push(f[h]):t.push(f[h]);l("allDaySlot")&&(T(q,g),ka());var k=Z(),q=x(),O=n(),N,P=a.map(t,b),G,v,w,u;h=[];for(G=0;G<k;G++){N=
+R(0,G);m(N,q);v=t;w=P;u=N;N=m(s(N),O-q);for(var Q=[],E=void 0,y=v.length,I=void 0,H=void 0,D=void 0,aa=void 0,K=void 0,Ma=void 0,U=void 0,E=0;E<y;E++)I=v[E],H=I.start,D=w[E],D>u&&H<N&&(H<u?(aa=s(u),Ma=!1):(aa=H,Ma=!0),D>N?(K=s(N),U=!1):(K=D,U=!0),Q.push({event:I,start:aa,end:K,isStart:Ma,isEnd:U}));v=u=Q.sort(F);w=[];Q=N=u=void 0;for(u=0;u<v.length;u++){N=v[u];for(Q=0;Q<w.length&&r(N,w[Q]).length;Q++);(w[Q]||(w[Q]=[])).push(N)}v=w;w=v[0];u=void 0;u=v;I=y=E=Q=N=void 0;for(N=0;N<u.length;N++)for(Q=
+u[N],E=0;E<Q.length;E++)for(y=Q[E],y.forwardSegs=[],I=N+1;I<u.length;I++)r(y,u[I],y.forwardSegs);if(w){for(u=0;u<w.length;u++)$a(w[u]);for(u=0;u<w.length;u++)Ka(w[u],0,0)}w=[];Q=N=u=void 0;for(u=0;u<v.length;u++)for(N=v[u],Q=0;Q<N.length;Q++)w.push(N[Q]);u=w;for(v=0;v<u.length;v++)w=u[v],w.col=G,h.push(w)}for(var k=h.length,A,M,E="",P=C(),y=l("isRTL"),t=0;t<k;t++)q=h[t],O=q.event,G=z(q.start,q.start),v=z(q.start,q.end),w=B(q.col),u=L(q.col),N=u-w,u-=.025*N,N=u-w,Q=N*(q.forwardCoord-q.backwardCoord),
+l("slotEventOverlap")&&(Q=Math.max(2*(Q-10),Q)),y?(M=u-q.backwardCoord*N,A=M-Q):(A=w+q.backwardCoord*N,M=A+Q),A=Math.max(A,w),M=Math.min(M,u),Q=M-A,q.top=G,q.left=A,q.outerWidth=Q,q.outerHeight=v-G,E+=c(O,q);P[0].innerHTML=E;M=P.children();for(t=0;t<k;t++)q=h[t],O=q.event,A=a(M[t]),G=p("eventRender",O,O,A),!1===G?A.remove():(G&&!0!==G&&(A.remove(),A=a(G).css({position:"absolute",top:q.top,left:q.left}).appendTo(P)),q.element=A,O._id===g?e(O,A,q):A[0]._fci=t,Y(O,A));Aa(P,h,e);for(t=0;t<k;t++)if(q=
+h[t],A=q.element)q.vsides=ba(A,!0),q.hsides=J(A,!0),A=A.find(".fc-event-title"),A.length&&(q.contentTop=A[0].offsetTop);for(t=0;t<k;t++)if(q=h[t],A=q.element)A[0].style.width=Math.max(0,q.outerWidth-q.hsides)+"px",M=Math.max(0,q.outerHeight-q.vsides),A[0].style.height=M+"px",O=q.event,q.contentTop!==d&&10>M-q.contentTop&&(A.find("div.fc-event-time").text(ia(O.start,l("timeFormat"))+" - "+O.title),A.find("div.fc-event-title").remove()),p("eventAfterRender",O,O,A)};h.clearEvents=function(){M().empty();
+C().empty()};h.slotSegHtml=c;ua.call(h);var l=h.opt,p=h.trigger,y=h.isEventDraggable,D=h.isEventResizable,K=h.eventEnd,u=h.eventElementHandlers,ka=h.setHeight,M=h.getDaySegmentContainer,C=h.getSlotSegmentContainer,v=h.getHoverListener,n=h.getMaxMinute,x=h.getMinMinute,z=h.timePosition,q=h.getIsCellAllDay,B=h.colContentLeft,L=h.colContentRight,R=h.cellToDate,Z=h.getColCnt,aa=h.getColWidth,H=h.getSnapHeight,w=h.getSnapMinutes,X=h.getSlotContainer,Y=h.reportEventElement,O=h.showEvents,P=h.hideEvents,
+E=h.eventDrop,I=h.eventResize,U=h.renderDayOverlay,S=h.clearOverlays,T=h.renderDayEvents,W=h.calendar,ia=W.formatDate,ma=W.formatDates;h.draggableDayEvent=function(a,b,c){function e(){g||(b.width(f).height("").draggable("option","grid",null),g=!0)}var d=c.isStart,f,n,g=!0,h,q=v(),z=aa(),m=H(),B=w(),ha=x();b.draggable({opacity:l("dragOpacity","month"),revertDuration:l("dragRevertDuration"),start:function(c,x){p("eventDragStart",b,a,c,x);P(a,b);f=b.width();q.start(function(c,f){S();if(c){n=!1;var x=
+R(0,f.col),q=R(0,c.col);h=A(q,x);c.row?d?g&&(b.width(z-10),t(b,m*Math.round((a.end?(a.end-a.start)/ob:l("defaultEventMinutes"))/B)),b.draggable("option","grid",[z,1]),g=!1):n=!0:(U(k(s(a.start),h),k(V(a),h)),e());n=n||g&&!h}else e(),n=!0;b.draggable("option","revert",n)},c,"drag")},stop:function(c,d){q.stop();S();p("eventDragStop",b,a,c,d);if(n)e(),b.css("filter",""),O(a,b);else{var f=0;g||(f=Math.round((b.offset().top-X().offset().top)/m)*B+ha-(60*a.start.getHours()+a.start.getMinutes()));E(this,
+a,h,f,g,c,d)}}})}}function $a(a){var b=a.forwardSegs,c=0,e,f;if(a.forwardPressure===d){for(e=0;e<b.length;e++)f=b[e],$a(f),c=Math.max(c,1+f.forwardPressure);a.forwardPressure=c}}function Ka(a,b,c){var e=a.forwardSegs;if(a.forwardCoord===d)for(e.length?(e.sort(za),Ka(e[0],b+1,c),a.forwardCoord=e[0].backwardCoord):a.forwardCoord=1,a.backwardCoord=a.forwardCoord-(a.forwardCoord-c)/(b+1),b=0;b<e.length;b++)Ka(e[b],0,a.forwardCoord)}function r(a,b,c){c=c||[];for(var e=0;e<b.length;e++){var d=b[e];a.end>
+d.start&&a.start<d.end&&c.push(b[e])}return c}function za(a,b){return b.forwardPressure-a.forwardPressure||(a.backwardCoord||0)-(b.backwardCoord||0)||F(a,b)}function F(a,b){return a.start-b.start||b.end-b.start-(a.end-a.start)||(a.event.title||"").localeCompare(b.event.title)}function oa(b,c,e){function f(b,c){var d=R[b];return a.isPlainObject(d)?X(d,c||e):d}function g(a,b){return c.trigger.apply(c,[a,b||v].concat(Array.prototype.slice.call(arguments,2),[v]))}function h(a){return a.end?s(a.end):n(a)}
+function l(a,b,c){a=B[a._id];var e,d=a.length;for(e=0;e<d;e++)b&&a[e][0]==b[0]||a[e][c]()}function t(a,b,c,e){c=c||0;for(var f,n=a.length,g=0;g<n;g++)f=a[g],e!==d&&(f.allDay=e),m(k(f.start,b,!0),c),f.end&&(f.end=m(k(f.end,b,!0),c)),x(f,R)}function p(a,b,c){c=c||0;for(var e,d=a.length,f=0;f<d;f++)e=a[f],e.end=m(k(h(e),b,!0),c),x(e,R)}function J(a,b){var c=v.getColCnt(),e=M?-1:1,d=M?c-1:0;"object"==typeof a&&(b=a.col,a=a.row);return a*c+(b*e+d)}function r(a){var b=v.visStart.getDay();return a+=w[b],
+7*Math.floor(a/H)+K[(a%H+H)%H]-b}function u(a){var b=s(v.visStart);return k(b,a),b}function y(a){return A(a,v.visStart)}function ba(a){var b=v.visStart.getDay();return a+=b,Math.floor(a/7)*H+w[(a%7+7)%7]-w[b]}function C(a){var b=v.getColCnt();return{row:Math.floor(a/b),col:(a%b+b)%b*(M?-1:1)+(M?b-1:0)}}var v=this;v.element=b;v.calendar=c;v.name=e;v.opt=f;v.trigger=g;v.isEventDraggable=function(a){var b=a.source||{};return ra(a.startEditable,b.startEditable,f("eventStartEditable"),a.editable,b.editable,
+f("editable"))&&!f("disableDragging")};v.isEventResizable=function(a){var b=a.source||{};return ra(a.durationEditable,b.durationEditable,f("eventDurationEditable"),a.editable,b.editable,f("editable"))&&!f("disableResizing")};v.setEventData=function(a){q={};var b,c=a.length,e;for(b=0;b<c;b++)e=a[b],q[e._id]?q[e._id].push(e):q[e._id]=[e]};v.clearEventData=function(){q={};B={};L=[]};v.eventEnd=h;v.reportEventElement=function(a,b){L.push({event:a,element:b});B[a._id]?B[a._id].push(b):B[a._id]=[b]};v.triggerEventDestroy=
+function(){a.each(L,function(a,b){v.trigger("eventDestroy",b.event,b.event,b.element)})};v.eventElementHandlers=function(a,b){b.click(function(c){if(!b.hasClass("ui-draggable-dragging")&&!b.hasClass("ui-resizable-resizing"))return g("eventClick",this,a,c)}).hover(function(b){g("eventMouseover",this,a,b)},function(b){g("eventMouseout",this,a,b)})};v.showEvents=function(a,b){l(a,b,"show")};v.hideEvents=function(a,b){l(a,b,"hide")};v.eventDrop=function(a,b,c,e,d,f,n){var x=b.allDay,h=b._id;t(q[h],c,
+e,d);g("eventDrop",a,b,c,e,d,function(){t(q[h],-c,-e,x);z(h)},f,n);z(h)};v.eventResize=function(a,b,c,e,d,f){var n=b._id;p(q[n],c,e);g("eventResize",a,b,c,e,function(){p(q[n],-c,-e);z(n)},d,f);z(n)};var n=v.defaultEventEnd,x=c.normalizeEvent,z=c.reportEventChange,q={},B={},L=[],R=c.options;v.isHiddenDay=function(a){return"object"==typeof a&&(a=a.getDay()),D[a]};v.skipHiddenDays=function(a,b,c){for(b=b||1;D[(a.getDay()+(c?b:0)+7)%7];)k(a,b)};v.getCellsPerWeek=function(){return H};v.dateToCell=function(a){a=
+y(a);a=ba(a);return C(a)};v.dateToDayOffset=y;v.dayOffsetToCellOffset=ba;v.cellOffsetToCell=C;v.cellToDate=function(){var a=J.apply(null,arguments),a=r(a);return u(a)};v.cellToCellOffset=J;v.cellOffsetToDayOffset=r;v.dayOffsetToDate=u;v.rangeToSegments=function(a,b){for(var c=v.getRowCnt(),e=v.getColCnt(),d=[],f=y(a),n=y(b),g=ba(f),x=ba(n)-1,h=0;h<c;h++){var k=h*e,q=k+e-1,k=Math.max(g,k),q=Math.min(x,q);if(k<=q){var z=C(k),l=C(q),z=[z.col,l.col].sort(),k=r(k)==f,q=r(q)+1==n;d.push({row:h,leftCol:z[0],
+rightCol:z[1],isStart:k,isEnd:q})}}return d};var Z=f("hiddenDays")||[],D=[],H,w=[],K=[],M=f("isRTL");(function(){!1===f("weekends")&&Z.push(0,6);for(var b=0,c=0;7>b;b++)w[b]=c,D[b]=-1!=a.inArray(b,Z),D[b]||(K[c]=b,c++);H=c;if(!H)throw"invalid hiddenDays";})()}function ua(){function b(a,e,d){a=c([a],!0,!1);var f=[];return S(a,function(a,b){a.row===e&&b.css("top",d);f.push(b[0])}),f}function c(b,n,x){var k=F(),q=n?a("<div/>"):k;b=e(b);var z,l;return d(b),z=f(b),q[0].innerHTML=z,l=q.children(),n&&k.append(l),
+g(b,l),S(b,function(a,b){a.hsides=J(b,!0)}),S(b,function(a,b){b.width(Math.max(0,a.outerWidth-a.hsides))}),S(b,function(a,b){a.outerHeight=b.outerHeight(!0)}),h(b,x),b}function e(a){for(var b=[],c=0;c<a.length;c++){for(var d=a[c],f=d.start,n=V(d),f=ma(f,n),n=0;n<f.length;n++)f[n].event=d;b.push.apply(b,f)}return b}function d(a){for(var b=r("isRTL"),c=0;c<a.length;c++){var e=a[c],f=(b?e.isStart:e.isEnd)?ka:K,n=((b?e.isEnd:e.isStart)?M:w)(e.leftCol),f=f(e.rightCol);e.left=n;e.outerWidth=f-n}}function f(a){for(var b=
+"",c=0;c<a.length;c++){var e;e=a[c];var d="",n=r("isRTL"),g=e.event,x=g.url,h=["fc-event","fc-event-hori"];C(g)&&h.push("fc-event-draggable");e.isStart&&h.push("fc-event-start");e.isEnd&&h.push("fc-event-end");h=h.concat(g.className);g.source&&(h=h.concat(g.source.className||[]));var k=Ya(g,r);e=(x?d+="<a href='"+la(x)+"'":d+="<div",d+=" class='"+h.join(" ")+"' style='position:absolute;left:"+e.left+"px;"+k+"'><div class='fc-event-inner'>",!g.allDay&&e.isStart&&(d+="<span class='fc-event-time'>"+
+la(E(g.start,g.end,r("timeFormat")))+"</span>"),d+="<span class='fc-event-title'>"+la(g.title||"")+"</span></div>",e.isEnd&&v(g)&&(d+="<div class='ui-resizable-handle ui-resizable-"+(n?"w":"e")+"'>&nbsp;&nbsp;&nbsp;</div>"),d+="</"+(x?"a":"div")+">",d);b+=e}return b}function g(b,c){for(var e=0;e<b.length;e++){var d=b[e],f=d.event,n=c.eq(e),f=y("eventRender",f,f,n);!1===f?n.remove():(f&&!0!==f&&(f=a(f).css({position:"absolute",left:d.left}),n.replaceWith(f),n=f),d.element=n)}}function h(a,b){var c=
+l(a),e=m(),d=[];if(b)for(var f=0;f<e.length;f++)e[f].height(c[f]);for(f=0;f<e.length;f++)d.push(e[f].position().top);S(a,function(a,b){b.css("top",d[a.row]+a.top)})}function l(a){var b=ba(),c=D(),e=[],d=ba(),f=[],n,g,x;for(n=0;n<a.length;n++)g=a[n],x=g.row,g.element&&(f[x]?f[x].push(g):f[x]=[g]);for(x=0;x<d;x++){a=f;n=x;var h=f[x]||[];g=[];h.sort(ca);for(var k=[],q=0;q<h.length;q++){for(var z=h[q],m=0;m<k.length;m++){var t;a:{t=k[m];for(var B=0;B<t.length;B++){var s=t[B];if(s.leftCol<=z.rightCol&&
+s.rightCol>=z.leftCol){t=!0;break a}}t=!1}if(!t)break}k[m]?k[m].push(z):k[m]=[z]}for(h=0;h<k.length;h++)g.push.apply(g,k[h]);a[n]=g}for(d=0;d<b;d++){x=f[d];a=[];for(k=0;k<c;k++)a.push(0);for(n=0;n<x.length;n++)for(k=g=x[n],h=a.slice(g.leftCol,g.rightCol+1),h=Math.max.apply(Math,h),k.top=h,k=g.leftCol;k<=g.rightCol;k++)a[k]=g.top+g.outerHeight;e.push(Math.max.apply(Math,a))}return e}function m(){var a,b=ba(),c=[];for(a=0;a<b;a++)c[a]=H(a).find("div.fc-day-content > div");return c}function t(a,b){var c=
+F();S(a,function(a,c,e){var d=a.event;d._id===b?p(d,c,a):c[0]._fci=e});Aa(c,a,p)}function p(a,b,c){C(a)&&u.draggableDayEvent(a,b,c);c.isEnd&&v(a)&&u.resizableDayEvent(a,b,c);z(a,b)}var u=this;u.renderDayEvents=function(a,b){var e=c(a,!1,!0);S(e,function(a,b){x(a.event,b)});t(e,b);S(e,function(a,b){y("eventAfterRender",a.event,a.event,b)})};u.draggableDayEvent=function(a,b){var c=T(),e;b.draggable({delay:50,opacity:r("dragOpacity"),revertDuration:r("dragRevertDuration"),start:function(d,f){y("eventDragStart",
+b,a,d,f);B(a,b);c.start(function(c,d,f,n){b.draggable("option","revert",!c||!f&&!n);X();c?(d=W(d),c=W(c),e=A(c,d),I(k(s(a.start),e),k(V(a),e))):e=0},d,"drag")},stop:function(d,f){c.stop();X();y("eventDragStop",b,a,d,f);e?L(this,a,e,0,a.allDay,d,f):(b.css("filter",""),q(a,b))}})};u.resizableDayEvent=function(c,e,d){var f=r("isRTL")?"w":"e",g=e.find(".ui-resizable-"+f),x=!1;Oa(e);e.mousedown(function(a){a.preventDefault()}).click(function(a){x&&(a.preventDefault(),a.stopImmediatePropagation())});g.mousedown(function(g){function h(b){y("eventResizeStop",
+this,c,b);a("body").css("cursor","");z.stop();X();m&&R(this,c,m,0,b);setTimeout(function(){x=!1},0)}if(1==g.which){x=!0;var z=T();ba();D();var l=e.css("top"),m,t,s=a.extend({},c),p=ga(pa(c.start));Y();a("body").css("cursor",f+"-resize").one("mouseup",h);y("eventResizeStart",this,c,g);z.start(function(e,g){if(e){var x=da(g),h=da(e),h=Math.max(h,p);(m=fa(h)-fa(x))?(s.end=k(n(c),m,!0),x=t,t=b(s,d.row,l),t=a(t),t.find("*").css("cursor",f+"-resize"),x&&x.remove(),B(c)):t&&(q(c),t.remove(),t=null);X();
+I(c.start,k(V(c),m))}},g)}})};var r=u.opt,y=u.trigger,C=u.isEventDraggable,v=u.isEventResizable,n=u.eventEnd,x=u.reportEventElement,z=u.eventElementHandlers,q=u.showEvents,B=u.hideEvents,L=u.eventDrop,R=u.eventResize,ba=u.getRowCnt,D=u.getColCnt,H=u.allDayRow,w=u.colLeft,K=u.colRight,M=u.colContentLeft,ka=u.colContentRight,F=u.getDaySegmentContainer,E=u.calendar.formatDates,I=u.renderDayOverlay,X=u.clearOverlays,Y=u.clearSelection,T=u.getHoverListener,ma=u.rangeToSegments,W=u.cellToDate,da=u.cellToCellOffset,
+fa=u.cellOffsetToDayOffset,pa=u.dateToDayOffset,ga=u.dayOffsetToCellOffset}function S(a,b){for(var c=0;c<a.length;c++){var e=a[c],d=e.element;d&&b(e,d,c)}}function ca(a,b){return b.rightCol-b.leftCol-(a.rightCol-a.leftCol)||b.event.allDay-a.event.allDay||a.event.start-b.event.start||(a.event.title||"").localeCompare(b.event.title)}function xa(){function b(a){l&&(l=!1,k(),f("unselect",null,a))}function c(a,b,e,d){l=!0;f("select",null,a,b,e,d)}var e=this;e.select=function(a,e,d){b();e||(e=g(a,d));h(a,
+e,d);c(a,e,d)};e.unselect=b;e.reportSelection=c;e.daySelectionMousedown=function(f){var g=e.cellToDate,l=e.getIsCellAllDay,m=e.getHoverListener(),t=e.reportDayClick;if(1==f.which&&d("selectable")){b(f);var s;m.start(function(a,b){k();a&&l(a)?(s=[g(b),g(a)].sort(M),h(s[0],s[1],!0)):s=null},f);a(document).one("mouseup",function(a){m.stop();s&&(+s[0]==+s[1]&&t(s[0],!0,a),c(s[0],s[1],!0,a))})}};var d=e.opt,f=e.trigger,g=e.defaultSelectionEnd,h=e.renderSelection,k=e.clearSelection,l=!1;d("selectable")&&
+d("unselectAuto")&&a(document).mousedown(function(c){var e=d("unselectCancel");e&&a(c.target).parents(e).length||b(c)})}function Ca(){this.renderOverlay=function(e,d){var f=c.shift();return f||(f=a("<div class='fc-cell-overlay' style='position:absolute;z-index:3'/>")),f[0].parentNode!=d[0]&&f.appendTo(d),b.push(f.css(e).show()),f};this.clearOverlays=function(){for(var a;a=b.shift();)c.push(a.hide().unbind())};var b=[],c=[]}function Da(a){var b,c;this.build=function(){b=[];c=[];a(b,c)};this.cell=function(a,
+e){var d=b.length,f=c.length,g,h=-1,k=-1;for(g=0;g<d;g++)if(e>=b[g][0]&&e<b[g][1]){h=g;break}for(g=0;g<f;g++)if(a>=c[g][0]&&a<c[g][1]){k=g;break}return 0<=h&&0<=k?{row:h,col:k}:null};this.rect=function(a,e,d,f,g){g=g.offset();return{top:b[a][0]-g.top,left:c[e][0]-g.left,width:c[f][1]-c[e][0],height:b[d][1]-b[a][0]}}}function ya(b){function c(a){a.pageX===d&&(a.pageX=a.originalEvent.pageX,a.pageY=a.originalEvent.pageY);a=b.cell(a.pageX,a.pageY);if(!a!=!h||a&&(a.row!=h.row||a.col!=h.col))a?(g||(g=a),
+f(a,g,a.row-g.row,a.col-g.col)):f(a,g),h=a}var e,f,g,h;this.start=function(d,k,l){f=d;g=h=null;b.build();c(k);e=l||"mousemove";a(document).bind(e,c)};this.stop=function(){return a(document).unbind(e,c),h}}function Ha(a){var b=this,c={},e={},f={};b.left=function(b){return e[b]=e[b]===d?(c[b]=c[b]||a(b)).position().left:e[b]};b.right=function(e){return f[e]=f[e]===d?b.left(e)+(c[e]=c[e]||a(e)).width():f[e]};b.clear=function(){c={};e={};f={}}}var La={defaultView:"month",aspectRatio:1.35,header:{left:"title",
+center:"",right:"today prev,next"},weekends:!0,weekNumbers:!1,weekNumberCalculation:"iso",weekNumberTitle:"W",allDayDefault:!0,ignoreTimezone:!0,lazyFetching:!0,startParam:"start",endParam:"end",titleFormat:{month:"MMMM yyyy",week:"MMM d[ yyyy]{ '&#8212;'[ MMM] d yyyy}",day:"dddd, MMM d, yyyy"},columnFormat:{month:"ddd",week:"ddd M/d",day:"dddd M/d"},timeFormat:{"":"h(:mm)t"},isRTL:!1,firstDay:0,monthNames:"January February March April May June July August September October November December".split(" "),
+monthNamesShort:"Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec".split(" "),dayNames:"Sunday Monday Tuesday Wednesday Thursday Friday Saturday".split(" "),dayNamesShort:"Sun Mon Tue Wed Thu Fri Sat".split(" "),buttonText:{prev:"<span class='fc-text-arrow'>&lsaquo;</span>",next:"<span class='fc-text-arrow'>&rsaquo;</span>",prevYear:"<span class='fc-text-arrow'>&laquo;</span>",nextYear:"<span class='fc-text-arrow'>&raquo;</span>",today:"today",month:"month",week:"week",day:"day"},theme:!1,buttonIcons:{prev:"circle-triangle-w",
+next:"circle-triangle-e"},unselectAuto:!0,dropAccept:"*",handleWindowResize:!0},pb={header:{left:"next,prev today",center:"",right:"title"},buttonText:{prev:"<span class='fc-text-arrow'>&rsaquo;</span>",next:"<span class='fc-text-arrow'>&lsaquo;</span>",prevYear:"<span class='fc-text-arrow'>&raquo;</span>",nextYear:"<span class='fc-text-arrow'>&laquo;</span>"},buttonIcons:{prev:"circle-triangle-e",next:"circle-triangle-w"}},T=a.fullCalendar={version:"1.6.4"},va=T.views={};a.fn.fullCalendar=function(b){if("string"==
+typeof b){var c=Array.prototype.slice.call(arguments,1),e;return this.each(function(){var f=a.data(this,"fullCalendar");f&&a.isFunction(f[b])&&(f=f[b].apply(f,c),e===d&&(e=f),"destroy"==b&&a.removeData(this,"fullCalendar"))}),e!==d?e:this}b=b||{};var f=b.eventSources||[];return delete b.eventSources,b.events&&(f.push(b.events),delete b.events),b=a.extend(!0,{},La,b.isRTL||b.isRTL===d&&La.isRTL?pb:{},b),this.each(function(c,e){var d=a(e),h=new g(d,b,f);d.data("fullCalendar",h);h.render()}),this};T.sourceNormalizers=
+[];T.sourceFetchers=[];var Pa={dataType:"json",cache:!1},hb=1;T.addDays=k;T.cloneDate=s;T.parseDate=Y;T.parseISO8601=fa;T.parseTime=pa;T.formatDate=W;T.formatDates=da;var Ta="sun mon tue wed thu fri sat".split(" "),jb=864E5,ib=36E5,ob=6E4,ab={s:function(a){return a.getSeconds()},ss:function(a){return K(a.getSeconds())},m:function(a){return a.getMinutes()},mm:function(a){return K(a.getMinutes())},h:function(a){return a.getHours()%12||12},hh:function(a){return K(a.getHours()%12||12)},H:function(a){return a.getHours()},
+HH:function(a){return K(a.getHours())},d:function(a){return a.getDate()},dd:function(a){return K(a.getDate())},ddd:function(a,b){return b.dayNamesShort[a.getDay()]},dddd:function(a,b){return b.dayNames[a.getDay()]},M:function(a){return a.getMonth()+1},MM:function(a){return K(a.getMonth()+1)},MMM:function(a,b){return b.monthNamesShort[a.getMonth()]},MMMM:function(a,b){return b.monthNames[a.getMonth()]},yy:function(a){return(a.getFullYear()+"").substring(2)},yyyy:function(a){return a.getFullYear()},
+t:function(a){return 12>a.getHours()?"a":"p"},tt:function(a){return 12>a.getHours()?"am":"pm"},T:function(a){return 12>a.getHours()?"A":"P"},TT:function(a){return 12>a.getHours()?"AM":"PM"},u:function(a){return W(a,"yyyy-MM-dd'T'HH:mm:ss'Z'")},S:function(a){a=a.getDate();return 10<a&&20>a?"th":["st","nd","rd"][a%10-1]||"th"},w:function(a,b){return b.weekNumberCalculation(a)},W:function(a){var b;a=new Date(a.getTime());return a.setDate(a.getDate()+4-(a.getDay()||7)),b=a.getTime(),a.setMonth(0),a.setDate(1),
+Math.floor(Math.round((b-a)/864E5)/7)+1}};T.dateFormatters=ab;T.applyAll=Qa;va.month=function(a,b){var c=this;c.render=function(a,b){b&&(h(a,b),a.setDate(1));var m=e("firstDay"),t=s(a,!0);t.setDate(1);var p=h(s(t),1),J=s(t);k(J,-((J.getDay()-m+7)%7));f(J);var r=s(p);k(r,(7-r.getDay()+m)%7);f(r,-1,!0);var m=g(),v=Math.round(A(r,J)/7);"fixed"==e("weekMode")&&(k(r,7*(6-v)),v=6);c.title=l(t,e("titleFormat"));c.start=t;c.end=p;c.visStart=J;c.visEnd=r;d(v,m,!0)};Ra.call(c,a,b,"month");var e=c.opt,d=c.renderBasic,
+f=c.skipHiddenDays,g=c.getCellsPerWeek,l=b.formatDate};va.basicWeek=function(a,b){var c=this;c.render=function(a,b){b&&k(a,7*b);var l=k(s(a),-((a.getDay()-e("firstDay")+7)%7)),m=k(s(l),7),t=s(l);f(t);var p=s(m);f(p,-1,!0);var r=g();c.start=l;c.end=m;c.visStart=t;c.visEnd=p;c.title=h(t,k(s(p),-1),e("titleFormat"));d(1,r,!1)};Ra.call(c,a,b,"basicWeek");var e=c.opt,d=c.renderBasic,f=c.skipHiddenDays,g=c.getCellsPerWeek,h=b.formatDates};va.basicDay=function(a,b){var c=this;c.render=function(a,b){b&&k(a,
+b);f(a,0>b?-1:1);var h=s(a,!0),l=k(s(h),1);c.title=g(a,e("titleFormat"));c.start=c.visStart=h;c.end=c.visEnd=l;d(1,1,!1)};Ra.call(c,a,b,"basicDay");var e=c.opt,d=c.renderBasic,f=c.skipHiddenDays,g=b.formatDate};f({weekMode:"fixed"});va.agendaWeek=function(a,b){var c=this;c.render=function(a,b){b&&k(a,7*b);var l=k(s(a),-((a.getDay()-e("firstDay")+7)%7)),m=k(s(l),7),t=s(l);f(t);var p=s(m);f(p,-1,!0);var r=g();c.title=h(t,k(s(p),-1),e("titleFormat"));c.start=l;c.end=m;c.visStart=t;c.visEnd=p;d(r)};Za.call(c,
+a,b,"agendaWeek");var e=c.opt,d=c.renderAgenda,f=c.skipHiddenDays,g=c.getCellsPerWeek,h=b.formatDates};va.agendaDay=function(a,b){var c=this;c.render=function(a,b){b&&k(a,b);f(a,0>b?-1:1);var h=s(a,!0),l=k(s(h),1);c.title=g(a,e("titleFormat"));c.start=c.visStart=h;c.end=c.visEnd=l;d(1)};Za.call(c,a,b,"agendaDay");var e=c.opt,d=c.renderAgenda,f=c.skipHiddenDays,g=b.formatDate};f({allDaySlot:!0,allDayText:"all-day",firstHour:6,slotMinutes:30,defaultEventMinutes:120,axisFormat:"h(:mm)tt",timeFormat:{agenda:"h:mm{ - h:mm}"},
+dragOpacity:{agenda:.5},minTime:0,maxTime:24,slotEventOverlap:!0})})(jQuery);
+(function(a){function d(a,b){return function(c){return k(a.call(this,c),b)}}function f(a,b){return function(c){return this.lang().ordinal(a.call(this,c),b)}}function g(){}function b(a){fa(a);e(this,a)}function c(a){var b=D(a),c=b.year||0,e=b.month||0,d=b.week||0,f=b.day||0,g=b.hour||0,h=b.minute||0,k=b.second||0,b=b.millisecond||0;this._input=a;this._milliseconds=+b+1E3*k+6E4*h+36E5*g;this._days=+f+7*d;this._months=+e+12*c;this._data={};this._bubble()}function e(a,b){for(var c in b)b.hasOwnProperty(c)&&
+(a[c]=b[c]);return b.hasOwnProperty("toString")&&(a.toString=b.toString),b.hasOwnProperty("valueOf")&&(a.valueOf=b.valueOf),a}function h(a){return 0>a?Math.ceil(a):Math.floor(a)}function k(a,b){for(var c=a+"";c.length<b;)c="0"+c;return c}function l(a,b,c,e){var d=b._milliseconds,f=b._days;b=b._months;var g,h;d&&a._d.setTime(+a._d+d*c);if(f||b)g=a.minute(),h=a.hour();f&&a.date(a.date()+f*c);b&&a.month(a.month()+b*c);d&&!e&&r.updateOffset(a);if(f||b)a.minute(g),a.hour(h)}function m(a){return"[object Array]"===
+Object.prototype.toString.call(a)}function p(a,b,c){var e=Math.min(a.length,b.length),d=Math.abs(a.length-b.length),f=0,g;for(g=0;g<e;g++)(c&&a[g]!==b[g]||!c&&y(a[g])!==y(b[g]))&&f++;return f+d}function s(a){if(a){var b=a.toLowerCase().replace(/(.)s$/,"$1");a=vb[a]||ub[b]||b}return a}function D(a){var b={},c,e;for(e in a)a.hasOwnProperty(e)&&(c=s(e),c&&(b[c]=a[e]));return b}function A(b){var c,e;if(0===b.indexOf("week"))c=7,e="day";else{if(0!==b.indexOf("month"))return;c=12;e="month"}r[b]=function(d,
+f){var g,h,k=r.fn._lang[b],l=[];"number"==typeof d&&(f=d,d=a);h=function(a){a=r().utc().set(e,a);return k.call(r.fn._lang,a,d||"")};if(null!=f)return h(f);for(g=0;g<c;g++)l.push(h(g));return l}}function y(a){a=+a;var b=0;return 0!==a&&isFinite(a)&&(0<=a?b=Math.floor(a):b=Math.ceil(a)),b}function Y(a){return 0===a%4&&0!==a%100||0===a%400}function fa(a){var b;a._a&&-2===a._pf.overflow&&(b=0>a._a[ua]||11<a._a[ua]?ua:1>a._a[S]||a._a[S]>(new Date(Date.UTC(a._a[oa],a._a[ua]+1,0))).getUTCDate()?S:0>a._a[ca]||
+23<a._a[ca]?ca:0>a._a[xa]||59<a._a[xa]?xa:0>a._a[Ca]||59<a._a[Ca]?Ca:0>a._a[Da]||999<a._a[Da]?Da:-1,a._pf._overflowDayOfYear&&(b<oa||b>S)&&(b=S),a._pf.overflow=b)}function pa(a){a._pf={empty:!1,unusedTokens:[],unusedInput:[],overflow:-2,charsLeftOver:0,nullInput:!1,invalidMonth:null,invalidFormat:!1,userInvalidated:!1}}function W(a){return null==a._isValid&&(a._isValid=!isNaN(a._d.getTime())&&0>a._pf.overflow&&!a._pf.empty&&!a._pf.invalidMonth&&!a._pf.nullInput&&!a._pf.invalidFormat&&!a._pf.userInvalidated,
+a._strict&&(a._isValid=a._isValid&&0===a._pf.charsLeftOver&&0===a._pf.unusedTokens.length)),a._isValid}function da(a){return a?a.toLowerCase().replace("_","-"):a}function V(a){var b=0,c,e,d,f,g=function(a){if(!ya[a]&&Ha)try{require("./lang/"+a)}catch(b){}return ya[a]};if(!a)return r.fn._lang;if(!m(a)){if(e=g(a))return e;a=[a]}for(;b<a.length;){f=da(a[b]).split("-");c=f.length;for(d=(d=da(a[b+1]))?d.split("-"):null;0<c;){if(e=g(f.slice(0,c).join("-")))return e;if(d&&d.length>=c&&p(f,d,!0)>=c-1)break;
+c--}b++}return r.fn._lang}function Aa(a){return a.match(/\[[\s\S]/)?a.replace(/^\[|\]$/g,""):a.replace(/\\/g,"")}function sa(a){var b=a.match(va),c,e;c=0;for(e=b.length;c<e;c++)C[b[c]]?b[c]=C[b[c]]:b[c]=Aa(b[c]);return function(d){var f="";for(c=0;c<e;c++)f+=b[c]instanceof Function?b[c].call(d,a):b[c];return f}}function t(a,b){return a.isValid()?(b=J(b,a.lang()),u[b]||(u[b]=sa(b)),u[b](a)):a.lang().invalidDate()}function J(a,b){function c(a){return b.longDateFormat(a)||a}var e=5;for(Pa.lastIndex=
+0;0<=e&&Pa.test(a);)a=a.replace(Pa,c),Pa.lastIndex=0,e-=1;return a}function ba(a,b){var c;switch(a){case "DDDD":return jb;case "YYYY":case "GGGG":case "gggg":return ib;case "YYYYY":case "GGGGG":case "ggggg":return ob;case "S":case "SS":case "SSS":case "DDD":return Ta;case "MMM":case "MMMM":case "dd":case "ddd":case "dddd":return ab;case "a":case "A":return V(b._l)._meridiemParse;case "X":return ja;case "Z":case "ZZ":return ha;case "T":return ea;case "MM":case "DD":case "YY":case "GG":case "gg":case "HH":case "hh":case "mm":case "ss":case "M":case "D":case "d":case "H":case "h":case "m":case "s":case "w":case "ww":case "W":case "WW":case "e":case "E":return hb;
+default:var e=RegExp,d;d=la(a.replace("\\","")).replace(/[-\/\\^$*+?.()|[\]{}]/g,"\\$&");return c=new e(d),c}}function ka(a){a=((ha.exec(a)||[])[0]+"").match(tb)||["-",0,0];var b=+(60*a[1])+y(a[2]);return"+"===a[0]?-b:b}function M(a){var b,c=[],e,d,f,g,h,k,l,m;if(!a._d){e=K(a);a._w&&null==a._a[S]&&null==a._a[ua]&&(f=function(b){return b?3>b.length?68<parseInt(b,10)?"19"+b:"20"+b:b:null==a._a[oa]?r().weekYear():a._a[oa]},g=a._w,null!=g.GG||null!=g.W||null!=g.E?h=Ra(f(g.GG),g.W||1,g.E,4,1):(k=V(a._l),
+l=null!=g.d?Ya(g.d,k):null!=g.e?parseInt(g.e,10)+k._week.dow:0,m=parseInt(g.w,10)||1,null!=g.d&&l<k._week.dow&&m++,h=Ra(f(g.gg),m,l,k._week.doy,k._week.dow)),a._a[oa]=h.year,a._dayOfYear=h.dayOfYear);a._dayOfYear&&(d=null==a._a[oa]?e[oa]:a._a[oa],a._dayOfYear>(Y(d)?366:365)&&(a._pf._overflowDayOfYear=!0),b=ma(d,0,a._dayOfYear),a._a[ua]=b.getUTCMonth(),a._a[S]=b.getUTCDate());for(b=0;3>b&&null==a._a[b];++b)a._a[b]=c[b]=e[b];for(;7>b;b++)a._a[b]=c[b]=null==a._a[b]?2===b?1:0:a._a[b];c[ca]+=y((a._tzm||
+0)/60);c[xa]+=y((a._tzm||0)%60);a._d=(a._useUTC?ma:Oa).apply(null,c)}}function K(a){var b=new Date;return a._useUTC?[b.getUTCFullYear(),b.getUTCMonth(),b.getUTCDate()]:[b.getFullYear(),b.getMonth(),b.getDate()]}function X(a){a._a=[];a._pf.empty=!0;var b=V(a._l),c=""+a._i,e,d,f,g,h=c.length,k=0;d=J(a._f,b).match(va)||[];for(b=0;b<d.length;b++)if(f=d[b],(e=(ba(f,a).exec(c)||[])[0])&&(g=c.substr(0,c.indexOf(e)),0<g.length&&a._pf.unusedInput.push(g),c=c.slice(c.indexOf(e)+e.length),k+=e.length),C[f]){e?
+a._pf.empty=!1:a._pf.unusedTokens.push(f);var l=a,m=void 0,t=l._a;switch(f){case "M":case "MM":null!=e&&(t[ua]=y(e)-1);break;case "MMM":case "MMMM":m=V(l._l).monthsParse(e);null!=m?t[ua]=m:l._pf.invalidMonth=e;break;case "D":case "DD":null!=e&&(t[S]=y(e));break;case "DDD":case "DDDD":null!=e&&(l._dayOfYear=y(e));break;case "YY":t[oa]=y(e)+(68<y(e)?1900:2E3);break;case "YYYY":case "YYYYY":t[oa]=y(e);break;case "a":case "A":l._isPm=V(l._l).isPM(e);break;case "H":case "HH":case "h":case "hh":t[ca]=y(e);
+break;case "m":case "mm":t[xa]=y(e);break;case "s":case "ss":t[Ca]=y(e);break;case "S":case "SS":case "SSS":t[Da]=y(1E3*("0."+e));break;case "X":l._d=new Date(1E3*parseFloat(e));break;case "Z":case "ZZ":l._useUTC=!0;l._tzm=ka(e);break;case "w":case "ww":case "W":case "WW":case "d":case "dd":case "ddd":case "dddd":case "e":case "E":f=f.substr(0,1);case "gg":case "gggg":case "GG":case "GGGG":case "GGGGG":f=f.substr(0,2),e&&(l._w=l._w||{},l._w[f]=e)}}else a._strict&&!e&&a._pf.unusedTokens.push(f);a._pf.charsLeftOver=
+h-k;0<c.length&&a._pf.unusedInput.push(c);a._isPm&&12>a._a[ca]&&(a._a[ca]+=12);!1===a._isPm&&12===a._a[ca]&&(a._a[ca]=0);M(a);fa(a)}function la(a){return a.replace(/\\(\[)|\\(\])|\[([^\]\[]*)\]|\\(.)/g,function(a,b,c,e,d){return b||c||e||d})}function Oa(a,b,c,e,d,f,g){b=new Date(a,b,c,e,d,f,g);return 1970>a&&b.setFullYear(a),b}function ma(a){var b=new Date(Date.UTC.apply(null,arguments));return 1970>a&&b.setUTCFullYear(a),b}function Ya(a,b){if("string"==typeof a)if(isNaN(a)){if(a=b.weekdaysParse(a),
+"number"!=typeof a)return null}else a=parseInt(a,10);return a}function Qa(a,b,c,e,d){return d.relativeTime(b||1,!!c,a,e)}function ra(a,b,c){b=c-b;c-=a.day();var e;return c>b&&(c-=7),c<b-7&&(c+=7),e=r(a).add("d",c),{week:Math.ceil(e.dayOfYear()/7),year:e.year()}}function Ra(a,b,c,e,d){var f=(new Date(Date.UTC(a,0))).getUTCDay(),g,h;return c=null!=c?c:d,g=d-f+(f>e?7:0),h=7*(b-1)+(c-d)+g+1,{year:0<h?a:a-1,dayOfYear:0<h?h:(Y(a-1)?366:365)+h}}function db(c){var d=c._i,f=c._f;"undefined"==typeof c._pf&&
+pa(c);if(null===d)c=r.invalid({nullInput:!0});else{"string"==typeof d&&(c._i=d=V().preparse(d));if(r.isMoment(d))c=e({},d),c._d=new Date(+d._d);else if(f)if(m(f)){var d=c,g,h,k,l;if(0===d._f.length)d._pf.invalidFormat=!0,d._d=new Date(NaN);else{for(f=0;f<d._f.length;f++)if(l=0,g=e({},d),pa(g),g._f=d._f[f],X(g),W(g)&&(l+=g._pf.charsLeftOver,l+=10*g._pf.unusedTokens.length,g._pf.score=l,null==k||l<k))k=l,h=g;e(d,h||g)}}else X(c);else if(g=c,h=g._i,k=La.exec(h),h===a)g._d=new Date;else if(k)g._d=new Date(+k[1]);
+else if("string"==typeof h)if(k=g._i,d=G.exec(k)){for(h=4;0<h;h--)if(d[h]){g._f=Q[h-1]+(d[6]||" ");break}for(h=0;4>h;h++)if(Ma[h][1].exec(k)){g._f+=Ma[h][0];break}ha.exec(k)&&(g._f+=" Z");X(g)}else g._d=new Date(k);else m(h)?(g._a=h.slice(0),M(g)):"[object Date]"===Object.prototype.toString.call(h)?g._d=new Date(+h):"object"==typeof h?g._d||(h=D(g._i),g._a=[h.year,h.month,h.day,h.hour,h.minute,h.second,h.millisecond],M(g)):g._d=new Date(h);c=new b(c)}return c}function Za(a,b){r.fn[a]=r.fn[a+"s"]=
+function(a){var c=this._isUTC?"UTC":"";return null!=a?(this._d["set"+c+b](a),r.updateOffset(this),this):this._d["get"+c+b]()}}function nb(a){r.duration.fn[a]=function(){return this._data[a]}}function $a(a,b){r.duration.fn["as"+a]=function(){return+this/b}}function Ka(){"undefined"==typeof ender&&(this.moment=r)}for(var r,za=Math.round,F,oa=0,ua=1,S=2,ca=3,xa=4,Ca=5,Da=6,ya={},Ha="undefined"!=typeof module&&module.exports,La=/^\/?Date\((\-?\d+)/i,pb=/(\-)?(?:(\d*)\.)?(\d+)\:(\d+)(?:\:(\d+)\.?(\d{3})?)?/,
+T=/^(-)?P(?:(?:([0-9,.]*)Y)?(?:([0-9,.]*)M)?(?:([0-9,.]*)D)?(?:T(?:([0-9,.]*)H)?(?:([0-9,.]*)M)?(?:([0-9,.]*)S)?)?|([0-9,.]*)W)$/,va=/(\[[^\[]*\])|(\\)?(Mo|MM?M?M?|Do|DDDo|DD?D?D?|ddd?d?|do?|w[o|w]?|W[o|W]?|YYYYY|YYYY|YY|gg(ggg?)?|GG(GGG?)?|e|E|a|A|hh?|HH?|mm?|ss?|SS?S?|X|zz?|ZZ?|.)/g,Pa=/(\[[^\[]*\])|(\\)?(LT|LL?L?L?|l{1,4})/g,hb=/\d\d?/,Ta=/\d{1,3}/,jb=/\d{3}/,ib=/\d{1,4}/,ob=/[+\-]?\d{1,6}/,ab=/[0-9]*['a-z\u00A0-\u05FF\u0700-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+|[\u0600-\u06FF\/]+(\s*?[\u0600-\u06FF]+){1,2}/i,
+ha=/Z|[\+\-]\d\d:?\d\d/i,ea=/T/i,ja=/[\+\-]?\d+(\.\d{1,3})?/,G=/^\s*\d{4}-(?:(\d\d-\d\d)|(W\d\d$)|(W\d\d-\d)|(\d\d\d))((T| )(\d\d(:\d\d(:\d\d(\.\d\d?\d?)?)?)?)?([\+\-]\d\d:?\d\d)?)?$/,Q=["YYYY-MM-DD","GGGG-[W]WW","GGGG-[W]WW-E","YYYY-DDD"],Ma=[["HH:mm:ss.S",/(T| )\d\d:\d\d:\d\d\.\d{1,3}/],["HH:mm:ss",/(T| )\d\d:\d\d:\d\d/],["HH:mm",/(T| )\d\d:\d\d/],["HH",/(T| )\d\d/]],tb=/([\+\-]|\d\d)/gi,gb=["Date","Hours","Minutes","Seconds","Milliseconds"],Na={Milliseconds:1,Seconds:1E3,Minutes:6E4,Hours:36E5,
+Days:864E5,Months:2592E6,Years:31536E6},vb={ms:"millisecond",s:"second",m:"minute",h:"hour",d:"day",D:"date",w:"week",W:"isoWeek",M:"month",y:"year",DDD:"dayOfYear",e:"weekday",E:"isoWeekday",gg:"weekYear",GG:"isoWeekYear"},ub={dayofyear:"dayOfYear",isoweekday:"isoWeekday",isoweek:"isoWeek",weekyear:"weekYear",isoweekyear:"isoWeekYear"},u={},Xa="DDD w W M D d".split(" "),wa="MDHhmswW".split(""),C={M:function(){return this.month()+1},MMM:function(a){return this.lang().monthsShort(this,a)},MMMM:function(a){return this.lang().months(this,
+a)},D:function(){return this.date()},DDD:function(){return this.dayOfYear()},d:function(){return this.day()},dd:function(a){return this.lang().weekdaysMin(this,a)},ddd:function(a){return this.lang().weekdaysShort(this,a)},dddd:function(a){return this.lang().weekdays(this,a)},w:function(){return this.week()},W:function(){return this.isoWeek()},YY:function(){return k(this.year()%100,2)},YYYY:function(){return k(this.year(),4)},YYYYY:function(){return k(this.year(),5)},gg:function(){return k(this.weekYear()%
+100,2)},gggg:function(){return this.weekYear()},ggggg:function(){return k(this.weekYear(),5)},GG:function(){return k(this.isoWeekYear()%100,2)},GGGG:function(){return this.isoWeekYear()},GGGGG:function(){return k(this.isoWeekYear(),5)},e:function(){return this.weekday()},E:function(){return this.isoWeekday()},a:function(){return this.lang().meridiem(this.hours(),this.minutes(),!0)},A:function(){return this.lang().meridiem(this.hours(),this.minutes(),!1)},H:function(){return this.hours()},h:function(){return this.hours()%
+12||12},m:function(){return this.minutes()},s:function(){return this.seconds()},S:function(){return y(this.milliseconds()/100)},SS:function(){return k(y(this.milliseconds()/10),2)},SSS:function(){return k(this.milliseconds(),3)},Z:function(){var a=-this.zone(),b="+";return 0>a&&(a=-a,b="-"),b+k(y(a/60),2)+":"+k(y(a)%60,2)},ZZ:function(){var a=-this.zone(),b="+";return 0>a&&(a=-a,b="-"),b+k(y(10*a/6),4)},z:function(){return this.zoneAbbr()},zz:function(){return this.zoneName()},X:function(){return this.unix()}},
+v=["months","monthsShort","weekdays","weekdaysShort","weekdaysMin"];Xa.length;)F=Xa.pop(),C[F+"o"]=f(C[F],F);for(;wa.length;)F=wa.pop(),C[F+F]=d(C[F],2);C.DDDD=d(C.DDD,3);e(g.prototype,{set:function(a){var b,c;for(c in a)b=a[c],"function"==typeof b?this[c]=b:this["_"+c]=b},_months:"January February March April May June July August September October November December".split(" "),months:function(a){return this._months[a.month()]},_monthsShort:"Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec".split(" "),
+monthsShort:function(a){return this._monthsShort[a.month()]},monthsParse:function(a){var b,c,e;this._monthsParse||(this._monthsParse=[]);for(b=0;12>b;b++)if(this._monthsParse[b]||(c=r.utc([2E3,b]),e="^"+this.months(c,"")+"|^"+this.monthsShort(c,""),this._monthsParse[b]=new RegExp(e.replace(".",""),"i")),this._monthsParse[b].test(a))return b},_weekdays:"Sunday Monday Tuesday Wednesday Thursday Friday Saturday".split(" "),weekdays:function(a){return this._weekdays[a.day()]},_weekdaysShort:"Sun Mon Tue Wed Thu Fri Sat".split(" "),
+weekdaysShort:function(a){return this._weekdaysShort[a.day()]},_weekdaysMin:"Su Mo Tu We Th Fr Sa".split(" "),weekdaysMin:function(a){return this._weekdaysMin[a.day()]},weekdaysParse:function(a){var b,c,e;this._weekdaysParse||(this._weekdaysParse=[]);for(b=0;7>b;b++)if(this._weekdaysParse[b]||(c=r([2E3,1]).day(b),e="^"+this.weekdays(c,"")+"|^"+this.weekdaysShort(c,"")+"|^"+this.weekdaysMin(c,""),this._weekdaysParse[b]=new RegExp(e.replace(".",""),"i")),this._weekdaysParse[b].test(a))return b},_longDateFormat:{LT:"h:mm A",
+L:"MM/DD/YYYY",LL:"MMMM D YYYY",LLL:"MMMM D YYYY LT",LLLL:"dddd, MMMM D YYYY LT"},longDateFormat:function(a){var b=this._longDateFormat[a];return!b&&this._longDateFormat[a.toUpperCase()]&&(b=this._longDateFormat[a.toUpperCase()].replace(/MMMM|MM|DD|dddd/g,function(a){return a.slice(1)}),this._longDateFormat[a]=b),b},isPM:function(a){return"p"===(a+"").toLowerCase().charAt(0)},_meridiemParse:/[ap]\.?m?\.?/i,meridiem:function(a,b,c){return 11<a?c?"pm":"PM":c?"am":"AM"},_calendar:{sameDay:"[Today at] LT",
+nextDay:"[Tomorrow at] LT",nextWeek:"dddd [at] LT",lastDay:"[Yesterday at] LT",lastWeek:"[Last] dddd [at] LT",sameElse:"L"},calendar:function(a,b){var c=this._calendar[a];return"function"==typeof c?c.apply(b):c},_relativeTime:{future:"in %s",past:"%s ago",s:"a few seconds",m:"a minute",mm:"%d minutes",h:"an hour",hh:"%d hours",d:"a day",dd:"%d days",M:"a month",MM:"%d months",y:"a year",yy:"%d years"},relativeTime:function(a,b,c,e){var d=this._relativeTime[c];return"function"==typeof d?d(a,b,c,e):
+d.replace(/%d/i,a)},pastFuture:function(a,b){var c=this._relativeTime[0<a?"future":"past"];return"function"==typeof c?c(b):c.replace(/%s/i,b)},ordinal:function(a){return this._ordinal.replace("%d",a)},_ordinal:"%d",preparse:function(a){return a},postformat:function(a){return a},week:function(a){return ra(a,this._week.dow,this._week.doy).week},_week:{dow:0,doy:6},_invalidDate:"Invalid date",invalidDate:function(){return this._invalidDate}});r=function(b,c,e,d){return"boolean"==typeof e&&(d=e,e=a),
+db({_i:b,_f:c,_l:e,_strict:d,_isUTC:!1})};r.utc=function(b,c,e,d){var f;return"boolean"==typeof e&&(d=e,e=a),f=db({_useUTC:!0,_isUTC:!0,_l:e,_i:b,_f:c,_strict:d}).utc(),f};r.unix=function(a){return r(1E3*a)};r.duration=function(a,b){var e=r.isDuration(a),d="number"==typeof a,f=e?a._input:d?{}:a,g=null,h,k,l;return d?b?f[b]=a:f.milliseconds=a:(g=pb.exec(a))?(h="-"===g[1]?-1:1,f={y:0,d:y(g[S])*h,h:y(g[ca])*h,m:y(g[xa])*h,s:y(g[Ca])*h,ms:y(g[Da])*h}):!(g=T.exec(a))||(h="-"===g[1]?-1:1,l=function(a){a=
+a&&parseFloat(a.replace(",","."));return(isNaN(a)?0:a)*h},f={y:l(g[2]),M:l(g[3]),d:l(g[4]),h:l(g[5]),m:l(g[6]),s:l(g[7]),w:l(g[8])}),k=new c(f),e&&a.hasOwnProperty("_lang")&&(k._lang=a._lang),k};r.version="2.3.1";r.defaultFormat="YYYY-MM-DDTHH:mm:ssZ";r.updateOffset=function(){};r.lang=function(a,b){var c,e;a?(b?(e=da(a),b.abbr=e,ya[e]||(ya[e]=new g),ya[e].set(b)):null===b?(delete ya[a],a="en"):ya[a]||V(a),e=(c=r.duration.fn._lang=r.fn._lang=V(a),c._abbr)):e=r.fn._lang._abbr;return e};r.langData=
+function(a){return a&&a._lang&&a._lang._abbr&&(a=a._lang._abbr),V(a)};r.isMoment=function(a){return a instanceof b};r.isDuration=function(a){return a instanceof c};for(F=v.length-1;0<=F;--F)A(v[F]);r.normalizeUnits=function(a){return s(a)};r.invalid=function(a){var b=r.utc(NaN);return null!=a?e(b._pf,a):b._pf.userInvalidated=!0,b};r.parseZone=function(a){return r(a).parseZone()};e(r.fn=b.prototype,{clone:function(){return r(this)},valueOf:function(){return+this._d+6E4*(this._offset||0)},unix:function(){return Math.floor(+this/
+1E3)},toString:function(){return this.clone().lang("en").format("ddd MMM DD YYYY HH:mm:ss [GMT]ZZ")},toDate:function(){return this._offset?new Date(+this):this._d},toISOString:function(){return t(r(this).utc(),"YYYY-MM-DD[T]HH:mm:ss.SSS[Z]")},toArray:function(){return[this.year(),this.month(),this.date(),this.hours(),this.minutes(),this.seconds(),this.milliseconds()]},isValid:function(){return W(this)},isDSTShifted:function(){return this._a?this.isValid()&&0<p(this._a,(this._isUTC?r.utc(this._a):
+r(this._a)).toArray()):!1},parsingFlags:function(){return e({},this._pf)},invalidAt:function(){return this._pf.overflow},utc:function(){return this.zone(0)},local:function(){return this.zone(0),this._isUTC=!1,this},format:function(a){a=t(this,a||r.defaultFormat);return this.lang().postformat(a)},add:function(a,b){var c;return"string"==typeof a?c=r.duration(+b,a):c=r.duration(a,b),l(this,c,1),this},subtract:function(a,b){var c;return"string"==typeof a?c=r.duration(+b,a):c=r.duration(a,b),l(this,c,
+-1),this},diff:function(a,b,c){a=this._isUTC?r(a).zone(this._offset||0):r(a).local();var e=6E4*(this.zone()-a.zone()),d,f;return b=s(b),"year"===b||"month"===b?(d=432E5*(this.daysInMonth()+a.daysInMonth()),f=12*(this.year()-a.year())+(this.month()-a.month()),f+=(this-r(this).startOf("month")-(a-r(a).startOf("month")))/d,f-=6E4*(this.zone()-r(this).startOf("month").zone()-(a.zone()-r(a).startOf("month").zone()))/d,"year"===b&&(f/=12)):(d=this-a,f="second"===b?d/1E3:"minute"===b?d/6E4:"hour"===b?d/
+36E5:"day"===b?(d-e)/864E5:"week"===b?(d-e)/6048E5:d),c?f:h(f)},from:function(a,b){return r.duration(this.diff(a)).lang(this.lang()._abbr).humanize(!b)},fromNow:function(a){return this.from(r(),a)},calendar:function(){var a=this.diff(r().zone(this.zone()).startOf("day"),"days",!0),a=-6>a?"sameElse":-1>a?"lastWeek":0>a?"lastDay":1>a?"sameDay":2>a?"nextDay":7>a?"nextWeek":"sameElse";return this.format(this.lang().calendar(a,this))},isLeapYear:function(){return Y(this.year())},isDST:function(){return this.zone()<
+this.clone().month(0).zone()||this.zone()<this.clone().month(5).zone()},day:function(a){var b=this._isUTC?this._d.getUTCDay():this._d.getDay();return null!=a?(a=Ya(a,this.lang()),this.add({d:a-b})):b},month:function(a){var b=this._isUTC?"UTC":"",c;return null!=a?"string"==typeof a&&(a=this.lang().monthsParse(a),"number"!=typeof a)?this:(c=this.date(),this.date(1),this._d["set"+b+"Month"](a),this.date(Math.min(c,this.daysInMonth())),r.updateOffset(this),this):this._d["get"+b+"Month"]()},startOf:function(a){a=
+s(a);switch(a){case "year":this.month(0);case "month":this.date(1);case "week":case "isoWeek":case "day":this.hours(0);case "hour":this.minutes(0);case "minute":this.seconds(0);case "second":this.milliseconds(0)}return"week"===a?this.weekday(0):"isoWeek"===a&&this.isoWeekday(1),this},endOf:function(a){return a=s(a),this.startOf(a).add("isoWeek"===a?"week":a,1).subtract("ms",1)},isAfter:function(a,b){return b="undefined"!=typeof b?b:"millisecond",+this.clone().startOf(b)>+r(a).startOf(b)},isBefore:function(a,
+b){return b="undefined"!=typeof b?b:"millisecond",+this.clone().startOf(b)<+r(a).startOf(b)},isSame:function(a,b){return b="undefined"!=typeof b?b:"millisecond",+this.clone().startOf(b)===+r(a).startOf(b)},min:function(a){return a=r.apply(null,arguments),a<this?this:a},max:function(a){return a=r.apply(null,arguments),a>this?this:a},zone:function(a){var b=this._offset||0;return null==a?this._isUTC?b:this._d.getTimezoneOffset():("string"==typeof a&&(a=ka(a)),16>Math.abs(a)&&(a*=60),this._offset=a,this._isUTC=
+!0,b!==a&&l(this,r.duration(b-a,"m"),1,!0),this)},zoneAbbr:function(){return this._isUTC?"UTC":""},zoneName:function(){return this._isUTC?"Coordinated Universal Time":""},parseZone:function(){return"string"==typeof this._i&&this.zone(this._i),this},hasAlignedHourOffset:function(a){return a?a=r(a).zone():a=0,0===(this.zone()-a)%60},daysInMonth:function(){var a=this.year(),b=this.month();return(new Date(Date.UTC(a,b+1,0))).getUTCDate()},dayOfYear:function(a){var b=za((r(this).startOf("day")-r(this).startOf("year"))/
+864E5)+1;return null==a?b:this.add("d",a-b)},weekYear:function(a){var b=ra(this,this.lang()._week.dow,this.lang()._week.doy).year;return null==a?b:this.add("y",a-b)},isoWeekYear:function(a){var b=ra(this,1,4).year;return null==a?b:this.add("y",a-b)},week:function(a){var b=this.lang().week(this);return null==a?b:this.add("d",7*(a-b))},isoWeek:function(a){var b=ra(this,1,4).week;return null==a?b:this.add("d",7*(a-b))},weekday:function(a){var b=(this.day()+7-this.lang()._week.dow)%7;return null==a?b:
+this.add("d",a-b)},isoWeekday:function(a){return null==a?this.day()||7:this.day(this.day()%7?a:a-7)},get:function(a){return a=s(a),this[a]()},set:function(a,b){return a=s(a),"function"==typeof this[a]&&this[a](b),this},lang:function(b){return b===a?this._lang:(this._lang=V(b),this)}});for(F=0;F<gb.length;F++)Za(gb[F].toLowerCase().replace(/s$/,""),gb[F]);Za("year","FullYear");r.fn.days=r.fn.day;r.fn.months=r.fn.month;r.fn.weeks=r.fn.week;r.fn.isoWeeks=r.fn.isoWeek;r.fn.toJSON=r.fn.toISOString;e(r.duration.fn=
+c.prototype,{_bubble:function(){var a=this._milliseconds,b=this._days,c=this._months,e=this._data;e.milliseconds=a%1E3;a=h(a/1E3);e.seconds=a%60;a=h(a/60);e.minutes=a%60;a=h(a/60);e.hours=a%24;b+=h(a/24);e.days=b%30;c+=h(b/30);e.months=c%12;b=h(c/12);e.years=b},weeks:function(){return h(this.days()/7)},valueOf:function(){return this._milliseconds+864E5*this._days+this._months%12*2592E6+31536E6*y(this._months/12)},humanize:function(a){var b=+this,c;c=!a;var e=this.lang(),d=za(Math.abs(b)/1E3),f=za(d/
+60),g=za(f/60),h=za(g/24),k=za(h/365),d=45>d&&["s",d]||1===f&&["m"]||45>f&&["mm",f]||1===g&&["h"]||22>g&&["hh",g]||1===h&&["d"]||25>=h&&["dd",h]||45>=h&&["M"]||345>h&&["MM",za(h/30)]||1===k&&["y"]||["yy",k];c=(d[2]=c,d[3]=0<b,d[4]=e,Qa.apply({},d));return a&&(c=this.lang().pastFuture(b,c)),this.lang().postformat(c)},add:function(a,b){var c=r.duration(a,b);return this._milliseconds+=c._milliseconds,this._days+=c._days,this._months+=c._months,this._bubble(),this},subtract:function(a,b){var c=r.duration(a,
+b);return this._milliseconds-=c._milliseconds,this._days-=c._days,this._months-=c._months,this._bubble(),this},get:function(a){return a=s(a),this[a.toLowerCase()+"s"]()},as:function(a){return a=s(a),this["as"+a.charAt(0).toUpperCase()+a.slice(1)+"s"]()},lang:r.fn.lang,toIsoString:function(){var a=Math.abs(this.years()),b=Math.abs(this.months()),c=Math.abs(this.days()),e=Math.abs(this.hours()),d=Math.abs(this.minutes()),f=Math.abs(this.seconds()+this.milliseconds()/1E3);return this.asSeconds()?(0>
+this.asSeconds()?"-":"")+"P"+(a?a+"Y":"")+(b?b+"M":"")+(c?c+"D":"")+(e||d||f?"T":"")+(e?e+"H":"")+(d?d+"M":"")+(f?f+"S":""):"P0D"}});for(F in Na)Na.hasOwnProperty(F)&&($a(F,Na[F]),nb(F.toLowerCase()));$a("Weeks",6048E5);r.duration.fn.asMonths=function(){return(+this-31536E6*this.years())/2592E6+12*this.years()};r.lang("en",{ordinal:function(a){var b=a%10,b=1===y(a%100/10)?"th":1===b?"st":2===b?"nd":3===b?"rd":"th";return a+b}});Ha?(module.exports=r,Ka()):"function"==typeof define&&define.amd?define("moment",
+function(a,b,c){return!0!==c.config().noGlobal&&Ka(),r}):Ka()}).call(this);
+(function(){function a(a){function g(a){a+="";var b=a.split(":");a=~a.indexOf("-")?-1:1;var c=Math.abs(+b[0]),e=parseInt(b[1],10)||0,b=parseInt(b[2],10)||0;return a*(60*c+e+b/60)}function b(a,b,c,e,d,f,h,k,l,m){this.name=a;this.startYear=+b;this.endYear=+c;this.month=+e;this.day=+d;this.dayRule=+f;this.time=g(h);this.timeRule=+k;this.offset=g(l);this.letters=m||""}function c(a,b){this.rule=b;this.start=b.start(a)}function e(a,b){return a.isLast?-1:b.isLast?1:b.start-a.start}function h(a){this.name=
+a;this.rules=[]}function k(b,c,e,d,h,k){h="string"==typeof h?h.split("_"):[9999];this.name=b;this.offset=g(c);this.ruleSet=e;this.letters=d;for(b=0;b<h.length;b++)h[b]=+h[b];this.until=a.utc(h).subtract("m",g(k))}function l(a,b){return a.until-b.until}function m(a){this.name=s(a);this.displayName=a;this.zones=[]}function p(a){if(W[a])return W[a];var c=a.split(/\s/),e=s(c[0]),c=new b(e,c[1],c[2],c[3],c[4],c[5],c[6],c[7],c[8],c[9],c[10]);return W[a]=c,A(e).add(c),c}function s(a){return(a||"").toLowerCase().replace(/\//g,
+"_")}function D(a){if(V[a])return V[a];var b=a.split(/\s/),c=s(b[0]),c=new k(c,b[1],A(b[2]),b[3],b[4],b[5]);return V[a]=c,y(b[0]).add(c),c}function A(a){return a=s(a),da[a]||(da[a]=new h(a)),da[a]}function y(a){var b=s(a);return sa[b]&&(b=sa[b]),Aa[b]||(Aa[b]=new m(a)),Aa[b]}var Y=a.fn.zoneName,fa=a.fn.zoneAbbr,pa,W={},da={},V={},Aa={},sa={};return b.prototype={contains:function(a){return a>=this.startYear&&a<=this.endYear},start:function(b){return b=Math.min(Math.max(b,this.startYear),this.endYear),
+a.utc([b,this.month,this.date(b),0,this.time])},date:function(a){return 7===this.dayRule?this.day:8===this.dayRule?this.lastWeekday(a):this.weekdayAfter(a)},weekdayAfter:function(b){var c=this.day;b=a([b,this.month,1]).day();for(b=this.dayRule+1-b;b<c;)b+=7;return b},lastWeekday:function(b){var c=this.day,e=c%7,d=a([b,this.month+1,1]).day();b=a([b,this.month,1]).daysInMonth()+(e-(d-1))-7*~~(c/7);return e>=d&&(b-=7),b}},c.prototype={equals:function(a){return a&&a.rule===this.rule?864E5>Math.abs(a.start-
+this.start):!1}},h.prototype={add:function(a){this.rules.push(a)},ruleYears:function(a,b){var d,f=a.year(),g,h,k=[];for(d=0;d<this.rules.length;d++)g=this.rules[d],g.contains(f)?k.push(new c(f,g)):g.contains(f+1)&&k.push(new c(f+1,g));return k.push(new c(f-1,this.lastYearRule(f-1))),b&&(h=new c(f-1,b.lastRule()),h.start=b.until.clone().utc(),h.isLast=b.ruleSet!==this,k.push(h)),k.sort(e),k},rule:function(a,b,c){var e=this.ruleYears(a,c),d=0,f,g,h,k,l;c&&(g=c.offset+c.lastRule().offset,h=9E4*Math.abs(g));
+for(l=e.length-1;-1<l;l--)k=f,f=e[l],f.equals(k)||(c&&!f.isLast&&Math.abs(f.start-c.until)<=h&&(d+=g-b),2===f.rule.timeRule&&(d=b),1!==f.rule.timeRule&&f.start.add("m",-d),d=f.rule.offset+b);for(l=0;l<e.length;l++)if(f=e[l],a>=f.start&&!f.isLast)return f.rule;return pa},lastYearRule:function(a){var b,c,e,d=pa,f=-1E30;for(b=0;b<this.rules.length;b++)c=this.rules[b],a>=c.startYear&&(e=c.start(a),e>f&&(f=e,d=c));return d}},k.prototype={rule:function(a,b){return this.ruleSet.rule(a,this.offset,b)},lastRule:function(){return this._lastRule||
+(this._lastRule=this.rule(this.until)),this._lastRule},format:function(a){return this.letters.replace("%s",a.letters)}},m.prototype={zoneAndRule:function(a){var b,c,e;a=a.clone().utc();for(b=0;b<this.zones.length;b++){c=this.zones[b];if(a<c.until)break;e=c}return[c,c.rule(a,e)]},add:function(a){this.zones.push(a);this.zones.sort(l)},format:function(a){a=this.zoneAndRule(a);return a[0].format(a[1])},offset:function(a){a=this.zoneAndRule(a);return-(a[0].offset+a[1].offset)}},a.updateOffset=function(a){var b;
+a._z&&(b=a._z.offset(a),16>Math.abs(b)&&(b/=60),a.zone(b))},a.fn.tz=function(b){if(b)return this._z=y(b),this._z&&a.updateOffset(this),this;if(this._z)return this._z.displayName},a.fn.zoneName=function(){return this._z?this._z.format(this):Y.call(this)},a.fn.zoneAbbr=function(){return this._z?this._z.format(this):fa.call(this)},a.tz=function(){var b=[],c,e=arguments.length-1;for(c=0;c<e;c++)b[c]=arguments[c];return a.apply(null,b).tz(arguments[e])},a.tz.add=function(a){if(a){if(a.zones){var b=a.zones,
+c,e,d;for(c in b)for(d=b[c],e=0;e<d.length;e++)D(c+"\t"+d[e])}if(a.rules){var b=a.rules,f;for(f in b)for(e=b[f],c=0;c<e.length;c++)p(f+"\t"+e[c])}if(a.links){a=a.links;for(var g in a)sa[s(g)]=s(a[g])}}},a.tz.addRule=p,a.tz.addZone=D,a.tz.version=d,pa=p("- 0 9999 0 0 0 0 0 0"),a}var d="0.0.1";"function"==typeof define&&define.amd?define("moment-timezone",["moment"],a):"undefined"!=typeof window&&window.moment?a(window.moment):"undefined"!=typeof module&&(module.exports=a(require("moment")))}).apply(this);
+moment.tz.add({zones:{"Africa/Abidjan":["-0:16:8 - LMT 1912 -0:16:8","0 - GMT"],"Africa/Accra":["-0:0:52 - LMT 1918 -0:0:52","0 Ghana %s"],"Africa/Addis_Ababa":["2:34:48 - LMT 1870 2:34:48","2:35:20 - ADMT 1936_4_5 2:35:20","3 - EAT"],"Africa/Algiers":"0:12:12 - LMT 1891_2_15_0_1 0:12:12;0:9:21 - PMT 1911_2_11 0:9:21;0 Algeria WE%sT 1940_1_25_2;1 Algeria CE%sT 1946_9_7 1;0 - WET 1956_0_29;1 - CET 1963_3_14 1;0 Algeria WE%sT 1977_9_21 1;1 Algeria CE%sT 1979_9_26 1;0 Algeria WE%sT 1981_4;1 - CET".split(";"),
+"Africa/Asmara":["2:35:32 - LMT 1870 2:35:32","2:35:32 - AMT 1890 2:35:32","2:35:20 - ADMT 1936_4_5 2:35:20","3 - EAT"],"Africa/Bamako":["-0:32 - LMT 1912 -0:32","0 - GMT 1934_1_26","-1 - WAT 1960_5_20 -1","0 - GMT"],"Africa/Bangui":["1:14:20 - LMT 1912 1:14:20","1 - WAT"],"Africa/Banjul":["-1:6:36 - LMT 1912 -1:6:36","-1:6:36 - BMT 1935 -1:6:36","-1 - WAT 1964 -1","0 - GMT"],"Africa/Bissau":["-1:2:20 - LMT 1911_4_26 -1:2:20","-1 - WAT 1975 -1","0 - GMT"],"Africa/Blantyre":["2:20 - LMT 1903_2 2:20",
+"2 - CAT"],"Africa/Brazzaville":["1:1:8 - LMT 1912 1:1:8","1 - WAT"],"Africa/Bujumbura":["1:57:28 - LMT 1890 1:57:28","2 - CAT"],"Africa/Cairo":["2:5:9 - LMT 1900_9 2:5:9","2 Egypt EE%sT"],"Africa/Casablanca":["-0:30:20 - LMT 1913_9_26 -0:30:20","0 Morocco WE%sT 1984_2_16","1 - CET 1986 1","0 Morocco WE%sT"],"Africa/Ceuta":"-0:21:16 - LMT 1901 -0:21:16;0 - WET 1918_4_6_23;1 - WEST 1918_9_7_23 1;0 - WET 1924;0 Spain WE%sT 1929;0 SpainAfrica WE%sT 1984_2_16;1 - CET 1986 1;1 EU CE%sT".split(";"),"Africa/Conakry":["-0:54:52 - LMT 1912 -0:54:52",
+"0 - GMT 1934_1_26","-1 - WAT 1960 -1","0 - GMT"],"Africa/Dakar":["-1:9:44 - LMT 1912 -1:9:44","-1 - WAT 1941_5 -1","0 - GMT"],"Africa/Dar_es_Salaam":["2:37:8 - LMT 1931 2:37:8","3 - EAT 1948 3","2:45 - BEAUT 1961 2:45","3 - EAT"],"Africa/Djibouti":["2:52:36 - LMT 1911_6 2:52:36","3 - EAT"],"Africa/Douala":["0:38:48 - LMT 1912 0:38:48","1 - WAT"],"Africa/El_Aaiun":["-0:52:48 - LMT 1934_0 -0:52:48","-1 - WAT 1976_3_14 -1","0 - WET"],"Africa/Freetown":["-0:53 - LMT 1882 -0:53","-0:53 - FMT 1913_5 -0:53",
+"-1 SL %s 1957 -1","0 SL %s"],"Africa/Gaborone":["1:43:40 - LMT 1885 1:43:40","1:30 - SAST 1903_2 1:30","2 - CAT 1943_8_19_2 2","3 - CAST 1944_2_19_2 3","2 - CAT"],"Africa/Harare":["2:4:12 - LMT 1903_2 2:4:12","2 - CAT"],"Africa/Johannesburg":["1:52 - LMT 1892_1_8 1:52","1:30 - SAST 1903_2 1:30","2 SA SAST"],"Africa/Juba":["2:6:24 - LMT 1931 2:6:24","2 Sudan CA%sT 2000_0_15_12 2","3 - EAT"],"Africa/Kampala":["2:9:40 - LMT 1928_6 2:9:40","3 - EAT 1930 3","2:30 - BEAT 1948 2:30","2:45 - BEAUT 1957 2:45",
+"3 - EAT"],"Africa/Khartoum":["2:10:8 - LMT 1931 2:10:8","2 Sudan CA%sT 2000_0_15_12 2","3 - EAT"],"Africa/Kigali":["2:0:16 - LMT 1935_5 2:0:16","2 - CAT"],"Africa/Kinshasa":["1:1:12 - LMT 1897_10_9 1:1:12","1 - WAT"],"Africa/Lagos":["0:13:36 - LMT 1919_8 0:13:36","1 - WAT"],"Africa/Libreville":["0:37:48 - LMT 1912 0:37:48","1 - WAT"],"Africa/Lome":["0:4:52 - LMT 1893 0:4:52","0 - GMT"],"Africa/Luanda":["0:52:56 - LMT 1892 0:52:56","0:52:4 - AOT 1911_4_26 0:52:4","1 - WAT"],"Africa/Lubumbashi":["1:49:52 - LMT 1897_10_9 1:49:52",
+"2 - CAT"],"Africa/Lusaka":["1:53:8 - LMT 1903_2 1:53:8","2 - CAT"],"Africa/Malabo":["0:35:8 - LMT 1912 0:35:8","0 - GMT 1963_11_15","1 - WAT"],"Africa/Maputo":["2:10:20 - LMT 1903_2 2:10:20","2 - CAT"],"Africa/Maseru":["1:50 - LMT 1903_2 1:50","2 - SAST 1943_8_19_2 2","3 - SAST 1944_2_19_2 3","2 - SAST"],"Africa/Mbabane":["2:4:24 - LMT 1903_2 2:4:24","2 - SAST"],"Africa/Mogadishu":["3:1:28 - LMT 1893_10 3:1:28","3 - EAT 1931 3","2:30 - BEAT 1957 2:30","3 - EAT"],"Africa/Monrovia":["-0:43:8 - LMT 1882 -0:43:8",
+"-0:43:8 - MMT 1919_2 -0:43:8","-0:44:30 - LRT 1972_4 -0:44:30","0 - GMT"],"Africa/Nairobi":["2:27:16 - LMT 1928_6 2:27:16","3 - EAT 1930 3","2:30 - BEAT 1940 2:30","2:45 - BEAUT 1960 2:45","3 - EAT"],"Africa/Ndjamena":["1:0:12 - LMT 1912 1:0:12","1 - WAT 1979_9_14 1","2 - WAST 1980_2_8 2","1 - WAT"],"Africa/Niamey":["0:8:28 - LMT 1912 0:8:28","-1 - WAT 1934_1_26 -1","0 - GMT 1960","1 - WAT"],"Africa/Nouakchott":["-1:3:48 - LMT 1912 -1:3:48","0 - GMT 1934_1_26","-1 - WAT 1960_10_28 -1","0 - GMT"],
+"Africa/Ouagadougou":["-0:6:4 - LMT 1912 -0:6:4","0 - GMT"],"Africa/Porto-Novo":["0:10:28 - LMT 1912 0:10:28","0 - GMT 1934_1_26","1 - WAT"],"Africa/Sao_Tome":["0:26:56 - LMT 1884 0:26:56","-0:36:32 - LMT 1912 -0:36:32","0 - GMT"],"Africa/Tripoli":"0:52:44 - LMT 1920 0:52:44;1 Libya CE%sT 1959 1;2 - EET 1982 2;1 Libya CE%sT 1990_4_4 1;2 - EET 1996_8_30 2;1 Libya CE%sT 1997_9_4 2;2 - EET 2012_10_10_2 2;1 Libya CE%sT".split(";"),"Africa/Tunis":["0:40:44 - LMT 1881_4_12 0:40:44","0:9:21 - PMT 1911_2_11 0:9:21",
+"1 Tunisia CE%sT"],"Africa/Windhoek":"1:8:24 - LMT 1892_1_8 1:8:24;1:30 - SWAT 1903_2 1:30;2 - SAST 1942_8_20_2 2;3 - SAST 1943_2_21_2 3;2 - SAST 1990_2_21 2;2 - CAT 1994_3_3 2;1 Namibia WA%sT".split(";"),"America/Adak":"12:13:21 - LMT 1867_9_18 12:13:21;-11:46:38 - LMT 1900_7_20_12 -11:46:38;-11 - NST 1942 -11;-11 US N%sT 1946 -11;-11 - NST 1967_3 -11;-11 - BST 1969 -11;-11 US B%sT 1983_9_30_2 -10;-10 US AH%sT 1983_10_30 -10;-10 US HA%sT".split(";"),"America/Anchorage":"14:0:24 - LMT 1867_9_18 14:0:24;-9:59:36 - LMT 1900_7_20_12 -9:59:36;-10 - CAT 1942 -10;-10 US CAT/CAWT 1945_7_14_23;-10 US CAT/CAPT 1946 -10;-10 - CAT 1967_3 -10;-10 - AHST 1969 -10;-10 US AH%sT 1983_9_30_2 -9;-9 US Y%sT 1983_10_30 -9;-9 US AK%sT".split(";"),
+"America/Anguilla":["-4:12:16 - LMT 1912_2_2 -4:12:16","-4 - AST"],"America/Antigua":["-4:7:12 - LMT 1912_2_2 -4:7:12","-5 - EST 1951 -5","-4 - AST"],"America/Araguaina":"-3:12:48 - LMT 1914 -3:12:48;-3 Brazil BR%sT 1990_8_17 -3;-3 - BRT 1995_8_14 -3;-3 Brazil BR%sT 2003_8_24 -3;-3 - BRT 2012_9_21 -3;-3 Brazil BR%sT".split(";"),"America/Argentina/Buenos_Aires":"-3:53:48 - LMT 1894_9_31 -3:53:48;-4:16:48 - CMT 1920_4 -4:16:48;-4 - ART 1930_11 -4;-4 Arg AR%sT 1969_9_5 -4;-3 Arg AR%sT 1999_9_3 -3;-4 Arg AR%sT 2000_2_3 -3;-3 Arg AR%sT".split(";"),
+"America/Argentina/Catamarca":"-4:23:8 - LMT 1894_9_31 -4:23:8;-4:16:48 - CMT 1920_4 -4:16:48;-4 - ART 1930_11 -4;-4 Arg AR%sT 1969_9_5 -4;-3 Arg AR%sT 1991_2_3 -2;-4 - WART 1991_9_20 -4;-3 Arg AR%sT 1999_9_3 -3;-4 Arg AR%sT 2000_2_3 -3;-3 - ART 2004_5_1 -3;-4 - WART 2004_5_20 -4;-3 Arg AR%sT 2008_9_18 -3;-3 - ART".split(";"),"America/Argentina/Cordoba":"-4:16:48 - LMT 1894_9_31 -4:16:48;-4:16:48 - CMT 1920_4 -4:16:48;-4 - ART 1930_11 -4;-4 Arg AR%sT 1969_9_5 -4;-3 Arg AR%sT 1991_2_3 -2;-4 - WART 1991_9_20 -4;-3 Arg AR%sT 1999_9_3 -3;-4 Arg AR%sT 2000_2_3 -3;-3 Arg AR%sT".split(";"),
+"America/Argentina/Jujuy":"-4:21:12 - LMT 1894_9_31 -4:21:12;-4:16:48 - CMT 1920_4 -4:16:48;-4 - ART 1930_11 -4;-4 Arg AR%sT 1969_9_5 -4;-3 Arg AR%sT 1990_2_4 -2;-4 - WART 1990_9_28 -4;-3 - WARST 1991_2_17 -3;-4 - WART 1991_9_6 -4;-2 - ARST 1992 -2;-3 Arg AR%sT 1999_9_3 -3;-4 Arg AR%sT 2000_2_3 -3;-3 Arg AR%sT 2008_9_18 -3;-3 - ART".split(";"),"America/Argentina/La_Rioja":"-4:27:24 - LMT 1894_9_31 -4:27:24;-4:16:48 - CMT 1920_4 -4:16:48;-4 - ART 1930_11 -4;-4 Arg AR%sT 1969_9_5 -4;-3 Arg AR%sT 1991_2_1 -2;-4 - WART 1991_4_7 -4;-3 Arg AR%sT 1999_9_3 -3;-4 Arg AR%sT 2000_2_3 -3;-3 - ART 2004_5_1 -3;-4 - WART 2004_5_20 -4;-3 Arg AR%sT 2008_9_18 -3;-3 - ART".split(";"),
+"America/Argentina/Mendoza":"-4:35:16 - LMT 1894_9_31 -4:35:16;-4:16:48 - CMT 1920_4 -4:16:48;-4 - ART 1930_11 -4;-4 Arg AR%sT 1969_9_5 -4;-3 Arg AR%sT 1990_2_4 -2;-4 - WART 1990_9_15 -4;-3 - WARST 1991_2_1 -3;-4 - WART 1991_9_15 -4;-3 - WARST 1992_2_1 -3;-4 - WART 1992_9_18 -4;-3 Arg AR%sT 1999_9_3 -3;-4 Arg AR%sT 2000_2_3 -3;-3 - ART 2004_4_23 -3;-4 - WART 2004_8_26 -4;-3 Arg AR%sT 2008_9_18 -3;-3 - ART".split(";"),"America/Argentina/Rio_Gallegos":"-4:36:52 - LMT 1894_9_31 -4:36:52;-4:16:48 - CMT 1920_4 -4:16:48;-4 - ART 1930_11 -4;-4 Arg AR%sT 1969_9_5 -4;-3 Arg AR%sT 1999_9_3 -3;-4 Arg AR%sT 2000_2_3 -3;-3 - ART 2004_5_1 -3;-4 - WART 2004_5_20 -4;-3 Arg AR%sT 2008_9_18 -3;-3 - ART".split(";"),
+"America/Argentina/Salta":"-4:21:40 - LMT 1894_9_31 -4:21:40;-4:16:48 - CMT 1920_4 -4:16:48;-4 - ART 1930_11 -4;-4 Arg AR%sT 1969_9_5 -4;-3 Arg AR%sT 1991_2_3 -2;-4 - WART 1991_9_20 -4;-3 Arg AR%sT 1999_9_3 -3;-4 Arg AR%sT 2000_2_3 -3;-3 Arg AR%sT 2008_9_18 -3;-3 - ART".split(";"),"America/Argentina/San_Juan":"-4:34:4 - LMT 1894_9_31 -4:34:4;-4:16:48 - CMT 1920_4 -4:16:48;-4 - ART 1930_11 -4;-4 Arg AR%sT 1969_9_5 -4;-3 Arg AR%sT 1991_2_1 -2;-4 - WART 1991_4_7 -4;-3 Arg AR%sT 1999_9_3 -3;-4 Arg AR%sT 2000_2_3 -3;-3 - ART 2004_4_31 -3;-4 - WART 2004_6_25 -4;-3 Arg AR%sT 2008_9_18 -3;-3 - ART".split(";"),
+"America/Argentina/San_Luis":"-4:25:24 - LMT 1894_9_31 -4:25:24;-4:16:48 - CMT 1920_4 -4:16:48;-4 - ART 1930_11 -4;-4 Arg AR%sT 1969_9_5 -4;-3 Arg AR%sT 1990 -2;-2 - ARST 1990_2_14 -2;-4 - WART 1990_9_15 -4;-3 - WARST 1991_2_1 -3;-4 - WART 1991_5_1 -4;-3 - ART 1999_9_3 -3;-3 - WARST 2000_2_3 -3;-3 - ART 2004_4_31 -3;-4 - WART 2004_6_25 -4;-3 Arg AR%sT 2008_0_21 -2;-4 SanLuis WAR%sT".split(";"),"America/Argentina/Tucuman":"-4:20:52 - LMT 1894_9_31 -4:20:52;-4:16:48 - CMT 1920_4 -4:16:48;-4 - ART 1930_11 -4;-4 Arg AR%sT 1969_9_5 -4;-3 Arg AR%sT 1991_2_3 -2;-4 - WART 1991_9_20 -4;-3 Arg AR%sT 1999_9_3 -3;-4 Arg AR%sT 2000_2_3 -3;-3 - ART 2004_5_1 -3;-4 - WART 2004_5_13 -4;-3 Arg AR%sT".split(";"),
+"America/Argentina/Ushuaia":"-4:33:12 - LMT 1894_9_31 -4:33:12;-4:16:48 - CMT 1920_4 -4:16:48;-4 - ART 1930_11 -4;-4 Arg AR%sT 1969_9_5 -4;-3 Arg AR%sT 1999_9_3 -3;-4 Arg AR%sT 2000_2_3 -3;-3 - ART 2004_4_30 -3;-4 - WART 2004_5_20 -4;-3 Arg AR%sT 2008_9_18 -3;-3 - ART".split(";"),"America/Aruba":["-4:40:24 - LMT 1912_1_12 -4:40:24","-4:30 - ANT 1965 -4:30","-4 - AST"],"America/Asuncion":["-3:50:40 - LMT 1890 -3:50:40","-3:50:40 - AMT 1931_9_10 -3:50:40","-4 - PYT 1972_9 -4","-3 - PYT 1974_3 -3","-4 Para PY%sT"],
+"America/Atikokan":["-6:6:28 - LMT 1895 -6:6:28","-6 Canada C%sT 1940_8_29 -6","-5 - CDT 1942_1_9_2 -6","-6 Canada C%sT 1945_8_30_2 -5","-5 - EST"],"America/Bahia":["-2:34:4 - LMT 1914 -2:34:4","-3 Brazil BR%sT 2003_8_24 -3","-3 - BRT 2011_9_16 -3","-3 Brazil BR%sT 2012_9_21 -3","-3 - BRT"],"America/Bahia_Banderas":"-7:1 - LMT 1921_11_31_23_59 -7:1;-7 - MST 1927_5_10_23 -7;-6 - CST 1930_10_15 -6;-7 - MST 1931_4_1_23 -7;-6 - CST 1931_9 -6;-7 - MST 1932_3_1 -7;-6 - CST 1942_3_24 -6;-7 - MST 1949_0_14 -7;-8 - PST 1970 -8;-7 Mexico M%sT 2010_3_4_2 -7;-6 Mexico C%sT".split(";"),
+"America/Barbados":["-3:58:29 - LMT 1924 -3:58:29","-3:58:29 - BMT 1932 -3:58:29","-4 Barb A%sT"],"America/Belem":["-3:13:56 - LMT 1914 -3:13:56","-3 Brazil BR%sT 1988_8_12 -3","-3 - BRT"],"America/Belize":["-5:52:48 - LMT 1912_3 -5:52:48","-6 Belize C%sT"],"America/Blanc-Sablon":["-3:48:28 - LMT 1884 -3:48:28","-4 Canada A%sT 1970 -4","-4 - AST"],"America/Boa_Vista":["-4:2:40 - LMT 1914 -4:2:40","-4 Brazil AM%sT 1988_8_12 -4","-4 - AMT 1999_8_30 -4","-4 Brazil AM%sT 2000_9_15 -3","-4 - AMT"],"America/Bogota":["-4:56:16 - LMT 1884_2_13 -4:56:16",
+"-4:56:16 - BMT 1914_10_23 -4:56:16","-5 CO CO%sT"],"America/Boise":["-7:44:49 - LMT 1883_10_18_12_15_11 -7:44:49","-8 US P%sT 1923_4_13_2 -8","-7 US M%sT 1974 -7","-7 - MST 1974_1_3_2 -7","-7 US M%sT"],"America/Cambridge_Bay":"0 - zzz 1920;-7 NT_YK M%sT 1999_9_31_2 -6;-6 Canada C%sT 2000_9_29_2 -5;-5 - EST 2000_10_5_0 -5;-6 - CST 2001_3_1_3 -6;-7 Canada M%sT".split(";"),"America/Campo_Grande":["-3:38:28 - LMT 1914 -3:38:28","-4 Brazil AM%sT"],"America/Cancun":["-5:47:4 - LMT 1922_0_1_0_12_56 -5:47:4",
+"-6 - CST 1981_11_23 -6","-5 Mexico E%sT 1998_7_2_2 -4","-6 Mexico C%sT"],"America/Caracas":["-4:27:44 - LMT 1890 -4:27:44","-4:27:40 - CMT 1912_1_12 -4:27:40","-4:30 - VET 1965 -4:30","-4 - VET 2007_11_9_03 -4","-4:30 - VET"],"America/Cayenne":["-3:29:20 - LMT 1911_6 -3:29:20","-4 - GFT 1967_9 -4","-3 - GFT"],"America/Cayman":["-5:25:32 - LMT 1890 -5:25:32","-5:7:12 - KMT 1912_1 -5:7:12","-5 - EST"],"America/Chicago":"-5:50:36 - LMT 1883_10_18_12_9_24 -5:50:36;-6 US C%sT 1920 -6;-6 Chicago C%sT 1936_2_1_2 -6;-5 - EST 1936_10_15_2 -5;-6 Chicago C%sT 1942 -6;-6 US C%sT 1946 -6;-6 Chicago C%sT 1967 -6;-6 US C%sT".split(";"),
+"America/Chihuahua":"-7:4:20 - LMT 1921_11_31_23_55_40 -7:4:20;-7 - MST 1927_5_10_23 -7;-6 - CST 1930_10_15 -6;-7 - MST 1931_4_1_23 -7;-6 - CST 1931_9 -6;-7 - MST 1932_3_1 -7;-6 - CST 1996 -6;-6 Mexico C%sT 1998 -6;-6 - CST 1998_3_5_3 -6;-7 Mexico M%sT".split(";"),"America/Costa_Rica":["-5:36:13 - LMT 1890 -5:36:13","-5:36:13 - SJMT 1921_0_15 -5:36:13","-6 CR C%sT"],"America/Creston":["-7:46:4 - LMT 1884 -7:46:4","-7 - MST 1916_9_1 -7","-8 - PST 1918_5_2 -8","-7 - MST"],"America/Cuiaba":["-3:44:20 - LMT 1914 -3:44:20",
+"-4 Brazil AM%sT 2003_8_24 -4","-4 - AMT 2004_9_1 -4","-4 Brazil AM%sT"],"America/Curacao":["-4:35:47 - LMT 1912_1_12 -4:35:47","-4:30 - ANT 1965 -4:30","-4 - AST"],"America/Danmarkshavn":["-1:14:40 - LMT 1916_6_28 -1:14:40","-3 - WGT 1980_3_6_2 -3","-3 EU WG%sT 1996 -3","0 - GMT"],"America/Dawson":["-9:17:40 - LMT 1900_7_20 -9:17:40","-9 NT_YK Y%sT 1973_9_28_0 -9","-8 NT_YK P%sT 1980 -8","-8 Canada P%sT"],"America/Dawson_Creek":["-8:0:56 - LMT 1884 -8:0:56","-8 Canada P%sT 1947 -8","-8 Vanc P%sT 1972_7_30_2 -7",
+"-7 - MST"],"America/Denver":"-6:59:56 - LMT 1883_10_18_12_0_4 -6:59:56;-7 US M%sT 1920 -7;-7 Denver M%sT 1942 -7;-7 US M%sT 1946 -7;-7 Denver M%sT 1967 -7;-7 US M%sT".split(";"),"America/Detroit":"-5:32:11 - LMT 1905 -5:32:11;-6 - CST 1915_4_15_2 -6;-5 - EST 1942 -5;-5 US E%sT 1946 -5;-5 Detroit E%sT 1973 -5;-5 US E%sT 1975 -5;-5 - EST 1975_3_27_2 -5;-5 US E%sT".split(";"),"America/Dominica":["-4:5:36 - LMT 1911_6_1_0_1 -4:5:36","-4 - AST"],"America/Edmonton":["-7:33:52 - LMT 1906_8 -7:33:52","-7 Edm M%sT 1987 -7",
+"-7 Canada M%sT"],"America/Eirunepe":"-4:39:28 - LMT 1914 -4:39:28;-5 Brazil AC%sT 1988_8_12 -5;-5 - ACT 1993_8_28 -5;-5 Brazil AC%sT 1994_8_22 -5;-5 - ACT 2008_5_24_00 -5;-4 - AMT".split(";"),"America/El_Salvador":["-5:56:48 - LMT 1921 -5:56:48","-6 Salv C%sT"],"America/Fortaleza":"-2:34 - LMT 1914 -2:34;-3 Brazil BR%sT 1990_8_17 -3;-3 - BRT 1999_8_30 -3;-3 Brazil BR%sT 2000_9_22 -2;-3 - BRT 2001_8_13 -3;-3 Brazil BR%sT 2002_9_1 -3;-3 - BRT".split(";"),"America/Glace_Bay":"-3:59:48 - LMT 1902_5_15 -3:59:48;-4 Canada A%sT 1953 -4;-4 Halifax A%sT 1954 -4;-4 - AST 1972 -4;-4 Halifax A%sT 1974 -4;-4 Canada A%sT".split(";"),
+"America/Godthab":["-3:26:56 - LMT 1916_6_28 -3:26:56","-3 - WGT 1980_3_6_2 -3","-3 EU WG%sT"],"America/Goose_Bay":"-4:1:40 - LMT 1884 -4:1:40;-3:30:52 - NST 1918 -3:30:52;-3:30:52 Canada N%sT 1919 -3:30:52;-3:30:52 - NST 1935_2_30 -3:30:52;-3:30 - NST 1936 -3:30;-3:30 StJohns N%sT 1942_4_11 -3:30;-3:30 Canada N%sT 1946 -3:30;-3:30 StJohns N%sT 1966_2_15_2 -3:30;-4 StJohns A%sT 2011_10 -3;-4 Canada A%sT".split(";"),"America/Grand_Turk":["-4:44:32 - LMT 1890 -4:44:32","-5:7:12 - KMT 1912_1 -5:7:12",
+"-5 TC E%sT"],"America/Grenada":["-4:7 - LMT 1911_6 -4:7","-4 - AST"],"America/Guadeloupe":["-4:6:8 - LMT 1911_5_8 -4:6:8","-4 - AST"],"America/Guatemala":["-6:2:4 - LMT 1918_9_5 -6:2:4","-6 Guat C%sT"],"America/Guayaquil":["-5:19:20 - LMT 1890 -5:19:20","-5:14 - QMT 1931 -5:14","-5 - ECT"],"America/Guyana":["-3:52:40 - LMT 1915_2 -3:52:40","-3:45 - GBGT 1966_4_26 -3:45","-3:45 - GYT 1975_6_31 -3:45","-3 - GYT 1991 -3","-4 - GYT"],"America/Halifax":"-4:14:24 - LMT 1902_5_15 -4:14:24;-4 Halifax A%sT 1918 -4;-4 Canada A%sT 1919 -4;-4 Halifax A%sT 1942_1_9_2 -4;-4 Canada A%sT 1946 -4;-4 Halifax A%sT 1974 -4;-4 Canada A%sT".split(";"),
+"America/Havana":["-5:29:28 - LMT 1890 -5:29:28","-5:29:36 - HMT 1925_6_19_12 -5:29:36","-5 Cuba C%sT"],"America/Hermosillo":"-7:23:52 - LMT 1921_11_31_23_36_8 -7:23:52;-7 - MST 1927_5_10_23 -7;-6 - CST 1930_10_15 -6;-7 - MST 1931_4_1_23 -7;-6 - CST 1931_9 -6;-7 - MST 1932_3_1 -7;-6 - CST 1942_3_24 -6;-7 - MST 1949_0_14 -7;-8 - PST 1970 -8;-7 Mexico M%sT 1999 -7;-7 - MST".split(";"),"America/Indiana/Indianapolis":"-5:44:38 - LMT 1883_10_18_12_15_22 -5:44:38;-6 US C%sT 1920 -6;-6 Indianapolis C%sT 1942 -6;-6 US C%sT 1946 -6;-6 Indianapolis C%sT 1955_3_24_2 -6;-5 - EST 1957_8_29_2 -5;-6 - CST 1958_3_27_2 -6;-5 - EST 1969 -5;-5 US E%sT 1971 -5;-5 - EST 2006 -5;-5 US E%sT".split(";"),
+"America/Indiana/Knox":"-5:46:30 - LMT 1883_10_18_12_13_30 -5:46:30;-6 US C%sT 1947 -6;-6 Starke C%sT 1962_3_29_2 -6;-5 - EST 1963_9_27_2 -5;-6 US C%sT 1991_9_27_2 -5;-5 - EST 2006_3_2_2 -5;-6 US C%sT".split(";"),"America/Indiana/Marengo":"-5:45:23 - LMT 1883_10_18_12_14_37 -5:45:23;-6 US C%sT 1951 -6;-6 Marengo C%sT 1961_3_30_2 -6;-5 - EST 1969 -5;-5 US E%sT 1974_0_6_2 -5;-5 - CDT 1974_9_27_2 -5;-5 US E%sT 1976 -5;-5 - EST 2006 -5;-5 US E%sT".split(";"),"America/Indiana/Petersburg":"-5:49:7 - LMT 1883_10_18_12_10_53 -5:49:7;-6 US C%sT 1955 -6;-6 Pike C%sT 1965_3_25_2 -6;-5 - EST 1966_9_30_2 -5;-6 US C%sT 1977_9_30_2 -5;-5 - EST 2006_3_2_2 -5;-6 US C%sT 2007_10_4_2 -5;-5 US E%sT".split(";"),
+"America/Indiana/Tell_City":"-5:47:3 - LMT 1883_10_18_12_12_57 -5:47:3;-6 US C%sT 1946 -6;-6 Perry C%sT 1964_3_26_2 -6;-5 - EST 1969 -5;-5 US E%sT 1971 -5;-5 - EST 2006_3_2_2 -5;-6 US C%sT".split(";"),"America/Indiana/Vevay":"-5:40:16 - LMT 1883_10_18_12_19_44 -5:40:16;-6 US C%sT 1954_3_25_2 -6;-5 - EST 1969 -5;-5 US E%sT 1973 -5;-5 - EST 2006 -5;-5 US E%sT".split(";"),"America/Indiana/Vincennes":"-5:50:7 - LMT 1883_10_18_12_9_53 -5:50:7;-6 US C%sT 1946 -6;-6 Vincennes C%sT 1964_3_26_2 -6;-5 - EST 1969 -5;-5 US E%sT 1971 -5;-5 - EST 2006_3_2_2 -5;-6 US C%sT 2007_10_4_2 -5;-5 US E%sT".split(";"),
+"America/Indiana/Winamac":"-5:46:25 - LMT 1883_10_18_12_13_35 -5:46:25;-6 US C%sT 1946 -6;-6 Pulaski C%sT 1961_3_30_2 -6;-5 - EST 1969 -5;-5 US E%sT 1971 -5;-5 - EST 2006_3_2_2 -5;-6 US C%sT 2007_2_11_2 -6;-5 US E%sT".split(";"),"America/Inuvik":["0 - zzz 1953","-8 NT_YK P%sT 1979_3_29_2 -8","-7 NT_YK M%sT 1980 -7","-7 Canada M%sT"],"America/Iqaluit":["0 - zzz 1942_7","-5 NT_YK E%sT 1999_9_31_2 -4","-6 Canada C%sT 2000_9_29_2 -5","-5 Canada E%sT"],"America/Jamaica":["-5:7:12 - LMT 1890 -5:7:12","-5:7:12 - KMT 1912_1 -5:7:12",
+"-5 - EST 1974_3_28_2 -5","-5 US E%sT 1984 -5","-5 - EST"],"America/Juneau":"15:2:19 - LMT 1867_9_18 15:2:19;-8:57:41 - LMT 1900_7_20_12 -8:57:41;-8 - PST 1942 -8;-8 US P%sT 1946 -8;-8 - PST 1969 -8;-8 US P%sT 1980_3_27_2 -8;-9 US Y%sT 1980_9_26_2 -8;-8 US P%sT 1983_9_30_2 -7;-9 US Y%sT 1983_10_30 -9;-9 US AK%sT".split(";"),"America/Kentucky/Louisville":"-5:43:2 - LMT 1883_10_18_12_16_58 -5:43:2;-6 US C%sT 1921 -6;-6 Louisville C%sT 1942 -6;-6 US C%sT 1946 -6;-6 Louisville C%sT 1961_6_23_2 -5;-5 - EST 1968 -5;-5 US E%sT 1974_0_6_2 -5;-5 - CDT 1974_9_27_2 -5;-5 US E%sT".split(";"),
+"America/Kentucky/Monticello":["-5:39:24 - LMT 1883_10_18_12_20_36 -5:39:24","-6 US C%sT 1946 -6","-6 - CST 1968 -6","-6 US C%sT 2000_9_29_2 -5","-5 US E%sT"],"America/La_Paz":["-4:32:36 - LMT 1890 -4:32:36","-4:32:36 - CMT 1931_9_15 -4:32:36","-3:32:36 - BOST 1932_2_21 -3:32:36","-4 - BOT"],"America/Lima":["-5:8:12 - LMT 1890 -5:8:12","-5:8:36 - LMT 1908_6_28 -5:8:36","-5 Peru PE%sT"],"America/Los_Angeles":["-7:52:58 - LMT 1883_10_18_12_7_2 -7:52:58","-8 US P%sT 1946 -8","-8 CA P%sT 1967 -8","-8 US P%sT"],
+"America/Maceio":"-2:22:52 - LMT 1914 -2:22:52;-3 Brazil BR%sT 1990_8_17 -3;-3 - BRT 1995_9_13 -3;-3 Brazil BR%sT 1996_8_4 -3;-3 - BRT 1999_8_30 -3;-3 Brazil BR%sT 2000_9_22 -2;-3 - BRT 2001_8_13 -3;-3 Brazil BR%sT 2002_9_1 -3;-3 - BRT".split(";"),"America/Managua":"-5:45:8 - LMT 1890 -5:45:8;-5:45:12 - MMT 1934_5_23 -5:45:12;-6 - CST 1973_4 -6;-5 - EST 1975_1_16 -5;-6 Nic C%sT 1992_0_1_4 -6;-5 - EST 1992_8_24 -5;-6 - CST 1993 -6;-5 - EST 1997 -5;-6 Nic C%sT".split(";"),"America/Manaus":["-4:0:4 - LMT 1914 -4:0:4",
+"-4 Brazil AM%sT 1988_8_12 -4","-4 - AMT 1993_8_28 -4","-4 Brazil AM%sT 1994_8_22 -4","-4 - AMT"],"America/Martinique":["-4:4:20 - LMT 1890 -4:4:20","-4:4:20 - FFMT 1911_4 -4:4:20","-4 - AST 1980_3_6 -4","-3 - ADT 1980_8_28 -3","-4 - AST"],"America/Matamoros":["-6:40 - LMT 1921_11_31_23_20 -6:40","-6 - CST 1988 -6","-6 US C%sT 1989 -6","-6 Mexico C%sT 2010 -6","-6 US C%sT"],"America/Mazatlan":"-7:5:40 - LMT 1921_11_31_23_54_20 -7:5:40;-7 - MST 1927_5_10_23 -7;-6 - CST 1930_10_15 -6;-7 - MST 1931_4_1_23 -7;-6 - CST 1931_9 -6;-7 - MST 1932_3_1 -7;-6 - CST 1942_3_24 -6;-7 - MST 1949_0_14 -7;-8 - PST 1970 -8;-7 Mexico M%sT".split(";"),
+"America/Menominee":["-5:50:27 - LMT 1885_8_18_12 -5:50:27","-6 US C%sT 1946 -6","-6 Menominee C%sT 1969_3_27_2 -6","-5 - EST 1973_3_29_2 -5","-6 US C%sT"],"America/Merida":["-5:58:28 - LMT 1922_0_1_0_1_32 -5:58:28","-6 - CST 1981_11_23 -6","-5 - EST 1982_11_2 -5","-6 Mexico C%sT"],"America/Metlakatla":"15:13:42 - LMT 1867_9_18 15:13:42;-8:46:18 - LMT 1900_7_20_12 -8:46:18;-8 - PST 1942 -8;-8 US P%sT 1946 -8;-8 - PST 1969 -8;-8 US P%sT 1983_9_30_2 -7;-8 - MeST".split(";"),"America/Mexico_City":"-6:36:36 - LMT 1922_0_1_0_23_24 -6:36:36;-7 - MST 1927_5_10_23 -7;-6 - CST 1930_10_15 -6;-7 - MST 1931_4_1_23 -7;-6 - CST 1931_9 -6;-7 - MST 1932_3_1 -7;-6 Mexico C%sT 2001_8_30_02 -5;-6 - CST 2002_1_20 -6;-6 Mexico C%sT".split(";"),
+"America/Miquelon":["-3:44:40 - LMT 1911_4_15 -3:44:40","-4 - AST 1980_4 -4","-3 - PMST 1987 -3","-3 Canada PM%sT"],"America/Moncton":"-4:19:8 - LMT 1883_11_9 -4:19:8;-5 - EST 1902_5_15 -5;-4 Canada A%sT 1933 -4;-4 Moncton A%sT 1942 -4;-4 Canada A%sT 1946 -4;-4 Moncton A%sT 1973 -4;-4 Canada A%sT 1993 -4;-4 Moncton A%sT 2007 -4;-4 Canada A%sT".split(";"),"America/Monterrey":["-6:41:16 - LMT 1921_11_31_23_18_44 -6:41:16","-6 - CST 1988 -6","-6 US C%sT 1989 -6","-6 Mexico C%sT"],"America/Montevideo":["-3:44:44 - LMT 1898_5_28 -3:44:44",
+"-3:44:44 - MMT 1920_4_1 -3:44:44","-3:30 Uruguay UY%sT 1942_11_14 -3:30","-3 Uruguay UY%sT"],"America/Montreal":"-4:54:16 - LMT 1884 -4:54:16;-5 Mont E%sT 1918 -5;-5 Canada E%sT 1919 -5;-5 Mont E%sT 1942_1_9_2 -5;-5 Canada E%sT 1946 -5;-5 Mont E%sT 1974 -5;-5 Canada E%sT".split(";"),"America/Montserrat":["-4:8:52 - LMT 1911_6_1_0_1 -4:8:52","-4 - AST"],"America/Nassau":["-5:9:30 - LMT 1912_2_2 -5:9:30","-5 Bahamas E%sT 1976 -5","-5 US E%sT"],"America/New_York":"-4:56:2 - LMT 1883_10_18_12_3_58 -4:56:2;-5 US E%sT 1920 -5;-5 NYC E%sT 1942 -5;-5 US E%sT 1946 -5;-5 NYC E%sT 1967 -5;-5 US E%sT".split(";"),
+"America/Nipigon":["-5:53:4 - LMT 1895 -5:53:4","-5 Canada E%sT 1940_8_29 -5","-4 - EDT 1942_1_9_2 -5","-5 Canada E%sT"],"America/Nome":"12:58:21 - LMT 1867_9_18 12:58:21;-11:1:38 - LMT 1900_7_20_12 -11:1:38;-11 - NST 1942 -11;-11 US N%sT 1946 -11;-11 - NST 1967_3 -11;-11 - BST 1969 -11;-11 US B%sT 1983_9_30_2 -10;-9 US Y%sT 1983_10_30 -9;-9 US AK%sT".split(";"),"America/Noronha":"-2:9:40 - LMT 1914 -2:9:40;-2 Brazil FN%sT 1990_8_17 -2;-2 - FNT 1999_8_30 -2;-2 Brazil FN%sT 2000_9_15 -1;-2 - FNT 2001_8_13 -2;-2 Brazil FN%sT 2002_9_1 -2;-2 - FNT".split(";"),
+"America/North_Dakota/Beulah":["-6:47:7 - LMT 1883_10_18_12_12_53 -6:47:7","-7 US M%sT 2010_10_7_2 -6","-6 US C%sT"],"America/North_Dakota/Center":["-6:45:12 - LMT 1883_10_18_12_14_48 -6:45:12","-7 US M%sT 1992_9_25_02 -6","-6 US C%sT"],"America/North_Dakota/New_Salem":["-6:45:39 - LMT 1883_10_18_12_14_21 -6:45:39","-7 US M%sT 2003_9_26_02 -6","-6 US C%sT"],"America/Ojinaga":"-6:57:40 - LMT 1922_0_1_0_2_20 -6:57:40;-7 - MST 1927_5_10_23 -7;-6 - CST 1930_10_15 -6;-7 - MST 1931_4_1_23 -7;-6 - CST 1931_9 -6;-7 - MST 1932_3_1 -7;-6 - CST 1996 -6;-6 Mexico C%sT 1998 -6;-6 - CST 1998_3_5_3 -6;-7 Mexico M%sT 2010 -7;-7 US M%sT".split(";"),
+"America/Panama":["-5:18:8 - LMT 1890 -5:18:8","-5:19:36 - CMT 1908_3_22 -5:19:36","-5 - EST"],"America/Pangnirtung":["0 - zzz 1921","-4 NT_YK A%sT 1995_3_2_2 -4","-5 Canada E%sT 1999_9_31_2 -4","-6 Canada C%sT 2000_9_29_2 -5","-5 Canada E%sT"],"America/Paramaribo":"-3:40:40 - LMT 1911 -3:40:40;-3:40:52 - PMT 1935 -3:40:52;-3:40:36 - PMT 1945_9 -3:40:36;-3:30 - NEGT 1975_10_20 -3:30;-3:30 - SRT 1984_9 -3:30;-3 - SRT".split(";"),"America/Phoenix":"-7:28:18 - LMT 1883_10_18_11_31_42 -7:28:18;-7 US M%sT 1944_0_1_00_1 -6;-7 - MST 1944_3_1_00_1 -7;-7 US M%sT 1944_9_1_00_1 -6;-7 - MST 1967 -7;-7 US M%sT 1968_2_21 -7;-7 - MST".split(";"),
+"America/Port-au-Prince":["-4:49:20 - LMT 1890 -4:49:20","-4:49 - PPMT 1917_0_24_12 -4:49","-5 Haiti E%sT"],"America/Port_of_Spain":["-4:6:4 - LMT 1912_2_2 -4:6:4","-4 - AST"],"America/Porto_Velho":["-4:15:36 - LMT 1914 -4:15:36","-4 Brazil AM%sT 1988_8_12 -4","-4 - AMT"],"America/Puerto_Rico":["-4:24:25 - LMT 1899_2_28_12 -4:24:25","-4 - AST 1942_4_3 -4","-4 US A%sT 1946 -4","-4 - AST"],"America/Rainy_River":["-6:18:16 - LMT 1895 -6:18:16","-6 Canada C%sT 1940_8_29 -6","-5 - CDT 1942_1_9_2 -6","-6 Canada C%sT"],
+"America/Rankin_Inlet":["0 - zzz 1957","-6 NT_YK C%sT 2000_9_29_2 -5","-5 - EST 2001_3_1_3 -5","-6 Canada C%sT"],"America/Recife":"-2:19:36 - LMT 1914 -2:19:36;-3 Brazil BR%sT 1990_8_17 -3;-3 - BRT 1999_8_30 -3;-3 Brazil BR%sT 2000_9_15 -2;-3 - BRT 2001_8_13 -3;-3 Brazil BR%sT 2002_9_1 -3;-3 - BRT".split(";"),"America/Regina":["-6:58:36 - LMT 1905_8 -6:58:36","-7 Regina M%sT 1960_3_24_2 -7","-6 - CST"],"America/Resolute":"0 - zzz 1947_7_31;-6 NT_YK C%sT 2000_9_29_2 -5;-5 - EST 2001_3_1_3 -5;-6 Canada C%sT 2006_9_29_2 -5;-5 - EST 2007_2_11_3 -5;-6 Canada C%sT".split(";"),
+"America/Rio_Branco":["-4:31:12 - LMT 1914 -4:31:12","-5 Brazil AC%sT 1988_8_12 -5","-5 - ACT 2008_5_24_00 -5","-4 - AMT"],"America/Santa_Isabel":"-7:39:28 - LMT 1922_0_1_0_20_32 -7:39:28;-7 - MST 1924 -7;-8 - PST 1927_5_10_23 -8;-7 - MST 1930_10_15 -7;-8 - PST 1931_3_1 -8;-7 - PDT 1931_8_30 -7;-8 - PST 1942_3_24 -8;-7 - PWT 1945_7_14_23;-7 - PPT 1945_10_12 -7;-8 - PST 1948_3_5 -8;-7 - PDT 1949_0_14 -7;-8 - PST 1954 -8;-8 CA P%sT 1961 -8;-8 - PST 1976 -8;-8 US P%sT 1996 -8;-8 Mexico P%sT 2001 -8;-8 US P%sT 2002_1_20 -8;-8 Mexico P%sT".split(";"),
+"America/Santarem":["-3:38:48 - LMT 1914 -3:38:48","-4 Brazil AM%sT 1988_8_12 -4","-4 - AMT 2008_5_24_00 -4","-3 - BRT"],"America/Santiago":"-4:42:46 - LMT 1890 -4:42:46;-4:42:46 - SMT 1910 -4:42:46;-5 - CLT 1916_6_1 -5;-4:42:46 - SMT 1918_8_1 -4:42:46;-4 - CLT 1919_6_1 -4;-4:42:46 - SMT 1927_8_1 -4:42:46;-5 Chile CL%sT 1947_4_22 -5;-4 Chile CL%sT".split(";"),"America/Santo_Domingo":"-4:39:36 - LMT 1890 -4:39:36;-4:40 - SDMT 1933_3_1_12 -4:40;-5 DR E%sT 1974_9_27 -5;-4 - AST 2000_9_29_02 -4;-5 US E%sT 2000_11_3_01 -5;-4 - AST".split(";"),
+"America/Sao_Paulo":["-3:6:28 - LMT 1914 -3:6:28","-3 Brazil BR%sT 1963_9_23_00 -3","-2 - BRST 1964 -2","-3 Brazil BR%sT"],"America/Scoresbysund":["-1:27:52 - LMT 1916_6_28 -1:27:52","-2 - CGT 1980_3_6_2 -2","-2 C-Eur CG%sT 1981_2_29 -2","-1 EU EG%sT"],"America/Sitka":"14:58:47 - LMT 1867_9_18 14:58:47;-9:1:13 - LMT 1900_7_20_12 -9:1:13;-8 - PST 1942 -8;-8 US P%sT 1946 -8;-8 - PST 1969 -8;-8 US P%sT 1983_9_30_2 -7;-9 US Y%sT 1983_10_30 -9;-9 US AK%sT".split(";"),"America/St_Johns":"-3:30:52 - LMT 1884 -3:30:52;-3:30:52 StJohns N%sT 1918 -3:30:52;-3:30:52 Canada N%sT 1919 -3:30:52;-3:30:52 StJohns N%sT 1935_2_30 -3:30:52;-3:30 StJohns N%sT 1942_4_11 -3:30;-3:30 Canada N%sT 1946 -3:30;-3:30 StJohns N%sT 2011_10 -2:30;-3:30 Canada N%sT".split(";"),
+"America/St_Kitts":["-4:10:52 - LMT 1912_2_2 -4:10:52","-4 - AST"],"America/St_Lucia":["-4:4 - LMT 1890 -4:4","-4:4 - CMT 1912 -4:4","-4 - AST"],"America/St_Thomas":["-4:19:44 - LMT 1911_6 -4:19:44","-4 - AST"],"America/St_Vincent":["-4:4:56 - LMT 1890 -4:4:56","-4:4:56 - KMT 1912 -4:4:56","-4 - AST"],"America/Swift_Current":["-7:11:20 - LMT 1905_8 -7:11:20","-7 Canada M%sT 1946_3_28_2 -7","-7 Regina M%sT 1950 -7","-7 Swift M%sT 1972_3_30_2 -7","-6 - CST"],"America/Tegucigalpa":["-5:48:52 - LMT 1921_3 -5:48:52",
+"-6 Hond C%sT"],"America/Thule":["-4:35:8 - LMT 1916_6_28 -4:35:8","-4 Thule A%sT"],"America/Thunder_Bay":"-5:57 - LMT 1895 -5:57;-6 - CST 1910 -6;-5 - EST 1942 -5;-5 Canada E%sT 1970 -5;-5 Mont E%sT 1973 -5;-5 - EST 1974 -5;-5 Canada E%sT".split(";"),"America/Tijuana":"-7:48:4 - LMT 1922_0_1_0_11_56 -7:48:4;-7 - MST 1924 -7;-8 - PST 1927_5_10_23 -8;-7 - MST 1930_10_15 -7;-8 - PST 1931_3_1 -8;-7 - PDT 1931_8_30 -7;-8 - PST 1942_3_24 -8;-7 - PWT 1945_7_14_23;-7 - PPT 1945_10_12 -7;-8 - PST 1948_3_5 -8;-7 - PDT 1949_0_14 -7;-8 - PST 1954 -8;-8 CA P%sT 1961 -8;-8 - PST 1976 -8;-8 US P%sT 1996 -8;-8 Mexico P%sT 2001 -8;-8 US P%sT 2002_1_20 -8;-8 Mexico P%sT 2010 -8;-8 US P%sT".split(";"),
+"America/Toronto":"-5:17:32 - LMT 1895 -5:17:32;-5 Canada E%sT 1919 -5;-5 Toronto E%sT 1942_1_9_2 -5;-5 Canada E%sT 1946 -5;-5 Toronto E%sT 1974 -5;-5 Canada E%sT".split(";"),"America/Tortola":["-4:18:28 - LMT 1911_6 -4:18:28","-4 - AST"],"America/Vancouver":["-8:12:28 - LMT 1884 -8:12:28","-8 Vanc P%sT 1987 -8","-8 Canada P%sT"],"America/Whitehorse":["-9:0:12 - LMT 1900_7_20 -9:0:12","-9 NT_YK Y%sT 1966_6_1_2 -9","-8 NT_YK P%sT 1980 -8","-8 Canada P%sT"],"America/Winnipeg":["-6:28:36 - LMT 1887_6_16 -6:28:36",
+"-6 Winn C%sT 2006 -6","-6 Canada C%sT"],"America/Yakutat":"14:41:5 - LMT 1867_9_18 14:41:5;-9:18:55 - LMT 1900_7_20_12 -9:18:55;-9 - YST 1942 -9;-9 US Y%sT 1946 -9;-9 - YST 1969 -9;-9 US Y%sT 1983_10_30 -9;-9 US AK%sT".split(";"),"America/Yellowknife":["0 - zzz 1935","-7 NT_YK M%sT 1980 -7","-7 Canada M%sT"],"Antarctica/Casey":"0 - zzz 1969;8 - WST 2009_9_18_2 8;11 - CAST 2010_2_5_2 11;8 - WST 2011_9_28_2 8;11 - CAST 2012_1_21_17;8 - WST".split(";"),"Antarctica/Davis":"0 - zzz 1957_0_13;7 - DAVT 1964_10 7;0 - zzz 1969_1;7 - DAVT 2009_9_18_2 7;5 - DAVT 2010_2_10_20;7 - DAVT 2011_9_28_2 7;5 - DAVT 2012_1_21_20;7 - DAVT".split(";"),
+"Antarctica/DumontDUrville":["0 - zzz 1947","10 - PMT 1952_0_14 10","0 - zzz 1956_10","10 - DDUT"],"Antarctica/Macquarie":"0 - zzz 1899_10;10 - EST 1916_9_1_2 10;11 - EST 1917_1 11;10 Aus EST 1919_3 10;0 - zzz 1948_2_25;10 Aus EST 1967 10;10 AT EST 2010_3_4_3 11;11 - MIST".split(";"),"Antarctica/Mawson":["0 - zzz 1954_1_13","6 - MAWT 2009_9_18_2 6","5 - MAWT"],"Antarctica/McMurdo":["0 - zzz 1956","12 NZAQ NZ%sT"],"Antarctica/Palmer":["0 - zzz 1965","-4 ArgAQ AR%sT 1969_9_5 -4","-3 ArgAQ AR%sT 1982_4 -3",
+"-4 ChileAQ CL%sT"],"Antarctica/Rothera":["0 - zzz 1976_11_1","-3 - ROTT"],"Antarctica/Syowa":["0 - zzz 1957_0_29","3 - SYOT"],"Antarctica/Vostok":["0 - zzz 1957_11_16","6 - VOST"],"Europe/Oslo":["0:43 - LMT 1895_0_1 0:43","1 Norway CE%sT 1940_7_10_23 1","1 C-Eur CE%sT 1945_3_2_2 1","1 Norway CE%sT 1980 1","1 EU CE%sT"],"Asia/Aden":["2:59:54 - LMT 1950 2:59:54","3 - AST"],"Asia/Almaty":"5:7:48 - LMT 1924_4_2 5:7:48;5 - ALMT 1930_5_21 5;6 RussiaAsia ALM%sT 1991 6;6 - ALMT 1992 6;6 RussiaAsia ALM%sT 2005_2_15 6;6 - ALMT".split(";"),
+"Asia/Amman":["2:23:44 - LMT 1931 2:23:44","2 Jordan EE%sT"],"Asia/Anadyr":"11:49:56 - LMT 1924_4_2 11:49:56;12 - ANAT 1930_5_21 12;13 Russia ANA%sT 1982_3_1_0 13;12 Russia ANA%sT 1991_2_31_2 12;11 Russia ANA%sT 1992_0_19_2 11;12 Russia ANA%sT 2010_2_28_2 12;11 Russia ANA%sT 2011_2_27_2 11;12 - ANAT".split(";"),"Asia/Aqtau":"3:21:4 - LMT 1924_4_2 3:21:4;4 - FORT 1930_5_21 4;5 - FORT 1963 5;5 - SHET 1981_9_1 5;6 - SHET 1982_3_1 6;5 RussiaAsia SHE%sT 1991 5;5 - SHET 1991_11_16 5;5 RussiaAsia AQT%sT 1995_2_26_2 5;4 RussiaAsia AQT%sT 2005_2_15 4;5 - AQTT".split(";"),
+"Asia/Aqtobe":"3:48:40 - LMT 1924_4_2 3:48:40;4 - AKTT 1930_5_21 4;5 - AKTT 1981_3_1 5;6 - AKTST 1981_9_1 6;6 - AKTT 1982_3_1 6;5 RussiaAsia AKT%sT 1991 5;5 - AKTT 1991_11_16 5;5 RussiaAsia AQT%sT 2005_2_15 5;5 - AQTT".split(";"),"Asia/Ashgabat":"3:53:32 - LMT 1924_4_2 3:53:32;4 - ASHT 1930_5_21 4;5 RussiaAsia ASH%sT 1991_2_31_2 5;4 RussiaAsia ASH%sT 1991_9_27 4;4 RussiaAsia TM%sT 1992_0_19_2 4;5 - TMT".split(";"),"Asia/Baghdad":["2:57:40 - LMT 1890 2:57:40","2:57:36 - BMT 1918 2:57:36","3 - AST 1982_4 3",
+"3 Iraq A%sT"],"Asia/Bahrain":["3:22:20 - LMT 1920 3:22:20","4 - GST 1972_5 4","3 - AST"],"Asia/Baku":"3:19:24 - LMT 1924_4_2 3:19:24;3 - BAKT 1957_2 3;4 RussiaAsia BAK%sT 1991_2_31_2 4;4 - BAKST 1991_7_30 4;3 RussiaAsia AZ%sT 1992_8_26_23 4;4 - AZT 1996 4;4 EUAsia AZ%sT 1997 4;4 Azer AZ%sT".split(";"),"Asia/Bangkok":["6:42:4 - LMT 1880 6:42:4","6:42:4 - BMT 1920_3 6:42:4","7 - ICT"],"Asia/Beirut":["2:22 - LMT 1880 2:22","2 Lebanon EE%sT"],"Asia/Bishkek":"4:58:24 - LMT 1924_4_2 4:58:24;5 - FRUT 1930_5_21 5;6 RussiaAsia FRU%sT 1991_2_31_2 6;6 - FRUST 1991_7_31_2 6;5 Kyrgyz KG%sT 2005_7_12 6;6 - KGT".split(";"),
+"Asia/Brunei":["7:39:40 - LMT 1926_2 7:39:40","7:30 - BNT 1933 7:30","8 - BNT"],"Asia/Choibalsan":["7:38 - LMT 1905_7 7:38","7 - ULAT 1978 7","8 - ULAT 1983_3 8","9 Mongol CHO%sT 2008_2_31 9","8 Mongol CHO%sT"],"Asia/Chongqing":["7:6:20 - LMT 1928 7:6:20","7 - LONT 1980_4 7","8 PRC C%sT"],"Asia/Colombo":"5:19:24 - LMT 1880 5:19:24;5:19:32 - MMT 1906 5:19:32;5:30 - IST 1942_0_5 5:30;6 - IHST 1942_8 6;6:30 - IST 1945_9_16_2 6:30;5:30 - IST 1996_4_25_0 5:30;6:30 - LKT 1996_9_26_0_30 6:30;6 - LKT 2006_3_15_0_30 6;5:30 - IST".split(";"),
+"Asia/Damascus":["2:25:12 - LMT 1920 2:25:12","2 Syria EE%sT"],"Asia/Dhaka":"6:1:40 - LMT 1890 6:1:40;5:53:20 - HMT 1941_9 5:53:20;6:30 - BURT 1942_4_15 6:30;5:30 - IST 1942_8 5:30;6:30 - BURT 1951_8_30 6:30;6 - DACT 1971_2_26 6;6 - BDT 2009 6;6 Dhaka BD%sT".split(";"),"Asia/Dili":"8:22:20 - LMT 1912 8:22:20;8 - TLT 1942_1_21_23 8;9 - JST 1945_8_23 9;9 - TLT 1976_4_3 9;8 - CIT 2000_8_17_00 8;9 - TLT".split(";"),"Asia/Dubai":["3:41:12 - LMT 1920 3:41:12","4 - GST"],"Asia/Dushanbe":["4:35:12 - LMT 1924_4_2 4:35:12",
+"5 - DUST 1930_5_21 5","6 RussiaAsia DUS%sT 1991_2_31_2 6","6 - DUSST 1991_8_9_2 5","5 - TJT"],"Asia/Gaza":"2:17:52 - LMT 1900_9 2:17:52;2 Zion EET 1948_4_15 2;2 EgyptAsia EE%sT 1967_5_5 3;2 Zion I%sT 1996 2;2 Jordan EE%sT 1999 2;2 Palestine EE%sT 2008_7_29_0 3;2 - EET 2008_8 2;2 Palestine EE%sT 2010 2;2 - EET 2010_2_27_0_1 2;2 Palestine EE%sT 2011_7_1 3;2 - EET 2012 2;2 Palestine EE%sT".split(";"),"Asia/Harbin":"8:26:44 - LMT 1928 8:26:44;8:30 - CHAT 1932_2 8:30;8 - CST 1940 8;9 - CHAT 1966_4 9;8:30 - CHAT 1980_4 8:30;8 PRC C%sT".split(";"),
+"Asia/Hebron":"2:20:23 - LMT 1900_9 2:20:23;2 Zion EET 1948_4_15 2;2 EgyptAsia EE%sT 1967_5_5 3;2 Zion I%sT 1996 2;2 Jordan EE%sT 1999 2;2 Palestine EE%sT".split(";"),"Asia/Ho_Chi_Minh":["7:6:40 - LMT 1906_5_9 7:6:40","7:6:20 - SMT 1911_2_11_0_1 7:6:20","7 - ICT 1912_4 7","8 - ICT 1931_4 8","7 - ICT"],"Asia/Hong_Kong":["7:36:42 - LMT 1904_9_30 7:36:42","8 HK HK%sT 1941_11_25 8","9 - JST 1945_8_15 9","8 HK HK%sT"],"Asia/Hovd":["6:6:36 - LMT 1905_7 6:6:36","6 - HOVT 1978 6","7 Mongol HOV%sT"],"Asia/Irkutsk":"6:57:20 - LMT 1880 6:57:20;6:57:20 - IMT 1920_0_25 6:57:20;7 - IRKT 1930_5_21 7;8 Russia IRK%sT 1991_2_31_2 8;7 Russia IRK%sT 1992_0_19_2 7;8 Russia IRK%sT 2011_2_27_2 8;9 - IRKT".split(";"),
+"Asia/Jakarta":"7:7:12 - LMT 1867_7_10 7:7:12;7:7:12 - JMT 1923_11_31_23_47_12 7:7:12;7:20 - JAVT 1932_10 7:20;7:30 - WIT 1942_2_23 7:30;9 - JST 1945_8_23 9;7:30 - WIT 1948_4 7:30;8 - WIT 1950_4 8;7:30 - WIT 1964 7:30;7 - WIT".split(";"),"Asia/Jayapura":["9:22:48 - LMT 1932_10 9:22:48","9 - EIT 1944_8_1 9","9:30 - CST 1964 9:30","9 - EIT"],"Asia/Jerusalem":["2:20:56 - LMT 1880 2:20:56","2:20:40 - JMT 1918 2:20:40","2 Zion I%sT"],"Asia/Kabul":["4:36:48 - LMT 1890 4:36:48","4 - AFT 1945 4","4:30 - AFT"],
+"Asia/Kamchatka":"10:34:36 - LMT 1922_10_10 10:34:36;11 - PETT 1930_5_21 11;12 Russia PET%sT 1991_2_31_2 12;11 Russia PET%sT 1992_0_19_2 11;12 Russia PET%sT 2010_2_28_2 12;11 Russia PET%sT 2011_2_27_2 11;12 - PETT".split(";"),"Asia/Karachi":"4:28:12 - LMT 1907 4:28:12;5:30 - IST 1942_8 5:30;6:30 - IST 1945_9_15 6:30;5:30 - IST 1951_8_30 5:30;5 - KART 1971_2_26 5;5 Pakistan PK%sT".split(";"),"Asia/Kashgar":["5:3:56 - LMT 1928 5:3:56","5:30 - KAST 1940 5:30","5 - KAST 1980_4 5","8 PRC C%sT"],"Asia/Kathmandu":["5:41:16 - LMT 1920 5:41:16",
+"5:30 - IST 1986 5:30","5:45 - NPT"],"Asia/Khandyga":"9:2:13 - LMT 1919_11_15 9:2:13;8 - YAKT 1930_5_21 8;9 Russia YAK%sT 1991_2_31_2 9;8 Russia YAK%sT 1992_0_19_2 8;9 Russia YAK%sT 2004 9;10 Russia VLA%sT 2011_2_27_2 10;11 - VLAT 2011_8_13_0 11;10 - YAKT".split(";"),"Asia/Kolkata":"5:53:28 - LMT 1880 5:53:28;5:53:20 - HMT 1941_9 5:53:20;6:30 - BURT 1942_4_15 6:30;5:30 - IST 1942_8 5:30;6:30 - IST 1945_9_15 6:30;5:30 - IST".split(";"),"Asia/Krasnoyarsk":"6:11:20 - LMT 1920_0_6 6:11:20;6 - KRAT 1930_5_21 6;7 Russia KRA%sT 1991_2_31_2 7;6 Russia KRA%sT 1992_0_19_2 6;7 Russia KRA%sT 2011_2_27_2 7;8 - KRAT".split(";"),
+"Asia/Kuala_Lumpur":"6:46:46 - LMT 1901_0_1 6:46:46;6:55:25 - SMT 1905_5_1 6:55:25;7 - MALT 1933_0_1 7;7:20 - MALST 1936_0_1 7:20;7:20 - MALT 1941_8_1 7:20;7:30 - MALT 1942_1_16 7:30;9 - JST 1945_8_12 9;7:30 - MALT 1982_0_1 7:30;8 - MYT".split(";"),"Asia/Kuching":"7:21:20 - LMT 1926_2 7:21:20;7:30 - BORT 1933 7:30;8 NBorneo BOR%sT 1942_1_16 8;9 - JST 1945_8_12 9;8 - BORT 1982_0_1 8;8 - MYT".split(";"),"Asia/Kuwait":["3:11:56 - LMT 1950 3:11:56","3 - AST"],"Asia/Macau":["7:34:20 - LMT 1912 7:34:20",
+"8 Macau MO%sT 1999_11_20 8","8 PRC C%sT"],"Asia/Magadan":"10:3:12 - LMT 1924_4_2 10:3:12;10 - MAGT 1930_5_21 10;11 Russia MAG%sT 1991_2_31_2 11;10 Russia MAG%sT 1992_0_19_2 10;11 Russia MAG%sT 2011_2_27_2 11;12 - MAGT".split(";"),"Asia/Makassar":["7:57:36 - LMT 1920 7:57:36","7:57:36 - MMT 1932_10 7:57:36","8 - CIT 1942_1_9 8","9 - JST 1945_8_23 9","8 - CIT"],"Asia/Manila":["-15:56 - LMT 1844_11_31 -15:56","8:4 - LMT 1899_4_11 8:4","8 Phil PH%sT 1942_4 8","9 - JST 1944_10 9","8 Phil PH%sT"],"Asia/Muscat":["3:54:24 - LMT 1920 3:54:24",
+"4 - GST"],"Asia/Nicosia":["2:13:28 - LMT 1921_10_14 2:13:28","2 Cyprus EE%sT 1998_8 3","2 EUAsia EE%sT"],"Asia/Novokuznetsk":"5:48:48 - NMT 1920_0_6 5:48:48;6 - KRAT 1930_5_21 6;7 Russia KRA%sT 1991_2_31_2 7;6 Russia KRA%sT 1992_0_19_2 6;7 Russia KRA%sT 2010_2_28_2 7;6 Russia NOV%sT 2011_2_27_2 6;7 - NOVT".split(";"),"Asia/Novosibirsk":"5:31:40 - LMT 1919_11_14_6 5:31:40;6 - NOVT 1930_5_21 6;7 Russia NOV%sT 1991_2_31_2 7;6 Russia NOV%sT 1992_0_19_2 6;7 Russia NOV%sT 1993_4_23 8;6 Russia NOV%sT 2011_2_27_2 6;7 - NOVT".split(";"),
+"Asia/Omsk":"4:53:36 - LMT 1919_10_14 4:53:36;5 - OMST 1930_5_21 5;6 Russia OMS%sT 1991_2_31_2 6;5 Russia OMS%sT 1992_0_19_2 5;6 Russia OMS%sT 2011_2_27_2 6;7 - OMST".split(";"),"Asia/Oral":"3:25:24 - LMT 1924_4_2 3:25:24;4 - URAT 1930_5_21 4;5 - URAT 1981_3_1 5;6 - URAST 1981_9_1 6;6 - URAT 1982_3_1 6;5 RussiaAsia URA%sT 1989_2_26_2 5;4 RussiaAsia URA%sT 1991 4;4 - URAT 1991_11_16 4;4 RussiaAsia ORA%sT 2005_2_15 4;5 - ORAT".split(";"),"Asia/Phnom_Penh":["6:59:40 - LMT 1906_5_9 6:59:40","7:6:20 - SMT 1911_2_11_0_1 7:6:20",
+"7 - ICT 1912_4 7","8 - ICT 1931_4 8","7 - ICT"],"Asia/Pontianak":"7:17:20 - LMT 1908_4 7:17:20;7:17:20 - PMT 1932_10 7:17:20;7:30 - WIT 1942_0_29 7:30;9 - JST 1945_8_23 9;7:30 - WIT 1948_4 7:30;8 - WIT 1950_4 8;7:30 - WIT 1964 7:30;8 - CIT 1988_0_1 8;7 - WIT".split(";"),"Asia/Pyongyang":"8:23 - LMT 1890 8:23;8:30 - KST 1904_11 8:30;9 - KST 1928 9;8:30 - KST 1932 8:30;9 - KST 1954_2_21 9;8 - KST 1961_7_10 8;9 - KST".split(";"),"Asia/Qatar":["3:26:8 - LMT 1920 3:26:8","4 - GST 1972_5 4","3 - AST"],
+"Asia/Qyzylorda":"4:21:52 - LMT 1924_4_2 4:21:52;4 - KIZT 1930_5_21 4;5 - KIZT 1981_3_1 5;6 - KIZST 1981_9_1 6;6 - KIZT 1982_3_1 6;5 RussiaAsia KIZ%sT 1991 5;5 - KIZT 1991_11_16 5;5 - QYZT 1992_0_19_2 5;6 RussiaAsia QYZ%sT 2005_2_15 6;6 - QYZT".split(";"),"Asia/Rangoon":["6:24:40 - LMT 1880 6:24:40","6:24:40 - RMT 1920 6:24:40","6:30 - BURT 1942_4 6:30","9 - JST 1945_4_3 9","6:30 - MMT"],"Asia/Riyadh":["3:6:52 - LMT 1950 3:6:52","3 - AST"],"Asia/Sakhalin":"9:30:48 - LMT 1905_7_23 9:30:48;9 - CJT 1938 9;9 - JST 1945_7_25 9;11 Russia SAK%sT 1991_2_31_2 11;10 Russia SAK%sT 1992_0_19_2 10;11 Russia SAK%sT 1997_2_30_2 11;10 Russia SAK%sT 2011_2_27_2 10;11 - SAKT".split(";"),
+"Asia/Samarkand":"4:27:12 - LMT 1924_4_2 4:27:12;4 - SAMT 1930_5_21 4;5 - SAMT 1981_3_1 5;6 - SAMST 1981_9_1 6;6 - TAST 1982_3_1 6;5 RussiaAsia SAM%sT 1991_8_1 6;5 RussiaAsia UZ%sT 1992 5;5 - UZT".split(";"),"Asia/Seoul":"8:27:52 - LMT 1890 8:27:52;8:30 - KST 1904_11 8:30;9 - KST 1928 9;8:30 - KST 1932 8:30;9 - KST 1954_2_21 9;8 ROK K%sT 1961_7_10 8;8:30 - KST 1968_9 8:30;9 ROK K%sT".split(";"),"Asia/Shanghai":["8:5:57 - LMT 1928 8:5:57","8 Shang C%sT 1949 8","8 PRC C%sT"],"Asia/Singapore":"6:55:25 - LMT 1901_0_1 6:55:25;6:55:25 - SMT 1905_5_1 6:55:25;7 - MALT 1933_0_1 7;7:20 - MALST 1936_0_1 7:20;7:20 - MALT 1941_8_1 7:20;7:30 - MALT 1942_1_16 7:30;9 - JST 1945_8_12 9;7:30 - MALT 1965_7_9 7:30;7:30 - SGT 1982_0_1 7:30;8 - SGT".split(";"),
+"Asia/Taipei":["8:6 - LMT 1896 8:6","8 Taiwan C%sT"],"Asia/Tashkent":"4:37:12 - LMT 1924_4_2 4:37:12;5 - TAST 1930_5_21 5;6 RussiaAsia TAS%sT 1991_2_31_2 6;5 RussiaAsia TAS%sT 1991_8_1 6;5 RussiaAsia UZ%sT 1992 5;5 - UZT".split(";"),"Asia/Tbilisi":"2:59:16 - LMT 1880 2:59:16;2:59:16 - TBMT 1924_4_2 2:59:16;3 - TBIT 1957_2 3;4 RussiaAsia TBI%sT 1991_2_31_2 4;4 - TBIST 1991_3_9 4;3 RussiaAsia GE%sT 1992 3;3 E-EurAsia GE%sT 1994_8_25 4;4 E-EurAsia GE%sT 1996_9_27 5;5 - GEST 1997_2_30 5;4 E-EurAsia GE%sT 2004_5_27 5;3 RussiaAsia GE%sT 2005_2_27_2 3;4 - GET".split(";"),
+"Asia/Tehran":["3:25:44 - LMT 1916 3:25:44","3:25:44 - TMT 1946 3:25:44","3:30 - IRST 1977_10 3:30","4 Iran IR%sT 1979 4","3:30 Iran IR%sT"],"Asia/Thimphu":["5:58:36 - LMT 1947_7_15 5:58:36","5:30 - IST 1987_9 5:30","6 - BTT"],"Asia/Tokyo":["9:18:59 - LMT 1887_11_31_15","9 - JST 1896 9","9 - CJT 1938 9","9 Japan J%sT"],"Asia/Ulaanbaatar":["7:7:32 - LMT 1905_7 7:7:32","7 - ULAT 1978 7","8 Mongol ULA%sT"],"Asia/Urumqi":["5:50:20 - LMT 1928 5:50:20","6 - URUT 1980_4 6","8 PRC C%sT"],"Asia/Ust-Nera":"9:32:54 - LMT 1919_11_15 9:32:54;8 - YAKT 1930_5_21 8;9 Russia YAKT 1981_3_1 9;11 Russia MAG%sT 1991_2_31_2 11;10 Russia MAG%sT 1992_0_19_2 10;11 Russia MAG%sT 2011_2_27_2 11;12 - MAGT 2011_8_13_0 12;11 - VLAT".split(";"),
+"Asia/Vientiane":["6:50:24 - LMT 1906_5_9 6:50:24","7:6:20 - SMT 1911_2_11_0_1 7:6:20","7 - ICT 1912_4 7","8 - ICT 1931_4 8","7 - ICT"],"Asia/Vladivostok":"8:47:44 - LMT 1922_10_15 8:47:44;9 - VLAT 1930_5_21 9;10 Russia VLA%sT 1991_2_31_2 10;9 Russia VLA%sST 1992_0_19_2 9;10 Russia VLA%sT 2011_2_27_2 10;11 - VLAT".split(";"),"Asia/Yakutsk":"8:38:40 - LMT 1919_11_15 8:38:40;8 - YAKT 1930_5_21 8;9 Russia YAK%sT 1991_2_31_2 9;8 Russia YAK%sT 1992_0_19_2 8;9 Russia YAK%sT 2011_2_27_2 9;10 - YAKT".split(";"),
+"Asia/Yekaterinburg":"4:2:24 - LMT 1919_6_15_4 4:2:24;4 - SVET 1930_5_21 4;5 Russia SVE%sT 1991_2_31_2 5;4 Russia SVE%sT 1992_0_19_2 4;5 Russia YEK%sT 2011_2_27_2 5;6 - YEKT".split(";"),"Asia/Yerevan":"2:58 - LMT 1924_4_2 2:58;3 - YERT 1957_2 3;4 RussiaAsia YER%sT 1991_2_31_2 4;4 - YERST 1991_8_23 4;3 RussiaAsia AM%sT 1995_8_24_2 3;4 - AMT 1997 4;4 RussiaAsia AM%sT 2012_2_25_2 4;4 - AMT".split(";"),"Atlantic/Azores":"-1:42:40 - LMT 1884 -1:42:40;-1:54:32 - HMT 1911_4_24 -1:54:32;-2 Port AZO%sT 1966_3_3_2 -2;-1 Port AZO%sT 1983_8_25_1 -1;-1 W-Eur AZO%sT 1992_8_27_1 -1;0 EU WE%sT 1993_2_28_1;-1 EU AZO%sT".split(";"),
+"Atlantic/Bermuda":["-4:19:18 - LMT 1930_0_1_2 -4:19:18","-4 - AST 1974_3_28_2 -4","-4 Bahamas A%sT 1976 -4","-4 US A%sT"],"Atlantic/Canary":["-1:1:36 - LMT 1922_2 -1:1:36","-1 - CANT 1946_8_30_1 -1","0 - WET 1980_3_6_0","1 - WEST 1980_8_28_0","0 EU WE%sT"],"Atlantic/Cape_Verde":["-1:34:4 - LMT 1907 -1:34:4","-2 - CVT 1942_8 -2","-1 - CVST 1945_9_15 -1","-2 - CVT 1975_10_25_2 -2","-1 - CVT"],"Atlantic/Faroe":["-0:27:4 - LMT 1908_0_11 -0:27:4","0 - WET 1981","0 EU WE%sT"],"Atlantic/Madeira":["-1:7:36 - LMT 1884 -1:7:36",
+"-1:7:36 - FMT 1911_4_24 -1:7:36","-1 Port MAD%sT 1966_3_3_2 -1","0 Port WE%sT 1983_8_25_1","0 EU WE%sT"],"Atlantic/Reykjavik":["-1:27:24 - LMT 1837 -1:27:24","-1:27:48 - RMT 1908 -1:27:48","-1 Iceland IS%sT 1968_3_7_1 -1","0 - GMT"],"Atlantic/South_Georgia":["-2:26:8 - LMT 1890 -2:26:8","-2 - GST"],"Atlantic/St_Helena":["-0:22:48 - LMT 1890 -0:22:48","-0:22:48 - JMT 1951 -0:22:48","0 - GMT"],"Atlantic/Stanley":"-3:51:24 - LMT 1890 -3:51:24;-3:51:24 - SMT 1912_2_12 -3:51:24;-4 Falk FK%sT 1983_4 -4;-3 Falk FK%sT 1985_8_15 -3;-4 Falk FK%sT 2010_8_5_02 -4;-3 - FKST".split(";"),
+"Australia/Adelaide":["9:14:20 - LMT 1895_1 9:14:20","9 - CST 1899_4 9","9:30 Aus CST 1971 9:30","9:30 AS CST"],"Australia/Brisbane":["10:12:8 - LMT 1895 10:12:8","10 Aus EST 1971 10","10 AQ EST"],"Australia/Broken_Hill":"9:25:48 - LMT 1895_1 9:25:48;10 - EST 1896_7_23 10;9 - CST 1899_4 9;9:30 Aus CST 1971 9:30;9:30 AN CST 2000 10:30;9:30 AS CST".split(";"),"Australia/Currie":["9:35:28 - LMT 1895_8 9:35:28","10 - EST 1916_9_1_2 10","11 - EST 1917_1 11","10 Aus EST 1971_6 10","10 AT EST"],"Australia/Darwin":["8:43:20 - LMT 1895_1 8:43:20",
+"9 - CST 1899_4 9","9:30 Aus CST"],"Australia/Eucla":["8:35:28 - LMT 1895_11 8:35:28","8:45 Aus CWST 1943_6 8:45","8:45 AW CWST"],"Australia/Hobart":["9:49:16 - LMT 1895_8 9:49:16","10 - EST 1916_9_1_2 10","11 - EST 1917_1 11","10 Aus EST 1967 10","10 AT EST"],"Australia/Lindeman":["9:55:56 - LMT 1895 9:55:56","10 Aus EST 1971 10","10 AQ EST 1992_6 10","10 Holiday EST"],"Australia/Lord_Howe":["10:36:20 - LMT 1895_1 10:36:20","10 - EST 1981_2 10","10:30 LH LHST"],"Australia/Melbourne":["9:39:52 - LMT 1895_1 9:39:52",
+"10 Aus EST 1971 10","10 AV EST"],"Australia/Perth":["7:43:24 - LMT 1895_11 7:43:24","8 Aus WST 1943_6 8","8 AW WST"],"Australia/Sydney":["10:4:52 - LMT 1895_1 10:4:52","10 Aus EST 1971 10","10 AN EST"],CET:["1 C-Eur CE%sT"],CST6CDT:["-6 US C%sT"],EET:["2 EU EE%sT"],EST:["-5 - EST"],EST5EDT:["-5 US E%sT"],HST:["-10 - HST"],MET:["1 C-Eur ME%sT"],MST:["-7 - MST"],MST7MDT:["-7 US M%sT"],PST8PDT:["-8 US P%sT"],WET:["0 EU WE%sT"],"Europe/Amsterdam":"0:19:32 - LMT 1835 0:19:32;0:19:32 Neth %s 1937_6_1 1:19:32;0:20 Neth NE%sT 1940_4_16_0 0:20;1 C-Eur CE%sT 1945_3_2_2 1;1 Neth CE%sT 1977 1;1 EU CE%sT".split(";"),
+"Europe/Andorra":["0:6:4 - LMT 1901 0:6:4","0 - WET 1946_8_30","1 - CET 1985_2_31_2 1","1 EU CE%sT"],"Europe/Athens":"1:34:52 - LMT 1895_8_14 1:34:52;1:34:52 - AMT 1916_6_28_0_1 1:34:52;2 Greece EE%sT 1941_3_30 3;1 Greece CE%sT 1944_3_4 1;2 Greece EE%sT 1981 2;2 EU EE%sT".split(";"),"Europe/Belgrade":"1:22 - LMT 1884 1:22;1 - CET 1941_3_18_23 1;1 C-Eur CE%sT 1945 1;1 - CET 1945_4_8_2 1;2 - CEST 1945_8_16_2 1;1 - CET 1982_10_27 1;1 EU CE%sT".split(";"),"Europe/Berlin":["0:53:28 - LMT 1893_3 0:53:28",
+"1 C-Eur CE%sT 1945_4_24_2 2","1 SovietZone CE%sT 1946 1","1 Germany CE%sT 1980 1","1 EU CE%sT"],"Europe/Prague":["0:57:44 - LMT 1850 0:57:44","0:57:44 - PMT 1891_9 0:57:44","1 C-Eur CE%sT 1944_8_17_2 1","1 Czech CE%sT 1979 1","1 EU CE%sT"],"Europe/Brussels":"0:17:30 - LMT 1880 0:17:30;0:17:30 - BMT 1892_4_1_12 0:17:30;0 - WET 1914_10_8;1 - CET 1916_4_1_0 1;1 C-Eur CE%sT 1918_10_11_11;0 Belgium WE%sT 1940_4_20_2;1 C-Eur CE%sT 1944_8_3 2;1 Belgium CE%sT 1977 1;1 EU CE%sT".split(";"),"Europe/Bucharest":"1:44:24 - LMT 1891_9 1:44:24;1:44:24 - BMT 1931_6_24 1:44:24;2 Romania EE%sT 1981_2_29_2 2;2 C-Eur EE%sT 1991 2;2 Romania EE%sT 1994 2;2 E-Eur EE%sT 1997 2;2 EU EE%sT".split(";"),
+"Europe/Budapest":"1:16:20 - LMT 1890_9 1:16:20;1 C-Eur CE%sT 1918 1;1 Hungary CE%sT 1941_3_6_2 1;1 C-Eur CE%sT 1945 1;1 Hungary CE%sT 1980_8_28_2 1;1 EU CE%sT".split(";"),"Europe/Zurich":["0:34:8 - LMT 1848_8_12 0:34:8","0:29:44 - BMT 1894_5 0:29:44","1 Swiss CE%sT 1981 1","1 EU CE%sT"],"Europe/Chisinau":"1:55:20 - LMT 1880 1:55:20;1:55 - CMT 1918_1_15 1:55;1:44:24 - BMT 1931_6_24 1:44:24;2 Romania EE%sT 1940_7_15 2;3 - EEST 1941_6_17 3;1 C-Eur CE%sT 1944_7_24 2;3 Russia MSK/MSD 1990 3;3 - MSK 1990_4_6 3;2 - EET 1991 2;2 Russia EE%sT 1992 2;2 E-Eur EE%sT 1997 2;2 EU EE%sT".split(";"),
+"Europe/Copenhagen":"0:50:20 - LMT 1890 0:50:20;0:50:20 - CMT 1894_0_1 0:50:20;1 Denmark CE%sT 1942_10_2_2 1;1 C-Eur CE%sT 1945_3_2_2 1;1 Denmark CE%sT 1980 1;1 EU CE%sT".split(";"),"Europe/Dublin":"-0:25 - LMT 1880_7_2 -0:25;-0:25:21 - DMT 1916_4_21_2 -0:25:21;0:34:39 - IST 1916_9_1_2 -0:25:21;0 GB-Eire %s 1921_11_6;0 GB-Eire GMT/IST 1940_1_25_2;1 - IST 1946_9_6_2 1;0 - GMT 1947_2_16_2;1 - IST 1947_10_2_2 1;0 - GMT 1948_3_18_2;0 GB-Eire GMT/IST 1968_9_27 1;1 - IST 1971_9_31_2;0 GB-Eire GMT/IST 1996;0 EU GMT/IST".split(";"),
+"Europe/Gibraltar":["-0:21:24 - LMT 1880_7_2_0 -0:21:24","0 GB-Eire %s 1957_3_14_2","1 - CET 1982 1","1 EU CE%sT"],"Europe/London":["-0:1:15 - LMT 1847_11_1_0 -0:1:15","0 GB-Eire %s 1968_9_27 1","1 - BST 1971_9_31_2","0 GB-Eire %s 1996","0 EU GMT/BST"],"Europe/Helsinki":["1:39:52 - LMT 1878_4_31 1:39:52","1:39:52 - HMT 1921_4 1:39:52","2 Finland EE%sT 1983 2","2 EU EE%sT"],"Europe/Istanbul":"1:55:52 - LMT 1880 1:55:52;1:56:56 - IMT 1910_9 1:56:56;2 Turkey EE%sT 1978_9_15 3;3 Turkey TR%sT 1985_3_20 3;2 Turkey EE%sT 2007 2;2 EU EE%sT 2011_2_27_1;2 - EET 2011_2_28_1;2 EU EE%sT".split(";"),
+"Europe/Kaliningrad":"1:22 - LMT 1893_3 1:22;1 C-Eur CE%sT 1945 1;2 Poland CE%sT 1946 2;3 Russia MSK/MSD 1991_2_31_2 3;2 Russia EE%sT 2011_2_27_2 2;3 - FET".split(";"),"Europe/Kiev":"2:2:4 - LMT 1880 2:2:4;2:2:4 - KMT 1924_4_2 2:2:4;2 - EET 1930_5_21 2;3 - MSK 1941_8_20 3;1 C-Eur CE%sT 1943_10_6 1;3 Russia MSK/MSD 1990 3;3 - MSK 1990_6_1_2 3;2 - EET 1992 2;2 E-Eur EE%sT 1995 2;2 EU EE%sT".split(";"),"Europe/Lisbon":"-0:36:32 - LMT 1884 -0:36:32;-0:36:32 - LMT 1912_0_1 -0:36:32;0 Port WE%sT 1966_3_3_2;1 - CET 1976_8_26_1 1;0 Port WE%sT 1983_8_25_1;0 W-Eur WE%sT 1992_8_27_1;1 EU CE%sT 1996_2_31_1;0 EU WE%sT".split(";"),
+"Europe/Luxembourg":"0:24:36 - LMT 1904_5 0:24:36;1 Lux CE%sT 1918_10_25 1;0 Lux WE%sT 1929_9_6_2;0 Belgium WE%sT 1940_4_14_3 1;1 C-Eur WE%sT 1944_8_18_3 2;1 Belgium CE%sT 1977 1;1 EU CE%sT".split(";"),"Europe/Madrid":["-0:14:44 - LMT 1901_0_1_0 -0:14:44","0 Spain WE%sT 1946_8_30 2","1 Spain CE%sT 1979 1","1 EU CE%sT"],"Europe/Malta":"0:58:4 - LMT 1893_10_2_0 0:58:4;1 Italy CE%sT 1942_10_2_2 1;1 C-Eur CE%sT 1945_3_2_2 1;1 Italy CE%sT 1973_2_31 1;1 Malta CE%sT 1981 1;1 EU CE%sT".split(";"),"Europe/Minsk":"1:50:16 - LMT 1880 1:50:16;1:50 - MMT 1924_4_2 1:50;2 - EET 1930_5_21 2;3 - MSK 1941_5_28 3;1 C-Eur CE%sT 1944_6_3 2;3 Russia MSK/MSD 1990 3;3 - MSK 1991_2_31_2 3;3 - EEST 1991_8_29_2 2;2 - EET 1992_2_29_0 2;3 - EEST 1992_8_27_0 2;2 Russia EE%sT 2011_2_27_2 2;3 - FET".split(";"),
+"Europe/Monaco":["0:29:32 - LMT 1891_2_15 0:29:32","0:9:21 - PMT 1911_2_11 0:9:21","0 France WE%sT 1945_8_16_3 2","1 France CE%sT 1977 1","1 EU CE%sT"],"Europe/Moscow":"2:30:20 - LMT 1880 2:30:20;2:30 - MMT 1916_6_3 2:30;2:30:48 Russia %s 1919_6_1_2 4:30:48;3 Russia MSK/MSD 1922_9 3;2 - EET 1930_5_21 2;3 Russia MSK/MSD 1991_2_31_2 3;2 Russia EE%sT 1992_0_19_2 2;3 Russia MSK/MSD 2011_2_27_2 3;4 - MSK".split(";"),"Europe/Paris":"0:9:21 - LMT 1891_2_15_0_1 0:9:21;0:9:21 - PMT 1911_2_11_0_1 0:9:21;0 France WE%sT 1940_5_14_23 1;1 C-Eur CE%sT 1944_7_25 2;0 France WE%sT 1945_8_16_3 2;1 France CE%sT 1977 1;1 EU CE%sT".split(";"),
+"Europe/Riga":"1:36:24 - LMT 1880 1:36:24;1:36:24 - RMT 1918_3_15_2 1:36:24;2:36:24 - LST 1918_8_16_3 2:36:24;1:36:24 - RMT 1919_3_1_2 1:36:24;2:36:24 - LST 1919_4_22_3 2:36:24;1:36:24 - RMT 1926_4_11 1:36:24;2 - EET 1940_7_5 2;3 - MSK 1941_6 3;1 C-Eur CE%sT 1944_9_13 1;3 Russia MSK/MSD 1989_2_26_2 3;3 - EEST 1989_8_24_2 2;2 Latvia EE%sT 1997_0_21 2;2 EU EE%sT 2000_1_29 2;2 - EET 2001_0_2 2;2 EU EE%sT".split(";"),"Europe/Rome":"0:49:56 - LMT 1866_8_22 0:49:56;0:49:56 - RMT 1893_10_1_0 0:49:56;1 Italy CE%sT 1942_10_2_2 1;1 C-Eur CE%sT 1944_6 2;1 Italy CE%sT 1980 1;1 EU CE%sT".split(";"),
+"Europe/Samara":"3:20:36 - LMT 1919_6_1_2 3:20:36;3 - SAMT 1930_5_21 3;4 - SAMT 1935_0_27 4;4 Russia KUY%sT 1989_2_26_2 4;3 Russia KUY%sT 1991_2_31_2 3;2 Russia KUY%sT 1991_8_29_2 2;3 - KUYT 1991_9_20_3 3;4 Russia SAM%sT 2010_2_28_2 4;3 Russia SAM%sT 2011_2_27_2 3;4 - SAMT".split(";"),"Europe/Simferopol":"2:16:24 - LMT 1880 2:16:24;2:16 - SMT 1924_4_2 2:16;2 - EET 1930_5_21 2;3 - MSK 1941_10 3;1 C-Eur CE%sT 1944_3_13 2;3 Russia MSK/MSD 1990 3;3 - MSK 1990_6_1_2 3;2 - EET 1992 2;2 E-Eur EE%sT 1994_4 3;3 E-Eur MSK/MSD 1996_2_31_3 3;4 - MSD 1996_9_27_3 3;3 Russia MSK/MSD 1997 3;3 - MSK 1997_2_30_1;2 EU EE%sT".split(";"),
+"Europe/Sofia":"1:33:16 - LMT 1880 1:33:16;1:56:56 - IMT 1894_10_30 1:56:56;2 - EET 1942_10_2_3 2;1 C-Eur CE%sT 1945 1;1 - CET 1945_3_2_3 1;2 - EET 1979_2_31_23 2;2 Bulg EE%sT 1982_8_26_2 3;2 C-Eur EE%sT 1991 2;2 E-Eur EE%sT 1997 2;2 EU EE%sT".split(";"),"Europe/Stockholm":"1:12:12 - LMT 1879_0_1 1:12:12;1:0:14 - SET 1900_0_1 1:0:14;1 - CET 1916_4_14_23 1;2 - CEST 1916_9_1_01 2;1 - CET 1980 1;1 EU CE%sT".split(";"),"Europe/Tallinn":"1:39 - LMT 1880 1:39;1:39 - TMT 1918_1 1:39;1 C-Eur CE%sT 1919_6 1;1:39 - TMT 1921_4 1:39;2 - EET 1940_7_6 2;3 - MSK 1941_8_15 3;1 C-Eur CE%sT 1944_8_22 2;3 Russia MSK/MSD 1989_2_26_2 3;3 - EEST 1989_8_24_2 2;2 C-Eur EE%sT 1998_8_22 3;2 EU EE%sT 1999_10_1 3;2 - EET 2002_1_21 2;2 EU EE%sT".split(";"),
+"Europe/Tirane":["1:19:20 - LMT 1914 1:19:20","1 - CET 1940_5_16 1","1 Albania CE%sT 1984_6 2","1 EU CE%sT"],"Europe/Uzhgorod":"1:29:12 - LMT 1890_9 1:29:12;1 - CET 1940 1;1 C-Eur CE%sT 1944_9 2;2 - CEST 1944_9_26 2;1 - CET 1945_5_29 1;3 Russia MSK/MSD 1990 3;3 - MSK 1990_6_1_2 3;1 - CET 1991_2_31_3 1;2 - EET 1992 2;2 E-Eur EE%sT 1995 2;2 EU EE%sT".split(";"),"Europe/Vaduz":["0:38:4 - LMT 1894_5 0:38:4","1 - CET 1981 1","1 EU CE%sT"],"Europe/Vienna":"1:5:21 - LMT 1893_3 1:5:21;1 C-Eur CE%sT 1920 1;1 Austria CE%sT 1940_3_1_2 1;1 C-Eur CE%sT 1945_3_2_2 1;2 - CEST 1945_3_12_2 1;1 - CET 1946 1;1 Austria CE%sT 1981 1;1 EU CE%sT".split(";"),
+"Europe/Vilnius":"1:41:16 - LMT 1880 1:41:16;1:24 - WMT 1917 1:24;1:35:36 - KMT 1919_9_10 1:35:36;1 - CET 1920_6_12 1;2 - EET 1920_9_9 2;1 - CET 1940_7_3 1;3 - MSK 1941_5_24 3;1 C-Eur CE%sT 1944_7 2;3 Russia MSK/MSD 1991_2_31_2 3;3 - EEST 1991_8_29_2 2;2 C-Eur EE%sT 1998 2;2 - EET 1998_2_29_1;1 EU CE%sT 1999_9_31_1;2 - EET 2003_0_1 2;2 EU EE%sT".split(";"),"Europe/Volgograd":"2:57:40 - LMT 1920_0_3 2:57:40;3 - TSAT 1925_3_6 3;3 - STAT 1930_5_21 3;4 - STAT 1961_10_11 4;4 Russia VOL%sT 1989_2_26_2 4;3 Russia VOL%sT 1991_2_31_2 3;4 - VOLT 1992_2_29_2 4;3 Russia VOL%sT 2011_2_27_2 3;4 - VOLT".split(";"),
+"Europe/Warsaw":"1:24 - LMT 1880 1:24;1:24 - WMT 1915_7_5 1:24;1 C-Eur CE%sT 1918_8_16_3 2;2 Poland EE%sT 1922_5 2;1 Poland CE%sT 1940_5_23_2 1;1 C-Eur CE%sT 1944_9 2;1 Poland CE%sT 1977 1;1 W-Eur CE%sT 1988 1;1 EU CE%sT".split(";"),"Europe/Zaporozhye":"2:20:40 - LMT 1880 2:20:40;2:20 - CUT 1924_4_2 2:20;2 - EET 1930_5_21 2;3 - MSK 1941_7_25 3;1 C-Eur CE%sT 1943_9_25 1;3 Russia MSK/MSD 1991_2_31_2 3;2 E-Eur EE%sT 1995 2;2 EU EE%sT".split(";"),"Indian/Antananarivo":["3:10:4 - LMT 1911_6 3:10:4","3 - EAT 1954_1_27_23 3",
+"4 - EAST 1954_4_29_23 3","3 - EAT"],"Indian/Chagos":["4:49:40 - LMT 1907 4:49:40","5 - IOT 1996 5","6 - IOT"],"Indian/Christmas":["7:2:52 - LMT 1895_1 7:2:52","7 - CXT"],"Indian/Cocos":["6:27:40 - LMT 1900 6:27:40","6:30 - CCT"],"Indian/Comoro":["2:53:4 - LMT 1911_6 2:53:4","3 - EAT"],"Indian/Kerguelen":["0 - zzz 1950","5 - TFT"],"Indian/Mahe":["3:41:48 - LMT 1906_5 3:41:48","4 - SCT"],"Indian/Maldives":["4:54 - LMT 1880 4:54","4:54 - MMT 1960 4:54","5 - MVT"],"Indian/Mauritius":["3:50 - LMT 1907 3:50",
+"4 Mauritius MU%sT"],"Indian/Mayotte":["3:0:56 - LMT 1911_6 3:0:56","3 - EAT"],"Indian/Reunion":["3:41:52 - LMT 1911_5 3:41:52","4 - RET"],"Pacific/Apia":"12:33:4 - LMT 1879_6_5 12:33:4;-11:26:56 - LMT 1911 -11:26:56;-11:30 - SAMT 1950 -11:30;-11 - WST 2010_8_26 -11;-10 - WSDT 2011_3_2_4 -10;-11 - WST 2011_8_24_3 -11;-10 - WSDT 2011_11_30 -10;14 - WSDT 2012_3_1_4 14;13 WS WS%sT".split(";"),"Pacific/Auckland":["11:39:4 - LMT 1868_10_2 11:39:4","11:30 NZ NZ%sT 1946_0_1 12","12 NZ NZ%sT"],"Pacific/Chatham":["12:13:48 - LMT 1957_0_1 12:13:48",
+"12:45 Chatham CHA%sT"],"Pacific/Chuuk":["10:7:8 - LMT 1901 10:7:8","10 - CHUT"],"Pacific/Easter":["-7:17:44 - LMT 1890 -7:17:44","-7:17:28 - EMT 1932_8 -7:17:28","-7 Chile EAS%sT 1982_2_13_21 -6","-6 Chile EAS%sT"],"Pacific/Efate":["11:13:16 - LMT 1912_0_13 11:13:16","11 Vanuatu VU%sT"],"Pacific/Enderbury":["-11:24:20 - LMT 1901 -11:24:20","-12 - PHOT 1979_9 -12","-11 - PHOT 1995 -11","13 - PHOT"],"Pacific/Fakaofo":["-11:24:56 - LMT 1901 -11:24:56","-11 - TKT 2011_11_30 -11","13 - TKT"],"Pacific/Fiji":["11:55:44 - LMT 1915_9_26 11:55:44",
+"12 Fiji FJ%sT"],"Pacific/Funafuti":["11:56:52 - LMT 1901 11:56:52","12 - TVT"],"Pacific/Galapagos":["-5:58:24 - LMT 1931 -5:58:24","-5 - ECT 1986 -5","-6 - GALT"],"Pacific/Gambier":["-8:59:48 - LMT 1912_9 -8:59:48","-9 - GAMT"],"Pacific/Guadalcanal":["10:39:48 - LMT 1912_9 10:39:48","11 - SBT"],"Pacific/Guam":["-14:21 - LMT 1844_11_31 -14:21","9:39 - LMT 1901 9:39","10 - GST 2000_11_23 10","10 - ChST"],"Pacific/Honolulu":"-10:31:26 - LMT 1896_0_13_12 -10:31:26;-10:30 - HST 1933_3_30_2 -10:30;-9:30 - HDT 1933_4_21_12 -9:30;-10:30 - HST 1942_1_09_2 -10:30;-9:30 - HDT 1945_8_30_2 -9:30;-10:30 - HST 1947_5_8_2 -10:30;-10 - HST".split(";"),
+"Pacific/Johnston":["-10 - HST"],"Pacific/Kiritimati":["-10:29:20 - LMT 1901 -10:29:20","-10:40 - LINT 1979_9 -10:40","-10 - LINT 1995 -10","14 - LINT"],"Pacific/Kosrae":["10:51:56 - LMT 1901 10:51:56","11 - KOST 1969_9 11","12 - KOST 1999 12","11 - KOST"],"Pacific/Kwajalein":["11:9:20 - LMT 1901 11:9:20","11 - MHT 1969_9 11","-12 - KWAT 1993_7_20 -12","12 - MHT"],"Pacific/Majuro":["11:24:48 - LMT 1901 11:24:48","11 - MHT 1969_9 11","12 - MHT"],"Pacific/Marquesas":["-9:18 - LMT 1912_9 -9:18","-9:30 - MART"],
+"Pacific/Midway":"-11:49:28 - LMT 1901 -11:49:28;-11 - NST 1956_5_3 -11;-10 - NDT 1956_8_2 -10;-11 - NST 1967_3 -11;-11 - BST 1983_10_30 -11;-11 - SST".split(";"),"Pacific/Nauru":["11:7:40 - LMT 1921_0_15 11:7:40","11:30 - NRT 1942_2_15 11:30","9 - JST 1944_7_15 9","11:30 - NRT 1979_4 11:30","12 - NRT"],"Pacific/Niue":["-11:19:40 - LMT 1901 -11:19:40","-11:20 - NUT 1951 -11:20","-11:30 - NUT 1978_9_1 -11:30","-11 - NUT"],"Pacific/Norfolk":["11:11:52 - LMT 1901 11:11:52","11:12 - NMT 1951 11:12","11:30 - NFT"],
+"Pacific/Noumea":["11:5:48 - LMT 1912_0_13 11:5:48","11 NC NC%sT"],"Pacific/Pago_Pago":"12:37:12 - LMT 1879_6_5 12:37:12;-11:22:48 - LMT 1911 -11:22:48;-11:30 - SAMT 1950 -11:30;-11 - NST 1967_3 -11;-11 - BST 1983_10_30 -11;-11 - SST".split(";"),"Pacific/Palau":["8:57:56 - LMT 1901 8:57:56","9 - PWT"],"Pacific/Pitcairn":["-8:40:20 - LMT 1901 -8:40:20","-8:30 - PNT 1998_3_27_00 -8:30","-8 - PST"],"Pacific/Pohnpei":["10:32:52 - LMT 1901 10:32:52","11 - PONT"],"Pacific/Port_Moresby":["9:48:40 - LMT 1880 9:48:40",
+"9:48:32 - PMMT 1895 9:48:32","10 - PGT"],"Pacific/Rarotonga":["-10:39:4 - LMT 1901 -10:39:4","-10:30 - CKT 1978_10_12 -10:30","-10 Cook CK%sT"],"Pacific/Saipan":["-14:17 - LMT 1844_11_31 -14:17","9:43 - LMT 1901 9:43","9 - MPT 1969_9 9","10 - MPT 2000_11_23 10","10 - ChST"],"Pacific/Tahiti":["-9:58:16 - LMT 1912_9 -9:58:16","-10 - TAHT"],"Pacific/Tarawa":["11:32:4 - LMT 1901 11:32:4","12 - GILT"],"Pacific/Tongatapu":["12:19:20 - LMT 1901 12:19:20","12:20 - TOT 1941 12:20","13 - TOT 1999 13","13 Tonga TO%sT"],
+"Pacific/Wake":["11:6:28 - LMT 1901 11:6:28","12 - WAKT"],"Pacific/Wallis":["12:15:20 - LMT 1901 12:15:20","12 - WFT"]},rules:{Ghana:["1936 1942 8 1 7 0 0 0:20 GHST","1936 1942 11 31 7 0 0 0 GMT"],Algeria:"1916 1916 5 14 7 23 2 1 S;1916 1919 9 1 0 23 2 0;1917 1917 2 24 7 23 2 1 S;1918 1918 2 9 7 23 2 1 S;1919 1919 2 1 7 23 2 1 S;1920 1920 1 14 7 23 2 1 S;1920 1920 9 23 7 23 2 0;1921 1921 2 14 7 23 2 1 S;1921 1921 5 21 7 23 2 0;1939 1939 8 11 7 23 2 1 S;1939 1939 10 19 7 1 0 0;1944 1945 3 1 1 2 0 1 S;1944 1944 9 8 7 2 0 0;1945 1945 8 16 7 1 0 0;1971 1971 3 25 7 23 2 1 S;1971 1971 8 26 7 23 2 0;1977 1977 4 6 7 0 0 1 S;1977 1977 9 21 7 0 0 0;1978 1978 2 24 7 1 0 1 S;1978 1978 8 22 7 3 0 0;1980 1980 3 25 7 0 0 1 S;1980 1980 9 31 7 2 0 0".split(";"),
+Egypt:"1940 1940 6 15 7 0 0 1 S;1940 1940 9 1 7 0 0 0;1941 1941 3 15 7 0 0 1 S;1941 1941 8 16 7 0 0 0;1942 1944 3 1 7 0 0 1 S;1942 1942 9 27 7 0 0 0;1943 1945 10 1 7 0 0 0;1945 1945 3 16 7 0 0 1 S;1957 1957 4 10 7 0 0 1 S;1957 1958 9 1 7 0 0 0;1958 1958 4 1 7 0 0 1 S;1959 1981 4 1 7 1 0 1 S;1959 1965 8 30 7 3 0 0;1966 1994 9 1 7 3 0 0;1982 1982 6 25 7 1 0 1 S;1983 1983 6 12 7 1 0 1 S;1984 1988 4 1 7 1 0 1 S;1989 1989 4 6 7 1 0 1 S;1990 1994 4 1 7 1 0 1 S;1995 2010 3 5 8 0 2 1 S;1995 2005 8 4 8 23 2 0;2006 2006 8 21 7 23 2 0;2007 2007 8 1 4 23 2 0;2008 2008 7 4 8 23 2 0;2009 2009 7 20 7 23 2 0;2010 2010 7 11 7 0 0 0;2010 2010 8 10 7 0 0 1 S;2010 2010 8 4 8 23 2 0".split(";"),
+Morocco:"1939 1939 8 12 7 0 0 1 S;1939 1939 10 19 7 0 0 0;1940 1940 1 25 7 0 0 1 S;1945 1945 10 18 7 0 0 0;1950 1950 5 11 7 0 0 1 S;1950 1950 9 29 7 0 0 0;1967 1967 5 3 7 12 0 1 S;1967 1967 9 1 7 0 0 0;1974 1974 5 24 7 0 0 1 S;1974 1974 8 1 7 0 0 0;1976 1977 4 1 7 0 0 1 S;1976 1976 7 1 7 0 0 0;1977 1977 8 28 7 0 0 0;1978 1978 5 1 7 0 0 1 S;1978 1978 7 4 7 0 0 0;2008 2008 5 1 7 0 0 1 S;2008 2008 8 1 7 0 0 0;2009 2009 5 1 7 0 0 1 S;2009 2009 7 21 7 0 0 0;2010 2010 4 2 7 0 0 1 S;2010 2010 7 8 7 0 0 0;2011 2011 3 3 7 0 0 1 S;2011 2011 6 31 7 0 0 0;2012 2019 3 0 8 2 0 1 S;2012 9999 8 0 8 3 0 0;2012 2012 6 20 7 3 0 0;2012 2012 7 20 7 2 0 1 S;2013 2013 6 9 7 3 0 0;2013 2013 7 8 7 2 0 1 S;2014 2014 5 29 7 3 0 0;2014 2014 6 29 7 2 0 1 S;2015 2015 5 18 7 3 0 0;2015 2015 6 18 7 2 0 1 S;2016 2016 5 7 7 3 0 0;2016 2016 6 7 7 2 0 1 S;2017 2017 4 27 7 3 0 0;2017 2017 5 26 7 2 0 1 S;2018 2018 4 16 7 3 0 0;2018 2018 5 15 7 2 0 1 S;2019 2019 4 6 7 3 0 0;2019 2019 5 5 7 2 0 1 S;2020 2020 4 24 7 2 0 1 S;2021 2021 4 13 7 2 0 1 S;2022 2022 4 3 7 2 0 1 S;2023 9999 3 0 8 2 0 1 S".split(";"),
+Spain:"1917 1917 4 5 7 23 2 1 S;1917 1919 9 6 7 23 2 0;1918 1918 3 15 7 23 2 1 S;1919 1919 3 5 7 23 2 1 S;1924 1924 3 16 7 23 2 1 S;1924 1924 9 4 7 23 2 0;1926 1926 3 17 7 23 2 1 S;1926 1929 9 1 6 23 2 0;1927 1927 3 9 7 23 2 1 S;1928 1928 3 14 7 23 2 1 S;1929 1929 3 20 7 23 2 1 S;1937 1937 4 22 7 23 2 1 S;1937 1939 9 1 6 23 2 0;1938 1938 2 22 7 23 2 1 S;1939 1939 3 15 7 23 2 1 S;1940 1940 2 16 7 23 2 1 S;1942 1942 4 2 7 22 2 2 M;1942 1942 8 1 7 22 2 1 S;1943 1946 3 13 6 22 2 2 M;1943 1943 9 3 7 22 2 1 S;1944 1944 9 10 7 22 2 1 S;1945 1945 8 30 7 1 0 1 S;1946 1946 8 30 7 0 0 0;1949 1949 3 30 7 23 0 1 S;1949 1949 8 30 7 1 0 0;1974 1975 3 13 6 23 0 1 S;1974 1975 9 1 0 1 0 0;1976 1976 2 27 7 23 0 1 S;1976 1977 8 0 8 1 0 0;1977 1978 3 2 7 23 0 1 S;1978 1978 9 1 7 1 0 0".split(";"),
+SpainAfrica:"1967 1967 5 3 7 12 0 1 S;1967 1967 9 1 7 0 0 0;1974 1974 5 24 7 0 0 1 S;1974 1974 8 1 7 0 0 0;1976 1977 4 1 7 0 0 1 S;1976 1976 7 1 7 0 0 0;1977 1977 8 28 7 0 0 0;1978 1978 5 1 7 0 0 1 S;1978 1978 7 4 7 0 0 0".split(";"),EU:"1977 1980 3 1 0 1 1 1 S;1977 1977 8 0 8 1 1 0;1978 1978 9 1 7 1 1 0;1979 1995 8 0 8 1 1 0;1981 9999 2 0 8 1 1 1 S;1996 9999 9 0 8 1 1 0".split(";"),SL:["1935 1942 5 1 7 0 0 0:40 SLST","1935 1942 9 1 7 0 0 0 WAT","1957 1962 5 1 7 0 0 1 SLST","1957 1962 8 1 7 0 0 0 GMT"],
+SA:["1942 1943 8 15 0 2 0 1","1943 1944 2 15 0 2 0 0"],Sudan:["1970 1970 4 1 7 0 0 1 S","1970 1985 9 15 7 0 0 0","1971 1971 3 30 7 0 0 1 S","1972 1985 3 0 8 0 0 1 S"],Libya:"1951 1951 9 14 7 2 0 1 S;1952 1952 0 1 7 0 0 0;1953 1953 9 9 7 2 0 1 S;1954 1954 0 1 7 0 0 0;1955 1955 8 30 7 0 0 1 S;1956 1956 0 1 7 0 0 0;1982 1984 3 1 7 0 0 1 S;1982 1985 9 1 7 0 0 0;1985 1985 3 6 7 0 0 1 S;1986 1986 3 4 7 0 0 1 S;1986 1986 9 3 7 0 0 0;1987 1989 3 1 7 0 0 1 S;1987 1989 9 1 7 0 0 0;1997 1997 3 4 7 0 0 1 S;1997 1997 9 4 7 0 0 0;2013 9999 2 5 8 1 0 1 S;2013 9999 9 5 8 2 0 0".split(";"),
+Tunisia:"1939 1939 3 15 7 23 2 1 S;1939 1939 10 18 7 23 2 0;1940 1940 1 25 7 23 2 1 S;1941 1941 9 6 7 0 0 0;1942 1942 2 9 7 0 0 1 S;1942 1942 10 2 7 3 0 0;1943 1943 2 29 7 2 0 1 S;1943 1943 3 17 7 2 0 0;1943 1943 3 25 7 2 0 1 S;1943 1943 9 4 7 2 0 0;1944 1945 3 1 1 2 0 1 S;1944 1944 9 8 7 0 0 0;1945 1945 8 16 7 0 0 0;1977 1977 3 30 7 0 2 1 S;1977 1977 8 24 7 0 2 0;1978 1978 4 1 7 0 2 1 S;1978 1978 9 1 7 0 2 0;1988 1988 5 1 7 0 2 1 S;1988 1990 8 0 8 0 2 0;1989 1989 2 26 7 0 2 1 S;1990 1990 4 1 7 0 2 1 S;2005 2005 4 1 7 0 2 1 S;2005 2005 8 30 7 1 2 0;2006 2008 2 0 8 2 2 1 S;2006 2008 9 0 8 2 2 0".split(";"),
+Namibia:["1994 9999 8 1 0 2 0 1 S","1995 9999 3 1 0 2 0 0"],US:"1918 1919 2 0 8 2 0 1 D;1918 1919 9 0 8 2 0 0 S;1942 1942 1 9 7 2 0 1 W;1945 1945 7 14 7 23 1 1 P;1945 1945 8 30 7 2 0 0 S;1967 2006 9 0 8 2 0 0 S;1967 1973 3 0 8 2 0 1 D;1974 1974 0 6 7 2 0 1 D;1975 1975 1 23 7 2 0 1 D;1976 1986 3 0 8 2 0 1 D;1987 2006 3 1 0 2 0 1 D;2007 9999 2 8 0 2 0 1 D;2007 9999 10 1 0 2 0 0 S".split(";"),Brazil:"1931 1931 9 3 7 11 0 1 S;1932 1933 3 1 7 0 0 0;1932 1932 9 3 7 0 0 1 S;1949 1952 11 1 7 0 0 1 S;1950 1950 3 16 7 1 0 0;1951 1952 3 1 7 0 0 0;1953 1953 2 1 7 0 0 0;1963 1963 11 9 7 0 0 1 S;1964 1964 2 1 7 0 0 0;1965 1965 0 31 7 0 0 1 S;1965 1965 2 31 7 0 0 0;1965 1965 11 1 7 0 0 1 S;1966 1968 2 1 7 0 0 0;1966 1967 10 1 7 0 0 1 S;1985 1985 10 2 7 0 0 1 S;1986 1986 2 15 7 0 0 0;1986 1986 9 25 7 0 0 1 S;1987 1987 1 14 7 0 0 0;1987 1987 9 25 7 0 0 1 S;1988 1988 1 7 7 0 0 0;1988 1988 9 16 7 0 0 1 S;1989 1989 0 29 7 0 0 0;1989 1989 9 15 7 0 0 1 S;1990 1990 1 11 7 0 0 0;1990 1990 9 21 7 0 0 1 S;1991 1991 1 17 7 0 0 0;1991 1991 9 20 7 0 0 1 S;1992 1992 1 9 7 0 0 0;1992 1992 9 25 7 0 0 1 S;1993 1993 0 31 7 0 0 0;1993 1995 9 11 0 0 0 1 S;1994 1995 1 15 0 0 0 0;1996 1996 1 11 7 0 0 0;1996 1996 9 6 7 0 0 1 S;1997 1997 1 16 7 0 0 0;1997 1997 9 6 7 0 0 1 S;1998 1998 2 1 7 0 0 0;1998 1998 9 11 7 0 0 1 S;1999 1999 1 21 7 0 0 0;1999 1999 9 3 7 0 0 1 S;2000 2000 1 27 7 0 0 0;2000 2001 9 8 0 0 0 1 S;2001 2006 1 15 0 0 0 0;2002 2002 10 3 7 0 0 1 S;2003 2003 9 19 7 0 0 1 S;2004 2004 10 2 7 0 0 1 S;2005 2005 9 16 7 0 0 1 S;2006 2006 10 5 7 0 0 1 S;2007 2007 1 25 7 0 0 0;2007 2007 9 8 0 0 0 1 S;2008 9999 9 15 0 0 0 1 S;2008 2011 1 15 0 0 0 0;2012 2012 1 22 0 0 0 0;2013 2014 1 15 0 0 0 0;2015 2015 1 22 0 0 0 0;2016 2022 1 15 0 0 0 0;2023 2023 1 22 0 0 0 0;2024 2025 1 15 0 0 0 0;2026 2026 1 22 0 0 0 0;2027 2033 1 15 0 0 0 0;2034 2034 1 22 0 0 0 0;2035 2036 1 15 0 0 0 0;2037 2037 1 22 0 0 0 0;2038 9999 1 15 0 0 0 0".split(";"),
+Arg:"1930 1930 11 1 7 0 0 1 S;1931 1931 3 1 7 0 0 0;1931 1931 9 15 7 0 0 1 S;1932 1940 2 1 7 0 0 0;1932 1939 10 1 7 0 0 1 S;1940 1940 6 1 7 0 0 1 S;1941 1941 5 15 7 0 0 0;1941 1941 9 15 7 0 0 1 S;1943 1943 7 1 7 0 0 0;1943 1943 9 15 7 0 0 1 S;1946 1946 2 1 7 0 0 0;1946 1946 9 1 7 0 0 1 S;1963 1963 9 1 7 0 0 0;1963 1963 11 15 7 0 0 1 S;1964 1966 2 1 7 0 0 0;1964 1966 9 15 7 0 0 1 S;1967 1967 3 2 7 0 0 0;1967 1968 9 1 0 0 0 1 S;1968 1969 3 1 0 0 0 0;1974 1974 0 23 7 0 0 1 S;1974 1974 4 1 7 0 0 0;1988 1988 11 1 7 0 0 1 S;1989 1993 2 1 0 0 0 0;1989 1992 9 15 0 0 0 1 S;1999 1999 9 1 0 0 0 1 S;2000 2000 2 3 7 0 0 0;2007 2007 11 30 7 0 0 1 S;2008 2009 2 15 0 0 0 0;2008 2008 9 15 0 0 0 1 S".split(";"),
+SanLuis:["2008 2009 2 8 0 0 0 0","2007 2009 9 8 0 0 0 1 S"],Para:"1975 1988 9 1 7 0 0 1 S;1975 1978 2 1 7 0 0 0;1979 1991 3 1 7 0 0 0;1989 1989 9 22 7 0 0 1 S;1990 1990 9 1 7 0 0 1 S;1991 1991 9 6 7 0 0 1 S;1992 1992 2 1 7 0 0 0;1992 1992 9 5 7 0 0 1 S;1993 1993 2 31 7 0 0 0;1993 1995 9 1 7 0 0 1 S;1994 1995 1 0 8 0 0 0;1996 1996 2 1 7 0 0 0;1996 2001 9 1 0 0 0 1 S;1997 1997 1 0 8 0 0 0;1998 2001 2 1 0 0 0 0;2002 2004 3 1 0 0 0 0;2002 2003 8 1 0 0 0 1 S;2004 2009 9 15 0 0 0 1 S;2005 2009 2 8 0 0 0 0;2010 9999 9 1 0 0 0 1 S;2010 2012 3 8 0 0 0 0;2013 9999 2 22 0 0 0 0".split(";"),
+Canada:"1918 1918 3 14 7 2 0 1 D;1918 1918 9 27 7 2 0 0 S;1942 1942 1 9 7 2 0 1 W;1945 1945 7 14 7 23 1 1 P;1945 1945 8 30 7 2 0 0 S;1974 1986 3 0 8 2 0 1 D;1974 2006 9 0 8 2 0 0 S;1987 2006 3 1 0 2 0 1 D;2007 9999 2 8 0 2 0 1 D;2007 9999 10 1 0 2 0 0 S".split(";"),Mexico:"1939 1939 1 5 7 0 0 1 D;1939 1939 5 25 7 0 0 0 S;1940 1940 11 9 7 0 0 1 D;1941 1941 3 1 7 0 0 0 S;1943 1943 11 16 7 0 0 1 W;1944 1944 4 1 7 0 0 0 S;1950 1950 1 12 7 0 0 1 D;1950 1950 6 30 7 0 0 0 S;1996 2000 3 1 0 2 0 1 D;1996 2000 9 0 8 2 0 0 S;2001 2001 4 1 0 2 0 1 D;2001 2001 8 0 8 2 0 0 S;2002 9999 3 1 0 2 0 1 D;2002 9999 9 0 8 2 0 0 S".split(";"),
+Barb:["1977 1977 5 12 7 2 0 1 D","1977 1978 9 1 0 2 0 0 S","1978 1980 3 15 0 2 0 1 D","1979 1979 8 30 7 2 0 0 S","1980 1980 8 25 7 2 0 0 S"],Belize:"1918 1942 9 2 0 0 0 0:30 HD;1919 1943 1 9 0 0 0 0 S;1973 1973 11 5 7 0 0 1 D;1974 1974 1 9 7 0 0 0 S;1982 1982 11 18 7 0 0 1 D;1983 1983 1 12 7 0 0 0 S".split(";"),CO:["1992 1992 4 3 7 0 0 1 S","1993 1993 3 4 7 0 0 0"],NT_YK:"1918 1918 3 14 7 2 0 1 D;1918 1918 9 27 7 2 0 0 S;1919 1919 4 25 7 2 0 1 D;1919 1919 10 1 7 0 0 0 S;1942 1942 1 9 7 2 0 1 W;1945 1945 7 14 7 23 1 1 P;1945 1945 8 30 7 2 0 0 S;1965 1965 3 0 8 0 0 2 DD;1965 1965 9 0 8 2 0 0 S;1980 1986 3 0 8 2 0 1 D;1980 2006 9 0 8 2 0 0 S;1987 2006 3 1 0 2 0 1 D".split(";"),
+Chicago:"1920 1920 5 13 7 2 0 1 D;1920 1921 9 0 8 2 0 0 S;1921 1921 2 0 8 2 0 1 D;1922 1966 3 0 8 2 0 1 D;1922 1954 8 0 8 2 0 0 S;1955 1966 9 0 8 2 0 0 S".split(";"),CR:["1979 1980 1 0 8 0 0 1 D","1979 1980 5 1 0 0 0 0 S","1991 1992 0 15 6 0 0 1 D","1991 1991 6 1 7 0 0 0 S","1992 1992 2 15 7 0 0 0 S"],Vanc:"1918 1918 3 14 7 2 0 1 D;1918 1918 9 27 7 2 0 0 S;1942 1942 1 9 7 2 0 1 W;1945 1945 7 14 7 23 1 1 P;1945 1945 8 30 7 2 0 0 S;1946 1986 3 0 8 2 0 1 D;1946 1946 9 13 7 2 0 0 S;1947 1961 8 0 8 2 0 0 S;1962 2006 9 0 8 2 0 0 S".split(";"),
+Denver:["1920 1921 2 0 8 2 0 1 D","1920 1920 9 0 8 2 0 0 S","1921 1921 4 22 7 2 0 0 S","1965 1966 3 0 8 2 0 1 D","1965 1966 9 0 8 2 0 0 S"],Detroit:["1948 1948 3 0 8 2 0 1 D","1948 1948 8 0 8 2 0 0 S","1967 1967 5 14 7 2 0 1 D","1967 1967 9 0 8 2 0 0 S"],Edm:"1918 1919 3 8 0 2 0 1 D;1918 1918 9 27 7 2 0 0 S;1919 1919 4 27 7 2 0 0 S;1920 1923 3 0 8 2 0 1 D;1920 1920 9 0 8 2 0 0 S;1921 1923 8 0 8 2 0 0 S;1942 1942 1 9 7 2 0 1 W;1945 1945 7 14 7 23 1 1 P;1945 1945 8 0 8 2 0 0 S;1947 1947 3 0 8 2 0 1 D;1947 1947 8 0 8 2 0 0 S;1967 1967 3 0 8 2 0 1 D;1967 1967 9 0 8 2 0 0 S;1969 1969 3 0 8 2 0 1 D;1969 1969 9 0 8 2 0 0 S;1972 1986 3 0 8 2 0 1 D;1972 2006 9 0 8 2 0 0 S".split(";"),
+Salv:["1987 1988 4 1 0 0 0 1 D","1987 1988 8 0 8 0 0 0 S"],Halifax:"1916 1916 3 1 7 0 0 1 D;1916 1916 9 1 7 0 0 0 S;1920 1920 4 9 7 0 0 1 D;1920 1920 7 29 7 0 0 0 S;1921 1921 4 6 7 0 0 1 D;1921 1922 8 5 7 0 0 0 S;1922 1922 3 30 7 0 0 1 D;1923 1925 4 1 0 0 0 1 D;1923 1923 8 4 7 0 0 0 S;1924 1924 8 15 7 0 0 0 S;1925 1925 8 28 7 0 0 0 S;1926 1926 4 16 7 0 0 1 D;1926 1926 8 13 7 0 0 0 S;1927 1927 4 1 7 0 0 1 D;1927 1927 8 26 7 0 0 0 S;1928 1931 4 8 0 0 0 1 D;1928 1928 8 9 7 0 0 0 S;1929 1929 8 3 7 0 0 0 S;1930 1930 8 15 7 0 0 0 S;1931 1932 8 24 1 0 0 0 S;1932 1932 4 1 7 0 0 1 D;1933 1933 3 30 7 0 0 1 D;1933 1933 9 2 7 0 0 0 S;1934 1934 4 20 7 0 0 1 D;1934 1934 8 16 7 0 0 0 S;1935 1935 5 2 7 0 0 1 D;1935 1935 8 30 7 0 0 0 S;1936 1936 5 1 7 0 0 1 D;1936 1936 8 14 7 0 0 0 S;1937 1938 4 1 0 0 0 1 D;1937 1941 8 24 1 0 0 0 S;1939 1939 4 28 7 0 0 1 D;1940 1941 4 1 0 0 0 1 D;1946 1949 3 0 8 2 0 1 D;1946 1949 8 0 8 2 0 0 S;1951 1954 3 0 8 2 0 1 D;1951 1954 8 0 8 2 0 0 S;1956 1959 3 0 8 2 0 1 D;1956 1959 8 0 8 2 0 0 S;1962 1973 3 0 8 2 0 1 D;1962 1973 9 0 8 2 0 0 S".split(";"),
+StJohns:"1917 1917 3 8 7 2 0 1 D;1917 1917 8 17 7 2 0 0 S;1919 1919 4 5 7 23 0 1 D;1919 1919 7 12 7 23 0 0 S;1920 1935 4 1 0 23 0 1 D;1920 1935 9 0 8 23 0 0 S;1936 1941 4 9 1 0 0 1 D;1936 1941 9 2 1 0 0 0 S;1946 1950 4 8 0 2 0 1 D;1946 1950 9 2 0 2 0 0 S;1951 1986 3 0 8 2 0 1 D;1951 1959 8 0 8 2 0 0 S;1960 1986 9 0 8 2 0 0 S;1987 1987 3 1 0 0:1 0 1 D;1987 2006 9 0 8 0:1 0 0 S;1988 1988 3 1 0 0:1 0 2 DD;1989 2006 3 1 0 0:1 0 1 D;2007 2011 2 8 0 0:1 0 1 D;2007 2010 10 1 0 0:1 0 0 S".split(";"),TC:["1979 1986 3 0 8 2 0 1 D",
+"1979 2006 9 0 8 2 0 0 S","1987 2006 3 1 0 2 0 1 D","2007 9999 2 8 0 2 0 1 D","2007 9999 10 1 0 2 0 0 S"],Guat:"1973 1973 10 25 7 0 0 1 D;1974 1974 1 24 7 0 0 0 S;1983 1983 4 21 7 0 0 1 D;1983 1983 8 22 7 0 0 0 S;1991 1991 2 23 7 0 0 1 D;1991 1991 8 7 7 0 0 0 S;2006 2006 3 30 7 0 0 1 D;2006 2006 9 1 7 0 0 0 S".split(";"),Cuba:"1928 1928 5 10 7 0 0 1 D;1928 1928 9 10 7 0 0 0 S;1940 1942 5 1 0 0 0 1 D;1940 1942 8 1 0 0 0 0 S;1945 1946 5 1 0 0 0 1 D;1945 1946 8 1 0 0 0 0 S;1965 1965 5 1 7 0 0 1 D;1965 1965 8 30 7 0 0 0 S;1966 1966 4 29 7 0 0 1 D;1966 1966 9 2 7 0 0 0 S;1967 1967 3 8 7 0 0 1 D;1967 1968 8 8 0 0 0 0 S;1968 1968 3 14 7 0 0 1 D;1969 1977 3 0 8 0 0 1 D;1969 1971 9 0 8 0 0 0 S;1972 1974 9 8 7 0 0 0 S;1975 1977 9 0 8 0 0 0 S;1978 1978 4 7 7 0 0 1 D;1978 1990 9 8 0 0 0 0 S;1979 1980 2 15 0 0 0 1 D;1981 1985 4 5 0 0 0 1 D;1986 1989 2 14 0 0 0 1 D;1990 1997 3 1 0 0 0 1 D;1991 1995 9 8 0 0 2 0 S;1996 1996 9 6 7 0 2 0 S;1997 1997 9 12 7 0 2 0 S;1998 1999 2 0 8 0 2 1 D;1998 2003 9 0 8 0 2 0 S;2000 2004 3 1 0 0 2 1 D;2006 2010 9 0 8 0 2 0 S;2007 2007 2 8 0 0 2 1 D;2008 2008 2 15 0 0 2 1 D;2009 2010 2 8 0 0 2 1 D;2011 2011 2 15 0 0 2 1 D;2011 2011 10 13 7 0 2 0 S;2012 2012 3 1 7 0 2 1 D;2012 9999 10 1 0 0 2 0 S;2013 9999 2 8 0 0 2 1 D".split(";"),
+Indianapolis:["1941 1941 5 22 7 2 0 1 D","1941 1954 8 0 8 2 0 0 S","1946 1954 3 0 8 2 0 1 D"],Starke:["1947 1961 3 0 8 2 0 1 D","1947 1954 8 0 8 2 0 0 S","1955 1956 9 0 8 2 0 0 S","1957 1958 8 0 8 2 0 0 S","1959 1961 9 0 8 2 0 0 S"],Marengo:["1951 1951 3 0 8 2 0 1 D","1951 1951 8 0 8 2 0 0 S","1954 1960 3 0 8 2 0 1 D","1954 1960 8 0 8 2 0 0 S"],Pike:["1955 1955 4 1 7 0 0 1 D","1955 1960 8 0 8 2 0 0 S","1956 1964 3 0 8 2 0 1 D","1961 1964 9 0 8 2 0 0 S"],Perry:"1946 1946 3 0 8 2 0 1 D;1946 1946 8 0 8 2 0 0 S;1953 1954 3 0 8 2 0 1 D;1953 1959 8 0 8 2 0 0 S;1955 1955 4 1 7 0 0 1 D;1956 1963 3 0 8 2 0 1 D;1960 1960 9 0 8 2 0 0 S;1961 1961 8 0 8 2 0 0 S;1962 1963 9 0 8 2 0 0 S".split(";"),
+Vincennes:"1946 1946 3 0 8 2 0 1 D;1946 1946 8 0 8 2 0 0 S;1953 1954 3 0 8 2 0 1 D;1953 1959 8 0 8 2 0 0 S;1955 1955 4 1 7 0 0 1 D;1956 1963 3 0 8 2 0 1 D;1960 1960 9 0 8 2 0 0 S;1961 1961 8 0 8 2 0 0 S;1962 1963 9 0 8 2 0 0 S".split(";"),Pulaski:["1946 1960 3 0 8 2 0 1 D","1946 1954 8 0 8 2 0 0 S","1955 1956 9 0 8 2 0 0 S","1957 1960 8 0 8 2 0 0 S"],Louisville:"1921 1921 4 1 7 2 0 1 D;1921 1921 8 1 7 2 0 0 S;1941 1961 3 0 8 2 0 1 D;1941 1941 8 0 8 2 0 0 S;1946 1946 5 2 7 2 0 0 S;1950 1955 8 0 8 2 0 0 S;1956 1960 9 0 8 2 0 0 S".split(";"),
+Peru:"1938 1938 0 1 7 0 0 1 S;1938 1938 3 1 7 0 0 0;1938 1939 8 0 8 0 0 1 S;1939 1940 2 24 0 0 0 0;1986 1987 0 1 7 0 0 1 S;1986 1987 3 1 7 0 0 0;1990 1990 0 1 7 0 0 1 S;1990 1990 3 1 7 0 0 0;1994 1994 0 1 7 0 0 1 S;1994 1994 3 1 7 0 0 0".split(";"),CA:["1948 1948 2 14 7 2 0 1 D","1949 1949 0 1 7 2 0 0 S","1950 1966 3 0 8 2 0 1 D","1950 1961 8 0 8 2 0 0 S","1962 1966 9 0 8 2 0 0 S"],Nic:"1979 1980 2 16 0 0 0 1 D;1979 1980 5 23 1 0 0 0 S;2005 2005 3 10 7 0 0 1 D;2005 2005 9 1 0 0 0 0 S;2006 2006 3 30 7 2 0 1 D;2006 2006 9 1 0 1 0 0 S".split(";"),
+Menominee:["1946 1946 3 0 8 2 0 1 D","1946 1946 8 0 8 2 0 0 S","1966 1966 3 0 8 2 0 1 D","1966 1966 9 0 8 2 0 0 S"],Moncton:"1933 1935 5 8 0 1 0 1 D;1933 1935 8 8 0 1 0 0 S;1936 1938 5 1 0 1 0 1 D;1936 1938 8 1 0 1 0 0 S;1939 1939 4 27 7 1 0 1 D;1939 1941 8 21 6 1 0 0 S;1940 1940 4 19 7 1 0 1 D;1941 1941 4 4 7 1 0 1 D;1946 1972 3 0 8 2 0 1 D;1946 1956 8 0 8 2 0 0 S;1957 1972 9 0 8 2 0 0 S;1993 2006 3 1 0 0:1 0 1 D;1993 2006 9 0 8 0:1 0 0 S".split(";"),Uruguay:"1923 1923 9 2 7 0 0 0:30 HS;1924 1926 3 1 7 0 0 0;1924 1925 9 1 7 0 0 0:30 HS;1933 1935 9 0 8 0 0 0:30 HS;1934 1936 2 25 6 23:30 2 0;1936 1936 10 1 7 0 0 0:30 HS;1937 1941 2 0 8 0 0 0;1937 1940 9 0 8 0 0 0:30 HS;1941 1941 7 1 7 0 0 0:30 HS;1942 1942 0 1 7 0 0 0;1942 1942 11 14 7 0 0 1 S;1943 1943 2 14 7 0 0 0;1959 1959 4 24 7 0 0 1 S;1959 1959 10 15 7 0 0 0;1960 1960 0 17 7 0 0 1 S;1960 1960 2 6 7 0 0 0;1965 1967 3 1 0 0 0 1 S;1965 1965 8 26 7 0 0 0;1966 1967 9 31 7 0 0 0;1968 1970 4 27 7 0 0 0:30 HS;1968 1970 11 2 7 0 0 0;1972 1972 3 24 7 0 0 1 S;1972 1972 7 15 7 0 0 0;1974 1974 2 10 7 0 0 0:30 HS;1974 1974 11 22 7 0 0 1 S;1976 1976 9 1 7 0 0 0;1977 1977 11 4 7 0 0 1 S;1978 1978 3 1 7 0 0 0;1979 1979 9 1 7 0 0 1 S;1980 1980 4 1 7 0 0 0;1987 1987 11 14 7 0 0 1 S;1988 1988 2 14 7 0 0 0;1988 1988 11 11 7 0 0 1 S;1989 1989 2 12 7 0 0 0;1989 1989 9 29 7 0 0 1 S;1990 1992 2 1 0 0 0 0;1990 1991 9 21 0 0 0 1 S;1992 1992 9 18 7 0 0 1 S;1993 1993 1 28 7 0 0 0;2004 2004 8 19 7 0 0 1 S;2005 2005 2 27 7 2 0 0;2005 2005 9 9 7 2 0 1 S;2006 2006 2 12 7 2 0 0;2006 9999 9 1 0 2 0 1 S;2007 9999 2 8 0 2 0 0".split(";"),
+Mont:"1917 1917 2 25 7 2 0 1 D;1917 1917 3 24 7 0 0 0 S;1919 1919 2 31 7 2:30 0 1 D;1919 1919 9 25 7 2:30 0 0 S;1920 1920 4 2 7 2:30 0 1 D;1920 1922 9 1 0 2:30 0 0 S;1921 1921 4 1 7 2 0 1 D;1922 1922 3 30 7 2 0 1 D;1924 1924 4 17 7 2 0 1 D;1924 1926 8 0 8 2:30 0 0 S;1925 1926 4 1 0 2 0 1 D;1927 1927 4 1 7 0 0 1 D;1927 1932 8 0 8 0 0 0 S;1928 1931 3 0 8 0 0 1 D;1932 1932 4 1 7 0 0 1 D;1933 1940 3 0 8 0 0 1 D;1933 1933 9 1 7 0 0 0 S;1934 1939 8 0 8 0 0 0 S;1946 1973 3 0 8 2 0 1 D;1945 1948 8 0 8 2 0 0 S;1949 1950 9 0 8 2 0 0 S;1951 1956 8 0 8 2 0 0 S;1957 1973 9 0 8 2 0 0 S".split(";"),
+Bahamas:["1964 1975 9 0 8 2 0 0 S","1964 1975 3 0 8 2 0 1 D"],NYC:["1920 1920 2 0 8 2 0 1 D","1920 1920 9 0 8 2 0 0 S","1921 1966 3 0 8 2 0 1 D","1921 1954 8 0 8 2 0 0 S","1955 1966 9 0 8 2 0 0 S"],Haiti:"1983 1983 4 8 7 0 0 1 D;1984 1987 3 0 8 0 0 1 D;1983 1987 9 0 8 0 0 0 S;1988 1997 3 1 0 1 2 1 D;1988 1997 9 0 8 1 2 0 S;2005 2006 3 1 0 0 0 1 D;2005 2006 9 0 8 0 0 0 S;2012 9999 2 8 0 2 0 1 D;2012 9999 10 1 0 2 0 0 S".split(";"),Regina:"1918 1918 3 14 7 2 0 1 D;1918 1918 9 27 7 2 0 0 S;1930 1934 4 1 0 0 0 1 D;1930 1934 9 1 0 0 0 0 S;1937 1941 3 8 0 0 0 1 D;1937 1937 9 8 0 0 0 0 S;1938 1938 9 1 0 0 0 0 S;1939 1941 9 8 0 0 0 0 S;1942 1942 1 9 7 2 0 1 W;1945 1945 7 14 7 23 1 1 P;1945 1945 8 0 8 2 0 0 S;1946 1946 3 8 0 2 0 1 D;1946 1946 9 8 0 2 0 0 S;1947 1957 3 0 8 2 0 1 D;1947 1957 8 0 8 2 0 0 S;1959 1959 3 0 8 2 0 1 D;1959 1959 9 0 8 2 0 0 S".split(";"),
+Chile:"1927 1932 8 1 7 0 0 1 S;1928 1932 3 1 7 0 0 0;1942 1942 5 1 7 4 1 0;1942 1942 7 1 7 5 1 1 S;1946 1946 6 15 7 4 1 1 S;1946 1946 8 1 7 3 1 0;1947 1947 3 1 7 4 1 0;1968 1968 10 3 7 4 1 1 S;1969 1969 2 30 7 3 1 0;1969 1969 10 23 7 4 1 1 S;1970 1970 2 29 7 3 1 0;1971 1971 2 14 7 3 1 0;1970 1972 9 9 0 4 1 1 S;1972 1986 2 9 0 3 1 0;1973 1973 8 30 7 4 1 1 S;1974 1987 9 9 0 4 1 1 S;1987 1987 3 12 7 3 1 0;1988 1989 2 9 0 3 1 0;1988 1988 9 1 0 4 1 1 S;1989 1989 9 9 0 4 1 1 S;1990 1990 2 18 7 3 1 0;1990 1990 8 16 7 4 1 1 S;1991 1996 2 9 0 3 1 0;1991 1997 9 9 0 4 1 1 S;1997 1997 2 30 7 3 1 0;1998 1998 2 9 0 3 1 0;1998 1998 8 27 7 4 1 1 S;1999 1999 3 4 7 3 1 0;1999 2010 9 9 0 4 1 1 S;2000 2007 2 9 0 3 1 0;2008 2008 2 30 7 3 1 0;2009 2009 2 9 0 3 1 0;2010 2010 3 1 0 3 1 0;2011 2011 4 2 0 3 1 0;2011 2011 7 16 0 4 1 1 S;2012 9999 3 23 0 3 1 0;2012 9999 8 2 0 4 1 1 S".split(";"),
+DR:"1966 1966 9 30 7 0 0 1 D;1967 1967 1 28 7 0 0 0 S;1969 1973 9 0 8 0 0 0:30 HD;1970 1970 1 21 7 0 0 0 S;1971 1971 0 20 7 0 0 0 S;1972 1974 0 21 7 0 0 0 S".split(";"),"C-Eur":"1916 1916 3 30 7 23 0 1 S;1916 1916 9 1 7 1 0 0;1917 1918 3 15 1 2 2 1 S;1917 1918 8 15 1 2 2 0;1940 1940 3 1 7 2 2 1 S;1942 1942 10 2 7 2 2 0;1943 1943 2 29 7 2 2 1 S;1943 1943 9 4 7 2 2 0;1944 1945 3 1 1 2 2 1 S;1944 1944 9 2 7 2 2 0;1945 1945 8 16 7 2 2 0;1977 1980 3 1 0 2 2 1 S;1977 1977 8 0 8 2 2 0;1978 1978 9 1 7 2 2 0;1979 1995 8 0 8 2 2 0;1981 9999 2 0 8 2 2 1 S;1996 9999 9 0 8 2 2 0".split(";"),
+Swift:["1957 1957 3 0 8 2 0 1 D","1957 1957 9 0 8 2 0 0 S","1959 1961 3 0 8 2 0 1 D","1959 1959 9 0 8 2 0 0 S","1960 1961 8 0 8 2 0 0 S"],Hond:["1987 1988 4 1 0 0 0 1 D","1987 1988 8 0 8 0 0 0 S","2006 2006 4 1 0 0 0 1 D","2006 2006 7 1 1 0 0 0 S"],Thule:"1991 1992 2 0 8 2 0 1 D;1991 1992 8 0 8 2 0 0 S;1993 2006 3 1 0 2 0 1 D;1993 2006 9 0 8 2 0 0 S;2007 9999 2 8 0 2 0 1 D;2007 9999 10 1 0 2 0 0 S".split(";"),Toronto:"1919 1919 2 30 7 23:30 0 1 D;1919 1919 9 26 7 0 0 0 S;1920 1920 4 2 7 2 0 1 D;1920 1920 8 26 7 0 0 0 S;1921 1921 4 15 7 2 0 1 D;1921 1921 8 15 7 2 0 0 S;1922 1923 4 8 0 2 0 1 D;1922 1926 8 15 0 2 0 0 S;1924 1927 4 1 0 2 0 1 D;1927 1932 8 0 8 2 0 0 S;1928 1931 3 0 8 2 0 1 D;1932 1932 4 1 7 2 0 1 D;1933 1940 3 0 8 2 0 1 D;1933 1933 9 1 7 2 0 0 S;1934 1939 8 0 8 2 0 0 S;1945 1946 8 0 8 2 0 0 S;1946 1946 3 0 8 2 0 1 D;1947 1949 3 0 8 0 0 1 D;1947 1948 8 0 8 0 0 0 S;1949 1949 10 0 8 0 0 0 S;1950 1973 3 0 8 2 0 1 D;1950 1950 10 0 8 2 0 0 S;1951 1956 8 0 8 2 0 0 S;1957 1973 9 0 8 2 0 0 S".split(";"),
+Winn:"1916 1916 3 23 7 0 0 1 D;1916 1916 8 17 7 0 0 0 S;1918 1918 3 14 7 2 0 1 D;1918 1918 9 27 7 2 0 0 S;1937 1937 4 16 7 2 0 1 D;1937 1937 8 26 7 2 0 0 S;1942 1942 1 9 7 2 0 1 W;1945 1945 7 14 7 23 1 1 P;1945 1945 8 0 8 2 0 0 S;1946 1946 4 12 7 2 0 1 D;1946 1946 9 13 7 2 0 0 S;1947 1949 3 0 8 2 0 1 D;1947 1949 8 0 8 2 0 0 S;1950 1950 4 1 7 2 0 1 D;1950 1950 8 30 7 2 0 0 S;1951 1960 3 0 8 2 0 1 D;1951 1958 8 0 8 2 0 0 S;1959 1959 9 0 8 2 0 0 S;1960 1960 8 0 8 2 0 0 S;1963 1963 3 0 8 2 0 1 D;1963 1963 8 22 7 2 0 0 S;1966 1986 3 0 8 2 2 1 D;1966 2005 9 0 8 2 2 0 S;1987 2005 3 1 0 2 2 1 D".split(";"),
+Aus:"1917 1917 0 1 7 0:1 0 1;1917 1917 2 25 7 2 0 0;1942 1942 0 1 7 2 0 1;1942 1942 2 29 7 2 0 0;1942 1942 8 27 7 2 0 1;1943 1944 2 0 8 2 0 0;1943 1943 9 3 7 2 0 1".split(";"),AT:"1967 1967 9 1 0 2 2 1;1968 1968 2 0 8 2 2 0;1968 1985 9 0 8 2 2 1;1969 1971 2 8 0 2 2 0;1972 1972 1 0 8 2 2 0;1973 1981 2 1 0 2 2 0;1982 1983 2 0 8 2 2 0;1984 1986 2 1 0 2 2 0;1986 1986 9 15 0 2 2 1;1987 1990 2 15 0 2 2 0;1987 1987 9 22 0 2 2 1;1988 1990 9 0 8 2 2 1;1991 1999 9 1 0 2 2 1;1991 2005 2 0 8 2 2 0;2000 2000 7 0 8 2 2 1;2001 9999 9 1 0 2 2 1;2006 2006 3 1 0 2 2 0;2007 2007 2 0 8 2 2 0;2008 9999 3 1 0 2 2 0".split(";"),
+NZAQ:"1974 1974 10 3 7 2 2 1 D;1975 1988 9 0 8 2 2 1 D;1989 1989 9 8 7 2 2 1 D;1990 2006 9 1 0 2 2 1 D;1975 1975 1 23 7 2 2 0 S;1976 1989 2 1 0 2 2 0 S;1990 2007 2 15 0 2 2 0 S;2007 9999 8 0 8 2 2 1 D;2008 9999 3 1 0 2 2 0 S".split(";"),ArgAQ:"1964 1966 2 1 7 0 0 0;1964 1966 9 15 7 0 0 1 S;1967 1967 3 2 7 0 0 0;1967 1968 9 1 0 0 0 1 S;1968 1969 3 1 0 0 0 0;1974 1974 0 23 7 0 0 1 S;1974 1974 4 1 7 0 0 0".split(";"),ChileAQ:"1972 1986 2 9 0 3 1 0;1974 1987 9 9 0 4 1 1 S;1987 1987 3 12 7 3 1 0;1988 1989 2 9 0 3 1 0;1988 1988 9 1 0 4 1 1 S;1989 1989 9 9 0 4 1 1 S;1990 1990 2 18 7 3 1 0;1990 1990 8 16 7 4 1 1 S;1991 1996 2 9 0 3 1 0;1991 1997 9 9 0 4 1 1 S;1997 1997 2 30 7 3 1 0;1998 1998 2 9 0 3 1 0;1998 1998 8 27 7 4 1 1 S;1999 1999 3 4 7 3 1 0;1999 2010 9 9 0 4 1 1 S;2000 2007 2 9 0 3 1 0;2008 2008 2 30 7 3 1 0;2009 2009 2 9 0 3 1 0;2010 2010 3 1 0 3 1 0;2011 2011 4 2 0 3 1 0;2011 2011 7 16 0 4 1 1 S;2012 9999 3 23 0 3 1 0;2012 9999 8 2 0 4 1 1 S".split(";"),
+Norway:"1916 1916 4 22 7 1 0 1 S;1916 1916 8 30 7 0 0 0;1945 1945 3 2 7 2 2 1 S;1945 1945 9 1 7 2 2 0;1959 1964 2 15 0 2 2 1 S;1959 1965 8 15 0 2 2 0;1965 1965 3 25 7 2 2 1 S".split(";"),RussiaAsia:"1981 1984 3 1 7 0 0 1 S;1981 1983 9 1 7 0 0 0;1984 1991 8 0 8 2 2 0;1985 1991 2 0 8 2 2 1 S;1992 1992 2 6 8 23 0 1 S;1992 1992 8 6 8 23 0 0;1993 9999 2 0 8 2 2 1 S;1993 1995 8 0 8 2 2 0;1996 9999 9 0 8 2 2 0".split(";"),Jordan:"1973 1973 5 6 7 0 0 1 S;1973 1975 9 1 7 0 0 0;1974 1977 4 1 7 0 0 1 S;1976 1976 10 1 7 0 0 0;1977 1977 9 1 7 0 0 0;1978 1978 3 30 7 0 0 1 S;1978 1978 8 30 7 0 0 0;1985 1985 3 1 7 0 0 1 S;1985 1985 9 1 7 0 0 0;1986 1988 3 1 5 0 0 1 S;1986 1990 9 1 5 0 0 0;1989 1989 4 8 7 0 0 1 S;1990 1990 3 27 7 0 0 1 S;1991 1991 3 17 7 0 0 1 S;1991 1991 8 27 7 0 0 0;1992 1992 3 10 7 0 0 1 S;1992 1993 9 1 5 0 0 0;1993 1998 3 1 5 0 0 1 S;1994 1994 8 15 5 0 0 0;1995 1998 8 15 5 0 2 0;1999 1999 6 1 7 0 2 1 S;1999 2002 8 5 8 0 2 0;2000 2001 2 4 8 0 2 1 S;2002 9999 2 4 8 24 0 1 S;2003 2003 9 24 7 0 2 0;2004 2004 9 15 7 0 2 0;2005 2005 8 5 8 0 2 0;2006 2011 9 5 8 0 2 0;2013 9999 9 5 8 0 2 0".split(";"),
+Russia:"1917 1917 6 1 7 23 0 1 MST;1917 1917 11 28 7 0 0 0 MMT;1918 1918 4 31 7 22 0 2 MDST;1918 1918 8 16 7 1 0 1 MST;1919 1919 4 31 7 23 0 2 MDST;1919 1919 6 1 7 2 0 1 S;1919 1919 7 16 7 0 0 0;1921 1921 1 14 7 23 0 1 S;1921 1921 2 20 7 23 0 2 M;1921 1921 8 1 7 0 0 1 S;1921 1921 9 1 7 0 0 0;1981 1984 3 1 7 0 0 1 S;1981 1983 9 1 7 0 0 0;1984 1991 8 0 8 2 2 0;1985 1991 2 0 8 2 2 1 S;1992 1992 2 6 8 23 0 1 S;1992 1992 8 6 8 23 0 0;1993 2010 2 0 8 2 2 1 S;1993 1995 8 0 8 2 2 0;1996 2010 9 0 8 2 2 0".split(";"),
+Iraq:"1982 1982 4 1 7 0 0 1 D;1982 1984 9 1 7 0 0 0 S;1983 1983 2 31 7 0 0 1 D;1984 1985 3 1 7 0 0 1 D;1985 1990 8 0 8 1 2 0 S;1986 1990 2 0 8 1 2 1 D;1991 2007 3 1 7 3 2 1 D;1991 2007 9 1 7 3 2 0 S".split(";"),EUAsia:["1981 9999 2 0 8 1 1 1 S","1979 1995 8 0 8 1 1 0","1996 9999 9 0 8 1 1 0"],Azer:["1997 9999 2 0 8 4 0 1 S","1997 9999 9 0 8 5 0 0"],Lebanon:"1920 1920 2 28 7 0 0 1 S;1920 1920 9 25 7 0 0 0;1921 1921 3 3 7 0 0 1 S;1921 1921 9 3 7 0 0 0;1922 1922 2 26 7 0 0 1 S;1922 1922 9 8 7 0 0 0;1923 1923 3 22 7 0 0 1 S;1923 1923 8 16 7 0 0 0;1957 1961 4 1 7 0 0 1 S;1957 1961 9 1 7 0 0 0;1972 1972 5 22 7 0 0 1 S;1972 1977 9 1 7 0 0 0;1973 1977 4 1 7 0 0 1 S;1978 1978 3 30 7 0 0 1 S;1978 1978 8 30 7 0 0 0;1984 1987 4 1 7 0 0 1 S;1984 1991 9 16 7 0 0 0;1988 1988 5 1 7 0 0 1 S;1989 1989 4 10 7 0 0 1 S;1990 1992 4 1 7 0 0 1 S;1992 1992 9 4 7 0 0 0;1993 9999 2 0 8 0 0 1 S;1993 1998 8 0 8 0 0 0;1999 9999 9 0 8 0 0 0".split(";"),
+Kyrgyz:["1992 1996 3 7 0 0 2 1 S","1992 1996 8 0 8 0 0 0","1997 2005 2 0 8 2:30 0 1 S","1997 2004 9 0 8 2:30 0 0"],Mongol:"1983 1984 3 1 7 0 0 1 S;1983 1983 9 1 7 0 0 0;1985 1998 2 0 8 0 0 1 S;1984 1998 8 0 8 0 0 0;2001 2001 3 6 8 2 0 1 S;2001 2006 8 6 8 2 0 0;2002 2006 2 6 8 2 0 1 S".split(";"),PRC:["1986 1986 4 4 7 0 0 1 D","1986 1991 8 11 0 0 0 0 S","1987 1991 3 10 0 0 0 1 D"],Syria:"1920 1923 3 15 0 2 0 1 S;1920 1923 9 1 0 2 0 0;1962 1962 3 29 7 2 0 1 S;1962 1962 9 1 7 2 0 0;1963 1965 4 1 7 2 0 1 S;1963 1963 8 30 7 2 0 0;1964 1964 9 1 7 2 0 0;1965 1965 8 30 7 2 0 0;1966 1966 3 24 7 2 0 1 S;1966 1976 9 1 7 2 0 0;1967 1978 4 1 7 2 0 1 S;1977 1978 8 1 7 2 0 0;1983 1984 3 9 7 2 0 1 S;1983 1984 9 1 7 2 0 0;1986 1986 1 16 7 2 0 1 S;1986 1986 9 9 7 2 0 0;1987 1987 2 1 7 2 0 1 S;1987 1988 9 31 7 2 0 0;1988 1988 2 15 7 2 0 1 S;1989 1989 2 31 7 2 0 1 S;1989 1989 9 1 7 2 0 0;1990 1990 3 1 7 2 0 1 S;1990 1990 8 30 7 2 0 0;1991 1991 3 1 7 0 0 1 S;1991 1992 9 1 7 0 0 0;1992 1992 3 8 7 0 0 1 S;1993 1993 2 26 7 0 0 1 S;1993 1993 8 25 7 0 0 0;1994 1996 3 1 7 0 0 1 S;1994 2005 9 1 7 0 0 0;1997 1998 2 1 8 0 0 1 S;1999 2006 3 1 7 0 0 1 S;2006 2006 8 22 7 0 0 0;2007 2007 2 5 8 0 0 1 S;2007 2007 10 1 5 0 0 0;2008 2008 3 1 5 0 0 1 S;2008 2008 10 1 7 0 0 0;2009 2009 2 5 8 0 0 1 S;2010 2011 3 1 5 0 0 1 S;2012 9999 2 5 8 0 0 1 S;2009 9999 9 5 8 0 0 0".split(";"),
+Dhaka:["2009 2009 5 19 7 23 0 1 S","2009 2009 11 31 7 23:59 0 0"],Zion:"1940 1940 5 1 7 0 0 1 D;1942 1944 10 1 7 0 0 0 S;1943 1943 3 1 7 2 0 1 D;1944 1944 3 1 7 0 0 1 D;1945 1945 3 16 7 0 0 1 D;1945 1945 10 1 7 2 0 0 S;1946 1946 3 16 7 2 0 1 D;1946 1946 10 1 7 0 0 0 S;1948 1948 4 23 7 0 0 2 DD;1948 1948 8 1 7 0 0 1 D;1948 1949 10 1 7 2 0 0 S;1949 1949 4 1 7 0 0 1 D;1950 1950 3 16 7 0 0 1 D;1950 1950 8 15 7 3 0 0 S;1951 1951 3 1 7 0 0 1 D;1951 1951 10 11 7 3 0 0 S;1952 1952 3 20 7 2 0 1 D;1952 1952 9 19 7 3 0 0 S;1953 1953 3 12 7 2 0 1 D;1953 1953 8 13 7 3 0 0 S;1954 1954 5 13 7 0 0 1 D;1954 1954 8 12 7 0 0 0 S;1955 1955 5 11 7 2 0 1 D;1955 1955 8 11 7 0 0 0 S;1956 1956 5 3 7 0 0 1 D;1956 1956 8 30 7 3 0 0 S;1957 1957 3 29 7 2 0 1 D;1957 1957 8 22 7 0 0 0 S;1974 1974 6 7 7 0 0 1 D;1974 1974 9 13 7 0 0 0 S;1975 1975 3 20 7 0 0 1 D;1975 1975 7 31 7 0 0 0 S;1985 1985 3 14 7 0 0 1 D;1985 1985 8 15 7 0 0 0 S;1986 1986 4 18 7 0 0 1 D;1986 1986 8 7 7 0 0 0 S;1987 1987 3 15 7 0 0 1 D;1987 1987 8 13 7 0 0 0 S;1988 1988 3 9 7 0 0 1 D;1988 1988 8 3 7 0 0 0 S;1989 1989 3 30 7 0 0 1 D;1989 1989 8 3 7 0 0 0 S;1990 1990 2 25 7 0 0 1 D;1990 1990 7 26 7 0 0 0 S;1991 1991 2 24 7 0 0 1 D;1991 1991 8 1 7 0 0 0 S;1992 1992 2 29 7 0 0 1 D;1992 1992 8 6 7 0 0 0 S;1993 1993 3 2 7 0 0 1 D;1993 1993 8 5 7 0 0 0 S;1994 1994 3 1 7 0 0 1 D;1994 1994 7 28 7 0 0 0 S;1995 1995 2 31 7 0 0 1 D;1995 1995 8 3 7 0 0 0 S;1996 1996 2 15 7 0 0 1 D;1996 1996 8 16 7 0 0 0 S;1997 1997 2 21 7 0 0 1 D;1997 1997 8 14 7 0 0 0 S;1998 1998 2 20 7 0 0 1 D;1998 1998 8 6 7 0 0 0 S;1999 1999 3 2 7 2 0 1 D;1999 1999 8 3 7 2 0 0 S;2000 2000 3 14 7 2 0 1 D;2000 2000 9 6 7 1 0 0 S;2001 2001 3 9 7 1 0 1 D;2001 2001 8 24 7 1 0 0 S;2002 2002 2 29 7 1 0 1 D;2002 2002 9 7 7 1 0 0 S;2003 2003 2 28 7 1 0 1 D;2003 2003 9 3 7 1 0 0 S;2004 2004 3 7 7 1 0 1 D;2004 2004 8 22 7 1 0 0 S;2005 2005 3 1 7 2 0 1 D;2005 2005 9 9 7 2 0 0 S;2006 2010 2 26 5 2 0 1 D;2006 2006 9 1 7 2 0 0 S;2007 2007 8 16 7 2 0 0 S;2008 2008 9 5 7 2 0 0 S;2009 2009 8 27 7 2 0 0 S;2010 2010 8 12 7 2 0 0 S;2011 2011 3 1 7 2 0 1 D;2011 2011 9 2 7 2 0 0 S;2012 2012 2 26 5 2 0 1 D;2012 2012 8 23 7 2 0 0 S;2013 9999 2 23 5 2 0 1 D;2013 2026 9 2 0 2 0 0 S;2027 2027 9 3 1 2 0 0 S;2028 9999 9 2 0 2 0 0 S".split(";"),
+EgyptAsia:"1957 1957 4 10 7 0 0 1 S;1957 1958 9 1 7 0 0 0;1958 1958 4 1 7 0 0 1 S;1959 1967 4 1 7 1 0 1 S;1959 1965 8 30 7 3 0 0;1966 1966 9 1 7 3 0 0".split(";"),Palestine:"1999 2005 3 15 5 0 0 1 S;1999 2003 9 15 5 0 0 0;2004 2004 9 1 7 1 0 0;2005 2005 9 4 7 2 0 0;2006 2007 3 1 7 0 0 1 S;2006 2006 8 22 7 0 0 0;2007 2007 8 8 4 2 0 0;2008 2009 2 5 8 0 0 1 S;2008 2008 8 1 7 0 0 0;2009 2009 8 1 5 1 0 0;2010 2010 2 26 7 0 0 1 S;2010 2010 7 11 7 0 0 0;2011 2011 3 1 7 0:1 0 1 S;2011 2011 7 1 7 0 0 0;2011 2011 7 30 7 0 0 1 S;2011 2011 8 30 7 0 0 0;2012 9999 2 4 8 24 0 1 S;2012 9999 8 21 5 1 0 0".split(";"),
+HK:"1941 1941 3 1 7 3:30 0 1 S;1941 1941 8 30 7 3:30 0 0;1946 1946 3 20 7 3:30 0 1 S;1946 1946 11 1 7 3:30 0 0;1947 1947 3 13 7 3:30 0 1 S;1947 1947 11 30 7 3:30 0 0;1948 1948 4 2 7 3:30 0 1 S;1948 1951 9 0 8 3:30 0 0;1952 1952 9 25 7 3:30 0 0;1949 1953 3 1 0 3:30 0 1 S;1953 1953 10 1 7 3:30 0 0;1954 1964 2 18 0 3:30 0 1 S;1954 1954 9 31 7 3:30 0 0;1955 1964 10 1 0 3:30 0 0;1965 1976 3 16 0 3:30 0 1 S;1965 1976 9 16 0 3:30 0 0;1973 1973 11 30 7 3:30 0 1 S;1979 1979 4 8 0 3:30 0 1 S;1979 1979 9 16 0 3:30 0 0".split(";"),
+Pakistan:"2002 2002 3 2 0 0:1 0 1 S;2002 2002 9 2 0 0:1 0 0;2008 2008 5 1 7 0 0 1 S;2008 2008 10 1 7 0 0 0;2009 2009 3 15 7 0 0 1 S;2009 2009 10 1 7 0 0 0".split(";"),NBorneo:["1935 1941 8 14 7 0 0 0:20 TS","1935 1941 11 14 7 0 0 0"],Macau:"1961 1962 2 16 0 3:30 0 1 S;1961 1964 10 1 0 3:30 0 0;1963 1963 2 16 0 0 0 1 S;1964 1964 2 16 0 3:30 0 1 S;1965 1965 2 16 0 0 0 1 S;1965 1965 9 31 7 0 0 0;1966 1971 3 16 0 3:30 0 1 S;1966 1971 9 16 0 3:30 0 0;1972 1974 3 15 0 0 0 1 S;1972 1973 9 15 0 0 0 0;1974 1977 9 15 0 3:30 0 0;1975 1977 3 15 0 3:30 0 1 S;1978 1980 3 15 0 0 0 1 S;1978 1980 9 15 0 0 0 0".split(";"),
+Phil:"1936 1936 10 1 7 0 0 1 S;1937 1937 1 1 7 0 0 0;1954 1954 3 12 7 0 0 1 S;1954 1954 6 1 7 0 0 0;1978 1978 2 22 7 0 0 1 S;1978 1978 8 21 7 0 0 0".split(";"),Cyprus:"1975 1975 3 13 7 0 0 1 S;1975 1975 9 12 7 0 0 0;1976 1976 4 15 7 0 0 1 S;1976 1976 9 11 7 0 0 0;1977 1980 3 1 0 0 0 1 S;1977 1977 8 25 7 0 0 0;1978 1978 9 2 7 0 0 0;1979 1997 8 0 8 0 0 0;1981 1998 2 0 8 0 0 1 S".split(";"),ROK:["1960 1960 4 15 7 0 0 1 D","1960 1960 8 13 7 0 0 0 S","1987 1988 4 8 0 0 0 1 D","1987 1988 9 8 0 0 0 0 S"],
+Shang:["1940 1940 5 3 7 0 0 1 D","1940 1941 9 1 7 0 0 0 S","1941 1941 2 16 7 0 0 1 D"],Taiwan:"1945 1951 4 1 7 0 0 1 D;1945 1951 9 1 7 0 0 0 S;1952 1952 2 1 7 0 0 1 D;1952 1954 10 1 7 0 0 0 S;1953 1959 3 1 7 0 0 1 D;1955 1961 9 1 7 0 0 0 S;1960 1961 5 1 7 0 0 1 D;1974 1975 3 1 7 0 0 1 D;1974 1975 9 1 7 0 0 0 S;1979 1979 5 30 7 0 0 1 D;1979 1979 8 30 7 0 0 0 S".split(";"),"E-EurAsia":["1981 9999 2 0 8 0 0 1 S","1979 1995 8 0 8 0 0 0","1996 9999 9 0 8 0 0 0"],Iran:"1978 1980 2 21 7 0 0 1 D;1978 1978 9 21 7 0 0 0 S;1979 1979 8 19 7 0 0 0 S;1980 1980 8 23 7 0 0 0 S;1991 1991 4 3 7 0 0 1 D;1992 1995 2 22 7 0 0 1 D;1991 1995 8 22 7 0 0 0 S;1996 1996 2 21 7 0 0 1 D;1996 1996 8 21 7 0 0 0 S;1997 1999 2 22 7 0 0 1 D;1997 1999 8 22 7 0 0 0 S;2000 2000 2 21 7 0 0 1 D;2000 2000 8 21 7 0 0 0 S;2001 2003 2 22 7 0 0 1 D;2001 2003 8 22 7 0 0 0 S;2004 2004 2 21 7 0 0 1 D;2004 2004 8 21 7 0 0 0 S;2005 2005 2 22 7 0 0 1 D;2005 2005 8 22 7 0 0 0 S;2008 2008 2 21 7 0 0 1 D;2008 2008 8 21 7 0 0 0 S;2009 2011 2 22 7 0 0 1 D;2009 2011 8 22 7 0 0 0 S;2012 2012 2 21 7 0 0 1 D;2012 2012 8 21 7 0 0 0 S;2013 2015 2 22 7 0 0 1 D;2013 2015 8 22 7 0 0 0 S;2016 2016 2 21 7 0 0 1 D;2016 2016 8 21 7 0 0 0 S;2017 2019 2 22 7 0 0 1 D;2017 2019 8 22 7 0 0 0 S;2020 2020 2 21 7 0 0 1 D;2020 2020 8 21 7 0 0 0 S;2021 2023 2 22 7 0 0 1 D;2021 2023 8 22 7 0 0 0 S;2024 2024 2 21 7 0 0 1 D;2024 2024 8 21 7 0 0 0 S;2025 2027 2 22 7 0 0 1 D;2025 2027 8 22 7 0 0 0 S;2028 2029 2 21 7 0 0 1 D;2028 2029 8 21 7 0 0 0 S;2030 2031 2 22 7 0 0 1 D;2030 2031 8 22 7 0 0 0 S;2032 2033 2 21 7 0 0 1 D;2032 2033 8 21 7 0 0 0 S;2034 2035 2 22 7 0 0 1 D;2034 2035 8 22 7 0 0 0 S;2036 2037 2 21 7 0 0 1 D;2036 2037 8 21 7 0 0 0 S".split(";"),
+Japan:["1948 1948 4 1 0 2 0 1 D","1948 1951 8 8 6 2 0 0 S","1949 1949 3 1 0 2 0 1 D","1950 1951 4 1 0 2 0 1 D"],Port:"1916 1916 5 17 7 23 0 1 S;1916 1916 10 1 7 1 0 0;1917 1917 1 28 7 23 2 1 S;1917 1921 9 14 7 23 2 0;1918 1918 2 1 7 23 2 1 S;1919 1919 1 28 7 23 2 1 S;1920 1920 1 29 7 23 2 1 S;1921 1921 1 28 7 23 2 1 S;1924 1924 3 16 7 23 2 1 S;1924 1924 9 14 7 23 2 0;1926 1926 3 17 7 23 2 1 S;1926 1929 9 1 6 23 2 0;1927 1927 3 9 7 23 2 1 S;1928 1928 3 14 7 23 2 1 S;1929 1929 3 20 7 23 2 1 S;1931 1931 3 18 7 23 2 1 S;1931 1932 9 1 6 23 2 0;1932 1932 3 2 7 23 2 1 S;1934 1934 3 7 7 23 2 1 S;1934 1938 9 1 6 23 2 0;1935 1935 2 30 7 23 2 1 S;1936 1936 3 18 7 23 2 1 S;1937 1937 3 3 7 23 2 1 S;1938 1938 2 26 7 23 2 1 S;1939 1939 3 15 7 23 2 1 S;1939 1939 10 18 7 23 2 0;1940 1940 1 24 7 23 2 1 S;1940 1941 9 5 7 23 2 0;1941 1941 3 5 7 23 2 1 S;1942 1945 2 8 6 23 2 1 S;1942 1942 3 25 7 22 2 2 M;1942 1942 7 15 7 22 2 1 S;1942 1945 9 24 6 23 2 0;1943 1943 3 17 7 22 2 2 M;1943 1945 7 25 6 22 2 1 S;1944 1945 3 21 6 22 2 2 M;1946 1946 3 1 6 23 2 1 S;1946 1946 9 1 6 23 2 0;1947 1949 3 1 0 2 2 1 S;1947 1949 9 1 0 2 2 0;1951 1965 3 1 0 2 2 1 S;1951 1965 9 1 0 2 2 0;1977 1977 2 27 7 0 2 1 S;1977 1977 8 25 7 0 2 0;1978 1979 3 1 0 0 2 1 S;1978 1978 9 1 7 0 2 0;1979 1982 8 0 8 1 2 0;1980 1980 2 0 8 0 2 1 S;1981 1982 2 0 8 1 2 1 S;1983 1983 2 0 8 2 2 1 S".split(";"),
+"W-Eur":"1977 1980 3 1 0 1 2 1 S;1977 1977 8 0 8 1 2 0;1978 1978 9 1 7 1 2 0;1979 1995 8 0 8 1 2 0;1981 9999 2 0 8 1 2 1 S;1996 9999 9 0 8 1 2 0".split(";"),Iceland:"1917 1918 1 19 7 23 0 1 S;1917 1917 9 21 7 1 0 0;1918 1918 10 16 7 1 0 0;1939 1939 3 29 7 23 0 1 S;1939 1939 10 29 7 2 0 0;1940 1940 1 25 7 2 0 1 S;1940 1940 10 3 7 2 0 0;1941 1941 2 2 7 1 2 1 S;1941 1941 10 2 7 1 2 0;1942 1942 2 8 7 1 2 1 S;1942 1942 9 25 7 1 2 0;1943 1946 2 1 0 1 2 1 S;1943 1948 9 22 0 1 2 0;1947 1967 3 1 0 1 2 1 S;1949 1949 9 30 7 1 2 0;1950 1966 9 22 0 1 2 0;1967 1967 9 29 7 1 2 0".split(";"),
+Falk:"1937 1938 8 0 8 0 0 1 S;1938 1942 2 19 0 0 0 0;1939 1939 9 1 7 0 0 1 S;1940 1942 8 0 8 0 0 1 S;1943 1943 0 1 7 0 0 0;1983 1983 8 0 8 0 0 1 S;1984 1985 3 0 8 0 0 0;1984 1984 8 16 7 0 0 1 S;1985 2000 8 9 0 0 0 1 S;1986 2000 3 16 0 0 0 0;2001 2010 3 15 0 2 0 0;2001 2010 8 1 0 2 0 1 S".split(";"),AS:"1971 1985 9 0 8 2 2 1;1986 1986 9 19 7 2 2 1;1987 2007 9 0 8 2 2 1;1972 1972 1 27 7 2 2 0;1973 1985 2 1 0 2 2 0;1986 1990 2 15 0 2 2 0;1991 1991 2 3 7 2 2 0;1992 1992 2 22 7 2 2 0;1993 1993 2 7 7 2 2 0;1994 1994 2 20 7 2 2 0;1995 2005 2 0 8 2 2 0;2006 2006 3 2 7 2 2 0;2007 2007 2 0 8 2 2 0;2008 9999 3 1 0 2 2 0;2008 9999 9 1 0 2 2 1".split(";"),
+AQ:["1971 1971 9 0 8 2 2 1","1972 1972 1 0 8 2 2 0","1989 1991 9 0 8 2 2 1","1990 1992 2 1 0 2 2 0"],AN:"1971 1985 9 0 8 2 2 1;1972 1972 1 27 7 2 2 0;1973 1981 2 1 0 2 2 0;1982 1982 3 1 0 2 2 0;1983 1985 2 1 0 2 2 0;1986 1989 2 15 0 2 2 0;1986 1986 9 19 7 2 2 1;1987 1999 9 0 8 2 2 1;1990 1995 2 1 0 2 2 0;1996 2005 2 0 8 2 2 0;2000 2000 7 0 8 2 2 1;2001 2007 9 0 8 2 2 1;2006 2006 3 1 0 2 2 0;2007 2007 2 0 8 2 2 0;2008 9999 3 1 0 2 2 0;2008 9999 9 1 0 2 2 1".split(";"),AW:"1974 1974 9 0 8 2 2 1;1975 1975 2 1 0 2 2 0;1983 1983 9 0 8 2 2 1;1984 1984 2 1 0 2 2 0;1991 1991 10 17 7 2 2 1;1992 1992 2 1 0 2 2 0;2006 2006 11 3 7 2 2 1;2007 2009 2 0 8 2 2 0;2007 2008 9 0 8 2 2 1".split(";"),
+Holiday:["1992 1993 9 0 8 2 2 1","1993 1994 2 1 0 2 2 0"],LH:"1981 1984 9 0 8 2 0 1;1982 1985 2 1 0 2 0 0;1985 1985 9 0 8 2 0 0:30;1986 1989 2 15 0 2 0 0;1986 1986 9 19 7 2 0 0:30;1987 1999 9 0 8 2 0 0:30;1990 1995 2 1 0 2 0 0;1996 2005 2 0 8 2 0 0;2000 2000 7 0 8 2 0 0:30;2001 2007 9 0 8 2 0 0:30;2006 2006 3 1 0 2 0 0;2007 2007 2 0 8 2 0 0;2008 9999 3 1 0 2 0 0;2008 9999 9 1 0 2 0 0:30".split(";"),AV:"1971 1985 9 0 8 2 2 1;1972 1972 1 0 8 2 2 0;1973 1985 2 1 0 2 2 0;1986 1990 2 15 0 2 2 0;1986 1987 9 15 0 2 2 1;1988 1999 9 0 8 2 2 1;1991 1994 2 1 0 2 2 0;1995 2005 2 0 8 2 2 0;2000 2000 7 0 8 2 2 1;2001 2007 9 0 8 2 2 1;2006 2006 3 1 0 2 2 0;2007 2007 2 0 8 2 2 0;2008 9999 3 1 0 2 2 0;2008 9999 9 1 0 2 2 1".split(";"),
+Neth:"1916 1916 4 1 7 0 0 1 NST;1916 1916 9 1 7 0 0 0 AMT;1917 1917 3 16 7 2 2 1 NST;1917 1917 8 17 7 2 2 0 AMT;1918 1921 3 1 1 2 2 1 NST;1918 1921 8 1 8 2 2 0 AMT;1922 1922 2 0 8 2 2 1 NST;1922 1936 9 2 0 2 2 0 AMT;1923 1923 5 1 5 2 2 1 NST;1924 1924 2 0 8 2 2 1 NST;1925 1925 5 1 5 2 2 1 NST;1926 1931 4 15 7 2 2 1 NST;1932 1932 4 22 7 2 2 1 NST;1933 1936 4 15 7 2 2 1 NST;1937 1937 4 22 7 2 2 1 NST;1937 1937 6 1 7 0 0 1 S;1937 1939 9 2 0 2 2 0;1938 1939 4 15 7 2 2 1 S;1945 1945 3 2 7 2 2 1 S;1945 1945 8 16 7 2 2 0".split(";"),
+Greece:"1932 1932 6 7 7 0 0 1 S;1932 1932 8 1 7 0 0 0;1941 1941 3 7 7 0 0 1 S;1942 1942 10 2 7 3 0 0;1943 1943 2 30 7 0 0 1 S;1943 1943 9 4 7 0 0 0;1952 1952 6 1 7 0 0 1 S;1952 1952 10 2 7 0 0 0;1975 1975 3 12 7 0 2 1 S;1975 1975 10 26 7 0 2 0;1976 1976 3 11 7 2 2 1 S;1976 1976 9 10 7 2 2 0;1977 1978 3 1 0 2 2 1 S;1977 1977 8 26 7 2 2 0;1978 1978 8 24 7 4 0 0;1979 1979 3 1 7 9 0 1 S;1979 1979 8 29 7 2 0 0;1980 1980 3 1 7 0 0 1 S;1980 1980 8 28 7 0 0 0".split(";"),SovietZone:["1945 1945 4 24 7 2 0 2 M",
+"1945 1945 8 24 7 3 0 1 S","1945 1945 10 18 7 2 2 0"],Germany:"1946 1946 3 14 7 2 2 1 S;1946 1946 9 7 7 2 2 0;1947 1949 9 1 0 2 2 0;1947 1947 3 6 7 3 2 1 S;1947 1947 4 11 7 2 2 2 M;1947 1947 5 29 7 3 0 1 S;1948 1948 3 18 7 2 2 1 S;1949 1949 3 10 7 2 2 1 S".split(";"),Czech:"1945 1945 3 8 7 2 2 1 S;1945 1945 10 18 7 2 2 0;1946 1946 4 6 7 2 2 1 S;1946 1949 9 1 0 2 2 0;1947 1947 3 20 7 2 2 1 S;1948 1948 3 18 7 2 2 1 S;1949 1949 3 9 7 2 2 1 S".split(";"),Belgium:"1918 1918 2 9 7 0 2 1 S;1918 1919 9 1 6 23 2 0;1919 1919 2 1 7 23 2 1 S;1920 1920 1 14 7 23 2 1 S;1920 1920 9 23 7 23 2 0;1921 1921 2 14 7 23 2 1 S;1921 1921 9 25 7 23 2 0;1922 1922 2 25 7 23 2 1 S;1922 1927 9 1 6 23 2 0;1923 1923 3 21 7 23 2 1 S;1924 1924 2 29 7 23 2 1 S;1925 1925 3 4 7 23 2 1 S;1926 1926 3 17 7 23 2 1 S;1927 1927 3 9 7 23 2 1 S;1928 1928 3 14 7 23 2 1 S;1928 1938 9 2 0 2 2 0;1929 1929 3 21 7 2 2 1 S;1930 1930 3 13 7 2 2 1 S;1931 1931 3 19 7 2 2 1 S;1932 1932 3 3 7 2 2 1 S;1933 1933 2 26 7 2 2 1 S;1934 1934 3 8 7 2 2 1 S;1935 1935 2 31 7 2 2 1 S;1936 1936 3 19 7 2 2 1 S;1937 1937 3 4 7 2 2 1 S;1938 1938 2 27 7 2 2 1 S;1939 1939 3 16 7 2 2 1 S;1939 1939 10 19 7 2 2 0;1940 1940 1 25 7 2 2 1 S;1944 1944 8 17 7 2 2 0;1945 1945 3 2 7 2 2 1 S;1945 1945 8 16 7 2 2 0;1946 1946 4 19 7 2 2 1 S;1946 1946 9 7 7 2 2 0".split(";"),
+Romania:"1932 1932 4 21 7 0 2 1 S;1932 1939 9 1 0 0 2 0;1933 1939 3 2 0 0 2 1 S;1979 1979 4 27 7 0 0 1 S;1979 1979 8 0 8 0 0 0;1980 1980 3 5 7 23 0 1 S;1980 1980 8 0 8 1 0 0;1991 1993 2 0 8 0 2 1 S;1991 1993 8 0 8 0 2 0".split(";"),"E-Eur":"1977 1980 3 1 0 0 0 1 S;1977 1977 8 0 8 0 0 0;1978 1978 9 1 7 0 0 0;1979 1995 8 0 8 0 0 0;1981 9999 2 0 8 0 0 1 S;1996 9999 9 0 8 0 0 0".split(";"),Hungary:"1918 1918 3 1 7 3 0 1 S;1918 1918 8 29 7 3 0 0;1919 1919 3 15 7 3 0 1 S;1919 1919 8 15 7 3 0 0;1920 1920 3 5 7 3 0 1 S;1920 1920 8 30 7 3 0 0;1945 1945 4 1 7 23 0 1 S;1945 1945 10 3 7 0 0 0;1946 1946 2 31 7 2 2 1 S;1946 1949 9 1 0 2 2 0;1947 1949 3 4 0 2 2 1 S;1950 1950 3 17 7 2 2 1 S;1950 1950 9 23 7 2 2 0;1954 1955 4 23 7 0 0 1 S;1954 1955 9 3 7 0 0 0;1956 1956 5 1 0 0 0 1 S;1956 1956 8 0 8 0 0 0;1957 1957 5 1 0 1 0 1 S;1957 1957 8 0 8 3 0 0;1980 1980 3 6 7 1 0 1 S".split(";"),
+Swiss:["1941 1942 4 1 1 1 0 1 S","1941 1942 9 1 1 2 0 0"],Denmark:"1916 1916 4 14 7 23 0 1 S;1916 1916 8 30 7 23 0 0;1940 1940 4 15 7 0 0 1 S;1945 1945 3 2 7 2 2 1 S;1945 1945 7 15 7 2 2 0;1946 1946 4 1 7 2 2 1 S;1946 1946 8 1 7 2 2 0;1947 1947 4 4 7 2 2 1 S;1947 1947 7 10 7 2 2 0;1948 1948 4 9 7 2 2 1 S;1948 1948 7 8 7 2 2 0".split(";"),"GB-Eire":"1916 1916 4 21 7 2 2 1 BST;1916 1916 9 1 7 2 2 0 GMT;1917 1917 3 8 7 2 2 1 BST;1917 1917 8 17 7 2 2 0 GMT;1918 1918 2 24 7 2 2 1 BST;1918 1918 8 30 7 2 2 0 GMT;1919 1919 2 30 7 2 2 1 BST;1919 1919 8 29 7 2 2 0 GMT;1920 1920 2 28 7 2 2 1 BST;1920 1920 9 25 7 2 2 0 GMT;1921 1921 3 3 7 2 2 1 BST;1921 1921 9 3 7 2 2 0 GMT;1922 1922 2 26 7 2 2 1 BST;1922 1922 9 8 7 2 2 0 GMT;1923 1923 3 16 0 2 2 1 BST;1923 1924 8 16 0 2 2 0 GMT;1924 1924 3 9 0 2 2 1 BST;1925 1926 3 16 0 2 2 1 BST;1925 1938 9 2 0 2 2 0 GMT;1927 1927 3 9 0 2 2 1 BST;1928 1929 3 16 0 2 2 1 BST;1930 1930 3 9 0 2 2 1 BST;1931 1932 3 16 0 2 2 1 BST;1933 1933 3 9 0 2 2 1 BST;1934 1934 3 16 0 2 2 1 BST;1935 1935 3 9 0 2 2 1 BST;1936 1937 3 16 0 2 2 1 BST;1938 1938 3 9 0 2 2 1 BST;1939 1939 3 16 0 2 2 1 BST;1939 1939 10 16 0 2 2 0 GMT;1940 1940 1 23 0 2 2 1 BST;1941 1941 4 2 0 1 2 2 BDST;1941 1943 7 9 0 1 2 1 BST;1942 1944 3 2 0 1 2 2 BDST;1944 1944 8 16 0 1 2 1 BST;1945 1945 3 2 1 1 2 2 BDST;1945 1945 6 9 0 1 2 1 BST;1945 1946 9 2 0 2 2 0 GMT;1946 1946 3 9 0 2 2 1 BST;1947 1947 2 16 7 2 2 1 BST;1947 1947 3 13 7 1 2 2 BDST;1947 1947 7 10 7 1 2 1 BST;1947 1947 10 2 7 2 2 0 GMT;1948 1948 2 14 7 2 2 1 BST;1948 1948 9 31 7 2 2 0 GMT;1949 1949 3 3 7 2 2 1 BST;1949 1949 9 30 7 2 2 0 GMT;1950 1952 3 14 0 2 2 1 BST;1950 1952 9 21 0 2 2 0 GMT;1953 1953 3 16 0 2 2 1 BST;1953 1960 9 2 0 2 2 0 GMT;1954 1954 3 9 0 2 2 1 BST;1955 1956 3 16 0 2 2 1 BST;1957 1957 3 9 0 2 2 1 BST;1958 1959 3 16 0 2 2 1 BST;1960 1960 3 9 0 2 2 1 BST;1961 1963 2 0 8 2 2 1 BST;1961 1968 9 23 0 2 2 0 GMT;1964 1967 2 19 0 2 2 1 BST;1968 1968 1 18 7 2 2 1 BST;1972 1980 2 16 0 2 2 1 BST;1972 1980 9 23 0 2 2 0 GMT;1981 1995 2 0 8 1 1 1 BST;1981 1989 9 23 0 1 1 0 GMT;1990 1995 9 22 0 1 1 0 GMT".split(";"),
+Finland:["1942 1942 3 3 7 0 0 1 S","1942 1942 9 3 7 0 0 0","1981 1982 2 0 8 2 0 1 S","1981 1982 8 0 8 3 0 0"],Turkey:"1916 1916 4 1 7 0 0 1 S;1916 1916 9 1 7 0 0 0;1920 1920 2 28 7 0 0 1 S;1920 1920 9 25 7 0 0 0;1921 1921 3 3 7 0 0 1 S;1921 1921 9 3 7 0 0 0;1922 1922 2 26 7 0 0 1 S;1922 1922 9 8 7 0 0 0;1924 1924 4 13 7 0 0 1 S;1924 1925 9 1 7 0 0 0;1925 1925 4 1 7 0 0 1 S;1940 1940 5 30 7 0 0 1 S;1940 1940 9 5 7 0 0 0;1940 1940 11 1 7 0 0 1 S;1941 1941 8 21 7 0 0 0;1942 1942 3 1 7 0 0 1 S;1942 1942 10 1 7 0 0 0;1945 1945 3 2 7 0 0 1 S;1945 1945 9 8 7 0 0 0;1946 1946 5 1 7 0 0 1 S;1946 1946 9 1 7 0 0 0;1947 1948 3 16 0 0 0 1 S;1947 1950 9 2 0 0 0 0;1949 1949 3 10 7 0 0 1 S;1950 1950 3 19 7 0 0 1 S;1951 1951 3 22 7 0 0 1 S;1951 1951 9 8 7 0 0 0;1962 1962 6 15 7 0 0 1 S;1962 1962 9 8 7 0 0 0;1964 1964 4 15 7 0 0 1 S;1964 1964 9 1 7 0 0 0;1970 1972 4 2 0 0 0 1 S;1970 1972 9 2 0 0 0 0;1973 1973 5 3 7 1 0 1 S;1973 1973 10 4 7 3 0 0;1974 1974 2 31 7 2 0 1 S;1974 1974 10 3 7 5 0 0;1975 1975 2 30 7 0 0 1 S;1975 1976 9 0 8 0 0 0;1976 1976 5 1 7 0 0 1 S;1977 1978 3 1 0 0 0 1 S;1977 1977 9 16 7 0 0 0;1979 1980 3 1 0 3 0 1 S;1979 1982 9 11 1 0 0 0;1981 1982 2 0 8 3 0 1 S;1983 1983 6 31 7 0 0 1 S;1983 1983 9 2 7 0 0 0;1985 1985 3 20 7 0 0 1 S;1985 1985 8 28 7 0 0 0;1986 1990 2 0 8 2 2 1 S;1986 1990 8 0 8 2 2 0;1991 2006 2 0 8 1 2 1 S;1991 1995 8 0 8 1 2 0;1996 2006 9 0 8 1 2 0".split(";"),
+Poland:"1918 1919 8 16 7 2 2 0;1919 1919 3 15 7 2 2 1 S;1944 1944 3 3 7 2 2 1 S;1944 1944 9 4 7 2 0 0;1945 1945 3 29 7 0 0 1 S;1945 1945 10 1 7 0 0 0;1946 1946 3 14 7 0 2 1 S;1946 1946 9 7 7 2 2 0;1947 1947 4 4 7 2 2 1 S;1947 1949 9 1 0 2 2 0;1948 1948 3 18 7 2 2 1 S;1949 1949 3 10 7 2 2 1 S;1957 1957 5 2 7 1 2 1 S;1957 1958 8 0 8 1 2 0;1958 1958 2 30 7 1 2 1 S;1959 1959 4 31 7 1 2 1 S;1959 1961 9 1 0 1 2 0;1960 1960 3 3 7 1 2 1 S;1961 1964 4 0 8 1 2 1 S;1962 1964 8 0 8 1 2 0".split(";"),Lux:"1916 1916 4 14 7 23 0 1 S;1916 1916 9 1 7 1 0 0;1917 1917 3 28 7 23 0 1 S;1917 1917 8 17 7 1 0 0;1918 1918 3 15 1 2 2 1 S;1918 1918 8 15 1 2 2 0;1919 1919 2 1 7 23 0 1 S;1919 1919 9 5 7 3 0 0;1920 1920 1 14 7 23 0 1 S;1920 1920 9 24 7 2 0 0;1921 1921 2 14 7 23 0 1 S;1921 1921 9 26 7 2 0 0;1922 1922 2 25 7 23 0 1 S;1922 1922 9 2 0 1 0 0;1923 1923 3 21 7 23 0 1 S;1923 1923 9 2 0 2 0 0;1924 1924 2 29 7 23 0 1 S;1924 1928 9 2 0 1 0 0;1925 1925 3 5 7 23 0 1 S;1926 1926 3 17 7 23 0 1 S;1927 1927 3 9 7 23 0 1 S;1928 1928 3 14 7 23 0 1 S;1929 1929 3 20 7 23 0 1 S".split(";"),
+Italy:"1916 1916 5 3 7 0 2 1 S;1916 1916 9 1 7 0 2 0;1917 1917 3 1 7 0 2 1 S;1917 1917 8 30 7 0 2 0;1918 1918 2 10 7 0 2 1 S;1918 1919 9 1 0 0 2 0;1919 1919 2 2 7 0 2 1 S;1920 1920 2 21 7 0 2 1 S;1920 1920 8 19 7 0 2 0;1940 1940 5 15 7 0 2 1 S;1944 1944 8 17 7 0 2 0;1945 1945 3 2 7 2 0 1 S;1945 1945 8 15 7 0 2 0;1946 1946 2 17 7 2 2 1 S;1946 1946 9 6 7 2 2 0;1947 1947 2 16 7 0 2 1 S;1947 1947 9 5 7 0 2 0;1948 1948 1 29 7 2 2 1 S;1948 1948 9 3 7 2 2 0;1966 1968 4 22 0 0 0 1 S;1966 1969 8 22 0 0 0 0;1969 1969 5 1 7 0 0 1 S;1970 1970 4 31 7 0 0 1 S;1970 1970 8 0 8 0 0 0;1971 1972 4 22 0 0 0 1 S;1971 1971 8 0 8 1 0 0;1972 1972 9 1 7 0 0 0;1973 1973 5 3 7 0 0 1 S;1973 1974 8 0 8 0 0 0;1974 1974 4 26 7 0 0 1 S;1975 1975 5 1 7 0 2 1 S;1975 1977 8 0 8 0 2 0;1976 1976 4 30 7 0 2 1 S;1977 1979 4 22 0 0 2 1 S;1978 1978 9 1 7 0 2 0;1979 1979 8 30 7 0 2 0".split(";"),
+Malta:"1973 1973 2 31 7 0 2 1 S;1973 1973 8 29 7 0 2 0;1974 1974 3 21 7 0 2 1 S;1974 1974 8 16 7 0 2 0;1975 1979 3 15 0 2 0 1 S;1975 1980 8 15 0 2 0 0;1980 1980 2 31 7 2 0 1 S".split(";"),France:"1916 1916 5 14 7 23 2 1 S;1916 1919 9 1 0 23 2 0;1917 1917 2 24 7 23 2 1 S;1918 1918 2 9 7 23 2 1 S;1919 1919 2 1 7 23 2 1 S;1920 1920 1 14 7 23 2 1 S;1920 1920 9 23 7 23 2 0;1921 1921 2 14 7 23 2 1 S;1921 1921 9 25 7 23 2 0;1922 1922 2 25 7 23 2 1 S;1922 1938 9 1 6 23 2 0;1923 1923 4 26 7 23 2 1 S;1924 1924 2 29 7 23 2 1 S;1925 1925 3 4 7 23 2 1 S;1926 1926 3 17 7 23 2 1 S;1927 1927 3 9 7 23 2 1 S;1928 1928 3 14 7 23 2 1 S;1929 1929 3 20 7 23 2 1 S;1930 1930 3 12 7 23 2 1 S;1931 1931 3 18 7 23 2 1 S;1932 1932 3 2 7 23 2 1 S;1933 1933 2 25 7 23 2 1 S;1934 1934 3 7 7 23 2 1 S;1935 1935 2 30 7 23 2 1 S;1936 1936 3 18 7 23 2 1 S;1937 1937 3 3 7 23 2 1 S;1938 1938 2 26 7 23 2 1 S;1939 1939 3 15 7 23 2 1 S;1939 1939 10 18 7 23 2 0;1940 1940 1 25 7 2 0 1 S;1941 1941 4 5 7 0 0 2 M;1941 1941 9 6 7 0 0 1 S;1942 1942 2 9 7 0 0 2 M;1942 1942 10 2 7 3 0 1 S;1943 1943 2 29 7 2 0 2 M;1943 1943 9 4 7 3 0 1 S;1944 1944 3 3 7 2 0 2 M;1944 1944 9 8 7 1 0 1 S;1945 1945 3 2 7 2 0 2 M;1945 1945 8 16 7 3 0 0;1976 1976 2 28 7 1 0 1 S;1976 1976 8 26 7 1 0 0".split(";"),
+Latvia:["1989 1996 2 0 8 2 2 1 S","1989 1996 8 0 8 2 2 0"],Bulg:["1979 1979 2 31 7 23 0 1 S","1979 1979 9 1 7 1 0 0","1980 1982 3 1 6 23 0 1 S","1980 1980 8 29 7 1 0 0","1981 1981 8 27 7 2 0 0"],Albania:"1940 1940 5 16 7 0 0 1 S;1942 1942 10 2 7 3 0 0;1943 1943 2 29 7 2 0 1 S;1943 1943 3 10 7 3 0 0;1974 1974 4 4 7 0 0 1 S;1974 1974 9 2 7 0 0 0;1975 1975 4 1 7 0 0 1 S;1975 1975 9 2 7 0 0 0;1976 1976 4 2 7 0 0 1 S;1976 1976 9 3 7 0 0 0;1977 1977 4 8 7 0 0 1 S;1977 1977 9 2 7 0 0 0;1978 1978 4 6 7 0 0 1 S;1978 1978 9 1 7 0 0 0;1979 1979 4 5 7 0 0 1 S;1979 1979 8 30 7 0 0 0;1980 1980 4 3 7 0 0 1 S;1980 1980 9 4 7 0 0 0;1981 1981 3 26 7 0 0 1 S;1981 1981 8 27 7 0 0 0;1982 1982 4 2 7 0 0 1 S;1982 1982 9 3 7 0 0 0;1983 1983 3 18 7 0 0 1 S;1983 1983 9 1 7 0 0 0;1984 1984 3 1 7 0 0 1 S".split(";"),
+Austria:"1920 1920 3 5 7 2 2 1 S;1920 1920 8 13 7 2 2 0;1946 1946 3 14 7 2 2 1 S;1946 1948 9 1 0 2 2 0;1947 1947 3 6 7 2 2 1 S;1948 1948 3 18 7 2 2 1 S;1980 1980 3 6 7 0 0 1 S;1980 1980 8 28 7 0 0 0".split(";"),Mauritius:["1982 1982 9 10 7 0 0 1 S","1983 1983 2 21 7 0 0 0","2008 2008 9 0 8 2 0 1 S","2009 2009 2 0 8 2 0 0"],WS:["2012 9999 8 0 8 3 0 1 D","2012 9999 3 1 0 4 0 0"],NZ:"1927 1927 10 6 7 2 0 1 S;1928 1928 2 4 7 2 0 0 M;1928 1933 9 8 0 2 0 0:30 S;1929 1933 2 15 0 2 0 0 M;1934 1940 3 0 8 2 0 0 M;1934 1940 8 0 8 2 0 0:30 S;1946 1946 0 1 7 0 0 0 S;1974 1974 10 1 0 2 2 1 D;1975 1975 1 0 8 2 2 0 S;1975 1988 9 0 8 2 2 1 D;1976 1989 2 1 0 2 2 0 S;1989 1989 9 8 0 2 2 1 D;1990 2006 9 1 0 2 2 1 D;1990 2007 2 15 0 2 2 0 S;2007 9999 8 0 8 2 2 1 D;2008 9999 3 1 0 2 2 0 S".split(";"),
+Chatham:"1974 1974 10 1 0 2:45 2 1 D;1975 1975 1 0 8 2:45 2 0 S;1975 1988 9 0 8 2:45 2 1 D;1976 1989 2 1 0 2:45 2 0 S;1989 1989 9 8 0 2:45 2 1 D;1990 2006 9 1 0 2:45 2 1 D;1990 2007 2 15 0 2:45 2 0 S;2007 9999 8 0 8 2:45 2 1 D;2008 9999 3 1 0 2:45 2 0 S".split(";"),Vanuatu:"1983 1983 8 25 7 0 0 1 S;1984 1991 2 23 0 0 0 0;1984 1984 9 23 7 0 0 1 S;1985 1991 8 23 0 0 0 1 S;1992 1993 0 23 0 0 0 0;1992 1992 9 23 0 0 0 1 S".split(";"),Fiji:"1998 1999 10 1 0 2 0 1 S;1999 2000 1 0 8 3 0 0;2009 2009 10 29 7 2 0 1 S;2010 2010 2 0 8 3 0 0;2010 9999 9 18 0 2 0 1 S;2011 2011 2 1 0 3 0 0;2012 9999 0 18 0 3 0 0".split(";"),
+NC:["1977 1978 11 1 0 0 0 1 S","1978 1979 1 27 7 0 0 0","1996 1996 11 1 7 2 2 1 S","1997 1997 2 2 7 2 2 0"],Cook:["1978 1978 10 12 7 0 0 0:30 HS","1979 1991 2 1 0 0 0 0","1979 1990 9 0 8 0 0 0:30 HS"],Tonga:["1999 1999 9 7 7 2 2 1 S","2000 2000 2 19 7 2 2 0","2000 2001 10 1 0 2 0 1 S","2001 2002 0 0 8 2 0 0"]},links:{"America/Kralendijk":"America/Curacao","America/Lower_Princes":"America/Curacao","America/Marigot":"America/Guadeloupe","America/Shiprock":"America/Denver","America/St_Barthelemy":"America/Guadeloupe",
+"Antarctica/South_Pole":"Antarctica/McMurdo","Arctic/Longyearbyen":"Europe/Oslo","Europe/Bratislava":"Europe/Prague","Europe/Busingen":"Europe/Zurich","Europe/Guernsey":"Europe/London","Europe/Isle_of_Man":"Europe/London","Europe/Jersey":"Europe/London","Europe/Ljubljana":"Europe/Belgrade","Europe/Mariehamn":"Europe/Helsinki","Europe/Podgorica":"Europe/Belgrade","Europe/San_Marino":"Europe/Rome","Europe/Sarajevo":"Europe/Belgrade","Europe/Skopje":"Europe/Belgrade","Europe/Vatican":"Europe/Rome","Europe/Zagreb":"Europe/Belgrade"}});
+(function(){$(function(){var a,d,f;return a=$("[data-from-mobile-quantity]"),f=function(d){return a.length&&d.available<parseInt(a.val(),10)},d=function(a,b){var c;return c=[],$.each(a,function(a,d){d.available=Math.floor(d.available/b);if(0<d.available)return c.push(d)}),c},$.CalendarDayElement=function(){function a(b){this.element=b.element;this.availabilities=b.availabilities;this.$calendar=b.$calendar;this.$quantitySelect=b.$quantitySelect;this.mobileView=b.mobileView}return a.prototype.initialize=
+function(){return this.addClass(),this.addAvailabilities(),this.hideAvailabilities(),this.addHideClickEvent(),this},a.prototype.addClass=function(){return this.element.addClass("fc-has-availabilities")},a.prototype.addAvailabilities=function(){if(0===this.element.find(".availabilities").length)return this.element.append(this.availabilities.render())},a.prototype.hideAvailabilities=function(){return this.element.find(".availabilities").hide()},a.prototype.addHideClickEvent=function(){var a=this;return this.element.on("click",
+".availabilities ul li",function(c){var e;c.stopPropagation();c=$(c.currentTarget);if(!c.find("input:disabled").length&&(a.$calendar.find(".selected").removeClass("selected"),c.addClass("selected"),c.parents(".fc-has-availabilities").addClass("selected"),c.parents(".availabilities").delay(300).fadeOut(100,function(){return a.$calendar.find(".not-highlighted").removeClass("not-highlighted")}),e=Math.min(10,c.data("available")),$("input#advance_availability_start_at").val(c.data("datetime")),$("input#advance_availability_tz_identifier").val(c.data("tz-identifier")),
+$("input#advance_availability_id").val(c.data("id")).triggerHandler("change"),$("input#advance_availability_available").val(e),null==a.mobileView))return a.$quantitySelect.drawQuantities(e)})},a}(),$.AvailabilityTooltip=function(){function a(b,c){this.date=b;this.availabilities=c}return a.prototype.render=function(){var a,c;return c="<div class='availabilities' data-date='"+this.date+"'><ul class='none'>",a=parseInt($("input#advance_availability_id").val(),10),$.each(this.availabilities,function(e,
+d){var f,g,m,p,s;return f=d.available,a===d.id?(m="selected",p="checked='checked'"):(m="",p=""),s=moment(d.start_at).tz(d.tz_identifier).format("hh:mma"),g=0>=f?"disabled":"",c+="<li class='"+m+"' data-id='"+d.id+"' data-datetime='"+d.start_at+"' data-tz-identifier='"+d.tz_identifier+"' data-available='"+f+"'><label>",c+="<input name='availability_id' "+g+" "+p+" type='radio' />",c+="<span>"+s+" ("+f+" available)</span>",c+="</label></li>"}),c+"</ul></div>"},a}(),$.AdvanceCalendar={$calendar:$("#calendar"),
+$submitButton:$(".main-buy[type='submit'], .next-button[type='submit']"),$calendarWrapper:$("#calendar-wrapper:visible"),mobileView:$("#advance-availability-wrapper").data("mobile-view"),initialize:function(a,b,c){var e=this;return this.$quantitySelect=a,this.$calendarDayElement=b,this.$availabilityTooltip=c,$(function(){return e.$calendarWrapper.length?(e.setClickHandlers(),$("input#select-a-date").prop("checked",!0),e.$submitButton.prop("disabled",!0),$("label[data-variant-label]:first").trigger("mouseup"),
+e.rerender()):!0}),this},setClickHandlers:function(){var a=this;return $("input#select-a-date").click(function(){return a.$submitButton.prop("disabled",!0),a.$calendarWrapper.show(),a.rerender()}),$("input#just-the-voucher").click(function(){a.$calendarWrapper.hide();a.nukeActivitySelection();a.$submitButton.prop("disabled",!1);if(null==a.mobileView)return a.$quantitySelect.drawQuantities(10)}),$("#advance_availability_id").on("change",function(b){var c;return c=$(b.currentTarget),a.$submitButton.prop("disabled",
+0===c.val().length)}),$("label[data-variant-label]").on("mouseup",function(b){var c;c=$(b.currentTarget);if(c.find("input:first").prop("checked")&&null!=a.$calendar.data("advance-activity-id"))return!0;b=c.data("advance-activity-id");c=c.data("num-of-items");a.$submitButton.prop("disabled",null!=b&&$("#select-a-date:checked").length);a.nukeActivitySelection();$("#advance-availability-wrapper").toggle(null!=b);if(null!=b&&null!=c)return a.$calendar.data("advance-activity-id",b),a.$calendar.data("num-of-items",
+c),a.rerender()})},nukeActivitySelection:function(){return this.$calendar.find(".selected").removeClass("selected"),$("[data-advance-availability-attribute]").val(null),this.$calendar.find("input").prop("checked",!1)},rerender:function(){return this.$calendar.empty().fullCalendar(this.calendarOptions())},calendarOptions:function(){var a=this;return{header:{left:"prev",center:"title",right:"next"},defaultView:"month",titleFormat:{month:"MMM"},dayNamesShort:"SMTWRFS".split(""),events:function(b,c,e){return $.ajax({url:a.$calendar.data("events-feed-url"),
+data:{activity_ids:a.$calendar.data("advance-activity-id"),start_date:b,end_date:c}}).success(function(a){var b,c;return b={},$.each(a.availabilities,function(a,c){var e;return e=(new Date(c.start_at)).toDateString(),null==b[e]&&(b[e]=[]),b[e].push(c)}),c=[],$.each(b,function(a,b){return c.push({title:"_",start:a,availabilities:b})}),e(c)})},dayClick:function(b,c,e,d){var f,l,m;return m=$.fullCalendar.formatDate(b,"yyyy-MM-dd"),f=a.$calendar.find(".fc-day[data-date='"+m+"']"),f.hasClass("fc-has-availabilities")?
+(l=a.$calendar.find(".fc-day:not([data-date='"+m+"'])"),l.find(".availabilities").hide(),f.removeClass("not-highlighted").find(".availabilities").fadeToggle(100,"swing",function(){return a.$calendar.find(".availabilities").not(":hidden").length?l.addClass("not-highlighted"):l.removeClass("not-highlighted")})):!0},eventRender:function(b,c){var e,h,k;return k=a.$calendar.data("num-of-items")||1,e=d(b.availabilities,k),0===e.length||1===e.length&&f(e[0])?c:($.grep(e,function(a,b){return 0<a.available}).length&&
+(h=$.fullCalendar.formatDate(b.start,"yyyy-MM-dd"),(new a.$calendarDayElement({element:a.$calendar.find(".fc-day[data-date='"+h+"']"),availabilities:new a.$availabilityTooltip(h,e),$calendar:a.$calendar,$quantitySelect:a.$quantitySelect,mobileView:a.mobileView})).initialize()),c)},viewRender:function(a,c){var e,d;return d=moment(a.start).subtract("months",1).format("MMM"),$(".fc-header-left .fc-button-prev").html("<h2><i class='icon-angle-left icon-small'></i> "+d+"</h2>"),e=moment(a.start).add("months",
+1).format("MMM"),$(".fc-header-right .fc-button-next").html("<h2>"+e+" <i class='icon-angle-right icon-small'></i></h2>")},eventAfterAllRender:function(a){return $("input[name='availability_id']:checked").parents(".fc-has-availabilities").addClass("selected")}}}}.initialize($.QuantitySelect,$.CalendarDayElement,$.AvailabilityTooltip),$.AdvanceMobileCheckout={$mobileVariantRadios:$("[data-mobile-variant]"),initialize:function(){var a=this;return $(function(){return a.$mobileVariantRadios.length?(a.$mobileVariantRadios.on("click",
+function(){return $(this).find("input[type='radio']"),$("button[type='submit']")}),a.$mobileVariantRadios.first().trigger("click")):!0}),this}}.initialize(),$.AdvancePurchaseShowDetails={$advanceAvailabilityEls:$(".redemption-advance-availability[data-advance-availability]"),apiUrl:$("#advance_availabilities_url").val(),initialize:function(){var a=this;return $(function(){if(a.$advanceAvailabilityEls.length)return a.getAvailabilities()}),this},getAvailabilities:function(){var a=this;return $.ajax({type:"GET",
+url:this.apiUrl,data:{ids:this.availabilityIds()}}).done(function(b){if(200===b.code)return a.setAvailabilities(b.availabilities)}).error(function(b){return a.renderError(a.$advanceAvailabilityEls)})},renderError:function(a){return a.html($(".checkout-flow").data("advance-server-error"))},availabilityIds:function(){var a;return a=this.$advanceAvailabilityEls.map(function(a,c){return $(c).data("advance-availability")}),$.makeArray(a)},setAvailabilities:function(a){var b=this;return $.each(a,function(a,
+e){var d;return d=$.grep(b.$advanceAvailabilityEls,function(a,b){return $(a).data("advance-availability")===e.id}),$(d).html(moment(e.start_at).tz(e.tz_identifier).format("ddd, MMMM D, YYYY [at] h:mma z"))})}}.initialize()})}).call(this);
+$(document).ready(function(){$(".orbit-container").on("orbit:before-slide-change",function(d){d.stopPropagation();var f=$("ul.photo-thumbs li.active");d=$(".active",d.currentTarget).data("orbit-slide");d=$("ul.photo-thumbs").find("[data-orbit-link='"+d+"']").parent();0===d.length&&(d=$("ul.photo-thumbs li.active").siblings().first());!1===$(".orbit-timer").hasClass("paused")&&d.index()>Math.floor(2.5)&&a();f.removeClass("active");d.addClass("active")});$(".orbit-container .thumbs-containers .right-arrow").on("click",
+function(){a()});$(".orbit-container .thumbs-containers .left-arrow").on("click",function(){var a=$(".photo-thumbs li").width();$(".photo-thumbs li").last().insertBefore($(".photo-thumbs li").first());$(".photo-thumbs").css({left:-a});$(".photo-thumbs").animate({left:0},250)});var a=function(){var a=$(".photo-thumbs li").width();$(".photo-thumbs").animate({left:-a},250,function(){$(this).css({left:0});$(this).find("li").first().insertAfter($(".photo-thumbs li").last())})};$("a[id^='variant-']").on("click",
+function(){var a=$("option[data-id='"+this.id.split("-")[1]+"']").val();a&&($("select#option_one_select").val(a),$.GearVariantsFilter.createSecondVariantList(a),$("select#option_one_select").siblings("span.selecttext").text(a))})});
+$(document).ready(function(){$("select.mobile-checkout-select").each(function(){$(this).wrap('<div class="selectbox checkout-mobile"/>');$(this).after("<span class='selecttext'></span><span class='select-arrow'>&raquo;</span>");var a=$(this).children("option:selected").text();$(this).next(".selecttext").text(a);$(this).change(function(){var a=$(this).children("option:selected").text();$(this).next(".selecttext").text(a)})})});
+$(document).ready(function(){$("label.check input:checked").closest("label").addClass("checked");$(document).on("click","label.check",function(){return $input=$(this).find("input"),$input.is(":checked")?($input.attr("checked",!1),$(this).removeClass("checked")):($input.attr("checked",!0),$(this).addClass("checked")),$input.trigger("change"),!1})});
+$.FloatingBuy={init:function(){if($(".button-buy").length&&$.ZOZIApp.is_mobile()){var a=$(".button-buy").first();a.length&&$(window).on("scroll",function(){$window=$(this);myTop=a.offset().top;windowTop=$window.scrollTop();windowBottom=windowTop+$window.height();floatingHeight=$(".floating-buy").height()+10;myTop>windowTop&&myTop<windowBottom||0===windowTop||!$.ZOZIApp.is_mobile()?$(".floating-buy").fadeOut():$.ZOZIApp.is_mobile()&&($(".floating-buy").fadeIn(),$("footer").css("padding-bottom",floatingHeight))})}}};
+$(function(){$.FloatingBuy.init()});$(document).ready(function(){$("label.selection").click(function(){$("button.next-button").attr("disabled","disabled");$("p.small-note").show();$("label.selection").removeClass("selected");$("label.selection").next("div").hide();$(this).addClass("selected");$(this).next("div").show()})});
+$(document).ready(function(){$("select.mobile-select").each(function(){$(this).wrap('<div class="selectbox"/>');$(this).after("<span class='selecttext'></span><span class='select-arrow'></span>");var a=$(this).children("option:selected").text();$(this).next(".selecttext").text(a)});$("select.typical").each(function(){$(this).wrap('<div class="selectbox typical"/>');$(this).after("<span class='selecttext'></span><span class='select-arrow'></span>");var a=$(this).children("option:selected").text();
+$(this).next(".selecttext").text(a)});$("select.wider").each(function(){$(this).wrap('<div class="selectbox wider"/>');$(this).after("<span class='selecttext'></span><span class='select-arrow'></span>");var a=$(this).children("option:selected").text();$(this).next(".selecttext").text(a)});$("select.slick").each(function(){$(this).parent().hasClass("selectbox")||($(this).wrap('<div class="selectbox slick"/>'),$(this).after("<span class='selecttext'></span>"));var a=$(this).children("option:selected").text();
+$(this).next(".selecttext").text(a)});$(".bucket-select").bind("change",function(){var a=$(this).val();return a&&(window.location=a),!1});$("select.bucket-select").each(function(){$(this).wrap('<div class="selectbox"/>');$(this).after("<span class='selecttext'></span><span class='select-arrow'></span>");var a=$(this).children("option:selected").text();$(this).next(".selecttext").text(a)});$(document).on("change","select.mobile-select, select.typical, select.wider, select.slick, .bucket-select, select.bucket-select",
+function(){var a=$(this).children("option:selected").text();$(this).next(".selecttext").text(a)})});$(document).ready(function(){$(window).load(function(){$(".more-experiences-list ul li").each(function(){var a=$(this).find(".detail-info").height(),d=$(this).find(".button-space").height(),a=(a-d)/2;$(this).find(".button-space").css("margin-top",a)})});$.MoreExperiences.perPage=$.Filtering.perPage||15;$.MoreExperiences.init()});
+$.MoreExperiences={PAGE_HEIGHT_BUFFER:200,MARKETS:["gear","getaways"],loading:!1,nextPage:2,docPath:document.location.pathname,market:null,infiniteScroll:function(a){return"undefined"==typeof a?$("body").data("infinite_scroll"):$("body").data("infinite_scroll",a)},resetPageCounter:function(){$.MoreExperiences.nextPage=2;$.MoreExperiences.infiniteScroll(!0)},init:function(){function a(a){a.length?($container=$(".more-experiences-list ul"),$container.find("li.placeholder").remove(),$container.append(a),
+$.PromotionalPricing.init(),$.MoreExperiences.nextPage++,window.picturefill()):($.MoreExperiences.infiniteScroll(!1),d.addClass("all-items-loaded"),d.find('span[class*="infinite-text--"]').text("All items loaded"));$.MoreExperiences.loading=!1}$.each($.MoreExperiences.MARKETS,function(a,d){0<$.MoreExperiences.docPath.indexOf(d)&&($.MoreExperiences.market=d)});void 0===$.MoreExperiences.market&&($.cookie.json=!1,$.MoreExperiences.market=$.cookie("market")||"new-york",0<$.MoreExperiences.docPath.indexOf("local")&&
+($.MoreExperiences.market="local/"+$.MoreExperiences.market));var d=$("#infinite-text");$(".more-experiences-list ul").length&&$.MoreExperiences.infiniteScroll()&&$(window).scroll(function(){!$.Filtering.loading&&!$.MoreExperiences.loading&&$.MoreExperiences.infiniteScroll()&&$.MoreExperiences.infiniteScroll()&&$(window).scrollTop()>$(document).height()-$(window).height()-$.MoreExperiences.PAGE_HEIGHT_BUFFER&&($.MoreExperiences.loading=!0,d.find('span[class*="infinite-text--"]').text("Loading more"),
+$.ajax({url:"/search/"+$.Filtering.productLine+"/show_more/?"+("page="+$.MoreExperiences.nextPage+"&per_page="+$.MoreExperiences.perPage),type:"get",data:$.Filtering.filterParams(),success:a}))})}};
+$(document).ready(function(){$(".multi-day.check-in .num-available input").click(function(){$(".full-calendar.multi-day.check-in").delay(300).slideUp(300);$(".start-date span.chosen-date").show();$(".full-calendar.multi-day.check-out").delay(300).slideDown(300)});$(".multi-day.check-out .num-available input").click(function(){$(".full-calendar.multi-day.check-out").delay(300).slideUp(300);$(".end-date span.chosen-date").show();$("p.small-note").hide();$(".button-buy").delay(300).removeAttr("disabled")});
+$("label.start-date").click(function(){$(".num-available ul li").removeClass("selected");$(".date-options tbody td").removeClass("selected");$(".full-calendar.multi-day.check-out").slideUp(300);$(".full-calendar.multi-day.check-in").slideDown(300);$(".start-date span.chosen-date").hide()})});$(document).ready(function(){$newCreditCard=$(".new-credit-card");$("input.existing-card").click(function(){$newCreditCard.hide()});$("input#newCard").click(function(){$newCreditCard.show()})});
+$(document).ready(function(){function a(a){$(a).on("click",".c-radios label",function(){$input=$(this).find("input");$input.attr("checked",!0);$(this).addClass("active").siblings(".active").removeClass("active").end().siblings().find("input[checked]").attr("checked",!1);$input.trigger("change")})}$(".checkout-flow .c-radios input").change(function(){$(this).parent("label");$("button.next-button").removeAttr("disabled")});$("li.choice input").change(function(){var a=$(this).parent("label");$("li.choice label",
+a.closest("ul")).removeClass("active");a.addClass("active");$("p.small-note").hide();$("button.next-button").removeAttr("disabled")});$(".c-radios input:checked").closest("label").addClass("active");$(".checkout-options input:checked").change();a("#payment-section");a("#shipping-section");a("#gifting-section");a(".booking-box--experience-options")});
+$(document).ready(function(){$("#fullCalendar label").click(function(){var a=$("#fullCalendar").offset();$(window).scrollTop(a.top)});$("label.just-purchase").click(function(){$("p.small-note").hide();$("button.next-button").removeAttr("disabled")});$("a.choose").click(function(){$("p.small-note").hide();$("button.next-button").removeAttr("disabled")})});
+$(document).ready(function(){var a=function(a){$.ZOZIApp.is_small_screen()||(a=a.find("[data-needs-columnizing]"),a.length&&a.columnize({columns:2}).removeAttr("data-needs-columnizing"))};$(".section-header h2").click(function(d){var f=$(this).parents(".section-header");d.preventDefault();f.toggleClass("active");a(f)});a($(".section-header.active"))});
+$(document).ready(function(){var a=$(window).width();$(window).resize(function(){$(window).width()});$(window).load(function(){if(768<a){var d=($(".orbit-container .orbit-slides-container img").width()+2)/4-2;$("ul.photo-thumbs li img").width(d)}1024<a&&(d=($(".orbit-container .orbit-slides-container img").width()+2)/5-2,$("ul.photo-thumbs li img").width(d))})});
+$.Tooltip={init:function(){$(".tooltip-init").on("click",function(a){a=$(this).parent().parent().find(".tooltip");return a.length&&($(this).hasClass("is-active")?$.Tooltip.hide({tooltip:a,context:this}):$.Tooltip.show({tooltip:a,context:this})),$(window).resize(function(){$.ZOZIApp.is_tablet()&&$.Tooltip.hideAll()}),!1})},show:function(a){var d=a.tooltip;a=a.context;var f=$(a).parent().position().top+$(a).height()+10;return d.show().css("top",f),$(a).addClass("is-active"),$(document).on("click",{tooltip:d,
+context:a},$.Tooltip.onHide),!1},onHide:function(a){$.Tooltip.hide({tooltip:a.data.tooltip,context:a.data.context})},hide:function(a){var d=a.context;return a.tooltip.hide(),$(d).removeClass("is-active"),$(document).off("click",$.Tooltip.onHide),!1},hideAll:function(){$(".tooltip").hide();$(".tooltip-init").removeClass("is-active");$(document).off("click",$.Tooltip.onHide)}};$(function(){$.Tooltip.init()});
+$.ModuleRollover={init:function(){"undefined"!=typeof bucket_list_deal_ids&&$.BucketList.markAllAsAdded(bucket_list_deal_ids);$(".offer-snippet").on("click",".offer-snippet-img, .area",function(a){return window.location=$(this).parent(".offer-snippet").data("target"),!1}).hoverIntent(function(){var a=$(this);a.toggleClass("is-offer-snippet-open");a.find(".area").animate({top:-53},500)},function(){$(this).find(".area").animate({top:0},500)})}};$(function(){$.ModuleRollover.init()});
+$.Price={set_promo_points:function(a){var d=a.find(".price.blue");0<d.length?(d.removeClass("blue"),d.find(".current").addClass("original")):(a.find(".current").remove(),d=a.find(".original").first(),d=a.find(".price"));if(0===a.find(".promo-points-cost-details-page").length){var f=$("#details-page").data("promo_points_cost"),f=$("<span>").addClass("promo-points-cost promo-points-cost-details-page").html(f);d.after(f);a.addClass("promotional_item promo_item_for_user")}},update:function(a,d,f){var g=
+$(a).find("span[data-original-price-value]");$(a).find("span[data-current-price-value]").html(f);0<g.length&&g.html(d)}};
+$.PromotionalPricing={init:function(){if($("#main").data("prm_visitor")){var a=$("article.promotional_item"),d=this;$.each(a,function(a,g){d.lockUnaffordableItems(g)})}},lockUnaffordableItems:function(a){var d=$(a).data("promo_points_cost"),f=parseInt($("#promo-button").text(),10)||0,g=f>=d;$(a).addClass("promo_item_for_user");g||(d-=f,f=1===d?"point":"points",$(a).parent().addClass("need-more-points"),$(a).find(".need-points-banner ").text("You need "+d+" more "+f))}};$(function(){$.PromotionalPricing.init()});
+$(document).ready(function(){toggleGiftDetails=function(){var a=$("#gifting-details, .gear-divider, .gear-shipping-message");$(".buy-as-gift").hasClass("checked")?a.slideDown(1E3):a.slideUp(1E3)};$(".buy-as-gift").change(function(){toggleGiftDetails()});$("label").hasClass("buy-as-gift-gear")&&$("#gifting-details").hide();$("input[name=gifting_details\\[delivery_method\\]]").change(function(){"email"===$(this).val()?$("#recipient-email").slideDown(1E3):$("#recipient-email").slideUp(1E3)});$("#order_delivery_method_print").change(function(){this.checked&&
+($("#order_recipient_email_address").prop("disabled",!0),$("#order_recipient_email_address").addClass("disabled"),$('label[for="order_recipient_email_address"]').css("color","#AAA"))});$("#order_delivery_method_email").change(function(){this.checked&&($("#order_recipient_email_address").prop("disabled",!1),$("#order_recipient_email_address").removeClass("disabled"),$('label[for="order_recipient_email_address"]').css("color","#666"))})});
+$.MODALS={list:["bucket_list"],viewed:{},addViewed:function(a){this.viewed[a]=!0},calculateMask:function(){var a=this,d=0;return $.each(this.list,function(f,g){!0===a.viewed[g]&&(d+=Math.pow(2,f))}),d},update:function(a,d){$.MODALS.addViewed(a);$.ajax({type:"POST",url:"modals",data:{modal_mask:$.MODALS.calculateMask()},complete:d})},init:function(a){if(void 0!==a){a=$.map(parseInt(a).toString(2).split(),function(a){return parseInt(a,10)});for(var d=0;d<a.length;d++)0<a[d]&&this.addViewed(this.list[d])}}};
+$(function(){var a=$("[data-modal-mask]").data("modal-mask");$.MODALS.init(a)});
+$.BucketList={init:function(){var a=this;"undefined"!=typeof bucket_list_deal_ids&&a.markAllAsAdded(bucket_list_deal_ids);$(".add-to-bucket-list").bind("ajax:success",function(d,f,g,b){a.markAsAdded(this)})},markAsAdded:function(a){a=$(a);var d=a.data("in_list_text");$.each(a,function(){$(this).get(0).lastChild.data=d});a.removeClass("add-to-bucket-list").addClass("item-in-bucket-list checked");var f=a.closest(".offer-snippet").data("target");f?(a.attr("href",f),a.on("click",function(a){return window.location=
+$(this).attr("href"),!1})):a.on("click",!1)},markAllAsAdded:function(a){var d=this;$.each(a,function(a,g){var b=$(".bucket-list-btn[data-deal-id="+g+"] a");0<b.length&&d.markAsAdded(b)})}};$(function(){$.BucketList.init()});
+$.Facebook={initialized:!1,facebook_login:{init:function(){$(".fb-login").on("click",function(a){a.preventDefault();var d=$(this);FB.login(function(a){a.authResponse&&(window.location=d.data("fb-callback-url"))},{scope:"email"})})}},facebook_send_dialog:{init:function(){$("a.fb-book").on("click",function(a){a=$(this);return FB.ui({method:"send",link:a.data("fb-link")}),!1});$("a.fb-feed").on("click",function(a){a=$(this);return FB.ui({method:"feed",link:a.data("fb-link"),picture:a.data("fb-picture"),
+name:a.data("fb-name"),caption:a.data("fb-caption"),description:a.data("fb-description"),display:a.data("fb-display")}),!1})}}};$(function(){$.Facebook.initialized||($.Facebook.facebook_login.init(),$.Facebook.facebook_send_dialog.init(),$.Facebook.initialized=!0)});$.FlashMessage={init:function(){var a=$(".flash_message");0<a.length&&(a.slideDown("slow"),$(".close_flash").on("click",function(d){a.slideUp().hide()}))}};$(function(){$.FlashMessage.init()});
+$.PopupFooter={init:function(){if("undefined"!=typeof $.cookie){var a=this;$.cookie.json=!0;var d=$(".footer-pop-up"),f=d.data("pop-ups")||[],g=f[0],b=$.cookie("footer_pop_up_ignored_"+g)||[];$(".footer-pop-up-close").on("click",function(b){d.slideUp();$("footer").animate({marginBottom:0});a.setClosedCookie(g)});$(".footer-pop-up-ignore").on("click",function(a){a=$(".footer-pop-up-content");var e=a.parent().data("current-promotion-end-date");"undefined"!=typeof e&&0<e.length&&(d.slideUp(),$("#footer").animate({marginBottom:0}),
+b.push(a.data("pop-up")),$.cookie("footer_pop_up_ignored_"+g,b,{expires:new Date(e),path:"/"}))});f=$.grep(f,function(a){return-1==$.inArray(a,b)});$(".footer-pop-up-content").on("click","a",function(){return a.setClosedCookie(g),!0});null===$.cookie("footer_pop_up_closed_"+g)&&0<f.length&&(f=$(".footer-pop-up-content"),f.load("/promotion_banner_images/"+g),f.data("pop-up",g),setTimeout(function(){d.slideDown(function(){$("#footer").css("margin-bottom",d.height())})},2E3))}},setClosedCookie:function(a){var d=
+new Date;d.setMinutes(d.getMinutes()+600);$.cookie("footer_pop_up_closed_"+a,!0,{expires:d,path:"/"})}};$(function(){$.PopupFooter.init()});
+$.ShoppingCart={MAX_ITEMS_TO_DISPLAY_AT_ONCE:5,SHOPPING_CART_NAME:"shopping-cart",SHOPPING_CART_HIDE_DELAY:200,KEEP_SHOPPING_TIME_DELAY:4E3,CART_ITEM_TEMPLATE:"<li class='item'>                          <a href='' data-item='details'>                           <div class='row'>                             <div class='small-3 columns img'>                               <img src=''>                             </div>                             <div class='small-6 columns'>                               <div class='row'>                                 <span class='title'>                                   <span class='description'></span>                                     <div class='river-item--info river-item-s-desktop-s-mobile--info'></div>                                   </span>                               </div>                             </div>                             <div class='small-2 columns last'>                               <div class='row'>                                 <span class='qty'></span>                               </div>                               <div class='row bottom'>                                 <span class='price'>                                   <div class='row'>                                     <span class='original'>                                       <span></span>                                     </span>                                   </div>                                   <div class='row'>                                     <span class='current'>                                       <span></span>                                     </span>                                   </div>                                 </span>                               </div>                             </div>                           </div>                         </a>                       </li>",build_item:function(a,
+d){return d.find("img").attr("src",a.photo_url),d.find('a[data-item="details"]').attr("href",a.link),d.find("span.description").text(a.brief_description),a.variant_details?d.find("div.river-item--info").text(a.variant_details):d.find("div.river-item--info").remove(),a.price!=a.full_price&&d.find("span.original span").html("$"+a.full_price),d.find("span.current span").html("$"+a.price),d.find("span.qty").html("Qty "+a.quantity),d},add_items_to_popup:function(a){var d=$("#cart-modal .cart-items"),f=
+$.ShoppingCart.CART_ITEM_TEMPLATE,g,b;d.empty();$.each(a,function(a,e){g=$(f).clone();b=$.ShoppingCart.build_item(e,g);d.append(b)})},get_items:function(){var a=$("#cart-modal");$.ajax({url:a.data("cart-items-url"),type:"GET",async:!1,success:function(a){$.ShoppingCart.add_items_to_popup(a.items);$.ShoppingCart.update_popup()}})},init_popup:function(){$.ShoppingCart.update_popup();$.ShoppingCart.adjust_position();$(window).resize($.ShoppingCart.adjust_position)},update_popup:function(){var a=parseInt($("#main").data("shopping_cart_items"),
+10)||0,d=a+(1===a?" item":" items");$("#cart-modal li.top span.count").text(d);$.ShoppingCart.toggleEnabled(a)},adjust_height:function(){var a=$("#cart-modal"),d=a.find(".cart-items"),f=d.children(),g=0;if(f.length>$.ShoppingCart.MAX_ITEMS_TO_DISPLAY_AT_ONCE){for(var b=0;b<$.ShoppingCart.MAX_ITEMS_TO_DISPLAY_AT_ONCE;b++)g+=$(f.get(b)).outerHeight();d.css("max-height",g+"px");d.css("overflow-y","scroll")}$(window).height()<$(".small-screen-header").height()+a.height()&&(d.css("overflow-y","scroll"),
+f=10,$.ZOZIApp.is_mobile()?f+=$(".small-screen-header").height():f+=$(".main-nav").height(),a=f+a.height()-d.height(),g=$(window).height()-a,d.css("max-height",g+"px"))},adjust_position:function(){var a=$("#cart-modal");if($.ZOZIApp.is_mobile())a.css("right",0);else{var d=$(".cart.large-screen"),d=$(window).width()-d.offset().left-d.outerWidth();a.css("right",d)}a.css("top",-a.outerHeight()).show()},toggleEnabled:function(a){},show_dialog:function(){var a=$("#cart-modal");"true"===$("li.cart").attr("data-dirty")&&
+($.ShoppingCart.get_items(),$("li.cart").attr("data-dirty","false"));$.ZOZIApp.is_mobile()?a.animate({top:$(".small-screen-header").height()},$.ZOZIApp.TRANSITION_SPEED):a.animate({top:$("nav.main-nav").height()},$.ZOZIApp.TRANSITION_SPEED);$.ShoppingCart.adjust_height();$("li.cart").addClass("hovered");$(document).trigger({type:$.ZOZIEvents.MODAL_MENU_OPEN,context:$.ShoppingCart.SHOPPING_CART_NAME,callback:$.ShoppingCart.hide_dialog})},hide_dialog:function(){var a=$("#cart-modal"),d=-a.outerHeight();
+a.animate({top:d},$.ZOZIApp.TRANSITION_SPEED);$("li.cart").removeClass("hovered");$(document).trigger({type:$.ZOZIEvents.MODAL_MENU_CLOSE,context:$.Navigation.SHOPPING_CART_NAME})},shouldHideDialog:function(){return 0===$("#cart-modal:hover").length&&0===$(".cart:hover").length},addItemToCart:function(a){$.ajax({type:"PUT",url:"/shopping_cart_item/create",data:$("#purchase").serialize(),success:$.ShoppingCart.keepShopping,error:function(a){$.ZOZIApp.add_flash_error(a.responseText);$(document).trigger({type:$.ZOZIEvents.CART_UPDATE_ERROR})}})},
+keepShopping:function(a){a=a.cart.items.length;$("#main").data("shopping_cart_items",a);$("li.cart").attr("data-dirty","true");$(document).trigger({type:$.ZOZIEvents.CART_QUANTITY_UPDATED,count:a});$.ShoppingCart.show_dialog();setTimeout(function(){$.ShoppingCart.shouldHideDialog()&&$.ShoppingCart.hide_dialog()},$.ShoppingCart.KEEP_SHOPPING_TIME_DELAY)},attach_evant_handlers:function(){$("li.cart.large-screen").hover($.ShoppingCart.show_dialog);$("li.cart.large-screen, #cart-modal").mouseleave(function(a){setTimeout(function(){$.ShoppingCart.shouldHideDialog()&&
+$.ShoppingCart.hide_dialog()},$.ShoppingCart.SHOPPING_CART_HIDE_DELAY)});$("li.cart.small-screen").click(function(){parseInt($("#cart-modal").css("top"),10)==-$("#cart-modal").outerHeight()?$.ShoppingCart.show_dialog():$.ShoppingCart.hide_dialog()});$("#cart-modal [data-continue-shopping]").click($.ShoppingCart.hide_dialog);$(document).on($.ZOZIEvents.ADD_ITEM_TO_CART,$.ShoppingCart.addItemToCart)},init:function(){$.ShoppingCart.init_popup();$.ShoppingCart.attach_evant_handlers()}};$(function(){$.ShoppingCart.init()});
+$(function(){$("body").ajaxError(function(a,d,f){401==d.status&&(window.location=d.getResponseHeader("Location"))})});(function(a){var d=/([^&=]+)=?([^&]*)/g;a.parseParams=function(a){var g={},b;if(void 0!=a)for("?"==a.substr(0,1)&&(a=a.substr(1));b=d.exec(a);){var c=decodeURIComponent(b[1].replace(/\+/g," "));b=decodeURIComponent(b[2].replace(/\+/g," "));0<c.indexOf("[]")?(c=c.replace(/\[\]/g,""),void 0==g[c]?g[c]=[b]:g[c].push(b)):g[c]=b}return g}})(jQuery);
+$.Navigation={NAV_MENU_NAME:"navigation",init:function(){},setupCartItemsCount:function(){$.Navigation.updateCartItemCount($.Navigation.data.cart_items_count);$(document).on($.ZOZIEvents.CART_QUANTITY_UPDATED,$.Navigation.onCartItemCountUpdated);$("a.button-cart").each(function(a,d){var f=$(d),g=$("<div class='icon-caret-down'>");f.append(g)})},onCartItemCountUpdated:function(a){$.Navigation.updateCartItemCount(a.count)},updateCartItemCount:function(a){$("a.button-cart").each(function(d,f){var g=
+$(f);0<a&&($count=$("<div class='count-container'>"),$count.html(a),g.html($count))})},hookupNavigation:function(){$(".main-nav--link").off("mouseenter mouseleave");$(".main-nav--sub-nav--row").off("mouseenter mouseleave");$(".small-screen-toggle-arrow").on("click",function(){$(this).siblings(".main-nav--sub-nav").toggle();$(this).toggleClass("is-active");$(this).parent().toggleClass("is-active")})},hookupAccountMenu:function(){$(".large-screen-account-nav a.account-nav--toggle").on("click",function(a){a.preventDefault()});
+$(".account-nav--user-name").html($.Navigation.data.user_name).width(9999).width("auto")},teardownNavigation:function(){var a;$(".main-nav--link").mouseenter(function(){$(this).siblings(".main-nav--sub-nav").show()});$(".main-nav--link").mouseleave(function(){var d=$(this);a=setTimeout(function(){d.siblings(".main-nav--sub-nav").hide()},50)});$(".main-nav--sub-nav--row").mouseenter(function(){clearTimeout(a);$(this).parent().show()});$(".main-nav--sub-nav--row").mouseleave(function(){$(this).parent().hide()});
+$(".small-screen-toggle-arrow").off("click");$(".small-screen-toggle-arrow").removeClass("is-active");$(".main-nav--group").removeClass("is-active");$(".main-nav--sub-nav").hide()},openNav:function(){$("body").addClass("is-nav-expanded");$.Navigation.hookupNavigation();0==$(".main-nav").offset().top&&$(".main-nav").css("padding-top",45);$(".small-screen-account-nav #nav-toggle").parent().removeClass("is-active");$(document).trigger({type:$.ZOZIEvents.MODAL_MENU_OPEN,context:$.Navigation.NAV_MENU_NAME,
+callback:$.Navigation.closeNav})},closeNav:function(){$("body").removeClass("is-nav-expanded");$.Navigation.teardownNavigation();$(".main-nav").css("padding-top","");$(document).trigger({type:$.ZOZIEvents.MODAL_MENU_CLOSE,context:$.Navigation.NAV_MENU_NAME})},initSubmenu:function(){$(window).resize($.Navigation.fixSubmenuPosition);$.Navigation.fixSubmenuPosition()},fixSubmenuPosition:function(){var a=$(".main-nav--sub-nav");$.ZOZIApp.is_mobile()?(a.css("padding-left",0),a.css("padding-right",0)):
+window.setTimeout(function(){var d=$(".main-nav--list").parents(".row").offset().left;a.css("padding-left",d);a.css("padding-right",d)},50)}};$(function(){$.Navigation.init()});
+$.IndexCarousel={ANIMATION_TIMER:{},init:function(){this.centerCarouselImages();$(window).resize(this.centerCarouselImages);$("#featured1").on("orbit:ready",this.showCarousel());$(document).on($.ZOZIEvents.FILTER_SELECTED,this.hideCarousel);$(document).on($.ZOZIEvents.FILTER_UNSELECTED,this.showCarousel)},showCarousel:function(){$(".main-content-area").removeClass("is-loading");$(".loading-logo").hide();$(".slideshow-wrapper").css({display:""});clearTimeout(this.ANIMATION_TIMER);this.ANIMATION_TIMER=
+setTimeout(function(){$(".slideshow-wrapper").css({opacity:1})},1)},hideCarousel:function(){$(".slideshow-wrapper").css({opacity:""});clearTimeout(this.ANIMATION_TIMER);this.ANIMATION_TIMER=setTimeout(function(){$(".slideshow-wrapper").css({display:"none"})},$.ZOZIApp.SLOW_TRANSITION_SPEED)},centerCarouselImages:function(){var a=$(window).width(),d=$(".slideshow-wrapper").height(),f,g,b,c,e,h,k;$(".featured-item--photo").each(function(l,m){k=$(m);f=Math.max.apply(Math,k.find("img").map(function(){return $(this).width()}));
+g=Math.max.apply(Math,k.find("img").map(function(){return $(this).height()}));b=f>a;c=g>d;e=b?(a-f)/2:0;h=c?(d-g)/2:0;$(m).find(".responsive-image").css({"margin-left":e+"px","margin-top":h+"px"})})}};$(function(){$.IndexCarousel.init()});
+$.Filtering={SIDE_BAR_NAME:"filter-side-bar",SORT_MENU_NAME:"filter-sort-menu",FILTER_CARD_Y_OFFSET:256,CAROUSEL_Y_OFFSET:355,loading:!1,init:function(){$.Filtering.sideBar=$(".filter-side-bar-container");$.Filtering.sideBar.length&&($.Filtering.topBar=$(".filter-top-bar-container"),$.Filtering.sortBar=$(".filter-sort-container"),$.Filtering.carousel=$(".index-carousel"),$.Filtering.footer=$(".main-footer"),$.Filtering.experiencesContainer=$(".more-experiences-list"),$.Filtering.infoCard=$.Filtering.sideBar.find(".filter-info-card"),
+$.Filtering.perPage=$(".filter-side-bar-container").data("per-page"),$.Filtering.productLine=$(".filter-side-bar-container").data("product-line"),$.Filtering.categoryBoxBar=$(".category-boxes-container"),$.Filtering.priceSlider=$("#price-slider"),$.Filtering.priceBar=$("#price-option"),$.Filtering.priceRange=$("#min-price, #max-price"),$.Filtering.priceClear=$("#price-option .filter-side-bar--clear"),this.setupMenuArrows(),this.setupOpenAndCloseHandlers(),this.initTopBar(),this.initSideBar(),this.initPriceBar(),
+setTimeout(this.activateDefaultFilter,$.ZOZIApp.SLOW_TRANSITION_SPEED))},activateDefaultFilter:function(){activeArrow=$.Filtering.sideBar.find(".arrow-toggle-button.is-active");if(0===activeArrow.length){var a=$.Filtering.sideBar.find(".arrow-toggle-button:first");$.Filtering.activateFilter(a)}else $.Filtering.activateFilter(activeArrow)},activateFilter:function(a){$(a).addClass("is-active");$(a).parent().find("input[type=radio]").prop("checked",!0)},setupOpenAndCloseHandlers:function(){$.Filtering.topBar.find(".arrow-toggle-button").click(function(){$(this).hasClass("is-active")?
+$.Filtering.closeSideBar():($(this).addClass("is-active"),$(".filter-side-bar-container").addClass("is-expanded"),$(document).trigger({type:$.ZOZIEvents.MODAL_MENU_OPEN,context:$.Filtering.SIDE_BAR_NAME,callback:$.Filtering.closeSideBar}));$.Filtering.resizeContainer()});$(".button-sort").click(function(){$(".filter-sort-container").hasClass("is-active")?$.Filtering.closeSortMenu():($(".filter-sort-container").addClass("is-active"),$(document).trigger({type:$.ZOZIEvents.MODAL_MENU_OPEN,context:$.Filtering.SORT_MENU_NAME,
+callback:$.Filtering.closeSortMenu}))})},setupMenuArrows:function(){$.Filtering.sideBar.find(".arrow-toggle-button").click(function(){$(this).toggleClass("is-active");var a=$(this).hasClass("is-active");$.Filtering.sideBar.find(".arrow-toggle-button").removeClass("is-active");a&&$(this).addClass("is-active");$(this).parent().find("input[type=radio]").prop("checked",a)});$(".filter-side-bar-container").on("click","input[type=radio]",function(){var a=$(this).parent().find(".arrow-toggle-button"),d=
+!a.hasClass("is-active");$.Filtering.sideBar.find(".arrow-toggle-button").removeClass("is-active");d&&a.addClass("is-active");$(this).prop("checked",d)})},initTopBar:function(){$.Filtering.topBar.on("activate",$.Filtering.activateTopBar);$.Filtering.topBar.on("de-activate",$.Filtering.deactivateTopBar);$.Filtering.toggleTopBar();$(window).resize(function(){$.Filtering.toggleTopBar()})},toggleTopBar:function(){var a=$(".filter-side-bar--group--option.is-active").length;768<=$(window).width()&&0==a?
+$.Filtering.topBar.trigger("de-activate"):$.Filtering.topBar.trigger("activate")},activateTopBar:function(){$.Filtering.topBar.addClass("is-active");$("body").addClass("is-top-bar-active");$.Filtering.setupSideBarPositioning();$(".index-carousel").addClass("is-below-filter")},deactivateTopBar:function(){$.Filtering.topBar.removeClass("is-active");$("body").removeClass("is-top-bar-active");$.Filtering.sortBar.removeClass("is-active");$.Filtering.setupSideBarPositioning();$(".index-carousel").removeClass("is-below-filter")},
+closeSideBar:function(){$.Filtering.topBar.find(".arrow-toggle-button").removeClass("is-active");$(".filter-side-bar-container").removeClass("is-expanded");$(document).trigger({type:$.ZOZIEvents.MODAL_MENU_CLOSE,context:$.Filtering.SIDE_BAR_NAME})},closeSelection:function(a){a.data.option.trigger("click")},optionSelection:function(){$.Filtering.updateFilter($(this));$.Filtering.updateBrowserUrl();$.Filtering.toggleTopBar();$.Filtering.update()},updateBrowserUrl:function(){Modernizr.history&&window.history.pushState($(document).html(),
+"ZOZI",window.location.pathname+"?"+$.Filtering.urlParams())},update:function(){$.Filtering.fadeExperiences("out");$.Filtering.loading=!0;$.ajax({type:"GET",url:"/search/"+$.Filtering.productLine+"/filter?per_page="+$.Filtering.perPage,data:$.Filtering.filterParams()}).done(function(a){$.Filtering.updateExperiences(a);$.MoreExperiences.resetPageCounter();window.picturefill();$.Filtering.fadeExperiences("in");$.Filtering.resizeContainer();$.Filtering.loading=!1;a=$("ul#filtered_experiences").data("total_results");
+$.Filtering.updateTotalResults(a);$.Filtering.toggleCategoryBoxes();$(".category-boxes-container").on("click","a",$.Filtering.categoryBoxSelection)})},sort:function(){$.Filtering.sortBar.find("a").removeClass("is-active");$(this).addClass("is-active");$.Filtering.updateBrowserUrl();$.Filtering.update();$.Filtering.closeSortMenu()},closeSortMenu:function(){$(".filter-sort-container").removeClass("is-active");$(document).trigger({type:$.ZOZIEvents.MODAL_MENU_CLOSE,context:$.Filtering.SORT_MENU_NAME})},
+checkFilterByKeyValue:function(a,d){$("input[data-filter-category="+a+'][data-filter-name="'+d+'"]').prop("checked",!0).next().addClass("is-active")},categoryBoxSelection:function(a){a.preventDefault();$(".filter-side-bar-container input[type=checkbox]").prop("checked",!1);$(".filter-side-bar--clear").hide();$(".filter-side-bar--group--option.is-active").removeClass("is-active");$(".filter-side-bar--group-counter").hide();$.each($(this).data(),function(a,f){$.each(f,function(f,b){$.Filtering.checkFilterByKeyValue(a,
+b)})});$.Filtering.updateBrowserUrl();$.each($(".filter-side-bar--group"),function(a,f){var g=$(f).find(".filter-side-bar--group--option.is-active").length;if(g){var b=$(f).find(".filter-side-bar--group-counter");b.html(g);b.show();$(f).find(".filter-side-bar--clear").show()}});$.Filtering.optionSelection()},updateFilter:function(a){var d=$.Filtering.isPriceFilter(a)?a.parents(".filter-side-bar--group--option"):a,f=d.siblings("input:checkbox"),g=d.closest(".filter-side-bar--group").find(".filter-side-bar--group-counter"),
+b=$("#infinite-text").find('span[class*="infinite-text--"]');$.Filtering.isPriceFilter(a)?f.prop("checked",!0):(d.toggleClass("is-active"),f.trigger("click"));b.text("Loading");$.Filtering.updateFilterSelection(d,f,g);$.Filtering.updateClearButtons(d,g);$.Filtering.updateCarouselState()},toggleCategoryBoxes:function(){0<$(".filter-side-bar--group--option.is-active").length?$(".category-boxes-container").hide():$.ZOZIApp.is_mobile()||$(".category-boxes-container").show()},updateCarouselState:function(){0<
+$(".filter-side-bar--group--option.is-active").length?($(".filter-info-card").fadeOut($.ZOZIApp.SLOW_TRANSITION_SPEED),$(document).trigger($.ZOZIEvents.FILTER_SELECTED)):($(document).trigger($.ZOZIEvents.FILTER_UNSELECTED),$(".filter-info-card").show())},parameterizedFilters:function(){var a=$.Filtering.filterData();return a.price&&(a.price_min=$("#min-price").val(),a.price_max=$("#max-price").val()),a},filterParams:function(){return $.extend({},$.Filtering.sortData(),$.Filtering.parameterizedFilters())},
+urlParams:function(){return $.param($.extend({},$.Filtering.sortData(),$.Filtering.parameterizedFilters()))},filterData:function(){var a={};return $("a.filter-side-bar--group--option.is-active+input[data-filter-category], [data-filter-static]").each(function(d,f){var g=$(f).data();a[g.filterCategory]||(a[g.filterCategory]=[]);a[g.filterCategory].push(g.filterName)}),a},sortData:function(){return $el=$(".filter-sort-container--option.is-active"),{sort_by:$el.data("sort-by"),sort_order:$el.data("sort-order")}},
+updateExperiences:function(a){$.Filtering.experiencesContainer.html(a)},fadeExperiences:function(a){var d=$.Filtering.experiencesContainer,f=$("#infinite-text"),g=f.find('span[class*="infinite-text--"]');f.removeClass("all-items-loaded");$(".more-experiences-list").find("ul li").length?f.show():f.hide();"out"==a?($.each(g,function(a,c){var e;e=$(c).data("title");$(c).text(e)}),d.fadeOut($.ZOZIApp.TRANSITION_SPEED)):d.fadeIn($.ZOZIApp.TRANSITION_SPEED)},updateTotalResults:function(a){$("[data-search-total]").text(a);
+$("[data-search-label]").text(1===a?"Result":"Results")},calculateChecked:function(){var a=$(".filter-side-bar--group--option.is-active");0<a.length&&($.Filtering.activateTopBar(),total=0,$.each(a,function(a,f){count=$(f).children("span.count").text();total+=parseInt(count,10)}),$.Filtering.updateTotalResults(total))},updateFilterSelection:function(a,d,f){var g,b=parseInt(f.html())||0;d.is(":checked")?(g=a.parents(".filter-side-bar--group--list"),g.find(".filter-side-bar--group--option.is-active"),
+"price"==d.data("filter-category")?(b=1,d.siblings("a").addClass("is-active"),d.prop("checked",!0)):b++):b--;f.html(b)},filterSelectionText:function(a){return a.parent().find("a").html()},updateClearButtons:function(a,d){var f=a.closest(".filter-side-bar--group").find(".filter-side-bar--clear"),g=$(".filter-side-bar--selection .filter-side-bar--clear");0==(parseInt(d.html(),10)||0)?(d.hide(),f.hide()):(d.show(),f.show());0<$(".filter-side-bar--selection-option").length?g.show():g.hide()},clearGroup:function(){$(this).siblings(".filter-side-bar--group--list").find(".filter-side-bar--group--option.is-active").trigger("click")},
+clearAll:function(){$(".filter-side-bar--group--option.is-active").trigger("click");$.Filtering.deactivateTopBar()},initSideBar:function(){$.Filtering.setupSideBarPositioning();$(window).resize(function(){$.Filtering.setupSideBarPositioning()});$(window).scroll(function(){$.Filtering.checkIfSticky();$.Filtering.resizeContainer()});$.Filtering.setupInitialOptionSelections();$.Filtering.sideBar.on("click",".filter-side-bar--group--option",$.Filtering.optionSelection);$.Filtering.sideBar.on("click",
+".filter-side-bar--group .filter-side-bar--clear",$.Filtering.clearGroup);$.Filtering.sideBar.on("click",".filter-side-bar--selection .filter-side-bar--clear",$.Filtering.clearAll);$.Filtering.sideBar.on("facets:update","[data-filter-category][data-filter-name]",$.Filtering.updateFilterText);$.Filtering.sortBar.on("click",".filter-sort-container--option:not(.is-active)",$.Filtering.sort);$.Filtering.priceRange.on("change",$.Filtering.optionSelection);$.Filtering.categoryBoxBar.on("click","a",$.Filtering.categoryBoxSelection);
+$.Filtering.priceClear.on("click",$.Filtering.resetPriceSlider);$.Filtering.calculateChecked()},initPriceBar:function(){var a=$.Filtering.priceBar.data("min-price"),d=$.Filtering.priceBar.data("max-price"),f=d,g=$.parseParams(window.location.search);g.price&&(f=parseInt(g.price_max)/100);$.Filtering.priceSlider.slider({range:"min",min:a,max:d,value:f,step:50,slide:function(a,c){$.Filtering.setSliderText(c.value)},stop:function(b,c){$.Filtering.definePriceInputs(a,c.value);$.Filtering.priceRange.first().trigger("change")}});
+$.Filtering.setSliderText($("#price-slider").slider("value"));$.Filtering.definePriceInputs(a,d)},resetPriceSlider:function(){var a=$.Filtering.priceBar.data("max-price");$("#price-slider").slider("value",a);$.Filtering.setSliderText(a)},setSliderText:function(a){$("#filter-price").text("Under $"+(a+1))},setupInitialOptionSelections:function(){var a=$.parseParams(window.location.search);$.each(a,function(a,f){$.isArray(f)?$(f).each(function(f,b){$.Filtering.setupOptionSelection(a,b)}):$.Filtering.setupOptionSelection(a,
+f)})},setupOptionSelection:function(a,d){$menuItem=$("input[data-filter-category='"+a+"'][data-filter-name='"+d+"']").siblings("a");$menuItem.hasClass("is-disabled")||$.Filtering.updateFilter($menuItem)},setupSideBarPositioning:function(){$.Filtering.sideBar.removeClass("is-sticky");$.Filtering.highestAllowablePos=$.Filtering.getHighestAllowablePos();$.Filtering.resizeContainer();$.Filtering.checkIfSticky();$.Filtering.infoCardVisible()&&$.Filtering.adjustFeatureItemTitleArea()},resizeContainer:function(){var a=
+$.Filtering.sideBar.find(".filter-side-bar--group"),d=$.Filtering.sideBar.find(".filter-side-bar--group--list"),f=$.Filtering.bottomOfWindowOffset(),g=$.Filtering.footerOffset()-f,f=f-$.Filtering.sideBar.position().top;10>g&&(f+=g-10);$.Filtering.sideBar.height(f);var g=a.find("input:not(:checked)").parent().height(),b=f-g*a.length;d.height(b);var c=$.Filtering.sideBar.find(".filter-side-bar--group--option").height();d.each(function(){$(this).removeClass("is-scrollable");var a=$(this).children().length*
+c+10;a>b?$(this).addClass("is-scrollable"):$(this).height(a)})},bottomOfWindowOffset:function(){return window.scrollY+$(window).height()},footerOffset:function(){return $.Filtering.footer.offset().top},getHighestAllowablePos:function(){return $.Filtering.infoCardVisible()?$.Filtering.FILTER_CARD_Y_OFFSET:$.Filtering.CAROUSEL_Y_OFFSET},checkIfSticky:function(){$(window).scrollTop()>=$.Filtering.highestAllowablePos||$.Filtering.topBar.hasClass("is-active")?$.Filtering.sideBar.addClass("is-sticky"):
+$.Filtering.sideBar.removeClass("is-sticky")},infoCardVisible:function(){return 0<$.Filtering.infoCard.length&&$.Filtering.infoCard.is(":visible")},adjustFeatureItemTitleArea:function(){$(".featured-item--content > .row").addClass("is-filter-info-active")},updateFilterText:function(a,d){var f=0==d.count;$(this).siblings(".filter-side-bar--group--option").toggleClass("is-disabled",f);$(this).parent().find(".count").text(d.count)},isPriceFilter:function(a){return a.is("input")},definePriceInputs:function(a,
+d){$("#min-price").val(100*a);$("#max-price").val(100*d)}};$(function(){$.Filtering.init()});
+$.FacetParser={update:function(a){$.each(a,function(a,f){"price_range"==a?$.FacetParser.setPriceCount(f):$.FacetParser.setFilterCount(a,f)})},setPriceCount:function(a){var d;d=[];$.each(a,function(a,g){var b=$.FacetParser.filterSelector("price",a+1);$(b).trigger("facets:update",[{count:g.count}]);d.push(g.name)});selector=$.FacetParser.filterUnselector("price_range",d);$(selector).trigger("facets:update",[{count:0}])},setFilterCount:function(a,d){var f;f=[];$.each(d,function(d,b){var c=$.FacetParser.filterSelector(a,
+b.name);$(c).trigger("facets:update",[{count:b.count}]);f.push(b.name)});selector=$.FacetParser.filterUnselector(a,f);$(selector).trigger("facets:update",[{count:0}])},filterSelector:function(a,d){return'[data-filter-category="'+a+'"][data-filter-name="'+d+'"]'},filterUnselector:function(a,d){var f='[data-filter-category="'+a+'"]';return $.each(d,function(a,b){f+=':not([data-filter-name="'+b+'"])'}),f}};
+$.SignupPage={init:function(){var a=$("#signup_market_selector");$(a).find("option:eq(1)").attr("selected",!0);a.customSelect();$("#facebook_connect_button").on("click",function(a){var f=$(this);FB.login(function(a){a.authResponse&&(window.location=f.data("fb-callback-url"))},{scope:"email"})})}};$(function(){$.SignupPage.init()});
+$.InlineErrors={clear:function(a){a.removeClass("field_with_errors");a.attr("placeholder",a.attr("data-original-placeholder"));a.removeAttr("data-original-placeholder")},shortenPlaceholderError:function(a,d){var f=$.merge($("label[for="+a.attr("id")+"]").parents(".is-required[data-short-error-messages]"),$("label[data-short-error-messages][for="+a.attr("id")+"].is-required"));a.val("");0<f.length&&($.ZOZIApp.is_mobile()&&"always"!==f.data("short-error-messages")?d.match("Email address has already been taken")?
+d="'"+a.val()+"' is taken":d.match("Email address should look like an email address")&&(d="'"+a.val()+"' is not valid"):d.match("can't be blank")?d="Fill me in":d.match("is not valid|is invalid")?d="Invalid":d.match("too short")&&(d="Too short"));a.val("");$.InlineErrors.insertPlaceholderError(a,d)},insertPlaceholderError:function(a,d){a.addClass("field_with_errors");var f=a.attr("placeholder");a.attr("data-original-placeholder",f);a.attr("placeholder",d)},add:function(a,d,f){$.each(f,function(d,
+b){var c=$("input[name='"+a+"["+d+"]']"),e=d.substr(0,1).toUpperCase()+d.substr(1),e=e.replace("_"," "),e=e+" "+b;c.val("");$.InlineErrors.insertPlaceholderError(c,e)});$(".relative-flash").html(d);$.FlashMessage.init();$("html, body").animate({scrollTop:0},"slow")}};
+$(document).ready(function(){$("span[class^=error]").each(function(){var a=$(this).prev("input"),d=$.trim($(this).text());$.InlineErrors.shortenPlaceholderError(a,d);$(this).hide()});$(document).on("focus","input.field_with_errors",function(a){a=$(a.target);$.InlineErrors.clear(a)});$(document).on("focus",".field_with_errors input[data-original-email]",function(a){a=$(a.target);var d=a.attr("data-original-email");a.val(d);$.InlineErrors.clear(a)})});
+$.AccountSection={init:function(){$(document).on("click",".account--buttons--save",$.AccountSection.submitForm);$(document).on("click",".default-title",$.AccountSection.toggleCheck);$(document).on("click",".credit-card--delete a, .shipping-address--delete a",$.AccountSection.showModal);$(document).on("click",".my-account--modal a[data-close]",$.AccountSection.closeModal);!$.ZOZIApp.is_mobile()&&$("form.edit_user").length&&($(document).on("click",".account--buttons--cancel",$.AccountSection.resetForm),
+$("input#return_to_user_edit").attr("value",!0));$("select#user_shipping_address_country").on("change",function(a){var d=$(this).val();a=$("#shipping_address_state_code_wrapper");$("select#user_shipping_address_select").attr("disabled",!0);d=$(this).data("url")+"?parent_region="+d;a.load(d)})},submitForm:function(a){a.preventDefault();$("form").submit()},resetForm:function(a){a.preventDefault();$(this).parents("form").find("input[data-original-value]").each(function(){var a=$(this).data("original-value");
+$.InlineErrors.clear($(this));"boolean"==typeof a?$(this).prop("checked",a):$(this).val(a)})},followLink:function(a){a.preventDefault();window.location=$(this).find("a").attr("href")},toggleCheck:function(a){a=$(this).find("input");a.val(a.is(":checked"))},closeModal:function(a){a.preventDefault();$(".my-account--modal:visible, .modal-shade").fadeOut()},showModal:function(a){a.preventDefault();$(".my-account--modal, .modal-shade").fadeIn()}};$(function(){$.AccountSection.init()});
+$.ScrollableRow={init:function(){$("[data-scroll-index-button]").on("click",this.scrollIndexRow);$(".is-scrollable-row ul").on("scroll",this.checkIfAtEnd);$('[data-scroll-index-button="left"]').addClass("disabled")},scrollIndexRow:function(a){a=$(this).parents(".index-row").find(".is-scrollable-row ul");var d=a.children("li:first").outerWidth(!0)+3,f=a.outerWidth(!0)+25,g=a.scrollLeft(),d="right"===$(this).data("scrollIndexButton")?-g%d+f+g:g-f+d-g%(d+3)-25;a.animate({scrollLeft:d},$.ZOZIApp.SLOW_TRANSITION_SPEED)},
+checkIfAtEnd:function(a){var d=$(a.target);a=d.scrollLeft();var f=d.parents(".index-row"),d=d.get(0).scrollWidth-d.width(),g=f.find('[data-scroll-index-button="left"]'),f=f.find('[data-scroll-index-button="right"]');g.toggleClass("disabled",0===a);f.toggleClass("disabled",a>=d)}};$(function(){$.ScrollableRow.init()});
+$.BucketListPage={REMOVE_CONFIRMATION_TEMPLATE:'<div class="remove-confirmation">     <div class="remove-confirmation--button-container">       <button class="button button-orange" data-confirm-button="true">Remove Item</button>       <button class="button button-white" data-cancel-button="true">Cancel</button>     </div>   </div>',EMPTY_BUCKET_LIST_TEMPLATE:'<div class="empty-bucket-list">     <h4> No items in your list </h4>     <div class="collect-bucket-list-text">Collect and share your favorite experiences and gear from ZOZI.</div>     <a href=/'+
+$.cookie("market")+' class="button button-orange start-browsing-button">Start Browsing</a>   </div>',init:function(){$.cookie.json=!1;var a=$('<button class="remove-button">');$('.bucket-list [data-type="experience"]').append(a);$(".bucket-list").on("click",".remove-button",$.BucketListPage.confirmRemoval);$("[data-edit-bucket-list-button]").on("click",$.BucketListPage.toggleEditMode);$(".bucket-list--modal[data-type=clear] a.button").on("click",$.BucketListPage.removeMultipleItems);$("[data-share-bucket-list-button], [data-clear-bucket-list-button]").on("click",
+$.BucketListPage.showModal);$(".button[data-close-modal]").on("click",$.BucketListPage.closeModal);$("a.button[data-share-type]").on("click",function(a){var f=$(a.target).data("share-type"),g=$(".bucket-list--buttons:visible").data("share-url");a.preventDefault();$.BucketListPage.share(f,g)});$(".responsive_application_slick-bucket_list_items").length&&!$('.bucket-list [data-type="experience"]').length&&$.BucketListPage.showEmptyBucketList()},toggleEditMode:function(){var a=$("#main");a.toggleClass("is-editing");
+$("[data-edit-bucket-list-button]").toggleClass("button-gray-hollow").toggleClass("button-orange").html(a.hasClass("is-editing")?"Done Editing":"Edit");$(".remove-confirmation").remove();$("[data-cancel-button]").off("click",$.BucketListPage.cancelRemoval);$("[data-confirm-button]").off("click",$.BucketListPage.removeItem);$.BucketListPage.toggleShareButton()},confirmRemoval:function(){$(this).parent().find(".gradient-overlay").after($($.BucketListPage.REMOVE_CONFIRMATION_TEMPLATE));$("[data-cancel-button]").on("click",
+$.BucketListPage.cancelRemoval);$("[data-confirm-button]").on("click",$.BucketListPage.removeItem)},removeMultipleItems:function(){var a=$(this).data("type");return $.BucketListPage.toggleCancelButton(),$.ajax({type:"DELETE",url:"/bucket_list/destroy_multiple",data:{type:a},success:$.BucketListPage.onRemoveSuccess}),!1},toggleCancelButton:function(){var a=$("[data-close-modal]:visible");a.toggleClass("is-processing");a.hasClass("is-processing")?($(".bucket-list--modal[data-type=clear] a.button").off("click",
+$.BucketListPage.removeMultipleItems),$(".button[data-close-modal]").off("click",$.BucketListPage.closeModal),a.html("Please Wait")):(0<$('.bucket-list [data-type="experience"]').length?($(".bucket-list--modal[data-type=clear] a.button").on("click",$.BucketListPage.removeMultipleItems),$(".button[data-close-modal]").on("click",$.BucketListPage.closeModal)):($.BucketListPage.toggleEditMode(),$(".bucket-list-actions a").attr("disabled","disabled"),$("[data-edit-bucket-list-button]").off("click",$.BucketListPage.toggleEditMode),
+$("[data-share-bucket-list-button]").off("click",$.BucketListPage.showModal)),$.BucketListPage.closeModal(),a.html("Cancel"))},removeItem:function(){var a=$(this).parents("[data-deal-id]").data("deal-id");return $(this).parents('[data-type="experience"]').css("display","none"),$.ajax({type:"DELETE",url:"/bucket_list/"+a,success:$.BucketListPage.onRemoveSuccess,error:$.BucketListPage.onRemoveError}),!1},onRemoveSuccess:function(a){$.each(a.deal_ids,function(a,d){$("[data-deal-id="+d+"]").parent().remove()});
+a=$('.bucket-list [data-type="experience"]').length;var d=a+(1===a?" item":" items");$(".bucket-list-actions h3").html(d);$.BucketListPage.toggleCancelButton();a||($.BucketListPage.showEmptyBucketList(),$(".bucket-list-actions").remove(),$(".bucket-list").remove())},onRemoveError:function(a){a=JSON.parse(a.responseText);dealId=a.deal_id;message=a.message;$("[data-deal-id="+dealId+"]").parent().css("display","");$.ZOZIApp.add_flash_error(message)},cancelRemoval:function(){return $("[data-cancel-button]").off("click",
+$.BucketListPage.cancelRemoval),$("[data-confirm-button]").off("click",$.BucketListPage.removeItem),$(this).parent().parent().remove(),!1},share:function(a,d){$.ajax({type:"POST",dataType:"json",url:d,data:{share_type:a},async:!1,success:function(d){switch(a){case "twitter":window.open(d.share_url,"_blank","menubar=0,resizable=1,width=800,height=600");break;case "facebook":FB.ui({method:"feed",link:d.share_url,name:d.name,description:d.description})}}})},toggleShareButton:function(){$("[data-share-bucket-list-button], [data-clear-bucket-list-button]").toggle()},
+closeModal:function(){$(".bucket-list--modal:visible, .modal-shade").fadeOut()},showModal:function(){$(this).data("share-bucket-list-button")?$(".bucket-list--modal[data-type=share], .modal-shade").fadeIn():$(".bucket-list--modal[data-type=clear], .modal-shade").fadeIn()},showEmptyBucketList:function(){$(".account_right_side").append($.BucketListPage.EMPTY_BUCKET_LIST_TEMPLATE)}};$(function(){$.BucketListPage.init()});
+(function(a){a.fn.numeric=function(d,f){"boolean"==typeof d&&(d={decimal:d});d=d||{};"undefined"==typeof d.negative&&(d.negative=!0);var g=!1===d.decimal?"":d.decimal||".",b=!0===d.negative?!0:!1;return f="function"==typeof f?f:function(){},this.data("numeric.decimal",g).data("numeric.negative",b).data("numeric.callback",f).keypress(a.fn.numeric.keypress).keyup(a.fn.numeric.keyup).blur(a.fn.numeric.blur)};a.fn.numeric.keypress=function(d){var f=a.data(this,"numeric.decimal"),g=a.data(this,"numeric.negative"),
+b=d.charCode?d.charCode:d.keyCode?d.keyCode:0;if(13==b&&"input"==this.nodeName.toLowerCase())return!0;if(13==b)return!1;var c=!1;if(d.ctrlKey&&97==b||d.ctrlKey&&65==b||d.ctrlKey&&120==b||d.ctrlKey&&88==b||d.ctrlKey&&99==b||d.ctrlKey&&67==b||d.ctrlKey&&122==b||d.ctrlKey&&90==b||d.ctrlKey&&118==b||d.ctrlKey&&86==b||d.shiftKey&&45==b)return!0;if(48>b||57<b){var e=a(this).val();if(0!==e.indexOf("-")&&g&&45==b&&(0===e.length||0===parseInt(a.fn.getSelectionStart(this),10)))return!0;f&&b==f.charCodeAt(0)&&
+-1!=e.indexOf(f)&&(c=!1);8!=b&&9!=b&&13!=b&&35!=b&&36!=b&&37!=b&&39!=b&&46!=b?c=!1:"undefined"!=typeof d.charCode&&(d.keyCode==d.which&&0!==d.which?(c=!0,46==d.which&&(c=!1)):0!==d.keyCode&&0===d.charCode&&0===d.which&&(c=!0));f&&b==f.charCodeAt(0)&&(-1==e.indexOf(f)?c=!0:c=!1)}else c=!0;return c};a.fn.numeric.keyup=function(d){if((d=a(this).val())&&0<d.length){var f=a.fn.getSelectionStart(this),g=a.fn.getSelectionEnd(this),b=a.data(this,"numeric.decimal"),c=a.data(this,"numeric.negative");if(""!==
+b&&null!==b){var e=d.indexOf(b);0===e&&(this.value="0"+d);1==e&&"-"==d.charAt(0)&&(this.value="-0"+d.substring(1));d=this.value}for(var h=[0,1,2,3,4,5,6,7,8,9,"-",b],e=d.length,k=e-1;0<=k;k--){var l=d.charAt(k);0!==k&&"-"==l?d=d.substring(0,k)+d.substring(k+1):0===k&&!c&&"-"==l&&(d=d.substring(1));for(var m=!1,p=0;p<h.length;p++)if(l==h[p]){m=!0;break}m&&" "!=l||(d=d.substring(0,k)+d.substring(k+1))}c=d.indexOf(b);if(0<c)for(e-=1;e>c;e--)d.charAt(e)==b&&(d=d.substring(0,e)+d.substring(e+1));this.value=
+d;a.fn.setSelection(this,[f,g])}};a.fn.numeric.blur=function(){var d=a.data(this,"numeric.decimal"),f=a.data(this,"numeric.callback"),g=this.value;""!==g&&((new RegExp("^\\d+$|^\\d*"+d+"\\d+$")).exec(g)||f.apply(this))};a.fn.removeNumeric=function(){return this.data("numeric.decimal",null).data("numeric.negative",null).data("numeric.callback",null).unbind("keypress",a.fn.numeric.keypress).unbind("blur",a.fn.numeric.blur)};a.fn.getSelectionStart=function(a){if("number"!==a.type){if(a.createTextRange){var f=
+document.selection.createRange().duplicate();return f.moveEnd("character",a.value.length),""===f.text?a.value.length:a.value.lastIndexOf(f.text)}return a.selectionStart}};a.fn.getSelectionEnd=function(a){if("number"!==a.type){if(a.createTextRange){var f=document.selection.createRange().duplicate();return f.moveStart("character",-a.value.length),f.text.length}return a.selectionEnd}};a.fn.setSelection=function(a,f){"number"==typeof f&&(f=[f,f]);if(f&&f.constructor==Array&&2==f.length)if("number"===
+a.type)a.focus();else if(a.createTextRange){var g=a.createTextRange();g.collapse(!0);g.moveStart("character",f[0]);g.moveEnd("character",f[1]);g.select()}else a.setSelectionRange&&(a.focus(),a.setSelectionRange(f[0],f[1]))}})(jQuery);
+$.Quantity={init:function(){var a=$(".quantity-input input");a.numeric({negative:!1});a.keyup(function(){var a=$(this),f=parseInt(a.attr("data-quantity-available"));a.val()>f&&(a.val(f),a.trigger("change"),a.parents(".quantity-input").find(".quantity--input--error").show())});a.focusout(function(){$(this).parents(".quantity-input").find(".quantity--input--error").fadeOut(500)})}};$.Quantity.init();
+(function(a,d){function f(b,c){var d,f,m,p=b.nodeName.toLowerCase();return"area"===p?(d=b.parentNode,f=d.name,b.href&&f&&"map"===d.nodeName.toLowerCase()?(m=a("img[usemap=#"+f+"]")[0],!!m&&g(m)):!1):(/input|select|textarea|button|object/.test(p)?!b.disabled:"a"===p?b.href||c:c)&&g(b)}function g(b){return a.expr.filters.visible(b)&&!a(b).parents().addBack().filter(function(){return"hidden"===a.css(this,"visibility")}).length}var b=0,c=/^ui-id-\d+$/;a.ui=a.ui||{};a.extend(a.ui,{version:"1.10.3",keyCode:{BACKSPACE:8,
+COMMA:188,DELETE:46,DOWN:40,END:35,ENTER:13,ESCAPE:27,HOME:36,LEFT:37,NUMPAD_ADD:107,NUMPAD_DECIMAL:110,NUMPAD_DIVIDE:111,NUMPAD_ENTER:108,NUMPAD_MULTIPLY:106,NUMPAD_SUBTRACT:109,PAGE_DOWN:34,PAGE_UP:33,PERIOD:190,RIGHT:39,SPACE:32,TAB:9,UP:38}});a.fn.extend({focus:function(b){return function(c,d){return"number"==typeof c?this.each(function(){var b=this;setTimeout(function(){a(b).focus();d&&d.call(b)},c)}):b.apply(this,arguments)}}(a.fn.focus),scrollParent:function(){var b;return a.ui.ie&&/(static|relative)/.test(this.css("position"))||
+/absolute/.test(this.css("position"))?b=this.parents().filter(function(){return/(relative|absolute|fixed)/.test(a.css(this,"position"))&&/(auto|scroll)/.test(a.css(this,"overflow")+a.css(this,"overflow-y")+a.css(this,"overflow-x"))}).eq(0):b=this.parents().filter(function(){return/(auto|scroll)/.test(a.css(this,"overflow")+a.css(this,"overflow-y")+a.css(this,"overflow-x"))}).eq(0),/fixed/.test(this.css("position"))||!b.length?a(document):b},zIndex:function(b){if(b!==d)return this.css("zIndex",b);
+if(this.length){b=a(this[0]);for(var c;b.length&&b[0]!==document;){c=b.css("position");if("absolute"===c||"relative"===c||"fixed"===c)if(c=parseInt(b.css("zIndex"),10),!isNaN(c)&&0!==c)return c;b=b.parent()}}return 0},uniqueId:function(){return this.each(function(){this.id||(this.id="ui-id-"+ ++b)})},removeUniqueId:function(){return this.each(function(){c.test(this.id)&&a(this).removeAttr("id")})}});a.extend(a.expr[":"],{data:a.expr.createPseudo?a.expr.createPseudo(function(b){return function(c){return!!a.data(c,
+b)}}):function(b,c,d){return!!a.data(b,d[3])},focusable:function(b){return f(b,!isNaN(a.attr(b,"tabindex")))},tabbable:function(b){var c=a.attr(b,"tabindex"),d=isNaN(c);return(d||0<=c)&&f(b,!d)}});a("<a>").outerWidth(1).jquery||a.each(["Width","Height"],function(b,c){function f(b,c,e,d){return a.each(g,function(){c-=parseFloat(a.css(b,"padding"+this))||0;e&&(c-=parseFloat(a.css(b,"border"+this+"Width"))||0);d&&(c-=parseFloat(a.css(b,"margin"+this))||0)}),c}var g="Width"===c?["Left","Right"]:["Top",
+"Bottom"],m=c.toLowerCase(),p={innerWidth:a.fn.innerWidth,innerHeight:a.fn.innerHeight,outerWidth:a.fn.outerWidth,outerHeight:a.fn.outerHeight};a.fn["inner"+c]=function(b){return b===d?p["inner"+c].call(this):this.each(function(){a(this).css(m,f(this,b)+"px")})};a.fn["outer"+c]=function(b,e){return"number"!=typeof b?p["outer"+c].call(this,b):this.each(function(){a(this).css(m,f(this,b,!0,e)+"px")})}});a.fn.addBack||(a.fn.addBack=function(a){return this.add(null==a?this.prevObject:this.prevObject.filter(a))});
+a("<a>").data("a-b","a").removeData("a-b").data("a-b")&&(a.fn.removeData=function(b){return function(c){return arguments.length?b.call(this,a.camelCase(c)):b.call(this)}}(a.fn.removeData));a.ui.ie=!!/msie [\w.]+/.exec(navigator.userAgent.toLowerCase());a.support.selectstart="onselectstart"in document.createElement("div");a.fn.extend({disableSelection:function(){return this.bind((a.support.selectstart?"selectstart":"mousedown")+".ui-disableSelection",function(a){a.preventDefault()})},enableSelection:function(){return this.unbind(".ui-disableSelection")}});
+a.extend(a.ui,{plugin:{add:function(b,c,d){var f;b=a.ui[b].prototype;for(f in d)b.plugins[f]=b.plugins[f]||[],b.plugins[f].push([c,d[f]])},call:function(a,b,c){var d=a.plugins[b];if(d&&a.element[0].parentNode&&11!==a.element[0].parentNode.nodeType)for(b=0;b<d.length;b++)a.options[d[b][0]]&&d[b][1].apply(a.element,c)}},hasScroll:function(b,c){if("hidden"===a(b).css("overflow"))return!1;var d=c&&"left"===c?"scrollLeft":"scrollTop",f=!1;return 0<b[d]?!0:(b[d]=1,f=0<b[d],b[d]=0,f)}})})(jQuery);
+(function(a,d){var f=0,g=Array.prototype.slice,b=a.cleanData;a.cleanData=function(c){for(var e=0,d;null!=(d=c[e]);e++)try{a(d).triggerHandler("remove")}catch(f){}b(c)};a.widget=function(b,e,d){var f,g,m,p,s={},D=b.split(".")[0];b=b.split(".")[1];f=D+"-"+b;d||(d=e,e=a.Widget);a.expr[":"][f.toLowerCase()]=function(b){return!!a.data(b,f)};a[D]=a[D]||{};g=a[D][b];m=a[D][b]=function(a,b){if(!this._createWidget)return new m(a,b);arguments.length&&this._createWidget(a,b)};a.extend(m,g,{version:d.version,
+_proto:a.extend({},d),_childConstructors:[]});p=new e;p.options=a.widget.extend({},p.options);a.each(d,function(b,c){a.isFunction(c)?s[b]=function(){var a=function(){return e.prototype[b].apply(this,arguments)},d=function(a){return e.prototype[b].apply(this,a)};return function(){var b=this._super,e=this._superApply,f;return this._super=a,this._superApply=d,f=c.apply(this,arguments),this._super=b,this._superApply=e,f}}():s[b]=c});m.prototype=a.widget.extend(p,{widgetEventPrefix:g?p.widgetEventPrefix:
+b},s,{constructor:m,namespace:D,widgetName:b,widgetFullName:f});g?(a.each(g._childConstructors,function(b,c){var e=c.prototype;a.widget(e.namespace+"."+e.widgetName,m,c._proto)}),delete g._childConstructors):e._childConstructors.push(m);a.widget.bridge(b,m)};a.widget.extend=function(b){for(var e=g.call(arguments,1),f=0,k=e.length,l,m;f<k;f++)for(l in e[f])m=e[f][l],e[f].hasOwnProperty(l)&&m!==d&&(a.isPlainObject(m)?b[l]=a.isPlainObject(b[l])?a.widget.extend({},b[l],m):a.widget.extend({},m):b[l]=m);
+return b};a.widget.bridge=function(b,e){var f=e.prototype.widgetFullName||b;a.fn[b]=function(k){var l="string"==typeof k,m=g.call(arguments,1),p=this;return k=!l&&m.length?a.widget.extend.apply(null,[k].concat(m)):k,l?this.each(function(){var e,g=a.data(this,f);if(!g)return a.error("cannot call methods on "+b+" prior to initialization; attempted to call method '"+k+"'");if(!a.isFunction(g[k])||"_"===k.charAt(0))return a.error("no such method '"+k+"' for "+b+" widget instance");e=g[k].apply(g,m);if(e!==
+g&&e!==d)return p=e&&e.jquery?p.pushStack(e.get()):e,!1}):this.each(function(){var b=a.data(this,f);b?b.option(k||{})._init():a.data(this,f,new e(k,this))}),p}};a.Widget=function(){};a.Widget._childConstructors=[];a.Widget.prototype={widgetName:"widget",widgetEventPrefix:"",defaultElement:"<div>",options:{disabled:!1,create:null},_createWidget:function(b,e){e=a(e||this.defaultElement||this)[0];this.element=a(e);this.uuid=f++;this.eventNamespace="."+this.widgetName+this.uuid;this.options=a.widget.extend({},
+this.options,this._getCreateOptions(),b);this.bindings=a();this.hoverable=a();this.focusable=a();e!==this&&(a.data(e,this.widgetFullName,this),this._on(!0,this.element,{remove:function(a){a.target===e&&this.destroy()}}),this.document=a(e.style?e.ownerDocument:e.document||e),this.window=a(this.document[0].defaultView||this.document[0].parentWindow));this._create();this._trigger("create",null,this._getCreateEventData());this._init()},_getCreateOptions:a.noop,_getCreateEventData:a.noop,_create:a.noop,
+_init:a.noop,destroy:function(){this._destroy();this.element.unbind(this.eventNamespace).removeData(this.widgetName).removeData(this.widgetFullName).removeData(a.camelCase(this.widgetFullName));this.widget().unbind(this.eventNamespace).removeAttr("aria-disabled").removeClass(this.widgetFullName+"-disabled ui-state-disabled");this.bindings.unbind(this.eventNamespace);this.hoverable.removeClass("ui-state-hover");this.focusable.removeClass("ui-state-focus")},_destroy:a.noop,widget:function(){return this.element},
+option:function(b,e){var f=b,g,l,m;if(0===arguments.length)return a.widget.extend({},this.options);if("string"==typeof b)if(f={},g=b.split("."),b=g.shift(),g.length){l=f[b]=a.widget.extend({},this.options[b]);for(m=0;m<g.length-1;m++)l[g[m]]=l[g[m]]||{},l=l[g[m]];b=g.pop();if(e===d)return l[b]===d?null:l[b];l[b]=e}else{if(e===d)return this.options[b]===d?null:this.options[b];f[b]=e}return this._setOptions(f),this},_setOptions:function(a){for(var b in a)this._setOption(b,a[b]);return this},_setOption:function(a,
+b){return this.options[a]=b,"disabled"===a&&(this.widget().toggleClass(this.widgetFullName+"-disabled ui-state-disabled",!!b).attr("aria-disabled",b),this.hoverable.removeClass("ui-state-hover"),this.focusable.removeClass("ui-state-focus")),this},enable:function(){return this._setOption("disabled",!1)},disable:function(){return this._setOption("disabled",!0)},_on:function(b,e,d){var f,g=this;"boolean"!=typeof b&&(d=e,e=b,b=!1);d?(e=f=a(e),this.bindings=this.bindings.add(e)):(d=e,e=this.element,f=
+this.widget());a.each(d,function(d,h){function s(){if(b||!0!==g.options.disabled&&!a(this).hasClass("ui-state-disabled"))return("string"==typeof h?g[h]:h).apply(g,arguments)}"string"!=typeof h&&(s.guid=h.guid=h.guid||s.guid||a.guid++);var D=d.match(/^(\w+)\s*(.*)$/),A=D[1]+g.eventNamespace;(D=D[2])?f.delegate(D,A,s):e.bind(A,s)})},_off:function(a,b){b=(b||"").split(" ").join(this.eventNamespace+" ")+this.eventNamespace;a.unbind(b).undelegate(b)},_delay:function(a,b){var d=this;return setTimeout(function(){return("string"==
+typeof a?d[a]:a).apply(d,arguments)},b||0)},_hoverable:function(b){this.hoverable=this.hoverable.add(b);this._on(b,{mouseenter:function(b){a(b.currentTarget).addClass("ui-state-hover")},mouseleave:function(b){a(b.currentTarget).removeClass("ui-state-hover")}})},_focusable:function(b){this.focusable=this.focusable.add(b);this._on(b,{focusin:function(b){a(b.currentTarget).addClass("ui-state-focus")},focusout:function(b){a(b.currentTarget).removeClass("ui-state-focus")}})},_trigger:function(b,e,d){var f,
+g=this.options[b];d=d||{};e=a.Event(e);e.type=(b===this.widgetEventPrefix?b:this.widgetEventPrefix+b).toLowerCase();e.target=this.element[0];if(b=e.originalEvent)for(f in b)f in e||(e[f]=b[f]);return this.element.trigger(e,d),!(a.isFunction(g)&&!1===g.apply(this.element[0],[e].concat(d))||e.isDefaultPrevented())}};a.each({show:"fadeIn",hide:"fadeOut"},function(b,e){a.Widget.prototype["_"+b]=function(d,f,g){"string"==typeof f&&(f={effect:f});var m,p=f?!0===f||"number"==typeof f?e:f.effect||e:b;f=f||
+{};"number"==typeof f&&(f={duration:f});m=!a.isEmptyObject(f);f.complete=g;f.delay&&d.delay(f.delay);m&&a.effects&&a.effects.effect[p]?d[b](f):p!==b&&d[p]?d[p](f.duration,f.easing,g):d.queue(function(e){a(this)[b]();g&&g.call(d[0]);e()})}})})(jQuery);
+(function(a,d){var f=!1;a(document).mouseup(function(){f=!1});a.widget("ui.mouse",{version:"1.10.3",options:{cancel:"input,textarea,button,select,option",distance:1,delay:0},_mouseInit:function(){var d=this;this.element.bind("mousedown."+this.widgetName,function(a){return d._mouseDown(a)}).bind("click."+this.widgetName,function(b){if(!0===a.data(b.target,d.widgetName+".preventClickEvent"))return a.removeData(b.target,d.widgetName+".preventClickEvent"),b.stopImmediatePropagation(),!1});this.started=
+!1},_mouseDestroy:function(){this.element.unbind("."+this.widgetName);this._mouseMoveDelegate&&a(document).unbind("mousemove."+this.widgetName,this._mouseMoveDelegate).unbind("mouseup."+this.widgetName,this._mouseUpDelegate)},_mouseDown:function(d){if(!f){this._mouseStarted&&this._mouseUp(d);this._mouseDownEvent=d;var b=this,c=1===d.which,e="string"==typeof this.options.cancel&&d.target.nodeName?a(d.target).closest(this.options.cancel).length:!1;if(!c||e||!this._mouseCapture(d))return!0;(this.mouseDelayMet=
+!this.options.delay)||(this._mouseDelayTimer=setTimeout(function(){b.mouseDelayMet=!0},this.options.delay));return this._mouseDistanceMet(d)&&this._mouseDelayMet(d)&&(this._mouseStarted=!1!==this._mouseStart(d),!this._mouseStarted)?(d.preventDefault(),!0):(!0===a.data(d.target,this.widgetName+".preventClickEvent")&&a.removeData(d.target,this.widgetName+".preventClickEvent"),this._mouseMoveDelegate=function(a){return b._mouseMove(a)},this._mouseUpDelegate=function(a){return b._mouseUp(a)},a(document).bind("mousemove."+
+this.widgetName,this._mouseMoveDelegate).bind("mouseup."+this.widgetName,this._mouseUpDelegate),d.preventDefault(),f=!0,!0)}},_mouseMove:function(d){return a.ui.ie&&(!document.documentMode||9>document.documentMode)&&!d.button?this._mouseUp(d):this._mouseStarted?(this._mouseDrag(d),d.preventDefault()):(this._mouseDistanceMet(d)&&this._mouseDelayMet(d)&&(this._mouseStarted=!1!==this._mouseStart(this._mouseDownEvent,d),this._mouseStarted?this._mouseDrag(d):this._mouseUp(d)),!this._mouseStarted)},_mouseUp:function(d){return a(document).unbind("mousemove."+
+this.widgetName,this._mouseMoveDelegate).unbind("mouseup."+this.widgetName,this._mouseUpDelegate),this._mouseStarted&&(this._mouseStarted=!1,d.target===this._mouseDownEvent.target&&a.data(d.target,this.widgetName+".preventClickEvent",!0),this._mouseStop(d)),!1},_mouseDistanceMet:function(a){return Math.max(Math.abs(this._mouseDownEvent.pageX-a.pageX),Math.abs(this._mouseDownEvent.pageY-a.pageY))>=this.options.distance},_mouseDelayMet:function(){return this.mouseDelayMet},_mouseStart:function(){},
+_mouseDrag:function(){},_mouseStop:function(){},_mouseCapture:function(){return!0}})})(jQuery);
+(function(a,d){a.widget("ui.slider",a.ui.mouse,{version:"1.10.3",widgetEventPrefix:"slide",options:{animate:!1,distance:0,max:100,min:0,orientation:"horizontal",range:!1,step:1,value:0,values:null,change:null,slide:null,start:null,stop:null},_create:function(){this._mouseSliding=this._keySliding=!1;this._animateOff=!0;this._handleIndex=null;this._detectOrientation();this._mouseInit();this.element.addClass("ui-slider ui-slider-"+this.orientation+" ui-widget ui-widget-content ui-corner-all");this._refresh();
+this._setOption("disabled",this.options.disabled);this._animateOff=!1},_refresh:function(){this._createRange();this._createHandles();this._setupEvents();this._refreshValue()},_createHandles:function(){var d,g;d=this.options;var b=this.element.find(".ui-slider-handle").addClass("ui-state-default ui-corner-all"),c=[];g=d.values&&d.values.length||1;b.length>g&&(b.slice(g).remove(),b=b.slice(0,g));for(d=b.length;d<g;d++)c.push("<a class='ui-slider-handle ui-state-default ui-corner-all' href='#'></a>");
+this.handles=b.add(a(c.join("")).appendTo(this.element));this.handle=this.handles.eq(0);this.handles.each(function(b){a(this).data("ui-slider-handle-index",b)})},_createRange:function(){var d=this.options,g="";d.range?(!0===d.range&&(d.values?d.values.length&&2!==d.values.length?d.values=[d.values[0],d.values[0]]:a.isArray(d.values)&&(d.values=d.values.slice(0)):d.values=[this._valueMin(),this._valueMin()]),this.range&&this.range.length?this.range.removeClass("ui-slider-range-min ui-slider-range-max").css({left:"",
+bottom:""}):(this.range=a("<div></div>").appendTo(this.element),g="ui-slider-range ui-widget-header ui-corner-all"),this.range.addClass(g+("min"===d.range||"max"===d.range?" ui-slider-range-"+d.range:""))):this.range=a([])},_setupEvents:function(){var a=this.handles.add(this.range).filter("a");this._off(a);this._on(a,this._handleEvents);this._hoverable(a);this._focusable(a)},_destroy:function(){this.handles.remove();this.range.remove();this.element.removeClass("ui-slider ui-slider-horizontal ui-slider-vertical ui-widget ui-widget-content ui-corner-all");
+this._mouseDestroy()},_mouseCapture:function(d){var g,b,c,e,h,k,l,m,p=this,s=this.options;return s.disabled?!1:(this.elementSize={width:this.element.outerWidth(),height:this.element.outerHeight()},this.elementOffset=this.element.offset(),g={x:d.pageX,y:d.pageY},b=this._normValueFromMouse(g),c=this._valueMax()-this._valueMin()+1,this.handles.each(function(d){var f=Math.abs(b-p.values(d));if(c>f||c===f&&(d===p._lastChangedValue||p.values(d)===s.min))c=f,e=a(this),h=d}),k=this._start(d,h),!1===k?!1:
+(this._mouseSliding=!0,this._handleIndex=h,e.addClass("ui-state-active").focus(),l=e.offset(),m=!a(d.target).parents().addBack().is(".ui-slider-handle"),this._clickOffset=m?{left:0,top:0}:{left:d.pageX-l.left-e.width()/2,top:d.pageY-l.top-e.height()/2-(parseInt(e.css("borderTopWidth"),10)||0)-(parseInt(e.css("borderBottomWidth"),10)||0)+(parseInt(e.css("marginTop"),10)||0)},this.handles.hasClass("ui-state-hover")||this._slide(d,h,b),this._animateOff=!0,!0))},_mouseStart:function(){return!0},_mouseDrag:function(a){var d=
+this._normValueFromMouse({x:a.pageX,y:a.pageY});return this._slide(a,this._handleIndex,d),!1},_mouseStop:function(a){return this.handles.removeClass("ui-state-active"),this._mouseSliding=!1,this._stop(a,this._handleIndex),this._change(a,this._handleIndex),this._handleIndex=null,this._clickOffset=null,this._animateOff=!1,!1},_detectOrientation:function(){this.orientation="vertical"===this.options.orientation?"vertical":"horizontal"},_normValueFromMouse:function(a){var d,b,c,e,h;return"horizontal"===
+this.orientation?(d=this.elementSize.width,b=a.x-this.elementOffset.left-(this._clickOffset?this._clickOffset.left:0)):(d=this.elementSize.height,b=a.y-this.elementOffset.top-(this._clickOffset?this._clickOffset.top:0)),c=b/d,1<c&&(c=1),0>c&&(c=0),"vertical"===this.orientation&&(c=1-c),e=this._valueMax()-this._valueMin(),h=this._valueMin()+c*e,this._trimAlignValue(h)},_start:function(a,d){var b={handle:this.handles[d],value:this.value()};return this.options.values&&this.options.values.length&&(b.value=
+this.values(d),b.values=this.values()),this._trigger("start",a,b)},_slide:function(a,d,b){var c,e,h;this.options.values&&this.options.values.length?(c=this.values(d?0:1),2===this.options.values.length&&!0===this.options.range&&(0===d&&b>c||1===d&&b<c)&&(b=c),b!==this.values(d)&&(e=this.values(),e[d]=b,h=this._trigger("slide",a,{handle:this.handles[d],value:b,values:e}),this.values(d?0:1),!1!==h&&this.values(d,b,!0))):b!==this.value()&&(h=this._trigger("slide",a,{handle:this.handles[d],value:b}),!1!==
+h&&this.value(b))},_stop:function(a,d){var b={handle:this.handles[d],value:this.value()};this.options.values&&this.options.values.length&&(b.value=this.values(d),b.values=this.values());this._trigger("stop",a,b)},_change:function(a,d){if(!this._keySliding&&!this._mouseSliding){var b={handle:this.handles[d],value:this.value()};this.options.values&&this.options.values.length&&(b.value=this.values(d),b.values=this.values());this._lastChangedValue=d;this._trigger("change",a,b)}},value:function(a){if(arguments.length)this.options.value=
+this._trimAlignValue(a),this._refreshValue(),this._change(null,0);else return this._value()},values:function(d,g){var b,c,e;if(1<arguments.length)this.options.values[d]=this._trimAlignValue(g),this._refreshValue(),this._change(null,d);else{if(!arguments.length)return this._values();if(!a.isArray(arguments[0]))return this.options.values&&this.options.values.length?this._values(d):this.value();b=this.options.values;c=arguments[0];for(e=0;e<b.length;e+=1)b[e]=this._trimAlignValue(c[e]),this._change(null,
+e);this._refreshValue()}},_setOption:function(d,g){var b,c=0;"range"===d&&!0===this.options.range&&("min"===g?(this.options.value=this._values(0),this.options.values=null):"max"===g&&(this.options.value=this._values(this.options.values.length-1),this.options.values=null));a.isArray(this.options.values)&&(c=this.options.values.length);a.Widget.prototype._setOption.apply(this,arguments);switch(d){case "orientation":this._detectOrientation();this.element.removeClass("ui-slider-horizontal ui-slider-vertical").addClass("ui-slider-"+
+this.orientation);this._refreshValue();break;case "value":this._animateOff=!0;this._refreshValue();this._change(null,0);this._animateOff=!1;break;case "values":this._animateOff=!0;this._refreshValue();for(b=0;b<c;b+=1)this._change(null,b);this._animateOff=!1;break;case "min":case "max":this._animateOff=!0;this._refreshValue();this._animateOff=!1;break;case "range":this._animateOff=!0,this._refresh(),this._animateOff=!1}},_value:function(){var a=this.options.value;return a=this._trimAlignValue(a),
+a},_values:function(a){var d,b;if(arguments.length)return d=this.options.values[a],d=this._trimAlignValue(d),d;if(this.options.values&&this.options.values.length){d=this.options.values.slice();for(b=0;b<d.length;b+=1)d[b]=this._trimAlignValue(d[b]);return d}return[]},_trimAlignValue:function(a){if(a<=this._valueMin())return this._valueMin();if(a>=this._valueMax())return this._valueMax();var d=0<this.options.step?this.options.step:1,b=(a-this._valueMin())%d;a-=b;return 2*Math.abs(b)>=d&&(a+=0<b?d:
+-d),parseFloat(a.toFixed(5))},_valueMin:function(){return this.options.min},_valueMax:function(){return this.options.max},_refreshValue:function(){var d,g,b,c,e,h=this.options.range,k=this.options,l=this,m=this._animateOff?!1:k.animate,p={};this.options.values&&this.options.values.length?this.handles.each(function(b){g=(l.values(b)-l._valueMin())/(l._valueMax()-l._valueMin())*100;p["horizontal"===l.orientation?"left":"bottom"]=g+"%";a(this).stop(1,1)[m?"animate":"css"](p,k.animate);!0===l.options.range&&
+("horizontal"===l.orientation?(0===b&&l.range.stop(1,1)[m?"animate":"css"]({left:g+"%"},k.animate),1===b&&l.range[m?"animate":"css"]({width:g-d+"%"},{queue:!1,duration:k.animate})):(0===b&&l.range.stop(1,1)[m?"animate":"css"]({bottom:g+"%"},k.animate),1===b&&l.range[m?"animate":"css"]({height:g-d+"%"},{queue:!1,duration:k.animate})));d=g}):(b=this.value(),c=this._valueMin(),e=this._valueMax(),g=e!==c?(b-c)/(e-c)*100:0,p["horizontal"===this.orientation?"left":"bottom"]=g+"%",this.handle.stop(1,1)[m?
+"animate":"css"](p,k.animate),"min"===h&&"horizontal"===this.orientation&&this.range.stop(1,1)[m?"animate":"css"]({width:g+"%"},k.animate),"max"===h&&"horizontal"===this.orientation&&this.range[m?"animate":"css"]({width:100-g+"%"},{queue:!1,duration:k.animate}),"min"===h&&"vertical"===this.orientation&&this.range.stop(1,1)[m?"animate":"css"]({height:g+"%"},k.animate),"max"===h&&"vertical"===this.orientation&&this.range[m?"animate":"css"]({height:100-g+"%"},{queue:!1,duration:k.animate}))},_handleEvents:{keydown:function(d){var g,
+b,c,e=a(d.target).data("ui-slider-handle-index");switch(d.keyCode){case a.ui.keyCode.HOME:case a.ui.keyCode.END:case a.ui.keyCode.PAGE_UP:case a.ui.keyCode.PAGE_DOWN:case a.ui.keyCode.UP:case a.ui.keyCode.RIGHT:case a.ui.keyCode.DOWN:case a.ui.keyCode.LEFT:if(d.preventDefault(),!this._keySliding&&(this._keySliding=!0,a(d.target).addClass("ui-state-active"),g=this._start(d,e),!1===g))return}g=this.options.step;this.options.values&&this.options.values.length?b=c=this.values(e):b=c=this.value();switch(d.keyCode){case a.ui.keyCode.HOME:c=
+this._valueMin();break;case a.ui.keyCode.END:c=this._valueMax();break;case a.ui.keyCode.PAGE_UP:c=this._trimAlignValue(b+(this._valueMax()-this._valueMin())/5);break;case a.ui.keyCode.PAGE_DOWN:c=this._trimAlignValue(b-(this._valueMax()-this._valueMin())/5);break;case a.ui.keyCode.UP:case a.ui.keyCode.RIGHT:if(b===this._valueMax())return;c=this._trimAlignValue(b+g);break;case a.ui.keyCode.DOWN:case a.ui.keyCode.LEFT:if(b===this._valueMin())return;c=this._trimAlignValue(b-g)}this._slide(d,e,c)},click:function(a){a.preventDefault()},
+keyup:function(d){var g=a(d.target).data("ui-slider-handle-index");this._keySliding&&(this._keySliding=!1,this._stop(d,g),this._change(d,g),a(d.target).removeClass("ui-state-active"))}}})})(jQuery);
+!function(a){function d(a,b){if(!(1<a.originalEvent.touches.length)){a.preventDefault();var c=a.originalEvent.changedTouches[0],d=document.createEvent("MouseEvents");d.initMouseEvent(b,!0,!0,window,1,c.screenX,c.screenY,c.clientX,c.clientY,!1,!1,!1,!1,0,null);a.target.dispatchEvent(d)}}if(a.support.touch="ontouchend"in document,a.support.touch){var f,g=a.ui.mouse.prototype,b=g._mouseInit,c=g._mouseDestroy;g._touchStart=function(a){!f&&this._mouseCapture(a.originalEvent.changedTouches[0])&&(f=!0,this._touchMoved=
+!1,d(a,"mouseover"),d(a,"mousemove"),d(a,"mousedown"))};g._touchMove=function(a){f&&(this._touchMoved=!0,d(a,"mousemove"))};g._touchEnd=function(a){f&&(d(a,"mouseup"),d(a,"mouseout"),this._touchMoved||d(a,"click"),f=!1)};g._mouseInit=function(){this.element.bind({touchstart:a.proxy(this,"_touchStart"),touchmove:a.proxy(this,"_touchMove"),touchend:a.proxy(this,"_touchEnd")});b.call(this)};g._mouseDestroy=function(){this.element.unbind({touchstart:a.proxy(this,"_touchStart"),touchmove:a.proxy(this,
+"_touchMove"),touchend:a.proxy(this,"_touchEnd")});c.call(this)}}}(jQuery);
