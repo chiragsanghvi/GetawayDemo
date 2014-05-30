@@ -41,6 +41,10 @@ app.ActivityView = Backbone.View.extend({
                     $('#preLoader').hide();
                     self.renderMap("map_canvas");
                     self.renderMobileMap("map_canvas2");
+                    setTimeout(function() {
+                        $(window).resize();
+                        console.log('resized');
+                    }, 100);
                 });
 
     	}, function() {
