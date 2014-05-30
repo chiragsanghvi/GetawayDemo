@@ -81,10 +81,6 @@
     display: none
 }
 
-.touch .orbit-bullets {
-    display: none
-}
-
 @media only screen and (min-width: 48em) {
     .touch .orbit-container .orbit-prev,.touch .orbit-container .orbit-next {
         display:inherit
