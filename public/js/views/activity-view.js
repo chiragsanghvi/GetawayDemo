@@ -18,9 +18,11 @@ app.ActivityView = Backbone.View.extend({
 
     initialize: function() {
 
-        var qs  = getQueryStrings() || {};
+        var qs  = window.location.pathname.split('/');
 
-        var activityId = qs["id"];
+        var activityId = '60362378919936364';
+
+        if (qs.length > 1) activityId = qs[1];
 
         if(!activityId || activityId.length == 0) activityId = '60362378919936364';
 
@@ -34,17 +36,25 @@ app.ActivityView = Backbone.View.extend({
 	        self.$el.html(Mustache.render(self.activityTemplate, self.model));
 
             basket
-                .require({ url: 'js/infra/tabs.js', unique: 'v2' })
+                .require({ url: 'js/infra/tabs.js' })
                 .then(function () {
                     $('#preLoader').hide();
                     self.renderMap("map_canvas");
-                    self.renderMap("map_canvas2");
+                    self.renderMobileMap("map_canvas2");
                 });
 
     	}, function() {
             alert("Error fetching activity");
     	});
     },
+
+
+    renderMobileMap: function(canvasId) {
+        var location = this.model.get('geocode');
+        var mapLoc = "http://maps.googleapis.com/maps/api/staticmap?center=" + location.toString() + "&zoom=13&scale=false&size=600x300&maptype=roadmap&sensor=false&format=png&visual_refresh=true&markers=size:mid%7Ccolor:red%7C" + location.toString();
+        var content = '<a target="_blank" href="http://maps.google.com?q=' + location.toString() + '" target="_blank"><img width="100%" height="100%" src="' + mapLoc + '"/></a>';
+        $('#' + canvasId).html(content);
+    },  
 
     renderMap: function(canvasId) {
         var location = this.model.get('geocode');
@@ -58,17 +68,19 @@ app.ActivityView = Backbone.View.extend({
 
         var map = new google.maps.Map(document.getElementById(canvasId), myOptions);
 
-        var contentString = '<div><h3>' + this.model.get('long_name') + '</h3><br/><h4>' + this.model.get('location_name') + '<h4></div>';
-
-        var infowindow = new google.maps.InfoWindow({
-          content: contentString,
-          maxWidth: 300
-        });
-
         var marker = new google.maps.Marker({
             position: position,
             map: map,
             title: this.model.get('long_name')
+        });
+
+        var contentString = '<div><h3>' + this.model.get('long_name') + '</h3><br/><h4>' + this.model.get('location_name') + '<h4></div>';
+        var width = 300;
+
+
+        var infowindow= new google.maps.InfoWindow({
+          content: contentString,
+          maxWidth: width
         });
 
         google.maps.event.addListener(marker, 'click', function() {
