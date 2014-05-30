@@ -625,6 +625,13 @@ h2.extra-section {
 }
 
 @media only screen and (max-width: 767px) {
+	.main-nav {
+    position: initial;
+ }
+ 
+ body {
+ 	margin-top: 0px;
+ }
     .hide-for-768-down {
         display:none
     }
